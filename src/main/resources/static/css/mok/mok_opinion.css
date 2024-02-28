@@ -1,0 +1,104 @@
+.button_model {
+  cursor: pointer;
+  margin: 0 auto;
+
+
+}
+
+#lightbox{
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height: 100vh;
+  background-color: hsla(0, 0%, 0%, .5);
+}
+
+.none{
+  display: none;
+}
+
+#lightbox article{  
+  background-color: white;
+  width: 90%;
+  max-width: 800px;
+  border-radius: 10px;
+  box-shadow: hsla(0, 0%, 0%, .5);
+  padding: 10px;
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+
+  padding: 50px 0;
+}
+
+.article-inner-wrapper h1{
+  text-align: center;
+}
+
+
+/* 意見回饋 */
+.feed_back{
+
+}
+
+.feed-back-row1, .feed-back-row2, .feed-back-row3 ,.feed-back-button{
+  display: flex;
+}
+
+.feed-back-row1, .feed-back-row2{
+  align-items: center;
+}
+
+.feed-back-row1, .feed-back-row2,.feed-back-row3{
+  margin-bottom: 20px;
+}
+
+
+
+
+.feed-back-row1 p, .feed-back-row2 p,.feed-back-row3 p ,.feed-back-button p{
+  min-width: 50px;
+  width: 50px;
+  max-width: 50px;
+  margin-bottom: 0;
+}
+
+input[disabled]{
+  display: block;
+}
+
+input{
+  max-width: calc(100% - 50px);
+}
+
+input.feedback{
+  height: 200px;
+}
+
+.article-inner-wrapper{
+  width: 70%;
+  margin: 0 auto;
+}
+
+
+
+.feed-back-button{
+  margin: 0 auto;
+  width: fit-content;
+}
+
+.feed-back-button button{
+  width: 160px;
+  height: 40px;
+  border:none;
+  background-color: #000000;
+  color:#fff;
+  border-radius: 5px;
+}
+
+.feed-back-button .confirm{
+  margin-right: 5px;
+}
+

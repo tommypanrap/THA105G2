@@ -1,0 +1,11 @@
+.notifications-row{
+    display: flex;
+    border-bottom: 1px solid #c8c8c8;
+    padding-top: 32px;
+    padding-bottom: 32px;
+}
+
+.notifications-row p{
+    margin-left: 28px;
+}
+

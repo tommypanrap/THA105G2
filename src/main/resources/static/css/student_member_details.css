@@ -1,0 +1,49 @@
+p{
+    margin-bottom: 0;
+}
+
+div.email, div.nickname, div.member-detail-row, div.password{
+    margin-bottom: 27px;
+}
+
+div.member-detail-row, div.member-detail-row-inner{
+    display: flex;
+    justify-content: space-between;
+}
+
+div.gender, div.birthdate{
+    width: 45%;
+}
+
+div.password > input , div.member-detail-row-inner > input{
+    margin-bottom: 22px;
+}
+
+input[disabled]{
+    display: block;
+    background-color: #eaeaea;
+}
+
+div.password input{
+    width: 70%;
+}
+
+.rbt-btn.btn-gradient{
+    height: 50px;
+}
+
+.rbt-btn{
+    line-height: 50px;
+}
+
+div.member-detail-row-button{
+    display: flex;
+}
+
+div.member-detail-row-button a{
+    width: 149.26px;
+}
+
+div.member-detail-row-button div:nth-child(2) > a{
+    margin-left: 40px;
+}

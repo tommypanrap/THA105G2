@@ -1,0 +1,75 @@
+.coach-data-content{
+    display: block;
+}
+
+.coach-data-content-row1{
+    display: flex;
+}
+
+.coach-data-inner-title1{
+    font-size: 30px;
+}
+
+.coach-data-inner-time{
+    font-size: 20px;
+}
+
+.coach-data-inner-number{
+    font-size: 35px;
+}
+
+.coach-data-inner-row1{
+    display: flex;
+}
+
+p{
+    margin-bottom: 0;
+}
+
+div.ad-card{
+    border:1px solid #c8c8c8;
+    border-radius: 20px;
+    padding: 15px 20px;
+    width: 45%;
+}
+
+div.ad-card span{
+    background-color: #e7e7e7;
+    border:1px solid #c8c8c8;
+    width: 100px;
+    height: 40px;
+    display: block;
+    line-height: 40px;
+    text-align: center;
+
+    margin-bottom: 20px;
+
+    border-radius: 5px;
+}
+
+div.ad-card-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+div.ad-card-container .ad-card{
+    margin-bottom: 29px;
+}
+
+div.ad-card-container .ad-card:nth-child(2n){
+    margin-left: 29px;
+}
+
+p.ad-record-recently-title{
+    margin-top: 50px;
+    font-size: 30px;
+}
+
+p.ad-begin-date{
+    font-size: 16px;
+    margin-top: 43px;
+}
+
+p.ad-course-name{
+    font-size: 20px;
+}

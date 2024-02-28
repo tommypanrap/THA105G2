@@ -1,0 +1,70 @@
+.member-course-menu li{
+    list-style: none;
+    display: flex;
+
+    align-items: center;
+    width: 16%;
+
+
+}
+
+.member-course-menu{
+    display: flex;
+    width: 100%;
+}
+
+.member-course-menu ul{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.member-course-menu ul li p{
+    margin-left: 5px;
+}
+
+.course-container{
+    display: none;
+}
+
+.course-container-inner{
+    display: flex;
+    flex-wrap:wrap;
+}
+
+.show{
+    display: block;
+}
+
+.collect-active i{
+    color:yellow;
+}
+
+input[type=checkbox]{
+    display: block;
+    opacity: 1;
+}
+
+.subscribe-row{
+    display: flex;
+    width: 100%;
+}
+
+.subscribe-row input{
+    width: 30px;
+}
+
+.subscribe-description p{
+    font-size: 16px;
+}
+
+.subscribe-name{
+    width: 16%;
+    margin-left: 30px;
+}
+
+.subscribe-description{
+    width: 60%;
+}

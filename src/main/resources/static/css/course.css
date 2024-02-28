@@ -1,0 +1,37 @@
+.course-category{
+    display: block;
+    width: 66px;
+    height: 33px;
+    background-color: gray;
+
+    margin-bottom: 8px;
+}
+
+.course-category p{
+    color:white;
+    text-align: center;
+    line-height: 33px;
+}
+
+li.search{
+    display: flex;
+    align-items: center;
+}
+
+li.search input{
+    border-radius: 500px;
+    height: 65px;
+}
+
+li.my-class button{
+    /* border-radius: 0; */
+    background-color: #028b86;
+}
+
+li.my-class button p{
+    color:white;
+}
+
+li.my-class button:hover{
+    background-color: #1fbfba;
+}

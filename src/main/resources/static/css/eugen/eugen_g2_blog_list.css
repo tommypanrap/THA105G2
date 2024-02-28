@@ -1,0 +1,68 @@
+/* ======================= */
+/* 文章列表 */
+a.transparent-button-time {
+  color: grey;
+  position: relative;
+  transition: 0.3s;
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.rbt-card-title {
+    padding-top: 5px;
+  }
+
+  .rbt-badge-2 {
+    height: 40px;
+  }
+  /* =========================== */
+  /* 閱覽模式 */
+ .eugen-bd-button{
+  text-align: center;
+  width: 40%;
+  height: 20%;
+  font-size: 10px;
+ }
+
+.eugen-bd-topbut{
+  display: flex; /* 使用 Flexbox 佈局 */
+  gap: 10px; /* 按鈕之間的間距 */
+  flex: 1; /* 按鈕自動伸縮以填滿容器 */
+  margin-left: auto;
+  margin-bottom: 12px;
+}
+
+.eugen-search-container {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-bottom: 10px;
+}
+
+.eugen-search-input {
+  padding: 1px 2px; /* 調整上下內邊距和左右內邊距 */
+  height: 10px; /* 調整搜尋欄的高度 */
+  border: none;
+  border-bottom: 1px solid #000;
+  margin-right: 5px;
+}
+
+.eugen-search-button {
+  padding: 5px 5px; /* 調整按鈕的寬度 */
+  width: 50px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px; /* 設置四角圓角 */
+  font-size: 10px; /* 設置字體大小 */
+  
+}
+
+  /* ===================== */
+  /* 新增文章 */
+
+  
+
+
+  /* =================== */

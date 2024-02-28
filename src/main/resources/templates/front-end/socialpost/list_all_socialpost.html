@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fitanywhere首頁-select-page</title>
+</head>
+<style type="text/css">
+
+	button {
+		padding: 5px;
+	}
+	form {
+		display: table;
+	}
+	form div {
+		display: table-row;
+	}
+	label, input, span, select {
+		display: table-cell;
+		margin: 2px;
+		text-align: left;		
+	}
+	input[type=text], input[type=password], select, textarea {
+		width: 200px;
+		margin: 2px;
+	}
+	form div div {
+		display: table-cell;
+	}
+	.center {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    span {
+		display: inline-block;
+		width: 150px;
+		text-align: left;
+		font-weight: bold;
+	}
+	div.a {
+        display: inline-block;
+        width: 50%;
+        height: auto;
+        padding: 5px;
+        border: 0px solid blue;    
+        background-color: white; 
+    }
+    div.b {
+        position: absolute; 
+        bottom: 1%; 
+        right: 2%; 
+        width: 45%;
+        padding: 5px; 
+        border: 1px solid blue;
+    }
+    table td{
+    	border:1px solid black;
+    }
+
+</style>
+<body>
+    <h1 >fitanywhere首頁-index.html</h1>
+    <h2 style="color:#5f5f5f;">測試-list 所有 social post</h2>
+    
+    
+    <h3 th:text="${message}">Welcome</h3>
+    
+    <table id="example" class="display" style="width: 100%">
+    <thead >
+	<tr style="background-color:#CCCCFF">
+		<th>計數</th>
+		<th>社群貼文pk</th>
+		<th>類別</th>
+		<th>標題</th>
+		<th>內容</th>
+	</tr>
+  </thead>
+    <tbody>
+		<th:block th:each="socialPostVO : ${socialPostListData}">
+			<tr>
+				<td th:text="${socialPostVOStat.count}"></td>
+				<td th:text="${socialPostVO.spid}"></td>
+				<td th:text="${socialPostVO.spcategory}"></td>
+				<td th:text="${socialPostVO.sptitle}"></td>
+				<td th:text="${socialPostVO.spcontent}"></td>
+				<td><img th:src="@{/socialpost/DBGifReader} + '?spid=' + ${socialPostVO.spid}" width="100px"></td>
+				
+
+			<td>
+			  <form method="post" th:action="@{/socialpost/getOne_For_Update}" style="margin-bottom: 0px;">
+			     <input type="submit" value="修改">
+			     <input type="hidden" name="spid" th:value="${socialPostVO.spid}"></form>
+			
+			</td>
+			<td>
+			  <form method="post" th:action="@{/socialpost/delete}" style="margin-bottom: 0px;">
+			     <input type="submit" value="刪除">
+			     <input type="hidden" name="spid" th:value="${socialPostVO.spid}"></form>
+			
+			</td>
+			</tr>
+		</th:block>
+  </tbody>
+    </table>
+    
+</body>
+</html>

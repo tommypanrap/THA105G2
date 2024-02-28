@@ -1,0 +1,54 @@
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>社群貼文資料 - list_one_socialpost.html</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fitanywhere-list_one_socialpost</title>
+</head>
+
+<!-- <head th:insert="~{/back-end/emp/included-fragment}"></head> -->
+<style type="text/css">
+	
+    span {
+		display: inline-block;
+		width: 150px;
+		text-align: left;
+		font-weight: bold;
+	}
+</style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
+		 <div align="center"> <h2>社群貼文單篇資料 - list_one_socialpost</h2>
+		 <h3><a class="navbar-brand" th:href="@{/socialpost/select_page}"><img th:src="@{/images/back1.gif}">回查詢頁<label th:text="${success}"></label></a></h3></div>
+</nav>
+
+	<div align="center" th:fragment="listOneSocialPost-div"> <!-- 此div被select_page.html第158行insert用 -->
+		<h3><span>查詢結果 :</span></h3>
+		<span>貼文pk:</span><span th:text="${socialPostVO.spid}"></span><br/>
+		<span>學員編號:</span><span th:text="${socialPostVO.uId}"></span><br/>
+		<span>類別:</span><span th:text="${socialPostVO.spcategory}"></span><br/>
+		<span>發布日期:</span><span th:text="${socialPostVO.sptime}"></span><br/>
+		<span>更新時間:</span><span th:text="${socialPostVO.spupdated}"></span><br/>
+		<span>貼文標題:</span><span th:text="${socialPostVO.sptitle}"></span><br/>
+		<span>貼文內容:</span><span th:text="${socialPostVO.spcontent}"></span><br/>
+		<span>照片:</span><span><img th:src="@{/socialpost/DBGifReader} + '?spid=' + ${socialPostVO.spid}" width="100px"></span><br/>
+	</div>
+
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+.chat-tag-wrapper{
+    display: flex;
+}
+
+.rbt-page-banner-wrapper .rbt-banner-content-top .title-wrapper{
+    display: block;
+}
+
+.eugen-search-container .eugen-search-input{
+    background: #fff;
+    width: 50%;
+}
+
+.eugen-search-container .eugen-search-button{
+    font-size: 14px;
+    width: 68px;
+    height: 40px;
+    border-radius: 500px;
+}
+
+.eugen-search-container .eugen-search-button.write{
+    width: 100px;
+    margin-left: 10px;
+    background-color: #3e81c8;
+}
+
+
+.rbt-page-banner-wrapper .rbt-banner-image, .bg-gradient-9{
+    /* background: linear-gradient(270deg, #F8DE22 0%, #45FFCA 100%); */
+}
+
+
+

@@ -1,0 +1,41 @@
+.coach-course-manager{
+    display: flex;
+    flex-wrap:wrap;
+}
+
+.coach-course-manager-wrapper{
+    width: 100%;
+    display: flex;
+    border:1px solid black;
+    justify-content: space-between;
+}
+
+input.search-coach-course{
+    width: 100%;
+}
+
+.create-course{
+    width: 100%;
+    display: flex;
+    border:1px solid black;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.create-course>p{
+    margin-right: auto;
+}
+
+.create-course-state{
+    display: flex;
+}
+
+.create-course-suggest{
+    cursor: pointer;
+    background-color: #ededed;
+}
+
+.create-course-state span{
+    background-color: #e8e8e8;
+}
+

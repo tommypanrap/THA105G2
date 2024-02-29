@@ -1,0 +1,153 @@
+div.content{
+    border-radius: 5px;
+background: #FFF;
+
+box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.08);
+
+padding-right: 30px;
+}
+
+div.content-inner{
+
+width: 90%;
+margin: 0 auto;
+}
+
+div.user-section-title{
+    display: flex;
+    justify-content: space-between;
+    /* max-width: 90%;    */
+}
+
+.rbt-title-style-3{
+    border-bottom: none;
+}
+
+.member-col{
+
+}
+
+.member-post{
+    display: flex;
+    margin-top: 0;
+    margin-bottom: 15px;
+    width: 100%;
+
+    margin-left: 5%;
+
+    align-items: center;
+}
+
+.add-post{
+    cursor: pointer;
+}
+
+.member-post input.member-post-input{
+    width: calc( 100% - 190px);
+}
+
+.mainmenu-nav{
+    width: auto;
+}
+
+.member-post p{
+    width: fit-content;
+}
+
+.article-post .title-info{
+
+}
+
+.article-post{
+
+    padding-top: 54px;
+    padding-bottom: 54px;
+    padding-left: 75px;
+    padding-right: 75px;
+
+    max-width: 90%;
+    margin: 0 auto;
+
+    border-radius: 20px;
+    border: 1px solid #C8C8C8;
+    background: #FFF;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.10);
+
+}
+
+.title-info{
+    margin-left: 10px;
+}
+
+.title-info p{
+    margin-bottom: 0;
+}
+
+.article-post .title{
+display: flex;
+align-items: center;
+justify-content: space-between;
+
+margin-bottom: 20px;
+
+
+}
+
+.title-info-wrapper{
+    display: flex;
+    align-items: center;
+}
+
+.tutor-btn a{
+    padding-top: 7px;
+    display: flex;
+}
+
+.tutor-btn a span{
+    color:white;
+}
+
+.tutor-btn .feather-arrow-right:before{
+    color:white;
+}
+
+.rbt-btn.btn-md{
+    height: 40px;
+}
+.rbt-avatars.size-lg{
+    position: relative;
+}
+
+.rbt-page-banner-wrapper .rbt-banner-image, .bg-gradient-9{
+    /* background: linear-gradient(270deg, #F8DE22 0%, #45FFCA 100%); */
+}
+
+.rbt-avatars.size-lg{
+    margin: 0 auto;
+    margin-bottom: 15px;
+}
+
+#article img{
+    width: 120px;
+}
+
+.input-wrapper{
+position: relative;
+}
+.input-wrapper input{
+    background: #FFF;
+    margin-bottom: 10px;
+}
+
+.search-icon{
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+.post-content img{
+    max-height: 300px;
+}
+
+

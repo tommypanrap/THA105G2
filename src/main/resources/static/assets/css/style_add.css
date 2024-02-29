@@ -1,0 +1,177 @@
+.img-test{
+    width: 450px;
+    height: 300px;
+}
+
+.head{
+    display: flex;
+    float:right;
+    justify-content: flex-end;
+}
+
+
+
+/* header.rbt-header div.rbt-header .rbt-header-wrapper.header-transparent{
+    background-color: black;
+} */
+
+.mainmenu-sub-active {
+    color: #F8DE22  ;
+}
+
+.rbt-header .rbt-header-wrapper.rbt-sticky{
+    background-color: black;
+}
+
+div.inner{
+    aspect-ratio: 0.679;
+}
+
+/* 頁首 增加 */
+.rbt-header .mainmenu-nav .mainmenu{
+    align-items: center;
+}
+
+.rbt-header .mainmenu-nav .mainmenu li.hamber{
+    display: none;
+}
+
+.header-space-betwween{
+    padding: 0;
+}
+
+.rbt-header-wrapper .container-fluid .mainbar-row{
+    width: 100%;
+}
+
+.mainbar-row{
+    display: flex;
+    justify-content: space-between;
+}
+
+.mainbar-row .rbt-main-navigation{
+    display: block;
+}
+
+.mainmenu-nav{
+    width: fit-content;
+}
+.mainbar-row.rbt-navigation-start .rbt-main-navigation{
+    display: flex;
+    justify-content: end;
+}
+@media screen and (max-width: 991px) {
+    .not-hamber{
+        display: none;
+    }
+    .rbt-header .mainmenu-nav .mainmenu li.hamber{
+        display: block;
+    }
+}
+
+.index-body{
+    height: 1500px;
+}
+
+header{
+        height: 110px;
+}
+
+.container-fluid{
+    max-width: 1200px;
+}
+
+.splash-testimonial-all-wrapper.pt--90{
+    padding-top: 0;
+}
+
+
+/* 首頁css */
+.index-body .wrapper{
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 67px;
+}
+
+.wrapper h1{
+    font-size: 24px;
+}
+
+.wrapper p{
+    font-size: 18px;
+    margin-left: 17px;
+}
+
+.post{
+    display: flex;
+    
+}
+
+/* 探索課程 */
+/* 探索課程 標題 */
+.wrapper-explore{
+    display: flex;
+    justify-content: space-between;
+}
+
+.content-width{
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* 精選貼文 */
+.chat-select{
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.chat-card{
+    width: 50%;
+    display: flex;
+}
+
+.chat-img{
+    display: block;
+    background-color: gray;
+    width: 145px;
+    aspect-ratio: 1;
+}
+
+.title-1{
+    display: flex;
+    align-items: center;
+}
+
+.title-1 p {
+    font-size: 14px;
+    margin-bottom: 0;
+    margin-right: 10px;
+    margin-left: 5px;
+}
+
+.feather-user{
+    color:#F8DE22;
+}
+
+.title-2 h2{
+    font-size: 18px;
+}
+
+.title-3 p {
+    font-size: 14px;
+}
+
+.chat-select-row{
+    display: flex;
+    margin-top: 20px;
+    
+}
+
+.rbt-splash-fetaure-list-area{
+    /* background-color: black; */
+}
+
+
+.bg-color-darker{
+    background-color: black;
+}

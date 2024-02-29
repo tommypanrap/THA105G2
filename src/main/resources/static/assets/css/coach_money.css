@@ -1,0 +1,23 @@
+.coach-content{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.coach-content-row2{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.coach-content-wrapper-top{
+    display: flex;
+}
+
+.coach-content-wrapper-top-left, .coach-content-wrapper-top-right{
+    width: 50%;
+}
+
+table{
+    width: 100%;
+}

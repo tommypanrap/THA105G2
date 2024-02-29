@@ -1,0 +1,18 @@
+.coach-create{
+    display: block;
+}
+
+.coach-create-progress{
+    display: flex;
+    width: 100%;
+}
+
+li{
+    list-style: none;
+    flex-grow: 1;
+}
+
+li.active{
+    background-color: #d3d3d3;
+}
+

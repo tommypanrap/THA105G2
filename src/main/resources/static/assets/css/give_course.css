@@ -1,0 +1,23 @@
+.gift-wrapper{
+}
+
+.gift-wrapper-container{
+    max-width: 1200px;
+    margin: 0 auto;
+    width: fit-content;
+}
+
+p{
+    margin-bottom: 0;
+}
+
+div.give-account, div.name, div.talk{
+    margin-bottom: 27px;
+    width: 100%;
+    
+}
+
+input[type=text], input[type=password], input[type=email], input[type=number], input[type=tel], input[type=date], textarea{
+    width: 600px;
+    max-width: none;
+}

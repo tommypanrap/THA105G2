@@ -1,0 +1,45 @@
+.margin{
+    text-align: center;
+    margin-top: 40px;
+}
+
+.margin-right-10px{
+    margin-right: 10px;
+}
+.third-login{
+    color: #5F5F5F;
+    text-align: center;
+    padding: 30px;
+    background: rgb(252, 252, 252);
+    border-radius: 5px;
+    margin-bottom: 50px;
+ 
+}
+.third-login> img{
+    width: 38px;
+    height: 38px;
+}
+
+.hr{
+    color: #5F5F5F;
+    background: white;
+    border: 0;
+    font-size: 12px;
+    padding: 10px 0;
+    position: relative;
+}
+
+.hr::before{
+    content: "或";
+    position: absolute;
+    padding: 0 10px;
+    line-height: 1px;
+    border: solid #5F5F5F;
+    border-width: 0 100vw;
+    white-space: nowrap;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.row{
+    justify-content: space-around;
+  }

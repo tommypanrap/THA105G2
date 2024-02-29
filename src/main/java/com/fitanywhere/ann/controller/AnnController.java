@@ -9,6 +9,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,30 +36,6 @@ public class AnnController {
 	
 	@Autowired
 	CourseService courseSvc;
-
-//	@Autowired
-//	DeptService deptSvc;
-
-	/*
-	 * This method will serve as addEmp.html handler.
-	 */
-//	@GetMapping("addAnn")
-//	public String addAnn(ModelMap model) {
-//		AnnVO annVO = new AnnVO();
-//		model.addAttribute("annVO", annVO);
-//		return "back-end/ann/addAnn";
-//	}
-	
-	@GetMapping("G2_instructor_announce")
-	public String addAnn(ModelMap model) {
-		AnnVO annVO = new AnnVO();
-		List<AnnVO> list = annSvc.getAll();
-		List<CourseVO> list2 = courseSvc.getAll();
-		model.addAttribute("courseListData", list2);
-		model.addAttribute("annListData", list);
-		model.addAttribute("annVO", annVO);
-		return "back-end/ann/G2_instructor_announce";
-	}
 	
 	
 
@@ -80,7 +57,7 @@ public class AnnController {
 //			}
 //		}|| parts[0].isEmpty()
 		if (result.hasErrors() ) {
-			return "back-end/ann/addAnn";
+			return "front-end/course/course_announce";
 		}
 		/*************************** 2.開始新增資料 *****************************************/
 		// EmpService empSvc = new EmpService();
@@ -94,9 +71,16 @@ public class AnnController {
 		List<AnnVO> list = annSvc.getAll();
 		model.addAttribute("annListData", list);
 		model.addAttribute("success", "- (新增成功)");
-		return "back-end/ann/select_page"; // 新增成功後重導至IndexController_inSpringBoot.java的第50行@GetMapping("/emp/listAllEmp")
+		return "front-end/course/course_announcement"; // 新增成功後重導至IndexController_inSpringBoot.java的第50行@GetMapping("/emp/listAllEmp")
 	}
 	
+//	@GetMapping("/announcements")
+//	public String getAnnouncements(Model model) {
+//	    List<AnnVO> announcementList = annSvc.getAll();
+//	    model.addAttribute("announcements", announcementList);
+//	    System.out.println("dddd");
+//	    return "announcements"; // 返回到包含表格的模板页面
+//	}
 	
 
 	/*

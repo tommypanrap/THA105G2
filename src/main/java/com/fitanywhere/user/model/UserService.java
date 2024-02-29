@@ -1,5 +1,7 @@
 package com.fitanywhere.user.model;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,5 +26,11 @@ public class UserService {
             return user; // 登入成功 返回會員資料
         }
         return null; // 登錄失敗
+    }
+    
+    public UserVO getUser(Integer uId){
+    	
+    	UserVO userVO = userJpaRepository.findByuId(uId);
+		return userVO;
     }
 }

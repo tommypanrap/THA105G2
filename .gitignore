@@ -6,8 +6,7 @@ bin/
 .DS_Store
 .idea
 *.iml
-pom.xml
 src/main/java/com/fitanywhere/Application.java
-src/main/java/com/fitanywhere/IndexController.java
+src/main/java/com/fitanywhere/IndexController_inSpringBoot.java
 src/main/java/com/fitanywhere/ServletInitializer.java
 src/main/resources/application.properties

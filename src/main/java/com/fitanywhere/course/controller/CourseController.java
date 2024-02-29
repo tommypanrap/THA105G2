@@ -27,7 +27,7 @@ import com.fitanywhere.course.model.CourseService;
 import com.fitanywhere.course.model.CourseVO;
 
 @Controller
-@RequestMapping("/ann/course")
+@RequestMapping("/course")
 public class CourseController {
 
 	@Autowired
@@ -48,11 +48,16 @@ public class CourseController {
 	
 	@GetMapping("G2-create-course")
 	public String addCourse(ModelMap model) {
-		System.out.println();
-		
 		List<CourseVO> list = courseSvc.getAll();
 		model.addAttribute("courseListData", list);
 		return "back-end/ann/G2-create-course";
+	}
+	
+	@GetMapping("/G2_instructor_dashboard")
+	public String dashboard(ModelMap model) {
+		List<CourseVO> list = courseSvc.getAll();
+		model.addAttribute("courseListData", list);
+		return "front-end/course/G2_instructor_dashboard";
 	}
 
 	/*

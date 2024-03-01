@@ -22,7 +22,6 @@ import com.fitanywhere.user.model.UserVO;
 
 @Controller
 @RequestMapping("/user")
-@RestController
 public class UserController {
 
 	@Autowired
@@ -46,7 +45,7 @@ public class UserController {
         return "front-end/user/test";
     }
 	
-	@GetMapping("coach_profile")
+	@GetMapping("/coach_profile")
     public UserVO profile(ModelMap model) {
 		
 		Integer uId = 10001;

@@ -32,34 +32,43 @@ public class CourseController {
 
 	@Autowired
 	CourseService courseSvc;
-
-//	@Autowired
-//	DeptService deptSvc;
-
-	/*
-	 * This method will serve as addEmp.html handler.
-	 */
-//	@GetMapping("addAnn")
-//	public String addAnn(ModelMap model) {
-//		AnnVO annVO = new AnnVO();
-//		model.addAttribute("annVO", annVO);
-//		return "back-end/ann/addAnn";
-//	}
 	
-	@GetMapping("G2-create-course")
+	@Autowired
+	AnnService annSvc;
+
+	@GetMapping("create_course")
 	public String addCourse(ModelMap model) {
 		List<CourseVO> list = courseSvc.getAll();
 		model.addAttribute("courseListData", list);
-		return "back-end/ann/G2-create-course";
+		return "front-end/course/create_course";
 	}
-	
-	@GetMapping("/G2_instructor_dashboard")
+	@GetMapping("coach_dashboard")
 	public String dashboard(ModelMap model) {
 		List<CourseVO> list = courseSvc.getAll();
 		model.addAttribute("courseListData", list);
-		return "front-end/course/G2_instructor_dashboard";
+        return "front-end/course/coach_dashboard";
 	}
-
+	@GetMapping("coach_profile")
+	public String profile(ModelMap model) {
+		List<CourseVO> list = courseSvc.getAll();
+		model.addAttribute("courseListData", list);
+        return "front-end/course/coach_profile";
+	}
+	@GetMapping("course_announcement")
+	public String announcement(ModelMap model) {
+		List<AnnVO> announcementList = annSvc.getAll();
+	    model.addAttribute("announcements", announcementList);
+		return "front-end/course/course_announcement";
+	}
+	@GetMapping("course_announce")
+	public String announce(ModelMap model) {
+		AnnVO annVO = new AnnVO();
+		List<CourseVO> list2 = courseSvc.getAll();
+		model.addAttribute("courseListData", list2);
+		model.addAttribute("annVO", annVO);
+		return "front-end/course/course_announce";
+	}
+	
 	/*
 	 * This method will be called on addEmp.html form submission, handling POST request It also validates the user input
 	 */
@@ -78,7 +87,7 @@ public class CourseController {
 //			}
 //		}|| parts[0].isEmpty()
 		if (result.hasErrors() ) {
-			return "back-end/ann/addAnn";
+			return "front-end/course/coach_dashboard";
 		}
 		/*************************** 2.開始新增資料 *****************************************/
 		// EmpService empSvc = new EmpService();
@@ -92,7 +101,7 @@ public class CourseController {
 //		List<AnnVO> list = annSvc.getAll();
 //		model.addAttribute("annListData", list);
 //		model.addAttribute("success", "- (新增成功)");
-		return "back-end/ann/select_page"; // 新增成功後重導至IndexController_inSpringBoot.java的第50行@GetMapping("/emp/listAllEmp")
+		return "front-end/course/coach_dashboard"; // 新增成功後重導至IndexController_inSpringBoot.java的第50行@GetMapping("/emp/listAllEmp")
 	}
 
 	/*

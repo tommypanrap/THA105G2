@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Instructor Dashboard - Online Courses & Education Bootstrap5 Template</title>
+    <title>Instructor Profile - Online Courses & Education Bootstrap5 Template</title>
     <meta name="robots" content="noindex, follow" />
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -33,6 +33,7 @@
 </head>
 
 <body>
+
     <!-- Start Header Area -->
     <header class="rbt-header rbt-header-10">
         <div class="rbt-sticky-placeholder"></div>
@@ -2170,11 +2171,13 @@
     </div>
     <!-- End Side Vav -->
     <a class="close_side_menu" href="javascript:void(0);"></a>
+
     <div class="rbt-page-banner-wrapper">
         <!-- Start Banner BG Image  -->
         <div class="rbt-banner-image"></div>
         <!-- End Banner BG Image  -->
     </div>
+
     <!-- Start Card Style -->
     <div class="rbt-dashboard-area rbt-section-overlayping-top rbt-section-gapBottom">
         <div class="container">
@@ -2205,7 +2208,7 @@
                             </div>
                             <div class="rbt-tutor-information-right">
                                 <div class="tutor-btn">
-                                    <a class="rbt-btn btn-md hover-icon-reverse" href="G2-create-course.html">
+                                    <a class="rbt-btn btn-md hover-icon-reverse" th:href="@{create_course}">
                                         <span class="icon-reverse-wrapper">
                         <span class="btn-text">創建課程</span>
                                         <span class="btn-icon"><i class="feather-arrow-right"></i></span>
@@ -2232,10 +2235,10 @@
                                             </div>
                                             <nav class="mainmenu-nav">
                                                 <ul class="dashboard-mainmenu rbt-default-sidebar-list">
-                                                    <li><a href="G2-instructor-dashboard.html"><i class="feather-home"></i><span>教練主頁</span></a></li>
-                                                    <li><a href="G2-instructor-profile.html"><i class="feather-user"></i><span>教練個人資料</span></a></li>
+                                                    <li><a th:href="@{coach_dashboard}"><i class="feather-home"></i><span>教練主頁</span></a></li>
+                                                    <li><a th:href="@{coach_profile}"><i class="feather-user"></i><span>教練個人資料</span></a></li>
                                                     <li><a href="G2-instructor-course.html"><i class="feather-monitor"></i><span>課程管理</span></a></li>
-                                                    <li><a href="G2-instructor-announcements.html"><i class="feather-volume-2"></i><span>課程公告</span></a></li>
+                                                    <li><a th:href="@{course_announcement}"><i class="feather-volume-2"></i><span>課程公告</span></a></li>
                                                     <li><a href="instructor-wishlist.html"><i class="feather-bookmark"></i><span>廣告投放</span></a></li>
                                                     <li><a href="instructor-order-history.html"><i class="feather-shopping-bag"></i><span>金流設定</span></a></li>
                                                     <li><a href="instructor-reviews.html"><i class="feather-star"></i><span>Reviews</span></a></li>                                                        
@@ -2261,165 +2264,105 @@
                             </div>
                             <!-- End Dashboard Sidebar  -->
                         </div>
-
                         <div class="col-lg-9">
-                            <div class="rbt-dashboard-content bg-color-white rbt-shadow-box mb--60">
+                            <!-- Start Instructor Profile  -->
+                            <div class="rbt-dashboard-content bg-color-white rbt-shadow-box">
                                 <div class="content">
                                     <div class="section-title">
-                                        <h4 class="rbt-title-style-3">教練主頁</h4>
+                                        <h4 class="rbt-title-style-3">教練個人</h4>
                                     </div>
-                                    <div class="row g-5">
-
-                                        <!-- Start Single Card  -->
-                                        <div class="col-lg-4 col-md-4 col-sm-6 col-12">
-                                            <div class="rbt-counterup variation-01 rbt-hover-03 rbt-border-dashed bg-primary-opacity">
-                                                <div class="inner">
-                                                    <div class="rbt-round-icon bg-primary-opacity">
-                                                        <i class="feather-book-open"></i>
-                                                    </div>
-                                                    <div class="content">
-                                                        <h3 class="counter without-icon color-primary"><span class="odometer" data-count="30">00</span>
-                                                        </h3>
-                                                        <span class="rbt-title-style-2 d-block" style="font-size: 20px ;">已上架課程</span>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    <!-- Start Profile Row  -->
+                                    <div class="rbt-profile-row row row--15">
+                                        <div class="col-lg-4 col-md-4">
+                                            <div class="rbt-profile-content b2">生日</div>
                                         </div>
-                                        <!-- End Single Card  -->
-
-                                        <!-- Start Single Card  -->
-                                        <div class="col-lg-4 col-md-4 col-sm-6 col-12">
-                                            <div class="rbt-counterup variation-01 rbt-hover-03 rbt-border-dashed bg-secondary-opacity">
-                                                <div class="inner">
-                                                    <div class="rbt-round-icon bg-secondary-opacity">
-                                                        <i class="feather-monitor"></i>
-                                                    </div>
-                                                    <div class="content">
-                                                        <h3 class="counter without-icon color-secondary"><span class="odometer" data-count="10">00</span>
-                                                        </h3>
-                                                        <span class="rbt-title-style-2 d-block" style="font-size: 20px ;">訂閱人數</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-
+                                        <div class="col-lg-8 col-md-8">
+                                            <div class="rbt-profile-content b2" id="uBirth"></div>
                                         </div>
-                                        <!-- End Single Card  -->
-
-                                        <!-- Start Single Card  -->
-                                        <div class="col-lg-4 col-md-4 col-sm-6 col-12">
-                                            <div class="rbt-counterup variation-01 rbt-hover-03 rbt-border-dashed bg-violet-opacity">
-                                                <div class="inner">
-                                                    <div class="rbt-round-icon bg-violet-opacity">
-                                                        <i class="feather-award"></i>
-                                                    </div>
-                                                    <div class="content">
-                                                        <h3 class="counter without-icon color-violet"><span class="odometer" data-count="7">00</span>
-                                                        </h3>
-                                                        <span class="rbt-title-style-2 d-block" style="font-size: 20px ;">學生人數</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- End Single Card  -->
-
-                                        
-
                                     </div>
+                                    <!-- End Profile Row  -->
+
+                                    <!-- Start Profile Row  -->
+                                    <div class="rbt-profile-row row row--15 mt--15">
+                                        <div class="col-lg-4 col-md-4">
+                                            <div class="rbt-profile-content b2">姓名</div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <div class="rbt-profile-content b2" id="uName"></div>
+                                        </div>
+                                    </div>
+                                    <!-- End Profile Row  -->
+
+                                    <!-- Start Profile Row  -->
+                                    <div class="rbt-profile-row row row--15 mt--15">
+                                        <div class="col-lg-4 col-md-4">
+                                            <div class="rbt-profile-content b2">暱稱</div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <div class="rbt-profile-content b2" id="uNickname"></div>
+                                        </div>
+                                    </div>
+                                    <!-- End Profile Row  -->
+
+                                    <!-- Start Profile Row  -->
+                                    <div class="rbt-profile-row row row--15 mt--15">
+                                        <div class="col-lg-4 col-md-4">
+                                            <div class="rbt-profile-content b2">性別</div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <div class="rbt-profile-content b2" id="uGender"></div>
+                                        </div>
+                                    </div>
+                                    <!-- End Profile Row  -->
+
+                                    <!-- Start Profile Row  -->
+                                    <div class="rbt-profile-row row row--15 mt--15">
+                                        <div class="col-lg-4 col-md-4">
+                                            <div class="rbt-profile-content b2">電子信箱</div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <div class="rbt-profile-content b2" id="uMail"></div>
+                                        </div>
+                                    </div>
+                                    <!-- End Profile Row  -->
+
+                                    <!-- Start Profile Row  -->
+                                    <div class="rbt-profile-row row row--15 mt--15">
+                                        <div class="col-lg-4 col-md-4">
+                                            <div class="rbt-profile-content b2">電話號碼</div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <div class="rbt-profile-content b2" id="uPhone"></div>
+                                        </div>
+                                    </div>
+                                    <!-- End Profile Row  -->
+
+                                    <!-- Start Profile Row  -->
+                                    <div class="rbt-profile-row row row--15 mt--15">
+                                        <div class="col-lg-4 col-md-4">
+                                            <div class="rbt-profile-content b2">教練自我介紹</div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <div class="rbt-profile-content b2" id="cIntro"></div>
+                                        </div>
+                                    </div>
+                                    <!-- End Profile Row  -->
                                 </div>
                             </div>
-                            <div class="rbt-dashboard-content bg-color-white rbt-shadow-box mb--60">
-                                <div class="content">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="section-title">
-                                                <h4 class="rbt-title-style-3">我的課程</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row gy-5">
-                                        <div class="col-lg-12">
-                                            <div class="rbt-dashboard-table table-responsive">
-                                                <table id="dynamic-table" class="rbt-table table table-borderless">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Course Name</th>
-                                                            <th>Enrolled</th>
-                                                            <th>Rating</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <!-- <tbody>
-                                                        <tr>
-                                                            <th><a href="#">Accounting</a></th>
-                                                            <td>50</td>
-                                                            <td>
-                                                                <div class="rating">
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th><a href="#">Marketing</a></th>
-                                                            <td>40</td>
-                                                            <td>
-                                                                <div class="rating">
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th><a href="#">Web Design</a></th>
-                                                            <td>75</td>
-                                                            <td>
-                                                                <div class="rating">
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th><a href="#">Graphic</a></th>
-                                                            <td>20</td>
-                                                            <td>
-                                                                <div class="rating">
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="off fas fa-star"></i>
-                                                                    <i class="off fas fa-star"></i>
-                                                                    <i class="off fas fa-star"></i>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody> -->
-                                                    <tbody></tbody>
-                                                </table>
-                                            </div>
+                            <!-- End Instructor Profile  -->
 
-                                            <div class="load-more-btn text-center">
-                                                <a class="rbt-btn-link" href="instructor-course.html">瀏覽全部課程<i class="feather-arrow-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
     <!-- End Card Style -->
+
+
+
+
     <div class="rbt-separator-mid">
         <div class="container">
             <hr class="rbt-separator m-0">
@@ -2591,7 +2534,7 @@
         </svg>
     </div>
 
-    <!-- JS
+<!-- JS
 ============================================ -->
     <!-- Modernizer JS -->
     <script th:src="@{/assets/js/vendor/modernizr.min.js}"></script>
@@ -2624,37 +2567,57 @@
     <!-- Main JS -->
     <script th:src="@{/assets/js/main.js}"></script>
     <script>
-        var courses = [
-                { name: 'abc', enrolled: 50, rating: 1 },
-                { name: 'Marketing', enrolled: 40, rating: 5 },
-                { name: 'Web Design', enrolled: 75, rating: 5 },
-                { name: 'Graphic', enrolled: 20, rating: 3 }
-            ];
-       /*  {
-        	status: 'success',
-        	data:[
-                { name: 'abc', enrolled: 50, rating: 5 },
-                { name: 'Marketing', enrolled: 40, rating: 5 },
-                { name: 'Web Design', enrolled: 75, rating: 5 },
-                { name: 'Graphic', enrolled: 20, rating: 3 }
-            ];
-        } */
-        
-            // Generate table rows
-            $.each(courses, function(index, course) {
-                var row = $('<tr>');
-                row.append($('<th>').html('<a href="#">' + course.name + '</a>'));
-                row.append($('<td>').text(course.enrolled));
-                var ratingCell = $('<td>');
-                var ratingDiv = $('<div class="rating">');
-                for (var i = 0; i < 5; i++) {
-                    var starClass = i < course.rating ? 'fas' : 'off fas';
-                    ratingDiv.append($('<i>').addClass(starClass + ' fa-star'));
-                }
-                ratingCell.append(ratingDiv);
-                row.append(ratingCell);
-                $('#dynamic-table tbody').append(row);
-            });
+ // 发送AJAX请求
+    $.get('http://localhost:8081/user/coach_profile', function(response) {
+        // 处理后端返回的数据
+        const {
+            uBirth,
+            uName,
+            uNickname,
+            uGender,
+            uMail,
+            uPhone,
+            cIntro
+        } = response;
+
+        // 将数据设置到页面上的元素中
+        $('#uBirth').text(uBirth);
+        $('#uName').text(uName);
+        $('#uNickname').text(uNickname);
+        $('#uGender').text(uGender);
+        $('#uMail').text(uMail);
+        $('#uPhone').text(uPhone);
+        $('#cIntro').text(cIntro);
+        // 访问其他字段类似
+
+    	/* window.localStorage.setItem('id',1)
+    	const id = window.localStorage.getItem('id');
+    	console.log(id)
+        const uid = '2'
+	    $.get('http://localhost:8080/user_controller',{
+            requestType:'getProfile',
+            uid
+       }, function(response) {
+            // Handle the response here
+            const {
+                cIntro,
+                uBirth,
+                uGender,
+                uMail,
+                uName,
+                uNickname,
+                uPhone
+            } = response
+            
+            $('#uBirth').text(uBirth);
+            $('#uName').text(uName);
+            $('#uNickname').text(uNickname);
+            $('#uGender').text(uGender);
+            $('#uMail').text(uMail);
+            $('#uPhone').text(uPhone);
+            $('#cIntro').text(cIntro);
+            // Access other fields similarly */
+        });    
     </script>
 </body>
 

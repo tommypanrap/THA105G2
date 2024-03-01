@@ -1,19 +1,32 @@
 package com.fitanywhere.user.controller;
 
+import java.sql.Date;
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fitanywhere.user.model.UserService;
+import com.fitanywhere.user.model.UserVO;
 
 @Controller
 @RequestMapping("/user")
+@RestController
 public class UserController {
 
+	@Autowired
+    private UserService userService;
 	
 	@GetMapping("/user_login")
     public String userLogin() {
@@ -31,6 +44,14 @@ public class UserController {
 	@GetMapping("/test")
     public String testPage() {
         return "front-end/user/test";
+    }
+	
+	@GetMapping("coach_profile")
+    public UserVO profile(ModelMap model) {
+		
+		Integer uId = 10001;
+	    UserVO userVO = userService.getUser(uId);
+	    return userVO;
     }
 
 

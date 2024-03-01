@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 public interface UserJpaRepository extends JpaRepository<UserVO, Integer> {
 
     @Query("FROM UserVO WHERE uMail = :uMail")
-    UserVO findByUMail(String uMail);
+    UserVO findByuMail(String uMail);
     
     @Query("FROM UserVO WHERE uId = :uId")
     UserVO findByuId(Integer uId);

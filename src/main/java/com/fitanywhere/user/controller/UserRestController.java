@@ -17,7 +17,7 @@ import com.fitanywhere.user.model.UserService;
 import com.fitanywhere.user.model.UserVO;
 
 @RestController
-//在路徑上多加一層"/api/"做為區別
+//在路徑上用"/user_api"做為區別
 @RequestMapping("/user_api")
 public class UserRestController {
 	

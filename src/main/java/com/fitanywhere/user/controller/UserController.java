@@ -45,6 +45,8 @@ public class UserController {
         return "front-end/user/test";
     }
 	
+	
+//	Andy
 	@GetMapping("/coach_profile")
     public UserVO profile(ModelMap model) {
 		

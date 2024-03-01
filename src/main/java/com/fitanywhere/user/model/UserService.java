@@ -15,19 +15,28 @@ public class UserService {
 
     // 檢查信箱是否註冊
     public boolean isEmailRegistered(String uMail) {
-        UserVO user = userJpaRepository.findByUMail(uMail);
+        UserVO user = userJpaRepository.findByuMail(uMail);
         return user != null;
     }
 
     // 核對登入密碼是否正確
     public UserVO userLogin(String uMail, String inputPassword) {
-        UserVO user = userJpaRepository.findByUMail(uMail);
+        UserVO user = userJpaRepository.findByuMail(uMail);
         if (user != null && EncryptionUtil.checkPassword(inputPassword, user.getuPassword())) {
             return user; // 登入成功 返回會員資料
         }
         return null; // 登錄失敗
     }
     
+    //	返回ID對應的整筆MySQL資料
+    public UserVO getUserDataByID(Integer uId){
+    	
+    	UserVO userVO = userJpaRepository.findByuId(uId);
+		return userVO;
+    }
+    
+    
+//	Andy
     public UserVO getUser(Integer uId){
     	
     	UserVO userVO = userJpaRepository.findByuId(uId);

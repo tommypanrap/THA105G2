@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>課程資料 - list_one_course.html</title>
+
+<head th:insert="~{/back-end/student_course/included-fragment}"></head>
+<style type="text/css">
+	
+    span {
+		display: inline-block;
+		width: 150px;
+		text-align: left;
+		font-weight: bold;
+	}
+</style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
+		 <div align="center"> <h2>課程資料 - list_one_course.html</h2>
+		 <h3><a class="navbar-brand" th:href="@{/student_course/select_page}"><img th:src="@{/images/back1.gif}">回查詢頁<label th:text="${success}"></label></a></h3></div>
+</nav>
+
+	<div align="center" th:fragment="list_one_course-div"> <!-- 此div被select_page.html第158行insert用 -->
+		<h3><span>查詢結果 :</span></h3>
+		
+		<span>課程編號:</span><span th:text="${courseVO.crId}"></span><br/>
+		<span>會員編號:</span><span th:text="${courseVO.uId}"></span><br/>
+		<span>類別:</span><span th:text="${courseVO.crClass}"></span><br/>
+		<span>課程標題:</span><span th:text="${courseVO.crTitle}"></span><br/>
+		<span>課程副標題:</span><span th:text="${courseVO.crSubtitle}"></span><br/>
+		<span>課程介紹:</span><span th:text="${courseVO.crIntro}"></span><br/>
+		<span>課程封面縮圖:</span><span><img th:src="@{/student_course/DBGifReader} + '?crId=' + ${courseVO.crId}" width="100px"></span><br/>
+<!-- 		<span>課程封面縮圖:</span><span th:text="${courseVO.crCover}"></span><br/> -->
+		<span>課程定價:</span><span th:text="${courseVO.crPrice}"></span><br/>
+		<span>課程上架時間:</span><span th:text="${courseVO.crCreateDate}"></span><br/>
+		<span>課程最後更新時間:</span><span th:text="${courseVO.crEditDate}"></span><br/>
+		<span>課程評論數量:</span><span th:text="${courseVO.crCmQuan}"></span><br/>	
+		<span>課程總星數:</span><span th:text="${courseVO.crTotStar}"></span><br/>	
+		<span>學習目標1:</span><span th:text="${courseVO.crPurpose1}"></span><br/>	
+		<span>學習目標2:</span><span th:text="${courseVO.crPurpose2}"></span><br/>	
+		<span>學習目標3:</span><span th:text="${courseVO.crPurpose3}"></span><br/>	
+		<span>目標學習先決條件:</span><span th:text="${courseVO.crPre}"></span><br/>	
+		<span>目標學習適合對象:</span><span th:text="${courseVO.crTarget1}"></span><br/>	
+		<span>歡迎訊息:</span><span th:text="${courseVO.crHelloMsg}"></span><br/>	
+		<span>祝賀訊息:</span><span th:text="${courseVO.crCong}"></span><br/>	
+		<span>困難度:</span><span th:text="${courseVO.crLevel}"></span><br/>	
+<!-- 		<span>部門:</span><span th:text="${empVO.deptVO.deptno} + '-[' + ${empVO.deptVO.dname} + ']'"></span><br/> -->
+		
+	</div>
+
+
+</body>
+</html>

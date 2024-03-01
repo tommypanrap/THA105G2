@@ -1,37 +1,17 @@
 package com.fitanywhere.course.model;
 
-import java.io.IOException;
-import java.sql.Date;
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
-//import com.dept.model.DeptVO;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.Valid;
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.Future;
-import javax.validation.constraints.Past;
-
-//import org.hibernate.validator.constraints.NotEmpty;
-import javax.validation.constraints.NotEmpty;
-
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.multipart.MultipartFile;
 
 /*
  * 註1: classpath必須有javax.persistence-api-x.x.jar 
@@ -75,9 +55,14 @@ public class CourseVO implements java.io.Serializable {
 	private Integer crPrice;
 
 	@Column(name = "cr_create_date")
+	@CreatedDate 									// mok新增-創建時自動生成時間
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")  // mok新增-時間格式
 	private Timestamp crCreateDate;
 
+	
 	@Column(name = "cr_edit_date")
+	@LastModifiedDate 								// mok新增-編輯後自動生成時間
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")  // mok新增-時間格式
 	private Timestamp crEditDate;
 
 	@Column(name = "cr_cm_quan")

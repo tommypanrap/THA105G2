@@ -66,10 +66,10 @@
 			
 			<div>
 			<label>會員:</label>
-			<select th:field="*{uId}">
-				<option th:each="socialPostVO : ${socialPostListData}" th:value="${socialPostVO.uId}" th:text="${socialPostVO.uId}" />
+			<select th:field="*{userVO.uId}">
+				<option th:each="userVO : ${userListData}" th:value="${userVO.uId}" th:text="${userVO.uName}" />
 			</select>
-			<span th:if="${#fields.hasErrors('uId')}" th:errors="*{uId}" class="error" id="uId.errors"></span>
+			<span th:if="${#fields.hasErrors('userVO.uId')}" th:errors="*{userVO.uId}" class="error" id="userVO.uId.errors"></span>
 			</div>
 			
 			

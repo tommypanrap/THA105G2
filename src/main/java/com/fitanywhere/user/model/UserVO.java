@@ -1,20 +1,24 @@
 package com.fitanywhere.user.model;
 
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.Date;
+
+import com.fitanywhere.socialpost.model.SocialPostVO;
 
 @Entity
 @Table(name = "user")
-public class UserVO {
+public class UserVO implements java.io.Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,6 +70,18 @@ public class UserVO {
 
 	@Column(name = "c_intro")
 	private String cIntro;
+	
+	//Tommy
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="userVO")
+	private Set<SocialPostVO> socialposts = new HashSet<SocialPostVO>();
+
+	public Set<SocialPostVO> getSocialposts() {
+		return this.socialposts;
+	}
+
+	public void setSocialposts(Set<SocialPostVO> socialposts) {
+		this.socialposts = socialposts;
+	}
 
 	// Constructor
 	public UserVO() {
@@ -193,25 +209,25 @@ public class UserVO {
 		this.cIntro = cIntro;
 	}
 
-	public UserVO(Integer uId, Integer moodId, String uNickname, String uName, String uMail, String uPassword,
-			String uPhone, Integer uVerified, Integer uCoach, Integer uGender, Integer uAge, byte[] uHeadshot,
-			Date uBirth, Integer uStatus, String cIntro) {
-		super();
-		this.uId = uId;
-		this.moodId = moodId;
-		this.uNickname = uNickname;
-		this.uName = uName;
-		this.uMail = uMail;
-		this.uPassword = uPassword;
-		this.uPhone = uPhone;
-		this.uVerified = uVerified;
-		this.uCoach = uCoach;
-		this.uGender = uGender;
-		this.uHeadshot = uHeadshot;
-		this.uBirth = uBirth;
-		this.uStatus = uStatus;
-		this.cIntro = cIntro;
-	}
+//	public UserVO(Integer uId, Integer moodId, String uNickname, String uName, String uMail, String uPassword,
+//			String uPhone, Integer uVerified, Integer uCoach, Integer uGender, Integer uAge, byte[] uHeadshot,
+//			Date uBirth, Integer uStatus, String cIntro) {
+//		super();
+//		this.uId = uId;
+//		this.moodId = moodId;
+//		this.uNickname = uNickname;
+//		this.uName = uName;
+//		this.uMail = uMail;
+//		this.uPassword = uPassword;
+//		this.uPhone = uPhone;
+//		this.uVerified = uVerified;
+//		this.uCoach = uCoach;
+//		this.uGender = uGender;
+//		this.uHeadshot = uHeadshot;
+//		this.uBirth = uBirth;
+//		this.uStatus = uStatus;
+//		this.cIntro = cIntro;
+//	}
 }
 	
 

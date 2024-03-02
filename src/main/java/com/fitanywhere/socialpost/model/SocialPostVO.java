@@ -17,6 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fitanywhere.user.model.UserVO;
+
 
 
 @Entity
@@ -27,12 +29,12 @@ public class SocialPostVO {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer spid;
 	
-//	@ManyToOne
-//	@JoinColumn(name = "u_id")
-//	private UserVO userVO;
+	@ManyToOne
+	@JoinColumn(name = "u_id")
+	private UserVO userVO;
 	
-	@Column(name = "u_id")
-	private Integer uId;
+//	@Column(name = "u_id")
+//	private Integer uId;
 	
 	@Column(name = "sp_category")
 	private String spcategory;
@@ -78,13 +80,13 @@ public class SocialPostVO {
 		this.sppic = sppic;
 	}
 
-//	public UserVO getUserVO() {
-//		return this.userVO;
-//	}
-//
-//	public void setUserVO(UserVO userVO) {
-//		this.userVO = userVO;
-//	}
+	public UserVO getUserVO() {
+		return this.userVO;
+	}
+
+	public void setUserVO(UserVO userVO) {
+		this.userVO = userVO;
+	}
 
 	public String getSpcategory() {
 		return spcategory;
@@ -130,13 +132,13 @@ public class SocialPostVO {
 		return spcontent;
 	}
 
-	public Integer getuId() {
-		return uId;
-	}
-
-	public void setuId(Integer uId) {
-		this.uId = uId;
-	}
+//	public Integer getuId() {
+//		return uId;
+//	}
+//
+//	public void setuId(Integer uId) {
+//		this.uId = uId;
+//	}
 
 	public void setSpcontent(String spcontent) {
 		this.spcontent = spcontent;

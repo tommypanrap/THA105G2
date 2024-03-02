@@ -1,6 +1,9 @@
 package com.fitanywhere.user.model;
 
 import com.fitanywhere.user.model.UserVO;
+
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -14,4 +17,6 @@ public interface UserJpaRepository extends JpaRepository<UserVO, Integer> {
     
     @Query("FROM UserVO WHERE uId = :uId")
     UserVO findByuId(Integer uId);
+    
+
 }

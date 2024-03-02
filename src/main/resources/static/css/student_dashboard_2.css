@@ -151,3 +151,41 @@ position: relative;
 }
 
 
+.user-name{
+    display: flex;
+    align-items: center;
+}
+
+.col-lg-3{
+    z-index: 0;
+}
+
+.upload-area{
+    height: 200px;
+    aspect-ratio: 1;
+}
+.brows-file-wrapper{
+    max-height: 100%;
+}
+
+#lightbox h2{
+    font-size: 20px;
+}
+
+.post-draft{
+    height: 130px;
+}
+
+.member-post-socialpost{
+    display: flex;
+    align-items: center;
+}
+
+.member-post-socialpost img{
+    max-width: 50px;
+    aspect-ratio: 1;
+}
+
+.member-post-socialpost p{
+    margin-left: 10px;
+}

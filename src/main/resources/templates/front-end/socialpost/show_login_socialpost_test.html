@@ -71,68 +71,21 @@
 			
 			<div>
 			<label>會員:</label>
-			<select th:field="*{userVO.uId}">
-				<option th:each="userVO : ${userListData}" th:value="${userVO.uId}" th:text="${userVO.uName}" />
-			</select>
-			<span th:if="${#fields.hasErrors('userVO.uId')}" th:errors="*{userVO.uId}" class="error" id="userVO.uId.errors"></span>
+<!-- 			<select th:field="*{userVO.uId}"> -->
+<!-- 				<option th:each="userVO : ${userListData}" th:value="${userVO.uId}" th:text="${userVO.uName}" /> -->
+<!-- 			</select> -->
+<!-- 			<span th:if="${#fields.hasErrors('userVO.uId')}" th:errors="*{userVO.uId}" class="error" id="userVO.uId.errors"></span> -->
+			<p th:text="${userVO.uNickname}"></p>
+			
+			</div>
+			<div th:each="socialPost : ${userVO.socialposts}">
+			<p th:text="${socialPost.sptitle}"></p>
+			<p th:text="${socialPost.spcontent}"></p>
+			<img th:src="@{/socialpost/DBGifReader} + '?spid=' + ${socialPost.spid}" width="100px">
 			</div>
 			
 			
-			<div>
-			<label>社群分類:</label>
-			<input type="text" th:field="*{spcategory}" onclick="hideContent('spcategory.errors');" /><br/>
-			<span  th:if="${#fields.hasErrors('spcategory')}" th:errors="*{spcategory}" class="error" id="spcategory.errors"></span>
-			</div>
-			
-			
-			<div>
-			<label>貼文時間:</label>
-			<input type="text" th:field="*{sptime}" onclick="hideContent('sptime.errors');" /><br/>
-			<span  th:if="${#fields.hasErrors('sptime')}" th:errors="*{sptime}" class="error" id="sptime.errors"></span>
-			</div>
-			
-			<div>
-			<label>更新時間:</label>
-			<input type="text" th:field="*{spupdated}" onclick="hideContent('spupdated.errors');" /><br/>
-			<span  th:if="${#fields.hasErrors('spupdated')}" th:errors="*{spupdated}" class="error" id="spupdated.errors"></span>
-			</div>
-			
-			<div>
-			<label>貼文狀態:</label>
-			<input type="text" th:field="*{spstatus}" onclick="hideContent('spstatus.errors');" /><br/>
-			<span  th:if="${#fields.hasErrors('spstatus')}" th:errors="*{spstatus}" class="error" id="spstatus.errors"></span>
-			</div>
-			
-			
-			
-<!-- 			<div> -->
-<!-- 			<label>貼文標題:</label> -->
-<!-- 			<input type="text" th:field="*{sptitle}" onclick="hideContent('sptitle.errors');" /><br/> -->
-<!-- 			<span  th:if="${#fields.hasErrors('sptitle')}" th:errors="*{job}" class="error" id="job.errors"></span> -->
-<!-- 			</div> -->
-			
-			<div>
-			<label>貼文內容:</label>
-			<input type="text" th:field="*{spcontent}" onclick="hideContent('spcontent.errors');" /><br/>
-			<span  th:if="${#fields.hasErrors('spcontent')}" th:errors="*{spcontent}" class="error" id="comm.errors"></span>
-			</div>
-			
-
-			
-			<div>
-			<label>照片:</label>
-			<input type="file" th:field="*{sppic}" onclick="previewImage()" multiple="multiple" onchange="hideContent('sppic.errors');" />
-<!-- 			<span  th:if="${#fields.hasErrors('upFiles')}" th:errors="*{upFiles}" class="error" id="upFiles.errors"></span> -->
-			<span class="error" th:utext="${errorMessage}" id="sppic.errors">${errorMessage}</span>
-<!-- 			<h2 id="errorMessage">${errorMessage}</h2>  -->
-			<div id="blob_holder"></div>
-			</div>
-			
-			<div>
-				<div></div>
-				<div><button type="submit" id="submit"> 送出新增 </button></div>
-				<div></div>
-			</div>		
+	
 		</form>
 	
 	</div>

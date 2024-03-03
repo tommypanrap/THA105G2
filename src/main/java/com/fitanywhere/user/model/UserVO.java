@@ -1,5 +1,10 @@
 package com.fitanywhere.user.model;
 
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,22 +12,35 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.Date;
+
+import com.fitanywhere.mood.model.MoodVO;
+import com.fitanywhere.socialpost.model.SocialPostVO;
 
 @Entity
 @Table(name = "user")
-public class UserVO {
+public class UserVO implements java.io.Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "u_id")
 	private Integer uId;
+	
+	
+	// Tommy
+	@ManyToOne
+	@JoinColumn(name = "mood_id")
+	private MoodVO moodVO;
 
-	@Column(name = "mood_id")
-	private Integer moodId;
+	public MoodVO getMoodVO() {
+		return moodVO;
+	}
+
+	public void setMoodVO(MoodVO moodVO) {
+		this.moodVO = moodVO;
+	}
 
 	@Column(name = "u_nickname")
 	private String uNickname;
@@ -57,6 +75,20 @@ public class UserVO {
 	private Date uRegisterdate;
 
 
+
+	//Tommy
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="userVO")
+	private Set<SocialPostVO> socialposts = new HashSet<SocialPostVO>();
+
+	public Set<SocialPostVO> getSocialposts() {
+		return this.socialposts;
+	}
+
+	public void setSocialposts(Set<SocialPostVO> socialposts) {
+		this.socialposts = socialposts;
+	}
+
+
 	// Constructor
 	public UserVO() {
 		// Default constructor
@@ -71,13 +103,13 @@ public class UserVO {
 		this.uId = uId;
 	}
 
-	public Integer getMoodId() {
-		return moodId;
-	}
-
-	public void setMoodId(Integer moodId) {
-		this.moodId = moodId;
-	}
+//	public Integer getMoodId() {
+//		return moodId;
+//	}
+//
+//	public void setMoodId(Integer moodId) {
+//		this.moodId = moodId;
+//	}
 
 	public String getuNickname() {
 		return uNickname;
@@ -160,23 +192,27 @@ public class UserVO {
 	}
 	
 
-	public UserVO(Integer uId, Integer moodId, String uNickname, String uName, String uMail, String uPassword,
-			String uPhone, Integer uGender, byte[] uHeadshot,
-			Date uBirth, Integer uStatus, Date uRegisterdate) {
-		super();
-		this.uId = uId;
-		this.moodId = moodId;
-		this.uNickname = uNickname;
-		this.uName = uName;
-		this.uMail = uMail;
-		this.uPassword = uPassword;
-		this.uPhone = uPhone;		
-		this.uGender = uGender;
-		this.uHeadshot = uHeadshot;
-		this.uBirth = uBirth;
-		this.uStatus = uStatus;	
-		this.uRegisterdate= uRegisterdate;
-	}
+
+
+// Tommy 註解 因為大家在關聯的狀況下新增變數
+//	public UserVO(Integer uId, Integer moodId, String uNickname, String uName, String uMail, String uPassword,
+//			String uPhone, Integer uGender, byte[] uHeadshot,
+//			Date uBirth, Integer uStatus, Date uRegisterdate) {
+//		super();
+//		this.uId = uId;
+//		this.moodId = moodId;
+//		this.uNickname = uNickname;
+//		this.uName = uName;
+//		this.uMail = uMail;
+//		this.uPassword = uPassword;
+//		this.uPhone = uPhone;		
+//		this.uGender = uGender;
+//		this.uHeadshot = uHeadshot;
+//		this.uBirth = uBirth;
+//		this.uStatus = uStatus;	
+//		this.uRegisterdate= uRegisterdate;
+//	}
+
 }
 	
 

@@ -20,4 +20,6 @@ public interface UserJpaRepository extends JpaRepository<UserVO, Integer> {
     
     @Query("FROM UserVO WHERE uId = :uId")
     UserVO findByuId(Integer uId);
+    
+
 }

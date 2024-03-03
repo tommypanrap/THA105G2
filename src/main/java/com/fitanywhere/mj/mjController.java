@@ -17,45 +17,45 @@ public class mjController {
 		return "front-end/mj/cart";
 	}
 	
-	@GetMapping("course-details-2")
+	@GetMapping("course_details_2")
 	public String courseDetail(ModelMap model) {
-		return "front-end/mj/course-details-2";
+		return "front-end/mj/course_details_2";
 	}
 	
 	
-	@GetMapping("course-filter-two-toggle")
+	@GetMapping("course_filter_two_toggle")
 	public String courseList(ModelMap model) {
-		return "front-end/mj/course-filter-two-toggle";
+		return "front-end/mj/course_filter_two_toggle";
 	}	
 	
-	@GetMapping("student-enrolled-courses")
+	@GetMapping("student_enrolled_courses")
 	public String studentCourses(ModelMap model) {
 		
-		return "front-end/mj/student-enrolled-courses";
+		return "front-end/mj/student_enrolled_courses";
 	}	
-	@GetMapping("student-gift-history")
+	@GetMapping("student_gift_history")
 	public String courseGiftHistory(ModelMap model) {
 		
-		return "front-end/mj/student-gift-history";
+		return "front-end/mj/student_gift_history";
 	}	
-	@GetMapping("student-my-quiz-attempts")
+	@GetMapping("student_my_quiz_attempts")
 	public String courseMyQuiz(ModelMap model) {
 		
-		return "front-end/mj/student-my-quiz-attempts";
+		return "front-end/mj/student_my_quiz_attempts";
 	}	
-	@GetMapping("student-order-history")
+	@GetMapping("student_order_history")
 	public String courseOrderHistory(ModelMap model) {
 		
-		return "front-end/mj/student-order-history";
+		return "front-end/mj/student_order_history";
 	}	
-	@GetMapping("student-reviews")
+	@GetMapping("student_reviews")
 	public String courseReviews(ModelMap model) {
 		
-		return "front-end/mj/student-reviews";
+		return "front-end/mj/student_reviews";
 	}
-	@GetMapping("student-wishlist")
+	@GetMapping("student_wishlist")
 	public String courseWishList(ModelMap model) {
 		
-		return "front-end/mj/student-wishlist";
+		return "front-end/mj/student_wishlist";
 	}
 }

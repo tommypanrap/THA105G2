@@ -1,7 +1,7 @@
 package com.fitanywhere.order.controller;
 
 import javax.servlet.http.HttpServletRequest;
-
+import javax.servlet.http.HttpSession;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.constraints.Digits;
@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,6 +35,25 @@ public class OrderIdController {
 	@Autowired
 	OrderService orderSvc;
 
+	// 訂單歷史紀錄(沒有訂單detail)
+	@GetMapping("order_history")
+	public String getUserOrders(ModelMap model,HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		
+		if(session !=null) {
+			Integer uId =(Integer) session.getAttribute("uId");
+			if(uId !=null) {
+				List<OrderVO> orderList = orderSvc.getOrders(uId);
+				model.addAttribute("orderListData",orderList);
+				
+				return "front-end/order/student_order_history";
+			}
+			
+		}
+		return "front-end/user/user_login";
+	}
+	
+	
 	/*
 	 * This method will be called on select_page.html form submission, handling POST
 	 * request It also validates the user input

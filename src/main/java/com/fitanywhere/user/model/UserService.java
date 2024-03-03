@@ -11,9 +11,7 @@ import com.fitanywhere.util.EncryptionUtil;
 public class UserService {
 
 	
-	
-	@Autowired
-	UserJpaRepository repository;
+
 	
     @Autowired
     private UserJpaRepository userJpaRepository;
@@ -63,6 +61,6 @@ public class UserService {
 
  // Tommy
  	public List<UserVO> getAll() {
- 		return repository.findAll();
+ 		return userJpaRepository.findAll();
  	}
 }

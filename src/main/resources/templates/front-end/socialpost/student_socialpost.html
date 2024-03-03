@@ -322,7 +322,7 @@
                                 </div>
                                 <div class="post-content-edit">
                                     <form th:action="@{update_social_post}"  method="post" th:object="${socialPostVO}" enctype="multipart/form-data">
-                                        <textarea name="spcontent" id="spcontent_textarea" cols="30" rows="10" ></textarea>
+                                        <textarea name="spcontent" id="spcontent_textarea" cols="30" rows="10" th:value="${socialPost.spcontent}"></textarea>
 <!--                                         <div class="course-field mb--20"> -->
                                                         
 <!--                                             <div class="rbt-create-course-thumbnail upload-area"> -->

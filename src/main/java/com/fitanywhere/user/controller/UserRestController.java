@@ -88,8 +88,7 @@ public class UserRestController {
 
 			// 在新Session寫入已登入會員資訊
 			newSession.setAttribute("uId", user.getuId());
-			newSession.setAttribute("uNickname", user.getuNickname());
-			newSession.setAttribute("uCoach", user.getuCoach());
+			newSession.setAttribute("uNickname", user.getuNickname());			
 			newSession.setAttribute("uStatus", user.getuStatus());
 
 			// 有登入的Session才有"loginStatus" 直接確認Session有沒有"loginStatus"這個項目就能判斷有無登入

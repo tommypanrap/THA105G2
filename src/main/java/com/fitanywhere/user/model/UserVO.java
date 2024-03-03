@@ -39,14 +39,6 @@ public class UserVO {
 	@Column(name = "u_phone")
 	private String uPhone;
 
-	@Column(name = "u_verified")
-	private Integer uVerified;
-//	0 = 未驗證email; 1 = 已驗證email;
-
-	@Column(name = "u_coach")
-	private Integer uCoach;
-//	0 = 一般會員; 1 = 教練;
-
 	@Column(name = "u_gender")
 	private Integer uGender;
 //	0 = 男; 1 = 女; 2 = 其他;
@@ -64,8 +56,6 @@ public class UserVO {
 	@Column(name = "u_registerdate")
 	private Date uRegisterdate;
 
-	@Column(name = "c_intro")
-	private String cIntro;
 
 	// Constructor
 	public UserVO() {
@@ -129,22 +119,6 @@ public class UserVO {
 		this.uPhone = uPhone;
 	}
 
-	public Integer getuVerified() {
-		return uVerified;
-	}
-
-	public void setuVerified(Integer uVerified) {
-		this.uVerified = uVerified;
-	}
-
-	public Integer getuCoach() {
-		return uCoach;
-	}
-
-	public void setuCoach(Integer uCoach) {
-		this.uCoach = uCoach;
-	}
-
 	public Integer getuGender() {
 		return uGender;
 	}
@@ -184,18 +158,11 @@ public class UserVO {
 	public void setuRegisterdate(Date uRegisterdate) {
 		this.uRegisterdate = uRegisterdate;
 	}
-
-	public String getcIntro() {
-		return cIntro;
-	}
-
-	public void setcIntro(String cIntro) {
-		this.cIntro = cIntro;
-	}
+	
 
 	public UserVO(Integer uId, Integer moodId, String uNickname, String uName, String uMail, String uPassword,
-			String uPhone, Integer uVerified, Integer uCoach, Integer uGender, Integer uAge, byte[] uHeadshot,
-			Date uBirth, Integer uStatus, String cIntro) {
+			String uPhone, Integer uGender, byte[] uHeadshot,
+			Date uBirth, Integer uStatus, Date uRegisterdate) {
 		super();
 		this.uId = uId;
 		this.moodId = moodId;
@@ -203,14 +170,12 @@ public class UserVO {
 		this.uName = uName;
 		this.uMail = uMail;
 		this.uPassword = uPassword;
-		this.uPhone = uPhone;
-		this.uVerified = uVerified;
-		this.uCoach = uCoach;
+		this.uPhone = uPhone;		
 		this.uGender = uGender;
 		this.uHeadshot = uHeadshot;
 		this.uBirth = uBirth;
-		this.uStatus = uStatus;
-		this.cIntro = cIntro;
+		this.uStatus = uStatus;	
+		this.uRegisterdate= uRegisterdate;
 	}
 }
 	

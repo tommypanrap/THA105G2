@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>員工資料修改 - update_emp_input.html</title>
+
+<head th:insert="~{/back-end/student_course/included_fragment}"></head>
+<style type="text/css">
+	
+	button {
+		padding: 5px;
+	}
+	form {
+		display: table;
+	}
+	form div {
+		display: table-row;
+	}
+	label, input, span, select {
+		display: table-cell;
+		margin: 5px;
+		text-align: left;		
+	}
+	input[type=text], input[type=password], select, textarea {
+		width: 200px;
+		margin: 5px;
+	}
+	form div div {
+		display: table-cell;
+	}
+	.center {
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
+		 <div align="center"> <h2>員工資料修改 - update_emp_input.html</h2>
+		 <h3><a class="navbar-brand" th:href="@{/student_course/select_page}"><img th:src="@{/images/back1.gif}">回查詢頁</a></h3></div>
+</nav>
+
+	<div align="center">
+		<h3><b>所有欄位皆為必填欄位</b></h3>
+		<form th:action="@{update}" method="post" th:object="${courseVO}" enctype="multipart/form-data">
+			<div>
+				<label>課程編號:</label> 
+				<input type="text" th:field="*{crId}" style="border:0px ; font-weight: bold;" readonly /><br/>
+			</div>
+
+			<div>
+				<label>會員編號:</label> 
+				<input type="text" th:field="*{uId}" onclick="hideContent('uId.errors');" /><br /> 
+				<span th:if="${#fields.hasErrors('uId')}" th:errors="*{uId}" class="error" id="uId.errors"></span>
+			</div>
+			
+			<div>
+				<label>類別:</label> 
+				<input type="text" th:field="*{crClass}" onclick="hideContent('crClass.errors');" /><br /> 
+				<span th:if="${#fields.hasErrors('crClass')}" th:errors="*{crClass}" class="error" id="crClass.errors"></span>
+			</div>
+			
+			<div>
+				<label>課程標題:</label> 
+				<input type="text" th:field="*{crTitle}" onclick="hideContent('crTitle.errors');" /><br /> 
+				<span th:if="${#fields.hasErrors('crTitle')}" th:errors="*{crTitle}" class="error" id="crTitle.errors"></span>
+			</div>
+			
+			<div>
+				<label>課程副標題:</label> 
+				<input type="text" th:field="*{crSubtitle}" onclick="hideContent('crSubtitle.errors');" /><br /> 
+				<span th:if="${#fields.hasErrors('crSubtitle')}" th:errors="*{crSubtitle}" class="error" id="crSubtitle.errors"></span>
+			</div>
+			
+			<div>
+				<label>課程介紹:</label> 
+				<input type="text" th:field="*{crIntro}" onclick="hideContent('crIntro.errors');" /><br /> 
+				<span th:if="${#fields.hasErrors('crIntro')}" th:errors="*{crIntro}" class="error" id="crIntro.errors"></span>
+			</div>
+			
+			<div>
+				<label>課程封面縮圖:</label> 
+				<input type="file" th:field="*{crCover}" onclick="previewImage()" multiple="multiple"/>
+<!-- 				<span  th:if="${#fields.hasErrors('crCover')}" th:errors="*{crCover}" class="error" id="crCover.errors"></span> -->
+				<div id="blob_holder"><img th:src="@{/course/DBGifReader} + '?crId=' + ${courseVO.crId}" width="100px"></div>
+			</div>
+			
+			<div>
+				<label>課程定價:</label> 
+				<input type="text" th:field="*{crPrice}" onclick="hideContent('crPrice.errors');" /><br /> 
+				<span th:if="${#fields.hasErrors('crPrice')}" th:errors="*{crPrice}" class="error" id="crPrice.errors"></span>
+			</div>
+			
+			<div>
+				<label>課程上架時間:</label> 
+				<input 
+				type="datetime-local" 
+				step=1 
+				th:field="*{crCreateDate}" 
+				onclick="hideContent('crCreateDate.errors');" /><br/>
+				<span 
+				th:if="${#fields.hasErrors('crCreateDate')}" 
+				th:errors="*{crCreateDate}" 
+				class="error" 
+				id="crCreateDate.errors"></span>
+			</div>
+			
+			<div>
+				<label>課程最後更新時間:</label> 
+				<input 
+				type="datetime-local" 
+				step=1 
+				th:field="*{crEditDate}" 
+				onclick="hideContent('crEditDate.errors');" />
+				<br/>
+				<span 
+				th:if="${#fields.hasErrors('crEditDate')}" 
+				th:errors="*{crEditDate}" 
+				class="error" 
+				id="crEditDate.errors"></span>
+			</div>
+			
+			<div>
+				<label>課程評論數量:</label> 
+				<input type="text" th:field="*{crCmQuan}" onclick="hideContent('crCmQuan.errors');" /><br/>
+				<span th:if="${#fields.hasErrors('crCmQuan')}" th:errors="*{crCmQuan}" class="error" id="crCmQuan.errors"></span>
+			</div>
+			
+			<div>
+				<label>課程總星數:</label> 
+				<input type="text" th:field="*{crTotStar}" onclick="hideContent('crTotStar.errors');" /><br/>
+				<span th:if="${#fields.hasErrors('crTotStar')}" th:errors="*{crTotStar}" class="error" id="crTotStar.errors"></span>
+			</div>
+			
+			<div>
+				<label>學習目標1:</label> 
+				<input type="text" th:field="*{crPurpose1}" onclick="hideContent('crPurpose1.errors');" /><br/>
+				<span th:if="${#fields.hasErrors('crPurpose1')}" th:errors="*{crPurpose1}" class="error" id="crPurpose1.errors"></span>
+			</div>
+			
+			<div>
+				<label>學習目標2:</label> 
+				<input type="text" th:field="*{crPurpose2}" onclick="hideContent('crPurpose2.errors');" /><br/>
+				<span th:if="${#fields.hasErrors('crPurpose2')}" th:errors="*{crPurpose2}" class="error" id="crPurpose2.errors"></span>
+			</div>
+			
+			<div>
+				<label>學習目標3:</label> 
+				<input type="text" th:field="*{crPurpose3}" onclick="hideContent('crPurpose3.errors');" /><br/>
+				<span th:if="${#fields.hasErrors('crPurpose3')}" th:errors="*{crPurpose3}" class="error" id="crPurpose3.errors"></span>
+			</div>
+			
+			<div>
+				<label>目標學習先決條件:</label> 
+				<input type="text" th:field="*{crPre}" onclick="hideContent('crPre.errors');" /><br/>
+				<span th:if="${#fields.hasErrors('crPre')}" th:errors="*{crPre}" class="error" id="crPre.errors"></span>
+			</div>
+			
+			<div>
+				<label>目標學習適合對象:</label> 
+				<input type="text" th:field="*{crTarget1}" onclick="hideContent('crTarget1.errors');" /><br/>
+				<span th:if="${#fields.hasErrors('crTarget1')}" th:errors="*{crTarget1}" class="error" id="crTarget1.errors"></span>
+			</div>
+			
+			<div>
+				<label>歡迎訊息:</label> 
+				<input type="text" th:field="*{crHelloMsg}" onclick="hideContent('crHelloMsg.errors');" /><br/>
+				<span th:if="${#fields.hasErrors('crHelloMsg')}" th:errors="*{crHelloMsg}" class="error" id="crHelloMsg.errors"></span>
+			</div>
+			
+			<div>
+				<label>祝賀訊息:</label> 
+				<input type="text" th:field="*{crCong}" onclick="hideContent('crCong.errors');" /><br/>
+				<span th:if="${#fields.hasErrors('crCong')}" th:errors="*{crCong}" class="error" id="crCong.errors"></span>
+			</div>
+			
+			<div>
+				<label>困難度:</label> 
+				<input type="text" th:field="*{crLevel}" onclick="hideContent('crLevel.errors');" /><br/>
+				<span th:if="${#fields.hasErrors('crLevel')}" th:errors="*{crLevel}" class="error" id="crLevel.errors"></span>
+			</div>
+			
+			<div>
+				<div></div>
+				<div><button type="submit" id="submit"> 送出修改 </button></div>
+				<div></div>
+			</div>		
+		</form>
+	
+	</div>
+
+
+<!-- JavaScript part -->
+<script type="text/javascript">
+//清除提示信息
+function hideContent(d) {
+     document.getElementById(d).style.display = "none";
+}
+
+//照片上傳-預覽用
+var filereader_support = typeof FileReader != 'undefined';
+if (!filereader_support) {
+	alert("No FileReader support");
+}
+acceptedTypes = {
+		'image/png' : true,
+		'image/jpeg' : true,
+		'image/gif' : true
+};
+function previewImage() {
+	var upfile1 = document.getElementById("upFiles");
+	upfile1.addEventListener("change", function(event) {
+		var files = event.target.files || event.dataTransfer.files;
+		for (var i = 0; i < files.length; i++) {
+			previewfile(files[i])
+		}
+	}, false);
+}
+function previewfile(file) {
+	if (filereader_support === true && acceptedTypes[file.type] === true) {
+		var reader = new FileReader();
+		reader.onload = function(event) {
+			var image = new Image();
+			image.src = event.target.result;
+			image.width = 100;
+			image.height = 75;
+			image.border = 2;
+			if (blob_holder.hasChildNodes()) {
+				blob_holder.removeChild(blob_holder.childNodes[0]);
+			}
+			blob_holder.appendChild(image);
+		};
+		reader.readAsDataURL(file);
+		document.getElementById('submit').disabled = false;
+	} else {
+		blob_holder.innerHTML = "<div  style='text-align: left;'>" + "● filename: " + file.name
+				+ "<br>" + "● ContentTyp: " + file.type
+				+ "<br>" + "● size: " + file.size + "bytes"
+				+ "<br>" + "● 上傳ContentType限制: <b> <font color=red>image/png、image/jpeg、image/gif </font></b></div>";
+		document.getElementById('submit').disabled = true;
+	}
+}
+</script>
+
+</body>
+</html>

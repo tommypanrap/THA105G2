@@ -18,14 +18,12 @@ import com.fitanywhere.user.model.UserJpaRepository;
 public class UserController {
 
 	@Autowired
-
 	private UserService userService;
 
 	@GetMapping("/user_register")
 	public String userRegister() {
 		return "front-end/user/user_register";
 	}
-
 
 	@GetMapping("/user_login")
 	public String userLogin() {

@@ -21,7 +21,10 @@ public class OrderService {
 //	public void addOrder(OrderVO orderVO) {
 //		repository.save(orderVO);
 //	}
-
+	public List<OrderVO> getOrders(Integer uId) {
+		return repository.findByuId(uId);
+	}
+		
 	public void addOrder(OrderVO orderVO) {
 		repository.insertOrder(
 				orderVO.getuId(), 

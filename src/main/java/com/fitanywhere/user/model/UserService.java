@@ -23,6 +23,18 @@ public class UserService {
         UserVO user = userJpaRepository.findByuMail(uMail);
         return user != null;
     }
+    
+    // 檢查信箱是否註冊
+    public boolean isNicknameRegistered(String uNickname) {
+        UserVO user = userJpaRepository.findByuNickname(uNickname);
+        return user != null;
+    }
+    
+    // 檢查信箱是否註冊
+    public boolean isPhoneRegistered(String uPhone) {
+        UserVO user = userJpaRepository.findByuPhone(uPhone);
+        return user != null;
+    }
 
     // 核對登入密碼是否正確
     public UserVO userLogin(String uMail, String inputPassword) {

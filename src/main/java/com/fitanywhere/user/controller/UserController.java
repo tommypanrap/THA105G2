@@ -50,7 +50,6 @@ public class UserController {
 	public UserVO profile(ModelMap model) {
 
 		Integer uId = 10001;
-
 		UserVO userVO = userService.getUser(uId);
 		return userVO;
 	}

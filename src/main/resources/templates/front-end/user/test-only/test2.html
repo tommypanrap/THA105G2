@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>用戶資料查詢</title>
+</head>
+<body>
+    <h2>查詢用戶資料</h2>
+    <form id="userDataForm">
+        <label for="uId">用戶ID：</label>
+        <input type="text" id="uId" name="uId" required>
+        <button type="button" onclick="submitForm()">提交</button>
+    </form>
+    <div id="userDataDisplay"></div>
+
+    <script>
+        function submitForm() {
+            var uId = document.getElementById('uId').value;
+            fetch('/user_api/get_user_all_data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ uId: uId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                var displayContent = '';
+                for (var key in data) {
+                    displayContent += '<p>' + key + ' = ' + data[key] + '</p>';
+                }
+                document.getElementById('userDataDisplay').innerHTML = displayContent;
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>

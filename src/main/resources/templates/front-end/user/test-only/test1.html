@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+    <!-- 上半部分：更新用户照片 -->
+    <form action="/user_api/user_update_photo_test" method="POST" enctype="multipart/form-data">
+        <label for="u_id">User ID:</label>
+        <input type="text" id="u_id" name="u_id"><br>
+        <label for="photo">Select photo:</label>
+        <input type="file" id="photo" name="photo" accept="image/*"><br>
+        <input type="submit" value="Update Photo">
+    </form>
+
+    <!-- 下半部分：获取并显示用户照片 -->
+    <form id="getPhotoForm" action="/user_api/user_headshot" method="POST">
+        <label for="get_u_id">User ID:</label>
+        <input type="text" id="get_u_id" name="u_id"><br>
+        <input type="button" value="Get Photo" onclick="fetchPhoto()">
+    </form>
+    <img id="userPhoto" src="" alt="User Photo" style="display:none;">
+
+    <script>
+        function fetchPhoto() {
+            const userId = document.getElementById('get_u_id').value;
+            fetch('/user_api/user_headshot', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ u_id: userId })
+            })
+            .then(response => response.blob())
+            .then(blob => {
+                const imageUrl = URL.createObjectURL(blob);
+                document.getElementById('userPhoto').src = imageUrl;
+                document.getElementById('userPhoto').style.display = 'block';
+            })
+            .catch(error => console.error('Error fetching photo:', error));
+        }
+    </script>
+</body>
+</html>

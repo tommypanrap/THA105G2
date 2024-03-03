@@ -157,26 +157,9 @@ public class UserVO {
 
 	public void setuRegisterdate(Date uRegisterdate) {
 		this.uRegisterdate = uRegisterdate;
-	}
-	
+	}	
 
-	public UserVO(Integer uId, Integer moodId, String uNickname, String uName, String uMail, String uPassword,
-			String uPhone, Integer uGender, byte[] uHeadshot,
-			Date uBirth, Integer uStatus, Date uRegisterdate) {
-		super();
-		this.uId = uId;
-		this.moodId = moodId;
-		this.uNickname = uNickname;
-		this.uName = uName;
-		this.uMail = uMail;
-		this.uPassword = uPassword;
-		this.uPhone = uPhone;		
-		this.uGender = uGender;
-		this.uHeadshot = uHeadshot;
-		this.uBirth = uBirth;
-		this.uStatus = uStatus;	
-		this.uRegisterdate= uRegisterdate;
-	}
+	
 }
 	
 

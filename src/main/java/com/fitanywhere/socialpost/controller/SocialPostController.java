@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fitanywhere.socialpost.model.SocialPostService;
 import com.fitanywhere.socialpost.model.SocialPostVO;
+import com.fitanywhere.mood.model.MoodVO;
 import com.fitanywhere.user.model.UserService;
 import com.fitanywhere.user.model.UserVO;
 
@@ -89,9 +90,11 @@ public class SocialPostController {
 	@GetMapping("student_socialpost")
 	public String getUserInfo(HttpServletRequest req, ModelMap model) {
 		HttpSession newSession = req.getSession(true);
-		
+		System.out.println("印出session"+newSession);
 	    UserVO userVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
 	    model.addAttribute("userVO", userVO);
+	    
+	    System.out.println("心情"+userVO.getMoodVO());
 	    
 	    SocialPostVO socialPostVO = new SocialPostVO();
 		model.addAttribute("socialPostVO", socialPostVO);
@@ -108,7 +111,6 @@ public class SocialPostController {
 		HttpSession newSession = req.getSession(true);
 		UserVO userVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
 		socialPostVO.setUserVO(userVO);
-		System.out.println(socialPostVO.getUserVO().getuId());
 		
 		socialPostVO.setSptime(new Timestamp(System.currentTimeMillis()));
 		
@@ -150,6 +152,19 @@ public class SocialPostController {
 		model.addAttribute("socialPostVO", socialPostVO);
 		
 		return "front-end/socialpost/update_socialpost_input"; // 查詢完成後轉交update_emp_input.html
+	}
+	
+	
+	@PostMapping("update_social_post")
+	public String update_social_post(@RequestParam("spid") String spid, ModelMap model) {
+		System.out.println("update_social_post有	進來");
+		/*************************** 2.開始查詢資料 *****************************************/
+		SocialPostVO socialPostVO = socialPostSvc.getOneSocialPost(Integer.valueOf(spid));
+		
+		/*************************** 3.查詢完成,準備轉交(Send the Success view) **************/
+		model.addAttribute("socialPostVO", socialPostVO);
+		
+		return "redirect:/socialpost/student_socialpost"; // 
 	}
 	
 	@PostMapping("update")

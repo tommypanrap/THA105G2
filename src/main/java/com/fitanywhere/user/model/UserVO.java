@@ -11,9 +11,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fitanywhere.mood.model.MoodVO;
 import com.fitanywhere.socialpost.model.SocialPostVO;
 
 @Entity
@@ -24,9 +27,20 @@ public class UserVO implements java.io.Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "u_id")
 	private Integer uId;
+	
+	
+	// Tommy
+	@ManyToOne
+	@JoinColumn(name = "mood_id")
+	private MoodVO moodVO;
 
-	@Column(name = "mood_id")
-	private Integer moodId;
+	public MoodVO getMoodVO() {
+		return moodVO;
+	}
+
+	public void setMoodVO(MoodVO moodVO) {
+		this.moodVO = moodVO;
+	}
 
 	@Column(name = "u_nickname")
 	private String uNickname;
@@ -97,13 +111,13 @@ public class UserVO implements java.io.Serializable{
 		this.uId = uId;
 	}
 
-	public Integer getMoodId() {
-		return moodId;
-	}
-
-	public void setMoodId(Integer moodId) {
-		this.moodId = moodId;
-	}
+//	public Integer getMoodId() {
+//		return moodId;
+//	}
+//
+//	public void setMoodId(Integer moodId) {
+//		this.moodId = moodId;
+//	}
 
 	public String getuNickname() {
 		return uNickname;

@@ -176,7 +176,7 @@
                                 <div class="thumbnail rbt-avatars size-lg">
                                     <img th:src="@{/images/member.png}" alt="Instructor"  style="position: relative;">
                                     <div class="Emoji">
-                                        <img th:src="@{/images/emoji.png}" alt="mood-Emoji" style="height: 4rem; width: 4rem; position: absolute; right: 0; bottom: 0.5rem"> 
+                                        <img th:src="@{/socialpost/MoodDBGifReader} + '?uId=' + ${userVO.uId}" alt="mood-Emoji" style="height: 4rem; width: 4rem; position: absolute; right: 0; bottom: 0.5rem"> 
                                         
                                     </div>
                                 </div>
@@ -307,11 +307,11 @@
                                         
                                         <div class="title-info">
                                             <p th:text="${userVO.uNickname}">振宇健身房</p>
-                                            <p>2023年8月1日</p>
+                                            <p th:text="${#dates.format(socialPost.sptime, 'yyyy年MM月dd日')}">2023年8月1日</p>
                                         </div>
                                     </div>
 
-                                    <img th:src="@{/images/edit.png}" alt="">
+                                    <img th:src="@{/images/edit.png}" alt="" class="edit">
     
                                 </div>
 								
@@ -320,8 +320,41 @@
                                     <p th:text="${socialPost.spcontent}">content</p>
                                     <img th:src="@{/socialpost/DBGifReader} + '?spid=' + ${socialPost.spid}" alt="" >
                                 </div>
-                                
+                                <div class="post-content-edit">
+                                    <form th:action="@{update_social_post}"  method="post" th:object="${socialPostVO}" enctype="multipart/form-data">
+                                        <textarea name="spcontent" id="spcontent_textarea" cols="30" rows="10" ></textarea>
+<!--                                         <div class="course-field mb--20"> -->
+                                                        
+<!--                                             <div class="rbt-create-course-thumbnail upload-area"> -->
+<!--                                                 <div class="upload-area"> -->
+<!--                                                     <div class="brows-file-wrapper" data-black-overlay="9"> -->
+<!--                                                         actual upload which is hidden -->
+<!--                                                         <input name="createinputfile" id="createinputfile" type="file" class="inputfile" /> -->
+<!--                                                         <img id="createfileImage" src="assets/images/others/thumbnail-placeholder.svg" alt="file image"> -->
+<!--                                                         our custom upload button -->
+<!--                                                         <label class="d-flex" for="createinputfile" title="No File Choosen"> -->
+<!--                                                             <i class="feather-upload"></i> -->
+<!--                                                             <span class="text-center">Choose a File</span> -->
+<!--                                                         </label> -->
+<!--                                                     </div> -->
+<!--                                                 </div> -->
+<!--                                             </div> -->
+
+<!--                                             <small><i class="feather-info"></i> <b>Size:</b> 700x430 pixels, <b>File
+<!--                                                 Support:</b> JPG, JPEG, PNG, GIF, WEBP</small> --> 
+<!--                                         </div> -->
+										<input type="hidden" name="spid" th:value="${socialPost.spid}">
+                                        <div class="member-detail-row-button edit-social-post-button">
+
+                                            <button type="submit"  class="edit-socialpost edit-socialpost-confirm">確認</button>
+                                            <button type="button" class="edit-socialpost edit-socialpost-cancel">取消</button>
+                                            
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
+                            
+                            
 </div>
                         </div>
 

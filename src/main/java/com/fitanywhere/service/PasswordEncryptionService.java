@@ -1,8 +1,9 @@
-package com.fitanywhere.util;
+package com.fitanywhere.service;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-public class EncryptionUtil {
+//Eugen
+public class PasswordEncryptionService {
 	
 	
 	/* 需要在pom.xml導入(尚未導入SPRING時)

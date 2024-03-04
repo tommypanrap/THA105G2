@@ -74,13 +74,6 @@ public class AnnController {
 		return "front-end/course/course_announcement"; // 新增成功後重導至IndexController_inSpringBoot.java的第50行@GetMapping("/emp/listAllEmp")
 	}
 	
-//	@GetMapping("/announcements")
-//	public String getAnnouncements(Model model) {
-//	    List<AnnVO> announcementList = annSvc.getAll();
-//	    model.addAttribute("announcements", announcementList);
-//	    System.out.println("dddd");
-//	    return "announcements"; // 返回到包含表格的模板页面
-//	}
 	
 
 	/*

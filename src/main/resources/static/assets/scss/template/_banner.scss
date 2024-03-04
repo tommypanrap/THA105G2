@@ -1,0 +1,1597 @@
+/*------------------------------
+ * HiStudy Banner Styles
+---------------------------------*/
+.active-header-transparent {
+    .rbt-banner-area {
+        padding-top: 100px;
+    }
+}
+
+.height-350 {
+    height: 350px;
+}
+
+.height-245 {
+    height: 245px;
+}
+
+
+.height-850 {
+    height: 850px;
+    display: flex;
+    align-items: center;
+    @media #{$smlg-device} {
+        height: auto;
+    }
+}
+
+.height-650 {
+    height: 650px;
+    display: flex;
+    align-items: center;
+    @media #{$smlg-device} {
+        height: auto;
+    }
+}
+
+.height-750 {
+    height: 750px;
+    display: flex;
+    align-items: center;
+    @media #{$md-layout} {
+        height: auto;
+    }
+    @media #{$sm-layout} {
+        height: auto;
+    }
+}
+.height-950 {
+    height: 950px;
+    display: flex;
+    align-items: center;
+    @media #{$md-layout} {
+        height: auto;
+    }
+    @media #{$sm-layout} {
+        height: auto;
+    }
+}
+
+.rbt-display-1 {
+    font-size: 80px !important;
+    line-height: 1.1 !important;
+    @media #{$lg-layout} {
+        font-size: 70px !important;
+    }
+    @media #{$md-layout} {
+        font-size: 60px !important;
+    }
+    @media #{$sm-layout} {
+        font-size: 40px !important;
+    }
+    @media #{$large-mobile} {
+        font-size: 28px !important;
+    }
+}
+
+.rbt-display-2 {
+    font-size: 53px !important;
+    line-height: 1.3 !important;
+    @media #{$sm-layout} {
+        font-size: 42px;
+    }
+}
+
+
+/*-------------------------------------------------------
+    Banner Style Home One And Home Five (variation-2)
+-------------------------------------------------------------*/
+
+.rbt-banner-1 {
+    background-color: var(--color-light);
+    padding: 0 150px;
+    position: relative;
+    overflow: hidden;
+    background-image: url(../images/bg/bg-g1.webp);
+    background-position: top center;
+    @media #{$laptop-device} {
+        padding: 0 50px;
+    }
+    @media #{$lg-layout} {
+        padding: 0 30px;
+    }
+    @media #{$md-layout} {
+        padding: 0 60px;
+    }
+    @media #{$sm-layout} {
+        padding: 0 30px;
+    }
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        background: url(../images/bg/banner-bg-shape-1.svg);
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        width: 100vw;
+        height: 145px;
+        z-index: 9;
+        @media #{$lg-layout} {
+            height: 142px;
+        }
+        @media #{$sm-layout} {
+            height: 109px;
+        }
+    }
+    .content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      
+
+        @media #{$lg-layout} {
+            display: block;
+        }
+
+        @media #{$md-layout} {
+            display: block;
+        }
+
+        @media #{$sm-layout} {
+            display: block;
+        }
+
+        .inner {
+            position: relative;
+            z-index: 1;
+            .title {
+                font-size: 64px;
+                font-weight: 700;
+                margin-top: 40px;
+                margin-bottom: 20px;
+                @media #{$extra-device} {
+                    font-size: 50px;
+                }
+                @media #{$laptop-device} {
+                    font-size: 40px;
+                }
+                @media #{$lg-layout} {
+                    font-size: 54px;
+                }
+                @media #{$md-layout} {
+                    font-size: 42px;
+                }
+                @media #{$sm-layout} {
+                    font-size: 42px;
+                    margin-top: 20px;
+                }
+                @media #{$large-mobile} {
+                    font-size: 32px;
+                }
+            }
+            .description {
+                color: var(--color-body);
+                font-size: 22px;
+                margin-bottom: 40px;
+                font-weight: 400;
+                padding-right: 24px;
+                @media #{$extra-device} {
+                    font-size: 20px;
+                    margin-bottom: 30px;
+                }
+                @media #{$laptop-device} {
+                    padding-right: 18%;
+                    font-size: 18px;
+                }
+                @media #{$lg-layout} {
+                    padding-right: 26%;
+                }
+                @media #{$large-mobile} {
+                    font-size: 16px;
+                    margin-bottom: 20px;
+                    padding-right: 0;
+                }
+            }
+        }
+
+        .shape-wrapper {
+            margin-top: 20px;
+            z-index: 2;
+            margin-bottom: 6px;
+            position: relative;
+            left: -40px;
+            @media #{$lg-layout} {
+                left: 0;
+            }
+            @media #{$md-layout} {
+                left: -76px;
+                bottom: -14px;
+            }
+            @media #{$sm-layout} {
+                display: none;
+            }
+            img {
+                max-width: none;
+                height: auto;
+                max-width: 534px;
+                @media #{$md-layout} {
+                    max-width: 450px;
+                }
+                @media #{$sm-layout} {
+                    max-width: 450px;
+                }
+            }
+
+            .hero-bg-shape-1 {
+                position: absolute;
+                top: 112px !important;
+                left: 5px !important;
+                z-index: -3;
+
+                img {
+                    max-width: 100%;
+                    height: auto;
+                }
+            }
+
+            .hero-bg-shape-2 {
+                position: absolute;
+                top: 112px !important;
+                left: 70px !important;
+                z-index: -2;
+                img {
+                    max-width: 100%;
+                    height: auto;
+                }
+            }
+        }
+
+        .banner-card {
+            position: relative;
+            max-width: 390px;
+
+            
+            @media #{$lg-layout} {
+                position: absolute;
+                max-width: 350px;
+                bottom: 12%;
+                right: 7%;
+                z-index: 2;
+            }
+            @media #{$md-layout} {
+                position: absolute;
+                max-width: 290px;
+                bottom: 12%;
+                right: 40px;
+                z-index: 2;
+            }
+            @media #{$sm-layout} {
+                position: relative;
+                max-width: 320px;
+                bottom: 12%;
+                right: 40px;
+                z-index: 2;
+                margin-top: 40px;
+            }
+            @media #{$large-mobile} {
+                right: 0;
+                left: 0;
+            }
+        }
+    }
+
+    &.variation-2 {
+        @media #{$md-layout} {
+            padding: 0 60px;
+            padding-top: 100px;
+            padding-bottom: 100px;
+        }
+        @media #{$sm-layout} {
+            padding: 0 15px;
+            padding-top: 60px;
+            padding-bottom: 50px;
+        }
+        &::after {
+            display: none;
+        }
+        .content {
+            display: block;
+            @media #{$lg-layout} {
+                padding-right: 10%;
+            }
+            .banner-card {
+                margin: 0;
+                @media #{$md-layout} {
+                    position: static;
+                    margin-top: 40px;
+                }
+                @media #{$sm-layout} {
+                    position: static;
+                    margin-top: 40px;
+                }
+            }
+            .inner {
+                .title {
+                    font-size: 60px;
+                    font-weight: 700;
+                    margin-top: 40px;
+                    margin-bottom: 29px;
+                    padding-right: 10%;
+
+                    @media #{$laptop-device} {
+                        font-size: 50px;
+                    }
+
+                    @media #{$lg-layout} {
+                        font-size: 40px;
+                        margin-top: 20px;
+                        margin-bottom: 20px;
+                    }
+
+                    @media #{$md-layout} {
+                        font-size: 40px;
+                        margin-top: 20px;
+                        margin-bottom: 20px;
+                    }
+
+                    @media #{$sm-layout} {
+                        font-size: 30px;
+                        padding-right: 0;
+                        margin-bottom: 15px;
+                    }
+                }
+
+                .description {
+                    padding-right: 17%;
+                    
+                    @media #{$laptop-device} {
+                        padding-right: 20%;
+                    }
+
+                    @media #{$lg-layout} {
+                        font-size: 20px;
+                    }
+
+                    @media #{$md-layout} {
+                        font-size: 18px;
+                    }
+
+                    @media #{$sm-layout} {
+                        font-size: 18px;
+                    }
+                }
+
+                .rbt-new-badge {
+                    &.rbt-new-badge-one {
+                        &::before {
+                            box-shadow: none;
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+
+}
+
+
+/*------------------------------
+    Banner Style Home Two  
+-------------------------------*/
+
+.rbt-banner-2 {
+    background-color: var(--color-light);
+    position: relative;
+    background-image: url(../images/bg/bg-g1.webp);
+    background-position: top center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    .banner-content {
+        .inner {
+            position: relative;
+            z-index: 1;
+            .title {
+                font-size: 90px;
+                font-weight: 600;
+                letter-spacing: -2.5px;
+                max-width: 950px;
+                line-height: 1.06;
+                margin: 0 auto;
+                margin-bottom: 45px;
+
+                @media #{$lg-layout} {
+                    font-size: 60px;
+                }
+                @media #{$md-layout} {
+                    font-size: 50px;
+                }
+                @media #{$sm-layout} {
+                    font-size: 50px;
+                }
+                @media #{$large-mobile} {
+                    font-size: 35px;
+                    line-height: 1.3;
+                }
+            }
+        }
+    }
+    .service-wrapper {
+        position: relative;
+        .rbt-service {
+            &.rbt-service-2 {
+                position: relative;
+                top: 145px;
+            }
+        }
+    }
+    .wrapper {
+        padding-top: 50px;
+        padding-bottom: 100px;
+    }
+}
+
+
+/*-----------------------
+    Home 03 Banner 
+------------------------*/
+
+.rbt-banner-3 {
+    overflow: hidden;
+    z-index: 1;
+    position: relative;
+    .wrapper {
+        padding-top: 90px;
+        padding-bottom: 110px;
+        @media #{$md-layout} {
+            padding-top: 50px;
+            padding-bottom: 80px;
+        }
+        @media #{$sm-layout} {
+            padding-top: 50px;
+            padding-bottom: 80px;
+        }
+    }
+
+    .banner-content {
+        .inner {
+            .section-title {
+                margin-bottom: 10px;
+            }
+            .title {
+                font-size: 75px;
+                font-weight: 700;
+                margin-bottom: 30px;
+                @media #{$lg-layout} {
+                    font-size: 55px;
+                }
+                @media #{$md-layout} {
+                    font-size: 45px;
+                    margin-bottom: 18px;
+                }
+                @media #{$sm-layout} {
+                    font-size: 42px;
+                    margin-bottom: 18px;
+                }
+                @media #{$large-mobile} {
+                    font-size: 36px;
+                }
+            }
+            .description {
+                font-size: 20px;
+                line-height: 1.8;
+                margin-bottom: 26px;
+                @media #{$sm-layout} {
+                    font-size: 18px;
+                    margin-bottom: 23px;
+                }
+            }
+            .profile-share {
+                @media #{$sm-layout} {
+                    display: block;
+                }
+                a {
+                    img {
+                        max-width: 60px;
+                    }
+                }
+                .more-author-text {
+                    @media #{$sm-layout} {
+                        margin-left: 0;
+                        margin-top: 20px;
+                    }
+                }
+            }
+        }
+    }
+
+    .top-shape {
+        position: absolute;
+        z-index: -1;
+        top: -5px;
+        left: 70px;
+        @media #{$laptop-device} {
+            left: -100px;
+        }
+    }
+
+    .left-shape {
+        position: absolute;
+        z-index: -1;
+        bottom: 0;
+        right: 0;
+        @media #{$laptop-device} {
+            bottom: -120px;
+        }
+        @media #{$lg-layout} {
+            width: 75%;
+        }
+    }
+
+    .rbt-contact-form {
+        &.contact-form-style-1 {
+            margin-left: auto;
+            @media #{$md-layout} {
+                margin-left: 0;
+            }
+            @media #{$sm-layout} {
+                margin-left: 0;
+            }
+        }
+    }
+
+    .edumarque {
+        position: absolute;
+        z-index: -1;
+        bottom: 0;
+        right: 0;
+        background-image: url("../images/banner/histudy-text.png");
+        background-repeat: repeat-x;
+        background-size: auto;
+        height: 206px;
+        width: 52%;
+        @media #{$lg-layout} {
+            height: 275px;
+        }
+        @media #{$sm-layout} {
+            width: 72%;
+        }
+    }
+}
+
+/*-----------------------
+    Home 04 Banner  
+------------------------*/
+.rbt-banner-4 {
+    position: relative;
+    .wrapper {
+        padding: 140px 0;
+        @media #{$md-layout} {
+            padding: 80px 0;
+        }
+        @media #{$sm-layout} {
+            padding: 60px 0;
+        }
+    }
+    .inner {
+        position: relative;
+        z-index: 1;
+    }
+    .content {
+        .description {
+            font-weight: 500;
+            letter-spacing: -0.5px;
+            margin-top: 35px;
+            font-size: 24px;
+            margin-bottom: 40px;
+            @media #{$md-layout} {
+                font-weight: 400;
+                margin-top: 20px;
+                font-size: 20px;
+                margin-bottom: 20px;
+            }
+            @media #{$sm-layout} {
+                font-weight: 400;
+                margin-top: 20px;
+                font-size: 18px;
+                margin-bottom: 20px;
+            }
+        }
+        .rbt-list-style-2 {
+            @media #{$md-layout} {
+                margin-bottom: 20px;
+            }
+            @media #{$sm-layout} {
+                margin-bottom: 20px;
+            }
+        }
+    }
+    .banner-images {
+        .shape-image {
+            position: absolute;
+            bottom: 50px;
+            max-height: 560px;
+            object-fit: cover;
+            &.shape-image-1 {
+                left: 10%;
+            }
+            &.shape-image-2 {
+                right: 10%;
+            }
+        }
+    }
+    .shape {
+        position: absolute;
+        z-index: -1;
+        &.shape-1 {
+            top: 20%;
+            left: 200px;
+            img {
+                max-height: 100px;
+            }
+        }
+        &.shape-2 {
+            top: 20%;
+            right: 160px;
+            img {
+                max-height: 100px;
+            }
+        }
+        &.shape-3 {
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            img {
+                max-height: 240px;
+            }
+        }
+        &.shape-4 {
+            bottom: 20px;
+            right: 4%;
+            img {
+                max-height: 150px;
+            }
+        }
+    }
+}
+
+/*--------------------------------
+    Banner Home 06 && 12   
+--------------------------------*/
+
+.rbt-banner-5 {
+    @media #{$lg-layout} {
+        padding: 100px 0;
+    }
+    @media #{$md-layout} {
+        padding: 100px 0;
+    }
+    @media #{$sm-layout} {
+        padding: 100px 0;
+    }
+    .inner {
+        .subtitle {
+            font-size: 18px;
+            letter-spacing: 0.5px;
+            display: block;
+            margin-bottom: 18px;
+            color: var(--color-white);
+
+            @media #{$md-layout} {
+                font-size: 16px;
+                margin-bottom: 10px;
+            }
+
+            @media #{$sm-layout} {
+                font-size: 16px;
+                margin-bottom: 10px;
+            }
+
+            @media #{$large-mobile} {
+                font-size: 14px;
+            }
+        } 
+        .title {
+            margin-bottom: 25px;
+            display: inline-block;
+            color: var(--color-white);
+            font-size: 70px;
+            padding: 0 25%;
+            @media #{$laptop-device} {
+                 max-width: 100%;
+            }
+            @media #{$lg-layout} {
+                max-width: 100%;
+                font-size: 45px;
+            }
+            @media #{$md-layout} {
+                font-size: 40px;
+                padding: 0 17%;
+            }
+            @media #{$sm-layout} {
+                font-size: 42px;
+                padding: 0;
+            }
+            @media #{$large-mobile} {
+                font-size: 32px;
+            }
+            span {
+                display: inline-block;
+                label {
+                    margin-bottom: 0;
+                }
+            }
+        }
+        .description {
+            font-family: var(--font-primary);
+            padding: 0 22%;
+            font-size: 24px;
+            line-height: 1.7;
+            margin-bottom: 40px;
+            color: var(--color-white);
+            opacity: 0.7;
+            letter-spacing: -0.5px;
+
+            @media #{$lg-layout} {
+                padding: 0 14%;
+                font-size: 22px;
+                margin-bottom: 35px;
+            }
+
+            @media #{$md-layout} {
+                padding: 0 1%;
+                font-size: 20px;
+                margin-bottom: 30px;
+            }
+
+            @media #{$sm-layout} {
+                padding: 0 1%;
+                font-size: 20px;
+                margin-bottom: 30px;
+            }
+
+            @media #{$large-mobile} {
+                font-size: 18px;
+                margin-bottom: 25px;
+            }
+        }
+
+        .list-icon {
+            li {
+                color: var(--color-body);
+
+                .icon {
+                    background-color: var(--color-blackest) !important;
+                }
+            }
+        }
+
+        .header-caption {
+            span {
+                color: var(--color-white);
+                font-size: 85px;
+
+                @media #{$lg-layout} {
+                    font-size: 70px;
+                }
+
+                @media #{$md-layout} {
+                    font-size: 65px;
+                }
+
+                @media #{$sm-layout} {
+                    font-size: 65px;
+                }
+
+                @media #{$large-mobile} {
+                    font-size: 46px;
+                }
+            }
+        }
+
+        &.text-start {
+            .title {
+                padding: 0;
+                max-width: 36%;
+                font-size: 53px;
+                line-height: 1.3;
+                @media #{$laptop-device} {
+                    max-width: 50%;
+                }
+                @media #{$lg-layout} {
+                    max-width: 71%;
+                }
+                @media #{$md-layout} {
+                    max-width: 69%;
+                    padding: 0;
+                }
+                @media #{$sm-layout} {
+                    max-width: 100%;
+                    font-size: 34px;
+                }
+            }
+            .description {
+                padding: 0;
+                max-width: 33%;
+                @media #{$lg-layout} {
+                    padding: 0;
+                    max-width: 48%;
+                }
+                @media #{$md-layout} {
+                    padding: 0;
+                    max-width: 55%;
+                }
+                @media #{$sm-layout} {
+                    max-width: 100%;
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+}
+
+/*--------------------------------------
+    Banner Home 07 && 09 && 13 
+------------------------------------------*/
+
+.rbt-banner-6 {
+    .inner {
+        .rbt-badge {
+            background: rgba(0, 0, 0, 0.45);
+            color: var(--color-white);
+        }
+
+        .subtitle {
+            font-size: 18px;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 32px;
+            color: var(--color-white);
+
+            @media #{$md-layout} {
+                font-size: 16px;
+                margin-bottom: 10px;
+            }
+
+            @media #{$sm-layout} {
+                font-size: 16px;
+                margin-bottom: 10px;
+            }
+
+            @media #{$large-mobile} {
+                font-size: 14px;
+            }
+        }
+
+        .title {
+            margin-bottom: 25px;
+            display: inline-block;
+            color: var(--color-white);
+            font-size: 70px;
+            font-weight: 400;
+            @media #{$lg-layout} {
+                font-size: 60px;
+                margin-bottom: 10px;
+            }
+            @media #{$md-layout} {
+                margin-bottom: 0;
+                font-size: 50px;
+            }
+            @media #{$sm-layout} {
+                margin-bottom: 0;
+                font-size: 42px;
+                word-wrap: break-word;
+                width: 100%;
+                overflow: hidden;
+            }
+            @media #{$large-mobile} {
+                font-size: 42px;
+            }
+            span {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                b {
+                    word-wrap: break-word;
+                }
+            }
+        }
+    }
+
+    // Home 07
+
+    &.variation-01 {
+        height: 950px;
+        display: flex;
+        align-items: center;
+
+        @media #{$smlg-device} {
+            height: auto;
+        }
+
+        .wrapper {
+            padding-bottom: 150px;
+            padding-top: 0;
+            @media #{$lg-layout} {
+                padding-bottom: 250px;
+                padding-top: 100px;
+            }
+            @media #{$md-layout} {
+                padding-bottom:80px;
+                padding-top: 80px;
+            }
+            @media #{$sm-layout} {
+                padding-bottom:80px;
+                padding-top: 80px;
+            }
+        }
+
+        .inner {
+            .title {
+                max-width: 60%;
+                @media #{$md-layout} {
+                    max-width: 80%;
+                }
+                @media #{$sm-layout} {
+                    max-width: 80%;
+                }
+                @media #{$large-mobile} {
+                    max-width: 100%;
+                    font-size: 32px;
+                }
+            }
+        }
+    }
+
+    // Home 09
+    &.variation-02 {
+        height: 950px;
+        display: flex;
+        align-items: center;
+        @media #{$smlg-device} {
+            height: auto;
+        }
+        .wrapper {
+            @media #{$lg-layout} {
+                padding: 100px 0;
+            }
+            @media #{$md-layout} {
+                padding: 80px 0;
+            }
+            @media #{$sm-layout} {
+                padding: 80px 0;
+            }
+        }
+    }
+
+    // Home 13
+
+    &.variation-03 {
+        height: 750px;
+        display: flex;
+        align-items: center;
+        @media #{$smlg-device} {
+            height: auto;
+        }
+        .wrapper {
+            @media #{$lg-layout} {
+                padding: 100px 0;
+            }
+            @media #{$md-layout} {
+                padding: 100px 0;
+            }
+            @media #{$sm-layout} {
+                padding: 100px 0;
+            }
+        }
+        .inner {
+            .title {
+                @media #{$large-mobile} {
+                    font-size: 32px;
+                }
+            }
+        }
+    }
+
+}
+
+/*-----------------------
+    Banner Home 08
+------------------------*/
+
+.rbt-banner-7 {
+    height: 850px;
+    display: flex;
+    align-items: center;
+    @media #{$smlg-device} {
+        height: auto;
+    }
+    .wrapper {
+        @media #{$lg-layout} {
+            padding: 100px 0;
+            margin-top: -20px;
+        }
+        @media #{$md-layout} {
+            padding: 100px 0;
+            margin-top: -20px;
+        }
+        @media #{$sm-layout} {
+            padding: 100px 0;
+            margin-top: -20px;
+        }
+    }
+
+    .inner {
+        .title {
+            margin-bottom: 34px;
+            font-size: 53px;
+            line-height: 1.3;
+            margin-top: 15px;
+            @media #{$lg-layout} {
+                font-size: 36px;
+            }
+            @media #{$md-layout} {
+                font-size: 36px;
+            }
+            @media #{$sm-layout} {
+                font-size: 36px;
+                margin-bottom: 20px;
+            }
+            @media #{$large-mobile} {
+                font-size: 28px;
+            }
+        }
+    }
+
+    .thumbnail-wrapper {
+        position: relative;
+        .card-info {
+            display: inline-block;
+            position: absolute;
+            bottom: 0;
+
+            @media #{$sm-layout} {
+                position: static;
+                margin-top: 20px;
+                margin-left: 20px;
+            }
+
+        }
+    }
+
+    .profile-share {
+        @media #{$large-mobile} {
+            display: block;
+        }
+        .more-author-text {
+            @media #{$large-mobile} {
+                margin-left: 0;
+                margin-top: 20px;
+            }
+        }
+    }
+}
+
+/*--------------------------------------
+    Banner Home 10 && 14 && 15 &&  about 
+----------------------------------------*/
+
+.rbt-banner-8 {
+    .inner {
+        .meta-text {
+            font-weight: 600;
+            font-size: 22px;
+            letter-spacing: -0.5px;
+            @media #{$lg-layout} {
+                font-size: 16px;
+            }
+            @media #{$md-layout} {
+                font-size: 16px;
+            }
+            @media #{$sm-layout} {
+                font-size: 15px;
+            }
+        }
+        .rbt-badge-2 {
+            margin-left: 20px;
+            @media #{$large-mobile} {
+                margin-left: 0;
+            }
+        }
+        .rbt-badge-group {
+            @media #{$large-mobile} {
+                display: block;
+            }
+        }
+        .title {
+            margin-bottom: 15px;
+            font-size: 82px;
+            line-height: 1.3;
+            margin-top: 15px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            @media #{$lg-layout} {
+                font-size: 54px;
+            }
+            @media #{$md-layout} {
+                font-size: 52px;
+            }
+            @media #{$sm-layout} {
+                font-size: 42px;
+            }
+            @media #{$large-mobile} {
+                font-size: 38px;
+                margin-top: 20px;
+            }
+        }
+    }
+
+    // Home 10
+    &.variation-01 {
+        height: 650px;
+        display: flex;
+        align-items: center;
+        @media #{$smlg-device} {
+            height: auto;
+        }
+        .wrapper {
+            padding-bottom: 60px;
+            @media #{$laptop-device} {
+                padding-top: 80px;
+                padding-bottom: 60px;
+            }
+            @media #{$lg-layout} {
+                padding-top: 80px;
+                padding-bottom: 60px;
+            }
+            @media #{$md-layout} {
+                padding-top: 80px;
+                padding-bottom: 60px;
+            }
+            @media #{$sm-layout} {
+                padding-top: 60px;
+                padding-bottom: 60px;
+            }
+        }
+    }
+
+    // Home 14
+    &.variation-02 {
+        padding: 100px 0;
+        .inner {
+            .title {
+                font-size: 60px;
+                @media #{$md-layout} {
+                    font-size: 50px;
+                }
+                @media #{$sm-layout} {
+                    font-size: 40px;
+                }
+                @media #{$large-mobile} {
+                    font-size: 36px;
+                }
+            }
+            .description {
+                padding: 0 26%;
+                @media #{$lg-layout} {
+                    padding: 0 10%;
+                }
+                @media #{$md-layout} {
+                    padding: 0 5%;
+                }
+                @media #{$sm-layout} {
+                    padding: 0;
+                }
+            }
+        }
+    }
+
+    // Home 15
+    &.variation-03 {
+        .inner {
+            .banner-title {
+                font-size: 70px;
+                line-height: 1;
+                margin-bottom: 30px;
+                @media #{$md-layout} {
+                    font-size: 57px;
+                }
+                @media #{$sm-layout} {
+                    font-size: 48px;
+                    margin-bottom: 20px;
+                }
+                @media #{$large-mobile} {
+                    font-size: 36px;
+                }
+            }
+            .description {
+                padding: 0 19%;
+                @media #{$lg-layout} {
+                    padding: 0 12%;
+                }
+                @media #{$md-layout} {
+                    padding: 0 12%;
+                }
+                @media #{$sm-layout} {
+                    padding: 0;
+                }
+            }
+            .follow-us-text {
+                color: var(--color-body);
+                margin-top: 40px;
+                font-weight: 400;
+                letter-spacing: -0.5px;
+                margin-bottom: 20px;
+            }
+        }
+        .team {
+            .content {
+                .title {
+                    font-size: var(--h4);
+                    line-height: 1.25; 
+                }
+            }
+        }
+
+        .rbt-dot-bottom-center {
+            padding-top: 10px;
+        }
+    }
+
+    &.section-bottom-overlay {
+        .wrapper {
+            padding-top: 100px;
+            padding-bottom: 350px;
+            @media #{$sm-layout} {
+                padding-top: 60px;
+                padding-bottom: 60px;
+            }
+        }
+    }
+
+    &.with-shape {
+        padding-bottom: 300px !important;
+        position: relative;
+        @media #{$md-layout} {
+            padding-bottom: 130px !important;
+        }
+        @media #{$sm-layout} {
+            padding-bottom: 130px !important;
+        }
+        .shape-image {
+            position: absolute;
+            bottom: 0;
+            width: 60%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0.3;
+            z-index: -1;
+            @media #{$sm-layout} {
+                width: 89%;
+            }
+        }
+    }
+}
+
+.banner-overlay-section {
+    position: relative;
+    margin-top: -278px;
+    z-index: 2;
+    @media #{$sm-layout} {
+        margin-top: 0;
+        padding-top: 80px;
+    }
+}
+
+
+.rbt-banner-area {
+    .social-default {
+        &.transparent-with-border {
+            li {
+                a {
+                    color: var(--color-white);
+                    border: 2px solid var(--white-opacity);
+                    
+                }
+            }
+        }
+    }
+
+    .follow-us-text {
+        color: var(--color-white);
+        font-size: 14px;
+        opacity: 0.7;
+        display: block;
+        margin-top: 10px;
+        font-weight: 300;
+        letter-spacing: 0.5px;
+    }
+}
+
+
+/* Gif Banner Area  */
+.rbt-gif-banner-area {
+    position: relative;
+    box-shadow: var(--shadow-1);
+    border-radius: 10px;
+    z-index: 2;
+    .thumbnail {
+        img {
+            outline: none;
+            max-height: 600px;
+            object-fit: cover;
+        }
+    }
+}
+
+
+
+/*-----------------------
+    Banner Style 9  
+------------------------*/
+
+.rbt-banner-9 {
+    justify-content: center;
+    .inner {
+        .title {
+            font-size: 100px;
+            line-height: 1.1;
+            padding: 0 10%;
+            @media #{$lg-layout} {
+                padding: 0;
+            }
+            @media #{$md-layout} {
+                font-size: 60px;
+                padding: 0;
+            }
+            @media #{$sm-layout} {
+                font-size: 46px;
+                padding: 0;
+            }
+        }
+        .description {
+            font-size: 22px;
+            line-height: 43px;
+            padding: 0 24%;
+
+            @media #{$lg-layout} {
+                padding: 0;
+            }
+            @media #{$md-layout} {
+                padding: 0;
+            }
+            @media #{$sm-layout} {
+                font-size: 20px;
+                line-height: 38px;
+                padding: 0;
+                margin-bottom: 10px;
+            }
+            @media #{$large-mobile} {
+                font-size: 18px;
+                line-height: 30px;
+                padding: 0;
+            }
+        }
+    }
+}
+
+
+
+/*-----------------------
+    Banner Style 10 
+------------------------*/
+
+.rbt-banner-10 {
+    @media #{$md-layout} {
+        padding: 100px 0;
+    }
+    @media #{$sm-layout} {
+        padding: 80px 0;
+    }
+}
+
+
+
+
+
+/*----------------------
+ tool tip 
+------------------------*/
+
+.profile-share {
+    display: flex;
+    align-items: center;
+    a {
+        position: relative;
+        z-index: 1;
+        transition: var(--transition);
+        &:nth-child(2) {
+            margin-left: -12px;
+        }
+        &:nth-child(3) {
+            margin-left: -12px;
+        }
+        img {
+            max-width: 60px;
+            border-radius: 50%;
+            border: 3px solid var(--color-white);
+            transition: var(--transition);
+            box-shadow: var(--shadow-1);
+        }
+        &.more-author-text {
+            color: var(--color-body);
+            display: inline-block;
+            padding-left: 7px;
+            &:hover {
+                transform: none;
+                color: var(--color-primary);
+            }
+        }
+        &:hover {
+            z-index: 2;
+            transform: translateY(-3px) scale(1.1);
+        }
+    }
+    .more-author-text {
+        margin-left: 20px;
+        .total-join-students {
+            margin-bottom: 4px;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+        .subtitle {
+            font-size: 16px;
+            letter-spacing: -0.5px;
+        }
+    }
+}
+
+.avatar {
+    position: relative;
+
+    &::after,
+    &::before {
+        --scale: 0;
+        --arrow-size: 8px;
+        position: absolute;
+        top: -5px;
+        left: 50%;
+        transform: translateX(-50%) translateY(var(--translate-y, 0)) scale(var(--scale));
+        transition: 150ms transform;
+        transform-origin: bottom center;
+    }
+
+    &::before {
+        --translate-y: calc(-100% - var(--arrow-size));
+        content: attr(data-tooltip);
+        color: var(--color-white);
+        padding: 5px 8px;
+        background: var(--color-primary);
+        width: max-content;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 12px;
+        margin: 1px;
+    }
+
+    &::after {
+        --translate-y: calc(-1 * var(--arrow-size));
+        content: '';
+        border: var(--arrow-size) solid transparent;
+        border-top-color: var(--color-primary);
+    }
+
+    &:hover {
+
+        &::before,
+        &::after {
+            --scale: 1;
+        }
+    }
+}
+
+
+.rbt-slider-animation {
+    .inner {
+        >* {
+            animation-name: fadeOutUp;
+            animation-fill-mode: both;
+            animation-duration: 1s;
+        }
+    }
+}
+
+.rbt-slider-animation {
+    .swiper-slide-active {
+        .inner {
+            >* {
+                animation-name: fadeInUp;
+            }
+            .section-title {
+                animation-delay: 0.5s;
+            }
+            .title {
+                animation-delay: 1s;
+            }
+            .button-group {
+                animation-delay: 1.2s;
+            }
+            .social-share-wrapper {
+                animation-delay: 1.5s;
+            }
+        }
+    }
+}
+
+
+/*------------------------
+    Swiper Thumb  
+-------------------------*/
+.rbt-swiper-thumb {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -40px;
+    
+    .swiper-wrapper {
+        justify-content: center;
+    }
+    .swiper-slide {
+        display: inline-block;
+        line-height: 100%;
+        height: 80px;
+        width: 80px !important;
+        border-radius: 100%;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        padding: 4px;
+        transition: 0.4s;
+
+        &::before {
+            content: "";
+            z-index: -1;
+            top: 0;
+            left: 0;
+            position: absolute;
+            background: var(--color-white);
+            width: 100%;
+            height: 100%;
+            transition: 0.4s;
+        }
+
+        &::after {
+            content: "";
+            z-index: -1;
+            top: 0;
+            left: 0;
+            position: absolute;
+            background: #000;
+            width: 100%;
+            height: 100%;
+            opacity: 0.2;
+            transition: 0.4s;
+        }
+
+        &.swiper-slide-thumb-active {
+            &::before {
+                background: linear-gradient(90deg, var(--color-secondary), var(--color-primary));
+            }
+            &::after {
+                opacity: 0;
+            }
+        }
+
+        img {
+            object-fit: cover;
+            height: 100%;
+            border-radius: 100%;
+            width: 100%;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+    }
+}
+

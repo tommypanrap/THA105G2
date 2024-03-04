@@ -2001,7 +2001,7 @@
                                                                         <div class="course-field mb--15">
                                                                             <label for="discountedPrice-1">優惠價格 ($)</label>
                                                                             <input id="discountedPrice-1" type="number" placeholder="$ 優惠價格">
-                                                                            <!-- <small class="d-block mt_dec--5"><i class="feather-info"></i> The Course Price Includes Your Author Fee.</small> -->
+                                                                            <small class="d-block mt_dec--5"><i class="feather-info"></i>非必填</small>
                                                                         </div>
 
                                                                     </div>
@@ -2036,8 +2036,8 @@
                                                         <div class="upload-area">
                                                             <div class="brows-file-wrapper" data-black-overlay="9">
                                                                 <!-- actual upload which is hidden -->
-                                                                <input name="createinputfile" id="createinputfile" type="file" class="inputfile" />
-                                                                <img id="crCover" src="assets/images/others/thumbnail-placeholder.svg" alt="file image">
+                                                                <input name="createinputfile" id="crCover" type="file" class="inputfile" />
+                                                                <img id="putfile" th:src="@{/assets/images/others/thumbnail-placeholder.svg}" alt="file image">
                                                                 <!-- our custom upload button -->
                                                                 <label class="d-flex" for="createinputfile" title="No File Choosen">
                                                                     <i class="feather-upload"></i>
@@ -2099,29 +2099,8 @@
                                     <div id="accCollapseSix" class="accordion-collapse collapse" aria-labelledby="accSix" data-bs-parent="#tutionaccordionExamplea1">
                                         <div class="accordion-body card-body rbt-course-field-wrapper rbt-default-form row row-15">
 
-                                            <div class="col-lg-6">
-                                                <div class="course-field mb--15">
-                                                    <label for="startDate">上架日期</label>
-                                                    <input type="date" id="startDate" name="startDate">
-                                                </div>
-                                            </div>
 
-                                            <div class="col-lg-6">
-                                                <!-- <div class="course-field mb--15">
-                                                    <label for="language">Language</label>
-                                                    <div class="rbt-modern-select bg-transparent height-50 mb--10">
-                                                        <select class="w-100" data-live-search="true" title="English" multiple data-size="7" data-actions-box="true" data-selected-text-format="count > 2" id="language">
-                                                            <option>English</option>
-                                                            <option>Bangla</option>
-                                                            <option>Japan</option>
-                                                            <option>Hindi</option>
-                                                            <option>Frence</option>
-                                                            <option>Garmani</option>
-                                                        </select>
-                                                    </div>
-                                                </div> -->
-                                            </div>
-
+                                            
                                             <div class="col-lg-6">
                                                 <div class="course-field mb--15">
                                                     <label for="whatLearn">目標學習適合對象</label>
@@ -2249,7 +2228,7 @@
 	        crTitle : $('#crTitle').val(),
 	        crSubtitle : $('#crSubtitle').val(),
 	        crIntro : $('#crIntro').val(),
-	        crCover : null,
+	        crCover : $('#crCover').val(),
 	        crPrice : $('#crPrice').val(),
 	        crCmQuan : 1,
 	        crTotStar : 1,
@@ -2267,7 +2246,8 @@
         for (const key in data) {
             formData.append(key, data[key]);
         }
-        $.post('http://localhost:8081/THA105G2/course/insert', data)
+        /* $.post('http://localhost:8081/THA105G2/course/insert', data) */
+        $.post('http://localhost:8080/course/insert', data)
         .done(function(responseData) {
 			window.alert("成功創建課程");
 			window.location.href = 'coach_dashboard'

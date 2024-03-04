@@ -30,6 +30,9 @@
     <link rel="stylesheet" th:href="@{/assets/css/plugins/magnigy-popup.min.css}">
     <link rel="stylesheet" th:href="@{/assets/css/plugins/plyr.css}">
     <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>                                    <!-- ●●js  for jquery datatables 用 -->
+<script	src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>              <!-- ●●js  for jquery datatables 用 -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.jqueryui.min.css" />
 </head>
 
 <body>
@@ -67,7 +70,7 @@
                                         <div class="inner">
                                             <div class="content">
                                                 <span class="rbt-badge variation-02 bg-color-primary color-white radius-round">Hot</span>
-                                                <span class="news-text"><img src="assets/images/icons/hand-emojji.svg" alt="Hand Emojji Images"> Intro price. Get Histudy for Big Sale -95% off.</span>
+                                                <span class="news-text"><img th:src="@{/assets/images/icons/hand-emojji.svg}" alt="Hand Emojji Images"> Intro price. Get Histudy for Big Sale -95% off.</span>
                                             </div>
                                         </div>
                                     </div>
@@ -162,7 +165,7 @@
                         <div class="header-info">
                             <div class="logo">
                                 <a href="index.html">
-                                    <img src="assets/images/logo/logo.png" alt="Education Logo Images">
+                                    <img th:src="@{/assets/images/logo/logo.png}" alt="Education Logo Images">
                                 </a>
                             </div>
                         </div>
@@ -487,7 +490,7 @@
                                                     <div class="demo-single">
                                                         <div class="inner">
                                                             <div class="thumbnail">
-                                                                <a href="11-single-course.html"><img src="assets/images/splash/demo/h11.jpg" alt="Demo Images"></a>
+                                                                <a href="11-single-course.html"><img th:src="@{assets/images/splash/demo/h11.jpg}" alt="Demo Images"></a>
                                                             </div>
                                                             <div class="content">
                                                                 <h4 class="title"><a href="11-single-course.html">Single Course <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
@@ -2187,10 +2190,11 @@
                         <div class="rbt-tutor-information">
                             <div class="rbt-tutor-information-left">
                                 <div class="thumbnail rbt-avatars size-lg">
-                                    <img src="assets/images/team/avatar.jpg" alt="Instructor">
+                                    <img th:src="'data:image/jpeg;base64,' + ${uHeadshot}" alt="Instructor">
                                 </div>
+                                
                                 <div class="tutor-content">
-                                    <h5 class="title">John Due</h5>
+                                    <h5 class="title" th:text="${uName}"></h5>
                                     <div class="rbt-review">
                                         <div class="rating">
                                             <i class="fas fa-star"></i>
@@ -2250,7 +2254,7 @@
 
                                             <nav class="mainmenu-nav">
                                                 <ul class="dashboard-mainmenu rbt-default-sidebar-list">
-                                                    <li><a href="instructor-settings.html"><i class="feather-settings"></i><span>設定</span></a></li>
+                                                    <li><a th:href="@{coach_settings}"><i class="feather-settings"></i><span>資料設定</span></a></li>
                                                     <li><a href="index.html"><i class="feather-log-out"></i><span>登出</span></a></li>
                                                 </ul>
                                             </nav>
@@ -2278,7 +2282,7 @@
                                                         <i class="feather-book-open"></i>
                                                     </div>
                                                     <div class="content">
-                                                        <h3 class="counter without-icon color-primary"><span class="odometer" data-count="30">00</span>
+                                                        <h3 class="counter without-icon color-primary"><span class="odometer" th:data-count="${coursecount}">00</span>
                                                         </h3>
                                                         <span class="rbt-title-style-2 d-block" style="font-size: 20px ;">已上架課程</span>
                                                     </div>
@@ -2339,69 +2343,22 @@
                                     <div class="row gy-5">
                                         <div class="col-lg-12">
                                             <div class="rbt-dashboard-table table-responsive">
-                                                <table id="dynamic-table" class="rbt-table table table-borderless">
+                                                <table id="mycourse" class="rbt-table table table-borderless">
                                                     <thead>
                                                         <tr>
-                                                            <th>Course Name</th>
-                                                            <th>Enrolled</th>
-                                                            <th>Rating</th>
+                                                        	<th>課程ID</th>
+                                                            <th>類別名稱</th>
+                                                            <th>課程標題</th>
+                                                            <th>課程定價</th>
                                                         </tr>
                                                     </thead>
-                                                    <!-- <tbody>
-                                                        <tr>
-                                                            <th><a href="#">Accounting</a></th>
-                                                            <td>50</td>
-                                                            <td>
-                                                                <div class="rating">
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th><a href="#">Marketing</a></th>
-                                                            <td>40</td>
-                                                            <td>
-                                                                <div class="rating">
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th><a href="#">Web Design</a></th>
-                                                            <td>75</td>
-                                                            <td>
-                                                                <div class="rating">
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th><a href="#">Graphic</a></th>
-                                                            <td>20</td>
-                                                            <td>
-                                                                <div class="rating">
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="off fas fa-star"></i>
-                                                                    <i class="off fas fa-star"></i>
-                                                                    <i class="off fas fa-star"></i>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody> -->
-                                                    <tbody></tbody>
+                                                    <tbody>
+                                                    	<tr th:each="courseList : ${courseList}">
+                                                    		<td  th:text="${courseList.crId}"></td>
+               											    <td  th:text="${courseList.crClass}"></td>
+              											    <td  th:text="${courseList.crTitle}"></td>
+               											    <td  th:text="${courseList.crPrice}"></td>
+                                                    </tbody>
                                                 </table>
                                             </div>
 
@@ -2623,39 +2580,41 @@
     <script th:src="@{/assets/js/vendor/plyr.js}"></script>
     <!-- Main JS -->
     <script th:src="@{/assets/js/main.js}"></script>
-    <script>
-        var courses = [
-                { name: 'abc', enrolled: 50, rating: 1 },
-                { name: 'Marketing', enrolled: 40, rating: 5 },
-                { name: 'Web Design', enrolled: 75, rating: 5 },
-                { name: 'Graphic', enrolled: 20, rating: 3 }
-            ];
-       /*  {
-        	status: 'success',
-        	data:[
-                { name: 'abc', enrolled: 50, rating: 5 },
-                { name: 'Marketing', enrolled: 40, rating: 5 },
-                { name: 'Web Design', enrolled: 75, rating: 5 },
-                { name: 'Graphic', enrolled: 20, rating: 3 }
-            ];
-        } */
-        
-            // Generate table rows
-            $.each(courses, function(index, course) {
-                var row = $('<tr>');
-                row.append($('<th>').html('<a href="#">' + course.name + '</a>'));
-                row.append($('<td>').text(course.enrolled));
-                var ratingCell = $('<td>');
-                var ratingDiv = $('<div class="rating">');
-                for (var i = 0; i < 5; i++) {
-                    var starClass = i < course.rating ? 'fas' : 'off fas';
-                    ratingDiv.append($('<i>').addClass(starClass + ' fa-star'));
-                }
-                ratingCell.append(ratingDiv);
-                row.append(ratingCell);
-                $('#dynamic-table tbody').append(row);
-            });
-    </script>
+    <!-- ●● jquery datatables 設定 -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var table = document.getElementById('mycourse');
+    var dataTable = new DataTable(table, {
+			"lengthMenu": [5],
+			"searching": false,  //搜尋功能, 預設是開啟
+		    "paging": true,     //分頁功能, 預設是開啟
+		    "ordering": true,   //排序功能, 預設是開啟
+		    "lengthChange": false, //禁用长度选择框
+		    "language": {
+		        "processing": "處理中...",
+		        "loadingRecords": "載入中...",
+		        "lengthMenu": "顯示 _MENU_ 筆結果",
+		        "zeroRecords": "沒有符合的結果",
+		        "info": "顯示第 _START_ 至 _END_ 筆結果，共<font color=red> _TOTAL_ </font>筆",
+		        "infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
+		        "infoFiltered": "(從 _MAX_ 筆結果中過濾)",
+		        "infoPostFix": "",
+		        "search": "搜尋:",
+		        "paginate": {
+		            "first": "第一頁",
+		            "previous": "上一頁",
+		            "next": "下一頁",
+		            "last": "最後一頁"
+		        },
+		        "aria": {
+		            "sortAscending":  ": 升冪排列",
+		            "sortDescending": ": 降冪排列"
+		        }
+		    }
+		});
+	});
+</script>
+    
 </body>
 
 </html>

@@ -2195,7 +2195,7 @@
                         <div class="rbt-tutor-information">
                             <div class="rbt-tutor-information-left">
                                 <div class="thumbnail rbt-avatars size-lg">
-                                    <img src="assets/images/team/avatar.jpg" alt="Instructor">
+                                    <img th:src="'data:image/jpeg;base64,' + ${uHeadshot}" alt="Instructor">
                                 </div>
                                 <div class="tutor-content">
                                     <h5 class="title">John Due</h5>
@@ -2258,7 +2258,7 @@
 
                                             <nav class="mainmenu-nav">
                                                 <ul class="dashboard-mainmenu rbt-default-sidebar-list">
-                                                    <li><a href="instructor-settings.html"><i class="feather-settings"></i><span>設定</span></a></li>
+                                                    <li><a th:href="@{coach_settings}"><i class="feather-settings"></i><span>資料設定</span></a></li>
                                                     <li><a href="index.html"><i class="feather-log-out"></i><span>登出</span></a></li>
                                                 </ul>
                                             </nav>
@@ -2310,22 +2310,32 @@
     <table id="example" class="rbt-table table table-borderless" style="width: 100%">
         <thead>
             <tr>
-                <th >課程公告ID</th>
-                <th >課程ID</th>
-                <th >公告時間</th>
-                <th >公告更新時間</th>
-                <th >公告標題</th>
-                <th >公告內容</th>
+                <th>課程公告ID</th>
+                <th>課程ID</th>
+                <th>公告時間</th>
+                <th>公告更新時間</th>
+                <th>公告標題</th>
+                <th>公告內容</th>
+                <th>修改</th>
+				<th>刪除</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="announcement : ${announcements}">
             	<td style="padding: 30px;" th:text="${announcement.anId}"></td>
                 <td style="padding: 30px;" th:text="${announcement.crId}"></td>
-                <td style="padding: 30px;" th:text="${announcement.anDate}"></td>
-                <td style="padding: 30px;" th:text="${announcement.anEditDate}"></td>
+                <td style="padding: 30px;" th:text="${#dates.format(announcement.anDate, 'yyyy-MM-dd hh:mm:ss')}"></td>
+                <td style="padding: 30px;" th:text="${#dates.format(announcement.anEditDate, 'yyyy-MM-dd hh:mm:ss')}"></td>
                 <td style="padding: 30px;" th:text="${announcement.anTitle}"></td>
                 <td style="padding: 30px;" th:text="${announcement.anContent}"></td>
+                <td style="padding: 30px;">
+			  	<form method="post" th:action="@{course_announcement_update}" style="margin-bottom: 0px;">
+			     <input type="submit" value="修改">
+			     <input type="hidden" name="anId" th:value="${announcement.anId}"></form></td>
+				<td style="padding: 30px;">
+			  	<form method="post" th:action="@{delete}" style="margin-bottom: 0px;">
+			     <input type="submit" value="刪除">
+			     <input type="hidden" name="anId" th:value="${announcement.anId}"></form></td>
             </tr>
         </tbody>
     </table>

@@ -1,0 +1,16 @@
+.rbt-slider-area{
+    flex-wrap: nowrap;
+    .single-slider{
+        margin: 0 15px;
+    }
+    &.card-slider-1{
+        .single-slider{
+            
+        }
+    }
+    &.card-slider-2{
+        .single-slider{
+
+        }
+    }
+}

@@ -1,0 +1,105 @@
+.connect-area{
+    display: flex;
+    align-items: center;
+    background-color: var(--color-light);
+    margin-top: 135px;
+    @media #{$md-layout} {
+        margin-top: 60px;
+    }
+    @media #{$sm-layout} {
+        margin-top: 60px;
+    }
+    .connect-img{
+        margin-top: -133px;
+        @media #{$md-layout} {
+            margin-top: -70px;
+        }
+        @media #{$sm-layout} {
+            margin-top: -50px;
+        }
+        img{
+            max-width: none;
+            height: 433px;
+            width: auto;
+            position: relative;
+            left: -120px;
+            @media #{$md-layout} {
+                height: 270px;
+                left: -80px;
+            }
+            @media #{$sm-layout} {
+                height: 210px;
+                left: -60px;
+            }
+        }
+    }
+    .content{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        @media #{$sm-layout} {
+            display: block;
+        }
+        .inner{
+            max-width: 525px;
+            @media #{$laptop-device} {
+                max-width: 480px;
+            }
+            @media #{$lg-layout} {
+                max-width: 380px;
+            }
+            @media #{$md-layout} {
+                max-width: 330px;
+            }
+            @media #{$sm-layout} {
+                max-width: 330px;
+            }
+            h3{
+                font-size: 36px;
+                margin-bottom: 10px;
+                @media #{$md-layout} {
+                    font-size: 30px;
+                    margin-bottom: 0;
+                }
+                @media #{$sm-layout} {
+                    font-size: 25px;
+                    margin-bottom: 0;
+                }
+            }
+            .title-text{
+                color: var(--color-secondary);
+                font-size: 18px;
+                font-weight: 500;
+                margin-bottom: 30px;
+                @media #{$md-layout} {
+                    font-size: 15px;
+                    margin-bottom: 10px;
+                }
+                @media #{$sm-layout} {
+                    font-size: 11px;
+                    margin-bottom: 5px;
+                }
+            }
+            .p-text{
+                color: var(--color-extra-2);
+                font-size: 16px;
+                @media #{$md-layout} {
+                    font-size: 10px;
+                }
+                @media #{$sm-layout} {
+                    font-size: 10px;
+                }
+            }
+        }
+        .join-btn{
+            .rbt-btn{
+                padding: 0 20px;
+                font-size: var(--font-size-b4);
+                height: 30px;
+                line-height: 30px;
+                margin-bottom: 15px;
+            }
+        }
+    }
+}

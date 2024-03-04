@@ -33,4 +33,10 @@ public class UserService {
     	UserVO userVO = userJpaRepository.findByuId(uId);
 		return userVO;
     }
+    
+    //andy 單取出user大頭照
+    public byte[] getUserHeadshot(Integer uId) {
+    	byte[] uHeadshot = userJpaRepository.getUserHeadshotByUserId(uId);
+    	return uHeadshot;
+    }
 }

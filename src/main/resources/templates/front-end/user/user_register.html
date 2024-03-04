@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
     <!-- Thymeleaf dependencies -->
-    <script src="https://www.thymeleaf.org/thymeleaf.js"></script>
+    <script src="https://www.thymeleaf.org/thymeleaf.js}"></script>
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favicon.png}" />
@@ -46,7 +46,7 @@
     </style>
 
     <!-- Eugen追加 -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
 
   </head>
 
@@ -332,7 +332,7 @@
             <div class="rbt-contact-form contact-form-style-1 max-width-auto">
               <h3 class="title">註冊</h3>
               <form class="registerForm max-width-auto" method="post"
-              th:action="@{/user_api/user_controller}">
+              th:action="@{/user_api/hold_register_form}">
                 <input type="hidden" name="requestType" value="registerForm" />
 
                 <div class="form-group">
@@ -430,38 +430,38 @@
     <!-- JS
     ============================================ -->
     <!-- Modernizer JS -->
-    <script th:src="@{/js/vendor/modernizr.min.js"></script>
+    <script th:src="@{/js/vendor/modernizr.min.js}"></script>
     <!-- jQuery JS -->
-    <script th:src="@{/js/vendor/jquery.js"></script>
+    <script th:src="@{/js/vendor/jquery.js}"></script>
     <!-- Bootstrap JS -->
-    <script th:src="@{/js/vendor/bootstrap.min.js"></script>
+    <script th:src="@{/js/vendor/bootstrap.min.js}"></script>
     <!-- sal.js -->
-    <script th:src="@{/js/vendor/sal.js"></script>
-    <script th:src="@{/js/vendor/swiper.js"></script>
-    <script th:src="@{/js/vendor/magnify.min.js"></script>
-    <script th:src="@{/js/vendor/jquery-appear.js"></script>
-    <script th:src="@{/js/vendor/odometer.js"></script>
-    <script th:src="@{/js/vendor/backtotop.js"></script>
-    <script th:src="@{/js/vendor/isotop.js"></script>
-    <script th:src="@{/js/vendor/imageloaded.js"></script>
+    <script th:src="@{/js/vendor/sal.js}"></script>
+    <script th:src="@{/js/vendor/swiper.js}"></script>
+    <script th:src="@{/js/vendor/magnify.min.js}"></script>
+    <script th:src="@{/js/vendor/jquery-appear.js}"></script>
+    <script th:src="@{/js/vendor/odometer.js}"></script>
+    <script th:src="@{/js/vendor/backtotop.js}"></script>
+    <script th:src="@{/js/vendor/isotop.js}"></script>
+    <script th:src="@{/js/vendor/imageloaded.js}"></script>
 
-    <script th:src="@{/js/vendor/wow.js"></script>
-    <script th:src="@{/js/vendor/waypoint.min.js"></script>
-    <script th:src="@{/js/vendor/easypie.js"></script>
-    <script th:src="@{/js/vendor/text-type.js"></script>
-    <script th:src="@{/js/vendor/jquery-one-page-nav.js"></script>
-    <script th:src="@{/js/vendor/bootstrap-select.min.js"></script>
-    <script th:src="@{/js/vendor/jquery-ui.js"></script>
-    <script th:src="@{/js/vendor/magnify-popup.min.js"></script>
-    <script th:src="@{/js/vendor/paralax-scroll.js"></script>
-    <script th:src="@{/js/vendor/paralax.min.js"></script>
-    <script th:src="@{/js/vendor/countdown.js"></script>
-    <script th:src="@{/js/vendor/plyr.js"></script>
+    <script th:src="@{/js/vendor/wow.js}"></script>
+    <script th:src="@{/js/vendor/waypoint.min.js}"></script>
+    <script th:src="@{/js/vendor/easypie.js}"></script>
+    <script th:src="@{/js/vendor/text-type.js}"></script>
+    <script th:src="@{/js/vendor/jquery-one-page-nav.js}"></script>
+    <script th:src="@{/js/vendor/bootstrap-select.min.js}"></script>
+    <script th:src="@{/js/vendor/jquery-ui.js}"></script>
+    <script th:src="@{/js/vendor/magnify-popup.min.js}"></script>
+    <script th:src="@{/js/vendor/paralax-scroll.js}"></script>
+    <script th:src="@{/js/vendor/paralax.min.js}"></script>
+    <script th:src="@{/js/vendor/countdown.js}"></script>
+    <script th:src="@{/js/vendor/plyr.js}"></script>
     <!-- Main JS -->
-    <script th:src="@{/js/main.js"></script>
+    <script th:src="@{/js/main.js}"></script>
 
-    <script th:src="@{/js/mok/mok_opinion.js"></script>
-    <script th:src="@{/js/register_verify.js"></script>
+    <script th:src="@{/js/mok/mok_opinion.js}"></script>
+    <script th:src="@{/js/register_verify.js}"></script>
     <!-- =================================================== -->
     <!-- Eugen -->
     <script>
@@ -629,7 +629,7 @@
         if (value !== "") {
           // 發送AJAX請求
           $.ajax({
-            url: "/THA105G2_SpringBoot/user_api/user_controller",
+            url: "/user_api/check_register_duplicate",
             type: "POST",
             data: {
               requestType: "checkDuplicate",
@@ -715,7 +715,7 @@
           urlEncodedData = urlEncodedDataPairs.join("&").replace(/%20/g, "+");
 
           // 發送AJAX請求
-          fetch("/THA105G2_SpringBoot/user_api/user_controller", {
+          fetch("/user_api/hold_register_form", {
             method: "POST",
             headers: {
               "Content-Type": "application/x-www-form-urlencoded",
@@ -748,7 +748,7 @@
         var data = "requestType=resendVerificationMail";
 
         // 發送POST請求
-        fetch("/THA105G2_SpringBoot/user_api/user_controller", {
+        fetch("/user_api/resend_verification_mail", {
           method: "POST",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",

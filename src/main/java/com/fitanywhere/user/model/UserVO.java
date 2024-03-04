@@ -1,5 +1,10 @@
 package com.fitanywhere.user.model;
 
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,26 +12,37 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import java.io.Serializable;
 import java.util.Date;
+import com.fitanywhere.mood.model.MoodVO;
+import com.fitanywhere.socialpost.model.SocialPostVO;
 
 @Entity
 @Table(name = "user")
-public class UserVO implements Serializable{
-
-	private static final long serialVersionUID = 1L;
+public class UserVO implements java.io.Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "u_id")
 	private Integer uId;
+	
+	
+	// Tommy
+	@ManyToOne
+	@JoinColumn(name = "mood_id")
+	private MoodVO moodVO;
 
-	@Column(name = "mood_id")
-	private Integer moodId;
+	public MoodVO getMoodVO() {
+		return moodVO;
+	}
+
+	public void setMoodVO(MoodVO moodVO) {
+		this.moodVO = moodVO;
+	}
 
 	@Column(name = "u_nickname")
 	private String uNickname;
@@ -42,14 +58,6 @@ public class UserVO implements Serializable{
 
 	@Column(name = "u_phone")
 	private String uPhone;
-
-	@Column(name = "u_verified")
-	private Integer uVerified;
-//	0 = 未驗證email; 1 = 已驗證email;
-
-	@Column(name = "u_coach")
-	private Integer uCoach;
-//	0 = 一般會員; 1 = 教練;
 
 	@Column(name = "u_gender")
 	private Integer uGender;
@@ -68,8 +76,20 @@ public class UserVO implements Serializable{
 	@Column(name = "u_registerdate")
 	private Date uRegisterdate;
 
-	@Column(name = "c_intro")
-	private String cIntro;
+
+
+	//Tommy
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="userVO")
+	private Set<SocialPostVO> socialposts = new HashSet<SocialPostVO>();
+
+	public Set<SocialPostVO> getSocialposts() {
+		return this.socialposts;
+	}
+
+	public void setSocialposts(Set<SocialPostVO> socialposts) {
+		this.socialposts = socialposts;
+	}
+
 
 	// Constructor
 	public UserVO() {
@@ -85,13 +105,13 @@ public class UserVO implements Serializable{
 		this.uId = uId;
 	}
 
-	public Integer getMoodId() {
-		return moodId;
-	}
-
-	public void setMoodId(Integer moodId) {
-		this.moodId = moodId;
-	}
+//	public Integer getMoodId() {
+//		return moodId;
+//	}
+//
+//	public void setMoodId(Integer moodId) {
+//		this.moodId = moodId;
+//	}
 
 	public String getuNickname() {
 		return uNickname;
@@ -133,22 +153,6 @@ public class UserVO implements Serializable{
 		this.uPhone = uPhone;
 	}
 
-	public Integer getuVerified() {
-		return uVerified;
-	}
-
-	public void setuVerified(Integer uVerified) {
-		this.uVerified = uVerified;
-	}
-
-	public Integer getuCoach() {
-		return uCoach;
-	}
-
-	public void setuCoach(Integer uCoach) {
-		this.uCoach = uCoach;
-	}
-
 	public Integer getuGender() {
 		return uGender;
 	}
@@ -188,34 +192,29 @@ public class UserVO implements Serializable{
 	public void setuRegisterdate(Date uRegisterdate) {
 		this.uRegisterdate = uRegisterdate;
 	}
+	
 
-	public String getcIntro() {
-		return cIntro;
-	}
 
-	public void setcIntro(String cIntro) {
-		this.cIntro = cIntro;
-	}
 
-	public UserVO(Integer uId, Integer moodId, String uNickname, String uName, String uMail, String uPassword,
-			String uPhone, Integer uVerified, Integer uCoach, Integer uGender, Integer uAge, byte[] uHeadshot,
-			Date uBirth, Integer uStatus, String cIntro) {
-		super();
-		this.uId = uId;
-		this.moodId = moodId;
-		this.uNickname = uNickname;
-		this.uName = uName;
-		this.uMail = uMail;
-		this.uPassword = uPassword;
-		this.uPhone = uPhone;
-		this.uVerified = uVerified;
-		this.uCoach = uCoach;
-		this.uGender = uGender;
-		this.uHeadshot = uHeadshot;
-		this.uBirth = uBirth;
-		this.uStatus = uStatus;
-		this.cIntro = cIntro;
-	}
+// Tommy 註解 因為大家在關聯的狀況下新增變數
+//	public UserVO(Integer uId, Integer moodId, String uNickname, String uName, String uMail, String uPassword,
+//			String uPhone, Integer uGender, byte[] uHeadshot,
+//			Date uBirth, Integer uStatus, Date uRegisterdate) {
+//		super();
+//		this.uId = uId;
+//		this.moodId = moodId;
+//		this.uNickname = uNickname;
+//		this.uName = uName;
+//		this.uMail = uMail;
+//		this.uPassword = uPassword;
+//		this.uPhone = uPhone;		
+//		this.uGender = uGender;
+//		this.uHeadshot = uHeadshot;
+//		this.uBirth = uBirth;
+//		this.uStatus = uStatus;	
+//		this.uRegisterdate= uRegisterdate;
+//	}
+
 }
 	
 

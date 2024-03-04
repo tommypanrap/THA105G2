@@ -1,27 +1,33 @@
 package com.fitanywhere.socialpost.controller;
 
+import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import org.springframework.validation.BeanPropertyBindingResult;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.util.*;
-import java.util.stream.Collectors;
-
-import com.fitanywhere.socialpost.model.SocialPostVO;
 import com.fitanywhere.socialpost.model.SocialPostService;
+import com.fitanywhere.socialpost.model.SocialPostVO;
+import com.fitanywhere.mood.model.MoodVO;
+import com.fitanywhere.user.model.UserService;
+import com.fitanywhere.user.model.UserVO;
 
 @Controller
 @RequestMapping("/socialpost")
@@ -30,10 +36,15 @@ public class SocialPostController {
 	@Autowired
 	SocialPostService socialPostSvc;
 	
+	@Autowired
+	UserService userSvc;
+	
 	@GetMapping("select_page")
 	public String select_page(Model model) {
 		return "front-end/socialpost/select_page";
 	}
+	
+
 	
 	
 	
@@ -43,10 +54,10 @@ public class SocialPostController {
 	}
     
     
-//    @GetMapping("/socialpost/add_socialpost")
-//	public String addSocialPost(Model model) {
-//		return "front-end/socialpost/add_socialpost";
-//	}
+    @GetMapping("/socialpost/add_socialpost")
+	public String addSocialPost(Model model) {
+		return "front-end/socialpost/add_socialpost";
+	}
     
     @ModelAttribute("socialPostListData")  // for select_page.html 第97 109行用 // for listAllEmp.html 第85行用
   	protected List<SocialPostVO> referenceListData(Model model) {
@@ -64,13 +75,46 @@ public class SocialPostController {
 		return "front-end/socialpost/add_socialpost";
 	}
 	
+	@GetMapping("show_login_socialpost_test")
+	public String showLoginSocialPost(HttpServletRequest req, ModelMap model) {
+		HttpSession newSession = req.getSession(true);
+		
+		UserVO userVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
+	    model.addAttribute("userVO", userVO);
+		
+		SocialPostVO socialPostVO = new SocialPostVO();
+		model.addAttribute("socialPostVO", socialPostVO);
+		return "front-end/socialpost/show_login_socialpost_test";
+	}
+
+	@GetMapping("student_socialpost")
+	public String getUserInfo(HttpServletRequest req, ModelMap model) {
+		HttpSession newSession = req.getSession(true);
+		System.out.println("印出session"+newSession);
+	    UserVO userVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
+	    model.addAttribute("userVO", userVO);
+	    
+	    System.out.println("心情"+userVO.getMoodVO());
+	    
+	    SocialPostVO socialPostVO = new SocialPostVO();
+		model.addAttribute("socialPostVO", socialPostVO);
+		 
+		return "front-end/socialpost/student_socialpost";
+	}
+	
 	/*
 	 * This method will be called on addEmp.html form submission, handling POST request It also validates the user input
 	 */
 	@PostMapping("insert")
-		public String insert(@Valid SocialPostVO socialPostVO,BindingResult result, ModelMap model,
+		public String insert(HttpServletRequest req, @Valid SocialPostVO socialPostVO,BindingResult result, ModelMap model,
 				@RequestParam("sppic") MultipartFile[] parts )throws IOException {
-			
+		HttpSession newSession = req.getSession(true);
+		UserVO userVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
+		socialPostVO.setUserVO(userVO);
+		
+		socialPostVO.setSptime(new Timestamp(System.currentTimeMillis()));
+		
+		
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
 		result = removeFieldError(socialPostVO, result, "sppic");
 
@@ -84,7 +128,7 @@ public class SocialPostController {
 		}
 
 			if (result.hasErrors() || parts[0].isEmpty()) {
-				return "front-end/socialpost/add_socialpost";
+				return "front-end/socialpost/socialpost";
 			}
 			
 			/*************************** 2.開始新增資料 *****************************************/
@@ -95,7 +139,7 @@ public class SocialPostController {
 			model.addAttribute("success", "- (新增成功)");
 			
 			
-			return "redirect:/socialpost/list_all_socialpost";
+			return "redirect:/socialpost/student_socialpost";
 		}
 	
 	@PostMapping("getOne_For_Update")
@@ -108,6 +152,19 @@ public class SocialPostController {
 		model.addAttribute("socialPostVO", socialPostVO);
 		
 		return "front-end/socialpost/update_socialpost_input"; // 查詢完成後轉交update_emp_input.html
+	}
+	
+	
+	@PostMapping("update_social_post")
+	public String update_social_post(@RequestParam("spid") String spid, ModelMap model) {
+		System.out.println("update_social_post有	進來");
+		/*************************** 2.開始查詢資料 *****************************************/
+		SocialPostVO socialPostVO = socialPostSvc.getOneSocialPost(Integer.valueOf(spid));
+		
+		/*************************** 3.查詢完成,準備轉交(Send the Success view) **************/
+		model.addAttribute("socialPostVO", socialPostVO);
+		
+		return "redirect:/socialpost/student_socialpost"; // 
 	}
 	
 	@PostMapping("update")
@@ -159,9 +216,7 @@ public class SocialPostController {
 	
 	@ModelAttribute("socialPostListData")
 	protected List<SocialPostVO> referenceListData() {
-		// DeptService deptSvc = new DeptService();
 		List<SocialPostVO> list = socialPostSvc.getAll();
-
 		return list;
 	}
 	
@@ -176,5 +231,15 @@ public class SocialPostController {
 		}
 		return result;
 	}
+	
+	
+
+@ModelAttribute("userListData")
+protected List<UserVO> userReferenceListData() {
+	// DeptService deptSvc = new DeptService();
+	List<UserVO> list = userSvc.getAll();
+
+	return list;
+}
 	
 }

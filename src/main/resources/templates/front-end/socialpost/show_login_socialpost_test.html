@@ -1,0 +1,147 @@
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>員工資料新增 - addEmp.html</title>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fitanywhere-add social post</title>
+</head>
+<style type="text/css">
+	
+	button {
+		padding: 5px;
+	}
+	form {
+		display: table;
+	}
+	form div {
+		display: table-row;
+	}
+	label, input, span, select {
+		display: table-cell;
+		margin: 5px;
+		text-align: left;		
+	}
+	input[type=text], input[type=password], select, textarea {
+		width: 200px;
+		margin: 5px;
+	}
+	form div div {
+		display: table-cell;
+	}
+	.center {
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
+		 <div align="center"> <h2>社群貼文新增 - add_socialpost.html</h2>
+		 <h3><a class="navbar-brand" th:href="@{/socialpost/add_socialpost}"><img th:src="@{/images/back1.gif}">回查詢頁</a></h3></div>
+</nav>
+
+	<div align="center">
+		<h3><b>所有欄位皆為必填欄位</b></h3>
+		<form th:action="@{insert}" method="post" th:object="${socialPostVO}" enctype="multipart/form-data">
+			
+			
+			
+<!-- 			<div> -->
+<!-- 			<label>會員:</label> -->
+<!-- 			<select th:field="*{userVO.uId}"> -->
+<!-- 				<option th:each="userVO : ${userListData}" th:value="${userVO.uId}" th:text="${userVO.uName}" /> -->
+<!-- 			</select> -->
+<!-- 			<span th:if="${#fields.hasErrors('userVO.uId')}" th:errors="*{userVO.uId}" class="error" id="userVO.uId.errors"></span> -->
+<!-- 			</div> -->
+			
+			<div>
+			<label>會員:</label>
+<!-- 			<select th:field="*{userVO.uId}"> -->
+<!-- 				<option th:each="userVO : ${userListData}" th:value="${userVO.uId}" th:text="${userVO.uName}" /> -->
+<!-- 			</select> -->
+<!-- 			<span th:if="${#fields.hasErrors('userVO.uId')}" th:errors="*{userVO.uId}" class="error" id="userVO.uId.errors"></span> -->
+			<p th:text="${userVO.uNickname}"></p>
+			
+			</div>
+			<div th:each="socialPost : ${userVO.socialposts}">
+			<p th:text="${socialPost.sptitle}"></p>
+			<p th:text="${socialPost.spcontent}"></p>
+			<img th:src="@{/socialpost/DBGifReader} + '?spid=' + ${socialPost.spid}" width="100px">
+			</div>
+			
+			
+	
+		</form>
+	
+	</div>
+
+
+<!-- JavaScript part -->
+<script type="text/javascript">
+//清除提示信息
+function hideContent(d) {
+     document.getElementById(d).style.display = "none";
+}
+
+//照片上傳-預覽用
+var filereader_support = typeof FileReader != 'undefined';
+if (!filereader_support) {
+	alert("No FileReader support");
+}
+acceptedTypes = {
+		'image/png' : true,
+		'image/jpeg' : true,
+		'image/gif' : true
+};
+function previewImage() {
+	var upfile1 = document.getElementById("sppic");
+	upfile1.addEventListener("change", function(event) {
+		var files = event.target.files || event.dataTransfer.files;
+		for (var i = 0; i < files.length; i++) {
+			previewfile(files[i])
+		}
+	}, false);
+}
+function previewfile(file) {
+	if (filereader_support === true && acceptedTypes[file.type] === true) {
+		var reader = new FileReader();
+		reader.onload = function(event) {
+			var image = new Image();
+			image.src = event.target.result;
+			image.width = 100;
+			image.height = 75;
+			image.border = 2;
+			if (blob_holder.hasChildNodes()) {
+				blob_holder.removeChild(blob_holder.childNodes[0]);
+			}
+			blob_holder.appendChild(image);
+		};
+		reader.readAsDataURL(file);
+		document.getElementById('submit').disabled = false;
+	} else {
+		blob_holder.innerHTML = "<div  style='text-align: left;'>" + "● filename: " + file.name
+				+ "<br>" + "● ContentTyp: " + file.type
+				+ "<br>" + "● size: " + file.size + "bytes"
+				+ "<br>" + "● 上傳ContentType限制: <b> <font color=red>image/png、image/jpeg、image/gif </font></b></div>";
+		document.getElementById('submit').disabled = true;
+	}
+}
+</script>
+
+</body>
+</html>

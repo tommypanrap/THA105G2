@@ -13,7 +13,13 @@ public interface UserJpaRepository extends JpaRepository<UserVO, Integer> {
 
 	
     @Query("FROM UserVO WHERE uMail = :uMail")
-    UserVO findByUMail(String uMail);
+    UserVO findByuMail(String uMail);
+    
+    @Query("FROM UserVO WHERE uNickname = :uNickname")
+    UserVO findByuNickname(String uNickname);
+    
+    @Query("FROM UserVO WHERE uPhone = :uPhone")
+    UserVO findByuPhone(String uPhone);
     
     @Query("FROM UserVO WHERE uId = :uId")
     UserVO findByuId(Integer uId);

@@ -66,10 +66,10 @@ public class UserService {
 
 	// 使用SecureRandom來生成一個六位數字的驗證碼
 	private String generateRandomCode() {
-		// 使用java.security.SecureRandom來生成一個範圍在000000到999999之間的隨機數
+		// 用SecureRandom生成一個範圍在000000到999999之間的隨機數
 		SecureRandom random = new SecureRandom();
 		int num = random.nextInt(1000000);
-		// 使用String.format來保證格式為六位數，不足位數以0填充
+		// 使用String.format來保證六位數，不足位數以0填充
 		return String.format("%06d", num);
 	}
 
@@ -107,11 +107,12 @@ public class UserService {
 	// 登入-核對登入密碼是否正確
 	@Transactional(readOnly = true)
 	public UserReadDataDTO userLogin(String uMail, String inputPassword) {
-		String savedPassword = userJpaRepository.findPasswordByuMail(uMail);
-		Integer savedId = userJpaRepository.findIdByuMail(uMail);
+		String savedPassword = userJpaRepository.findOnlyPasswordByuMail(uMail);
+		Integer savedId = userJpaRepository.findOnlyIdByuMail(uMail);
 		if (PasswordEncryptionService.checkPassword(inputPassword, savedPassword)) {
-			return userJpaRepository.findUserDataById(savedId);
+			return userJpaRepository.findUserDataDTOById(savedId);
 		}
+		System.out.println("Service <userLogin>  處理登入失敗!");
 		return null; // 登錄失敗
 	}
 // =============================================
@@ -121,14 +122,14 @@ public class UserService {
 
 	// 讀取User照片
 	@Transactional(readOnly = true)
-	public UserHeadshotOnlyDTO getUserDTOWithHeadshotById(Integer uId) {
-		return userJpaRepository.findUserHeadshotById(uId);
+	public UserHeadshotOnlyDTO getUserHeadshotDTOById(Integer uId) {
+		return userJpaRepository.findUserHeadshotDTOById(uId);
 	}
 
 	// 讀取User除照片以外的所有非敏感資訊
 	@Transactional(readOnly = true)
-	public UserReadDataDTO getUserDataExcludeUHeadshot(Integer uId) {
-		return userJpaRepository.findUserDataById(uId);
+	public UserReadDataDTO getUserDataDTOByID(Integer uId) {
+		return userJpaRepository.findUserDataDTOById(uId);
 	}
 
 // =============================================
@@ -150,6 +151,7 @@ public class UserService {
 			return true; // 更新成功
 			// 可另外在controller呼叫getUserDTOWithHeadshotById(Integer uId)取得資料庫的更新後照片
 		} else {
+			System.out.println("Service <updateUserHeadshot> 處理uHeadshot更新失敗!");
 			return false; // 更新失敗
 		}
 	}
@@ -161,7 +163,7 @@ public class UserService {
 		if (userOptional.isPresent()) {
 			UserVO user = userOptional.get();
 
-			// 使用Java 8的Optional來避免null檢查，並允許部分更新
+			// 使用Optional來避免null檢查，並允許部分更新
 			Optional.ofNullable(userDTO.getuName()).ifPresent(user::setuName);
 			Optional.ofNullable(userDTO.getuPhone()).ifPresent(user::setuPhone);
 			Optional.ofNullable(userDTO.getuGender()).ifPresent(user::setuGender);
@@ -170,6 +172,7 @@ public class UserService {
 			userJpaRepository.save(user);
 			return true; // 更新成功
 		} else {
+			System.out.println("Service <updateUserData> 處理UserDataDTO更新失敗!");
 			return false; // 更新失敗
 		}
 	}

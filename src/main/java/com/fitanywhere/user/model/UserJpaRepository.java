@@ -38,22 +38,22 @@ public interface UserJpaRepository extends JpaRepository<UserVO, Integer> {
 
 	// 讀取指定uID的uHeadshot
 	@Query("SELECT new com.fitanywhere.user.model.UserHeadshotOnlyDTO(u.uId, u.uHeadshot) FROM UserVO u WHERE u.uId = :uId")
-	UserHeadshotOnlyDTO findUserHeadshotById(@Param("uId") Integer uId);
+	UserHeadshotOnlyDTO findUserHeadshotDTOById(@Param("uId") Integer uId);
 
 	// 讀取指定uID除uHeadshot外的所有非敏感資料
 	@Query("SELECT new com.fitanywhere.user.model.UserReadDataDTO(" + "u.uId, u.uNickname, u.uName, u.uMail, u.uPhone, "
 			+ "u.uGender, u.uBirth, u.uStatus, u.uRegisterdate) " + "FROM UserVO u WHERE u.uId = :uId")
-	UserReadDataDTO findUserDataById(Integer uId);
+	UserReadDataDTO findUserDataDTOById(Integer uId);
 
 // =========================
 // 精準讀取某特定欄位	
 
 	// 依照uMail取得uPassword
 	@Query("SELECT u.uPassword FROM UserVO u WHERE u.uMail = :uMail")
-	String findPasswordByuMail(String uMail);
+	String findOnlyPasswordByuMail(String uMail);
 
 	// 依照uMail取得uId
 	@Query("SELECT u.uId FROM UserVO u WHERE u.uMail = :uMail")
-	Integer findIdByuMail(String uMail);
+	Integer findOnlyIdByuMail(String uMail);
 
 }

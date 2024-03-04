@@ -181,7 +181,7 @@ public class UserRestController {
 	@PostMapping("/user_headshot_test")
 	public ResponseEntity<byte[]> getUserHeadshot(@RequestBody Map<String, Integer> body) {
 		Integer uId = body.get("u_id");
-		UserHeadshotOnlyDTO headshotDTO = userService.getUserDTOWithHeadshotById(uId);
+		UserHeadshotOnlyDTO headshotDTO = userService.getUserHeadshotDTOById(uId);
 		if (headshotDTO != null && headshotDTO.getuHeadshot() != null) {
 			byte[] photoBytes = headshotDTO.getuHeadshot();
 
@@ -197,7 +197,7 @@ public class UserRestController {
 	@PostMapping("/get_user_all_data_test")
     public UserReadDataDTO getUserAllData(@RequestBody Map<String, Integer> request) {
         Integer uId = request.get("uId");
-        UserReadDataDTO userData = userService.getUserDataExcludeUHeadshot(uId);  
+        UserReadDataDTO userData = userService.getUserDataDTOByID(uId);  
         return userData;
     }
 	

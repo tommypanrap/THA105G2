@@ -151,3 +151,84 @@ position: relative;
 }
 
 
+.user-name{
+    display: flex;
+    align-items: center;
+}
+
+.col-lg-3{
+    z-index: 0;
+}
+
+.upload-area{
+    height: 200px;
+    aspect-ratio: 1;
+}
+.brows-file-wrapper{
+    max-height: 100%;
+}
+
+#lightbox h2{
+    font-size: 20px;
+}
+
+.post-draft{
+    height: 130px;
+}
+
+.member-post-socialpost{
+    display: flex;
+    align-items: center;
+}
+
+.member-post-socialpost img{
+    max-width: 50px;
+    aspect-ratio: 1;
+}
+
+.member-post-socialpost p{
+    margin-left: 10px;
+}
+
+
+.edit{
+    cursor:pointer;
+}
+
+.post-content-edit{
+    display: none;
+}
+
+.post-content-edit.show{
+    display: block;
+}
+
+.post-content.hide{
+    display: none;
+}
+
+.edit-social-post-button{
+    display: flex;
+}
+
+.edit-social-post-button  .mt--15{
+    margin-right: 20px;
+}
+
+.edit-socialpost{
+    width: 120px;
+    height: 45px;
+    margin-right: 10px;
+    border-radius: 20px;
+    border:none;
+    color: var(--color-white);
+    background-size: 300% 100%;
+    background-image: linear-gradient(to right, var(--color-primary), var(--color-secondary), var(--color-secondary), var(--color-primary));
+    transition: all .4s ease-in-out;
+}
+
+.edit-socialpost:hover{
+    background-color: inherit;
+    background-position: 102% 0;
+    
+}

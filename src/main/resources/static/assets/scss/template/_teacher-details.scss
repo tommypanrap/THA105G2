@@ -1,0 +1,198 @@
+.teacher-details-page{
+    background: var(--color-white);
+    .inner-img{
+        img{
+            border-radius: 6px;
+        }
+    }
+    .teacher-info{
+        background: var(--color-white);
+        box-shadow: 5px 0px 50px rgba(25, 35, 53, 0.04);
+        border-radius: 10px;
+        padding: 28px 60px;
+        .title{
+            font-weight: 800;
+            font-size: 24px;
+            line-height: 36px;
+            color: var(--color-secondary);
+        }
+        .info-list{
+            padding: 0;
+            list-style: none;
+            margin-bottom: 50px;
+            li{
+                margin: 0;
+                font-size: var(--font-size-b3);
+                color: var(----color-body);
+                .left-side{
+                    font-weight: 600;
+                    font-size: 18px;
+                    line-height: 28px;
+                    color: var(--color-heading);
+                    margin-right: 5px;
+                }
+            }
+            li+li{
+                margin-top: 15px;
+            }
+        }
+        .social-section{
+            .social-icons{
+                margin: 0;
+                padding: 0;
+                list-style: none;
+                li{
+                    margin: 0;
+                    color: var(--color-white);
+                    display: inline-block;
+                    a{
+                        display: flex;
+                        width: 40px;
+                        height: 40px;
+                        line-height: 40px;
+                        font-size: var(--font-size-b3);
+                        border-radius: 100%;
+                        background: #F2F5F9;
+                        border: none;
+                        color: #A1A9AC;
+                        justify-content: center;
+                        align-items: center;
+                        &:hover{
+                            background: var(--color-secondary);
+                            color: var(--color-white);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .biography-section{
+        margin-bottom: 25px;
+        .title{
+            margin-bottom: 10px;
+        }
+    }
+    .description-section{
+        margin-bottom: 25px;
+        .title{
+            margin-bottom: 10px;
+        }
+        ul{
+            list-style: disc;
+            margin-bottom: 20px;
+            font-size: var(--font-size-b3);
+            color: #6E798C;
+            li{
+                margin: 0;
+                font-size: var(--font-size-b3);
+                color: #6E798C;
+            }
+            li+li{
+                margin-top: 5px;
+            }
+        }
+    }
+    .info-card{
+        margin-bottom: 30px;
+        ul{
+            li{
+                &:last-child{
+                    &::after{
+                        display: none;
+                    }
+                }
+                .right-side{
+                    span{
+                        font-size: 12px;
+                        line-height: 12px;
+                        padding: 6px 12px;
+                        background: #C4C4C4;
+                    }
+                }
+            }
+        }
+    }
+    .tag-section{
+        margin-bottom: 30px;
+        .title{
+            margin-bottom: 10px;
+        }
+        .tag-part{
+            a{
+                background: #F5F7FA;
+                border-radius: 4px;
+                padding: 8px 15px;
+                font-size: 12px;
+                line-height: 12px;
+                color: var(--color-heading);
+                display: inline-block;
+                margin-right: 10px;
+                margin-top: 10px;
+                transition: 0.4s;
+                &:hover{
+                    background: var(--color-secondary-alt);
+                    color: var(--color-secondary);
+                }
+            }
+        }
+    }
+    .post-section{
+        .title{
+            margin-bottom: 10px;
+        }
+        .single-blog{
+            padding: 12px 0;
+            border-bottom: 1px solid #DCE4EE;
+            &:first-child{
+                padding-top: 0;
+            }
+            &:last-child{
+                padding-bottom: 0;
+                border: none;
+            }
+            h6{
+                margin-bottom: 0;
+                a{
+                    &:hover{
+                        color: var(--color-secondary);
+                    }
+                }
+            }
+            p{
+                font-size: 14px;
+                line-height: 22px;
+            }
+        }
+    }
+    .contact-section{
+        .contact-form{
+            input, textarea{
+                width: 100%;
+                border: 1px solid #D1EBE6;
+                border-radius: 6px;
+                padding: 20px 30px;
+                font-size: 18px;
+                line-height: 30px;
+                color: #A1A9AC;
+                outline: none;
+                &::placeholder{
+                    font-size: 18px;
+                    line-height: 30px;
+                    color: #A1A9AC;
+                }
+            }
+            textarea{
+                height: 300px;
+                margin-bottom: 40px;
+            }
+            button{
+                outline: none;
+                padding: 0;
+                border: none;
+                a{
+                    padding: 0 82px;
+                }
+            }
+        }
+    }
+}

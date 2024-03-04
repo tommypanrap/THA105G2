@@ -96,10 +96,7 @@ public class AnnVO implements java.io.Serializable {
 
 
 	public void setAnDate(Timestamp anDate) {
-		long currentTimeMillis = System.currentTimeMillis();
-
-		Timestamp currentTimestamp = new Timestamp(currentTimeMillis);
-		this.anDate = currentTimestamp;
+		this.anDate = anDate;
 	}
 
 

@@ -1,0 +1,259 @@
+.shop-details-page{
+    .inner-img{
+        img{
+            border-radius: 6px;
+        }
+    }
+    .inner-content{
+        h4{
+            &.price{
+                font-size: 24px;
+                margin-bottom: 15px;
+            }
+        }
+        .review-area {
+            margin-bottom: 13px;
+            display: flex;
+            align-items: center;
+            ul{
+                &.star-icon {
+                    margin: 0;
+                    padding: 0;
+                    display: flex;
+                    list-style: none;
+                    li{
+                        margin: 0;
+                        display: inline-block;
+                        a{
+                            display: flex;
+                            i{
+                                transition: 0.3s;
+                                font-size: 13px;
+                                color: #FF9747;
+                                line-height: 13px;
+                            }
+                        }
+                    }
+                    li+li{
+                        margin-left: 5px;
+                    }
+                }
+            }
+            .review-text{
+                font-size: 15px;
+                line-height: 15px;
+                margin-left: 10px;
+                color: var(--color-heading);
+            }
+        }
+        .quantity-part{
+            display: flex;
+            align-items: center;
+            padding-bottom: 30px;
+            border-bottom:  1px solid #DCE4EE;
+            .title{
+                margin-bottom: 0;
+            }
+            ul{
+                margin-left: 26px;
+                margin-right: 20px;
+                margin-bottom: 0;
+                padding: 10px 0px;
+                list-style: none;
+                display: flex;
+                align-items: center;
+                background: #F2F5F9;
+                border-radius: 6px;
+                li{
+                    margin: 0;
+                    padding: 0 15px;
+                    a{
+                        font-size: 20px;
+                        line-height: 30px;
+                        color: var(--color-primary);
+                        &:hover{
+                            color: var(--color-secondary);
+                        }
+                    }
+                }
+                li+li{
+                    border-left: 1px solid var(--color-white);
+                }
+            }
+            .react-icon{
+                margin-left: 20px;
+                a{
+                    padding: 14px 20px;
+                    font-size: var(--font-size-b2);
+                    color: var(--color-secondary);
+                    background: #F2F5F9;
+                    border-radius: 6px;
+                    display: flex;
+                    &:hover{
+                        background: var(--color-secondary-alt);
+                    }
+                }
+            }
+        }
+        ul{
+            &.inner-info{
+                margin-top: 20px;
+                font-size: var(--font-size-b2);
+                list-style: none;
+                padding: 0;
+                width: 60%;
+                li{
+                    color: var(--color-heading);
+                    margin: 0;
+                    display: flex;
+                    justify-content: space-between;
+                    font-size: 18px;
+                    line-height: 28px;
+                }
+                li+li{
+                    margin-top: 15px;
+                }
+            }
+        }
+    }
+    .nav-pills{
+        padding-top: 100px;
+    }
+    .tab-pane{
+        .description-box{
+            padding-top: 20px;
+            h4{
+                font-size: 24px;
+                line-height: 36px;
+                margin-bottom: 10px;
+            }
+            p{
+                color: #192335;
+                font-size: 15px;
+                line-height: 25px;
+            }
+        }
+        .review-details{
+            padding-top: 100px;
+            .title{
+                font-size: 24px;
+                margin-bottom: 12px;
+                line-height: 36px;
+            }
+            .ratings-statistics{
+                display: flex;
+                .avg-rating{
+                    margin-right: 50px;
+                    h6{
+                        font-size: 18px;
+                        margin-bottom: 50px;
+                    }
+                    .rating-box{
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        background: var(--color-white);
+                        box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.08);
+                        border-radius: 4px;
+                        padding: 29px 51px;
+                        padding-bottom: 32px;
+                        .large-num{
+                            font-size: 60px;
+                            color: var(--color-secondary);
+                            margin-bottom: 10px;
+                        }
+                        .star-icons{
+                            display: flex;
+                            list-style: none;
+                            margin-bottom: 10px;
+                            padding: 0;
+                            li{
+                                margin: 0;
+                                font-size: 14px;
+                                a{
+                                    color: #F2994A;
+                                }
+                            }
+                            li+li{
+                                margin-left: 6px;
+                            }
+                        }
+                        p{
+                            color: var(--color-heading);
+                        }
+                    }
+                }
+                .details-rating{
+                    h6{
+                        font-size: 18px;
+                        margin-bottom: 50px;
+                    }
+                    .progress-area{
+                        .single-progress{
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+                            justify-content: space-between;
+                            .star-icons{
+                                display: flex;
+                                margin: 0;
+                                padding: 0;
+                                list-style: none;
+                                margin-right: 30px;
+                                li{
+                                    margin: 0;
+                                    font-size: 13px;
+                                    a{
+                                        color: #F2994A;
+                                    }
+                                }
+                                li+li{
+                                    margin-left: 5px;
+                                }
+                            }
+                            .rbt-progress-bar{
+                                position: relative;
+                                width: 390px;
+                                height: 6px;
+                                background: #DCE4EE;
+                                border-radius: 2px;
+                                .bar{
+                                    width: 0;
+                                    height: 100%;
+                                    background: var(--color-secondary);
+                                    &.bar-1{
+                                        width: 35%;
+                                    }
+                                    &.bar-2{
+                                        width: 30%;
+                                    }
+                                    &.bar-3{
+                                        width: 25%;
+                                    }
+                                    &.bar-4{
+                                        width: 10%;
+                                    }
+                                    &.bar-5{
+                                        width: 5%;
+                                    }
+                                    .percent{
+                                        position: absolute;
+                                        top: -12px;
+                                        right: -40px;                                               
+                                    }
+                                }
+                                .bar-3{
+                                    width: 35%;
+                                }
+                            }
+                        }
+                        .single-progress+.single-progress{
+                            margin-top: 16px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -19,6 +19,7 @@ import com.fitanywhere.service.MailService;
 @Service
 public class UserService {
 
+
 // =============================================    
 //    註冊-寄送信箱驗證信功能
 	@Autowired
@@ -195,5 +196,17 @@ public class UserService {
 		UserVO userVO = userJpaRepository.findByuId(uId);
 		return userVO;
 	}
+
+    
+    //andy 單取出user大頭照
+    public byte[] getUserHeadshot(Integer uId) {
+    	byte[] uHeadshot = userJpaRepository.getUserHeadshotByUserId(uId);
+    	return uHeadshot;
+    }
+
+ // Tommy
+ 	public List<UserVO> getAll() {
+ 		return userJpaRepository.findAll();
+ 	}
 
 }

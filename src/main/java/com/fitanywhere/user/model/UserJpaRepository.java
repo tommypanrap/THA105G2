@@ -1,5 +1,10 @@
 package com.fitanywhere.user.model;
 
+
+import com.fitanywhere.user.model.UserVO;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -8,6 +13,7 @@ import org.springframework.stereotype.Repository;
 //處理登入時依據會員信箱查詢所需資料
 @Repository
 public interface UserJpaRepository extends JpaRepository<UserVO, Integer> {
+
 
 // =========================
 	// 如果只是要單純判斷會員資料是否存在 用這個比較省效能
@@ -55,5 +61,11 @@ public interface UserJpaRepository extends JpaRepository<UserVO, Integer> {
 	// 依照uMail取得uId
 	@Query("SELECT u.uId FROM UserVO u WHERE u.uMail = :uMail")
 	Integer findOnlyIdByuMail(String uMail);
+
+
+    
+    //andy 單取出user的大頭照
+    @Query("SELECT u.uHeadshot FROM UserVO u WHERE u.uId = :uId")
+    byte[] getUserHeadshotByUserId(Integer uId);
 
 }

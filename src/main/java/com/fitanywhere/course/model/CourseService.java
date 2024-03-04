@@ -36,5 +36,9 @@ public class CourseService {
 	public List<CourseVO> getAll() {
 		return repository.findAll();
 	}
+	
+	public Integer getCourseCount(Integer uId) {
+		return repository.getCourseCount(uId);
+	}
 
 }

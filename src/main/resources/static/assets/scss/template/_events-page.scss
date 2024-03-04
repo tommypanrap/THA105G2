@@ -1,0 +1,8 @@
+.event-section{
+    background-color: var(--color-card-3);
+    .rbt-pagination-area{
+        &:nth-child(2){
+            margin-bottom: 100px;
+        }
+    }
+}

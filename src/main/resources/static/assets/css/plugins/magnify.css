@@ -19,7 +19,7 @@
     height: 100%;
     z-index: 503;
     position: fixed;
-    outline: none  ;
+    outline: none !important;
     -webkit-backface-visibility: hidden;
 }
 
@@ -97,7 +97,7 @@
 }
 
 .mfp-hide {
-    display: none  ;
+    display: none !important;
 }
 
 .mfp-preloader {

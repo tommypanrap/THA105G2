@@ -11,9 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +48,7 @@ public class UserRestController {
 	@PostMapping("/check_register_duplicate")
 	public String checkRegisterDuplicate(HttpServletRequest request) {
 		boolean isRegisterDuplicate = false;
+
 		String testItem = request.getParameter("fieldId");
 //	    System.out.println("requestType =" + testItem);
 
@@ -66,7 +72,9 @@ public class UserRestController {
 		}
 
 		return isRegisterDuplicate ? "true" : "false";
+
 	}
+
 
 	// 註冊-接收註冊資料表單並暫存到Session
 	@PostMapping("/hold_register_form")
@@ -156,6 +164,7 @@ public class UserRestController {
 		}
 	}
 
+
 //	======================================
 	// 測試開發用
 	@PostMapping("/user_update_photo_test")
@@ -210,5 +219,6 @@ public class UserRestController {
             return ResponseEntity.badRequest().body("資料更新失敗");
         }
     }
+
 
 }

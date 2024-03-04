@@ -1,0 +1,93 @@
+.events-details-page{
+    padding-top: 130px;
+    padding-bottom: 60px;
+    border-bottom: 1px solid #DCE4EE;
+    .events-details-title{
+        margin: 0;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #DCE4EE;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: normal;
+        color: var(--color-gray);
+    }
+    .events-details-img{
+        margin-top: 30px;
+        margin-bottom: 40px;
+        img{
+            border-radius: 6px;
+        }
+    }
+    .info-card{
+        ul{
+            margin-bottom: 45px;
+        }
+        .meeting-btn{
+            .rbt-btn{
+                padding: 0 50px;
+
+            }
+        }
+    }
+    .inner-content{
+        .add-btn{
+            margin-top: 40px;
+            display: flex;
+            a{
+                padding: 20px 40px;
+                background: #F5FCFA;
+                color: var(--color-primary);
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 15px;
+                border-radius: 100px;
+            }
+            a+a{
+                margin-left: 20px;
+            }
+        }
+        .map-img{
+            padding: 50px 0;
+            img{
+                border-radius: 6px;
+            }
+        }
+        .previous-btn{
+            background: #FFF9F9;
+            border-radius: 8px;
+            padding: 56px 30px;
+            a{
+                color: var(--color-gray);
+                margin-bottom: 12px;
+                &::after{
+                    background-color: var(--color-secondary);
+                }
+                &:hover{
+                    color: var(--color-secondary);
+                }
+            }
+            h5{
+                font-weight: 700;
+                margin: 0;
+                color: var(--color-secondary);
+            }
+        }
+        .next-btn{
+            background: #F5FCFA;
+            border-radius: 8px;
+            padding: 56px 30px;
+            a{
+                color: var(--color-gray);
+                margin-bottom: 12px;
+                &:hover{
+                    color: var(--color-primary);
+                }
+            }
+            h5{
+                font-weight: 700;
+                margin: 0;
+                color: var(--color-primary);
+            }
+        }
+    }
+}

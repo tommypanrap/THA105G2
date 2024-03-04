@@ -1,5 +1,10 @@
 package com.fitanywhere.user.model;
 
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,22 +12,37 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import java.io.Serializable;
 import java.util.Date;
+import com.fitanywhere.mood.model.MoodVO;
+import com.fitanywhere.socialpost.model.SocialPostVO;
 
 @Entity
 @Table(name = "user")
-public class UserVO {
+public class UserVO implements java.io.Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "u_id")
 	private Integer uId;
+	
+	
+	// Tommy
+	@ManyToOne
+	@JoinColumn(name = "mood_id")
+	private MoodVO moodVO;
 
-	@Column(name = "mood_id")
-	private Integer moodId;
+	public MoodVO getMoodVO() {
+		return this.moodVO;
+	}
+
+	public void setMoodVO(MoodVO moodVO) {
+		this.moodVO = moodVO;
+	}
 
 	@Column(name = "u_nickname")
 	private String uNickname;
@@ -57,6 +77,20 @@ public class UserVO {
 	private Date uRegisterdate;
 
 
+
+	//Tommy
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="userVO")
+	private Set<SocialPostVO> socialposts = new HashSet<SocialPostVO>();
+
+	public Set<SocialPostVO> getSocialposts() {
+		return this.socialposts;
+	}
+
+	public void setSocialposts(Set<SocialPostVO> socialposts) {
+		this.socialposts = socialposts;
+	}
+
+
 	// Constructor
 	public UserVO() {
 		// Default constructor
@@ -64,23 +98,23 @@ public class UserVO {
 
 	// Getters and setters 
 	public Integer getuId() {
-		return uId;
+		return this.uId;
 	}
 
 	public void setuId(Integer uId) {
 		this.uId = uId;
 	}
 
-	public Integer getMoodId() {
-		return moodId;
-	}
-
-	public void setMoodId(Integer moodId) {
-		this.moodId = moodId;
-	}
+//	public Integer getMoodId() {
+//		return moodId;
+//	}
+//
+//	public void setMoodId(Integer moodId) {
+//		this.moodId = moodId;
+//	}
 
 	public String getuNickname() {
-		return uNickname;
+		return this.uNickname;
 	}
 
 	public void setuNickname(String uNickname) {
@@ -88,7 +122,7 @@ public class UserVO {
 	}
 
 	public String getuName() {
-		return uName;
+		return this.uName;
 	}
 
 	public void setuName(String uName) {
@@ -96,7 +130,7 @@ public class UserVO {
 	}
 
 	public String getuMail() {
-		return uMail;
+		return this.uMail;
 	}
 
 	public void setuMail(String uMail) {
@@ -104,7 +138,7 @@ public class UserVO {
 	}
 
 	public String getuPassword() {
-		return uPassword;
+		return this.uPassword;
 	}
 
 	public void setuPassword(String uPassword) {
@@ -112,7 +146,7 @@ public class UserVO {
 	}
 
 	public String getuPhone() {
-		return uPhone;
+		return this.uPhone;
 	}
 
 	public void setuPhone(String uPhone) {
@@ -120,7 +154,7 @@ public class UserVO {
 	}
 
 	public Integer getuGender() {
-		return uGender;
+		return this.uGender;
 	}
 
 	public void setuGender(Integer uGender) {
@@ -128,7 +162,7 @@ public class UserVO {
 	}
 
 	public byte[] getuHeadshot() {
-		return uHeadshot;
+		return this.uHeadshot;
 	}
 
 	public void setuHeadshot(byte[] uHeadshot) {
@@ -136,7 +170,7 @@ public class UserVO {
 	}
 
 	public Date getuBirth() {
-		return uBirth;
+		return this.uBirth;
 	}
 
 	public void setuBirth(Date uBirth) {
@@ -144,7 +178,7 @@ public class UserVO {
 	}
 
 	public Integer getuStatus() {
-		return uStatus;
+		return this.uStatus;
 	}
 
 	public void setuStatus(Integer uStatus) {
@@ -152,14 +186,14 @@ public class UserVO {
 	}
 
 	public Date getuRegisterdate() {
-		return uRegisterdate;
+		return this.uRegisterdate;
 	}
 
 	public void setuRegisterdate(Date uRegisterdate) {
 		this.uRegisterdate = uRegisterdate;
 	}	
 
-	
+
 }
 	
 

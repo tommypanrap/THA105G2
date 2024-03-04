@@ -12,6 +12,10 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fitanywhere.user.model.UserJpaRepository;
+
+//import com.fitanywhere.user.model.UserVO;
+
 
 @Service("socialService")
 public class SocialPostService {
@@ -19,8 +23,14 @@ public class SocialPostService {
 	@Autowired
 	SocialPostRepository repository;
 	
+	
+	@Autowired
+	UserJpaRepository userRepository;
+	
 	@Autowired
     private SessionFactory sessionFactory;
+	
+	
 	
 	public void addSocialPost(SocialPostVO socialPostVO) {
 		repository.save(socialPostVO);

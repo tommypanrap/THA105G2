@@ -1,0 +1,254 @@
+.rbt-features-area{
+    .features-btn{
+        margin-top: 50px;
+    }
+}
+
+.rbt-about-area{
+    position: relative;
+    background-color: var(--color-white);
+    .rbt-card +.rbt-card{
+        margin-top: 30px;
+    }
+    .about-btn{
+        margin-top: 40px;
+    }
+    .rbt-badge-area{
+        margin-top: 72px;
+        @media #{$md-layout} {
+            margin-top: 20px;
+        }
+        @media #{$sm-layout} {
+            margin-top: 20px;
+        }
+    }
+    .about-img{
+        position: absolute;
+        top: 57px;
+        left: 50%;
+        @media #{$md-layout} {
+            position: relative;
+            top: 0;
+            left: 0;
+        }
+        @media #{$sm-layout} {
+            position: relative;
+            top: 0;
+            left: 0;
+        }
+    }
+}
+
+.rbt-about-wisedu-area{
+    padding-top: 225px;
+    display: flex;
+    align-items: center;
+    @media #{$md-layout} {
+        padding-top: 115px;
+    }
+    @media #{$lg-layout} {
+        padding-top: 115px;
+    }
+    @media #{$md-layout} {
+        padding-top: 115px;
+    }
+    @media #{$sm-layout} {
+        padding-top: 75px;
+    }
+    .inner-content{
+        .title-badge{
+            font-size: 16px;
+            line-height: 15px;
+            font-weight: var(--f-medium);
+            color: var(--color-heading);
+            margin-bottom: 15px;
+            display: inline-block;
+            padding: 10px 20px;
+            background: #00000010;
+            border-radius: 100px;
+            text-transform: uppercase;
+            @media #{$sm-layout} {
+                font-size: 15px;
+                margin-bottom: 5px;
+            }
+        }
+        .title{
+            font-size: 36px;
+            line-height: 48px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            @media #{$sm-layout} {
+                font-size: 30px;
+            }
+            @media #{$small-mobile} {
+                font-size: 22px;
+                line-height: 35px;
+            }
+            span{
+                color: var(--color-secondary);
+            }
+        }
+        .inner-p{
+            font-size: 16px;
+            line-height: 28px;
+            margin-bottom: 40px;
+            @media #{$sm-layout} {
+                font-size: 14px;
+                margin-bottom: 25px;
+            }
+            @media #{$small-mobile} {
+                font-size: 12px;
+                line-height: 18px;
+                margin-bottom: 25px;
+            }
+        }
+        a.rbt-btn{
+            background-color: var(--color-primary);
+        }
+    }
+    .img-wrapper{
+        position: relative;
+        &::before{
+            content: '';
+            position: absolute;
+            bottom: -40px;
+            left: -75px;
+            height: 100px;
+            width: 102px;
+            background: url(../images/about-img/shape/shape-1.png);
+        }
+        &::after{
+            content: '';
+            position: absolute;
+            height: 87px;
+            width: 95px;
+            top: -65px;
+            right: -180px;
+            background: url(../images/about-img/shape/shape-2.png);
+        }
+        .inner-img{
+            overflow: hidden;
+            img{
+                transition: 0.4s;
+                width: 100%;
+            }
+        }
+        span{
+            &.img-caption{
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                font-weight: 800;
+                font-size: 36px;
+                line-height: 48px;
+                padding: 24px 0;
+                width: 100%;
+                text-align: center;
+                background: var(--color-primary);
+                color: var(--color-white);
+            }
+        }
+        &:hover{
+            .inner-img{
+                img{
+                    transform: scale(1.1);
+                }
+            }
+        }
+    }
+}
+
+.rbt-event-area{
+    &.bg-color-white{
+        .rbt-event-card{
+            box-shadow: 0px 0px 40px -15px #DCE4EE;
+        }
+    }
+}
+
+.rbt-service-box{
+    background-color: #FFF7F5;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    .inner{
+        display: flex;
+        justify-content: space-between;
+        text-align: center;
+        .single-service-box{
+            .icon-img{
+                margin-bottom: 10px;
+            }
+            p{
+                &.title{
+                    font-weight: 500;
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+}
+
+.rbt-best-seller-book-area{
+    padding-top: 45px;
+    padding-bottom: 10px;
+    .inner-img{
+        position: relative;
+        img{
+            max-width: none;
+        }
+        .offer{
+            position: absolute;
+            right: 10px;
+            top: 123px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            font-weight: 700;
+            font-size: 18px;
+            line-height: 15px;
+            height: 60px;
+            width: 60px;
+            border-radius: 100%;
+        }
+    }
+    .section-title{
+        h3{
+            &.title{
+                font-size: 48px;
+                line-height: 60px;
+                margin-bottom: 15px;
+            }
+            &.title-primary{
+                font-weight: normal;
+                color: var(--color-primary);
+                margin-bottom: 15px;
+            }
+        }
+    }
+    p{
+        &.inner-text{
+            max-width: 550px;
+            margin-bottom: 35px;
+        }
+    }
+    .download-text{
+        font-size: 18px;
+        font-weight: 700;
+        span{
+            display: block;
+            color: var(--color-secondary);
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+    }
+    .download-link{
+        a+a{
+            margin-left: 20px;
+        }
+    }
+}
+
+

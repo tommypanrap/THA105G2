@@ -1,0 +1,122 @@
+.teacher-section-area{
+    background-color: var(--color-card-4);
+}
+.rbt-teacher{
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    .rbt-teacher-img{
+        position: relative;
+        overflow: hidden;
+        &:hover{
+            .share-btn{
+                display: none;
+            }
+            .teachers-link{
+                left: 20px;
+            }
+            .teacher-name{
+                bottom: 40px;
+            }
+            .img-tag{
+                bottom: 16px;
+            }
+        }
+        .img-tag{
+            position: absolute;
+            bottom: -30px;
+            left: 20px;
+            font-size: var(--font-size-b2);
+            color: var(--color-white);
+            font-weight: var(--f-semi-bold);
+            transition: .3s;
+        }
+        .teachers-link{
+            position: absolute;
+            top: 120px;
+            left: -40px;
+            transition: 0.4s;
+            ul{
+                margin: 0;
+                padding: 0;
+                list-style: none;
+                li{
+                    margin: 0;
+                    a{
+                        height: 35px;
+                        width: 35px;
+                        border-radius: 100%;
+                        background-color: var(--color-primary);
+                        color: var(--color-white);
+                        font-size: 15px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        line-height: 35px;
+                        transition: 0.4s;
+                        &:hover{
+                            background-color: var(--color-secondary);
+                        }
+                    }
+                }
+                li+li{
+                    margin-top: 10px;
+                }
+            }
+        }
+        .share-btn{
+            position: absolute;
+            bottom: 60px;
+            left: 20px;
+            transition: 0.4s;
+            a{
+                height: 35px;
+                width: 35px;
+                border-radius: 100%;
+                background-color: var(--color-primary);
+                color: var(--color-white);
+                font-size: 15px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                line-height: 35px;
+                transition: 0.4s;
+                &:hover{
+                    background-color: var(--color-secondary);
+                }
+            }
+        }
+        .teacher-name{
+            position: absolute;
+            bottom: 22px;
+            left: 20px;
+            color: var(--color-white);
+            font-size: var(--font-size-b1);
+            font-weight: var(--f-bold);
+            transition: 0.4s ease-out;
+        }
+    }
+}
+.rbt-teacher-area{
+    ul.nav{
+        margin-bottom: 60px;
+        li.nav-item{
+            margin: 0;
+            .nav-link{
+                color: var(--color-heading);
+                padding: 15px 30px;
+                font-size: 16px;
+                line-height: 15px;
+                font-weight: 500;
+                &:active{
+                    background-color: var(--color-primary);
+                    color: var(--color-white) !important;
+                }
+            }
+        }
+    }
+}
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    background-color: var(--color-primary);
+    color: var(--color-white) !important;
+}

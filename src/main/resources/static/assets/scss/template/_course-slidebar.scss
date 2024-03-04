@@ -1,0 +1,146 @@
+.rbt-course-slidebar{
+    .search-section{
+        margin-bottom: 40px;
+        .search-box{
+            background: var(--color-white);
+            box-shadow: -8px 6px 50px rgba(25, 35, 53, 0.08);
+            border-radius: 4px;
+            padding: 23px 20px;
+            display: flex;
+            justify-content: space-between;
+            input{
+                border: none;
+                font-size: 14px;
+                line-height: 15px;
+                color: #A1A9AC;
+                outline: none;
+                width: 75%;
+                &::placeholder{
+                    font-size: 14px;
+                    line-height: 15px;
+                    color: #A1A9AC;
+                }
+            }
+            button{
+                border: none;
+                font-size: 14px;
+                line-height: 15px;
+                color: #A1A9AC;
+                background: none;
+            }
+        }
+    }
+    .catagories-section{
+        margin-bottom: 28px;
+    }
+    .payment-section{
+        margin-bottom: 28px;
+    }
+    .level-section{
+        margin-bottom: 40px;
+    }
+    .slidebar-card-section{
+        background: url(../images/card-img/image-16-right.png);
+        background-size: cover;
+        background-position: right center;
+        background-repeat: no-repeat;
+        border-radius: 10px;
+        margin-bottom: 30px;
+        .card-inner{
+            background: url(../images/card-img/card-shape-2.png);
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: top left;
+            padding: 18px 0 20px 23px;
+            .title{
+                font-size: 24px;
+                line-height: 36px;
+                color: var(--color-white);
+                margin-bottom: 0;
+                a{
+                    &:hover{
+                        color: var(--color-secondary);
+                    }
+                }
+            }
+            p{
+                color: var(--color-white);
+                line-height: 36px;
+                margin-bottom: 10px;
+            }
+            .rbt-btn{
+                margin-bottom: 20px;
+                &:hover{
+                    background: var(--color-primary-alt);
+                    color: var(--color-secondary);
+                }
+            }
+            .offer-price{
+                height: 60px;
+                width: 60px;
+                border-radius: 100%;
+                background: var(--color-white);
+                font-size: 12px;
+                line-height: 15px;
+                color: var(--color-secondary);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                font-family: var(--font-secondary);
+                font-weight: 700;
+            }
+        }
+    }
+    .course-section{
+        @media #{$sm-layout} {
+            margin-bottom: 30px;
+        }
+        .course-section-card{
+            background-color: var(--color-white);
+            border-radius: 10px;
+            padding: 24px 21px;
+            padding-bottom: 41px;
+            .single-course-card{
+                display: flex;
+                align-items: center;
+                padding-top: 13px;
+                padding-bottom: 9px;
+                border-bottom: 1px solid #F2F5F9;
+                &:first-child{
+                    padding-top: 0;
+                }
+                &:last-child{
+                    border: none;
+                }
+                .course-sm-img{
+                    a{
+                        img{
+                            height: 80px;
+                            width: 80px;
+                            border-radius: 100%;
+                            max-width: none;
+                        }
+                    }
+                }
+                .card-body{
+                    padding: 0;
+                    margin-left: 10px;
+                    .title{
+                        margin-bottom: 4px;
+                        a{
+                            &:hover{
+                                color: var(--color-secondary);
+                            }
+                        }
+                    }
+                    p{
+                        font-size: 15px;
+                        line-height: 25px;
+                        color: var(--color-heading);
+                    }
+                }
+            }
+        }
+    }
+}

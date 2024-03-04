@@ -1,0 +1,124 @@
+.log-in-page{
+    .inner{
+        display: flex;
+        justify-content: space-between;
+        .inner-text{
+            display: flex;
+            justify-content: end;
+            align-items: center;
+            background: #F5FCFA;
+            padding-right: 0;
+            @media #{$md-layout} {
+                justify-content: center;
+                align-items: start;
+                margin-bottom: 30px;
+            }
+            @media #{$sm-layout} {
+                justify-content: center;
+                align-items: start;
+                margin-bottom: 20px;
+            }
+            .title-text{
+                padding: 23px 72px;
+                text-align: left;
+                background: var(--color-white);
+                .title{
+                    margin: 0;
+                    font-weight: 800;
+                    font-size: 64px;
+                    line-height: 87px;
+                    color: var(--color-secondary);
+                    @media #{$laptop-device} {
+                        font-size: 55px;
+                        line-height: 70px;
+                    }
+                    @media #{$lg-layout} {
+                        font-size: 50px;
+                        line-height: 60px;
+                    }
+                    @media #{$md-layout} {
+                        font-size: 45px;
+                        line-height: 60px;
+                    }
+                    @media #{$sm-layout} {
+                        font-size: 42px;
+                        line-height: 52px;
+                    }
+                    @media #{$small-mobile} {
+                        font-size: 30px;
+                        line-height: 40px;
+                    }
+                }
+            }
+        }
+        .login-form{
+            padding-bottom: 20px;
+            .title{
+                font-weight: bold;
+                font-size: 48px;
+                line-height: 66px;
+                color: var(--color-secondary);
+            }
+            p{
+                font-weight: 500;
+                margin-bottom: 30px;
+            }
+            .single-form{
+                h6{
+                    font-size: var(--font-size-b2);
+                    margin-bottom: 10px;
+                }
+                input{
+                    padding: 17px 30px;
+                    outline: none;
+                    border: 1px solid #D1EBE6;
+                    border-radius: 6px;
+                    font-size: var(--font-size-b2);
+                    color: #A1A9AC;
+                    width: 100%;
+                    &::placeholder{
+                        font-size: var(--font-size-b2);
+                        color: #A1A9AC;
+                    }
+                    &#log-in-checker{
+                        height: 20px;
+                        width: 20px;
+                        font-size: var(--font-size-b3);
+                        color: var(--color-body);
+                        margin-right: 10px;
+                    }
+                }
+                label{
+                    font-size: var(--font-size-b2);
+                    color: var(--color-body);
+                    position: absolute;
+                    top: 2px;
+                }
+                &.checkbox-form{
+                    margin: 30px 0;
+                    line-height: 1;
+                    position: relative;
+                }
+            }
+            .single-form +.single-form{
+                margin-top: 20px;
+            }
+            .log-in-btn{
+                margin-bottom: 30px;
+                .rbt-btn{
+                    width: 100%;
+                }
+            }
+            .forget-pass{
+                font-size: 14px;
+                line-height: 22px;
+                color: #6E798C;
+                display: block;
+                font-weight: 500;
+                &:hover{
+                    color: var(--color-primary);
+                }
+            }
+        }
+    }
+}

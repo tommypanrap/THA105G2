@@ -1,0 +1,111 @@
+/*----------------------
+    Newsletter Styles  
+------------------------*/
+.newsletter-form {
+    input {
+        flex-grow: 1;
+        width: auto;
+        margin-right: 7px;
+        height: 45px;
+        font-size: 16px;
+        font-weight: 400;
+        border-radius: 500px;
+    }
+}
+
+// Form Style One 
+.newsletter-form-1 {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+    z-index: 1;
+    &.radius-round {
+        input {
+            border-radius: 500px;
+        }
+    }
+    input {
+        background: var(--color-white);
+        border: 0 none;
+        height: 70px;
+        line-height: 70px;
+        padding: 0 20px;
+        padding-right: 172px;
+        @media #{$sm-layout} {
+            height: 50px;
+            line-height: 50px;
+        }
+        @media #{$small-mobile} {
+            padding-right: 20px;
+            font-size: 14px;
+        }
+    }
+    .rbt-btn {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        @media #{$sm-layout} {
+            right: 0;
+        }
+        @media #{$small-mobile} {
+            position: static;
+            transform: none;
+            margin-top: 20px;
+        }
+       
+    }
+}
+
+
+/*-------------------------------
+    Newsletter Styles One 
+----------------------------------*/
+
+.newsletter-style-1 {
+    padding: 100px 50px;
+    border-radius: var(--radius);
+    position: relative;
+    z-index: 1;
+    
+    @media #{$sm-layout} {
+        padding: 60px 20px;
+    }
+
+    &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        right: 0;
+        height: 100%;
+        width: 50%;
+        background: url(../images/shape/dots.svg) repeat center/auto;
+        top: 0;
+        z-index: 0;
+    }
+}
+
+.newsletter-style-2 {
+    position: relative;
+    z-index: 1;
+    &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        right: 0;
+        height: 100%;
+        width: 100%;
+        background: url(../images/shape/dots.png) repeat center/auto;
+        top: 0;
+        z-index: -1;
+    }
+    .note-text {
+        font-size: 14px;
+        display: block;
+        opacity: 0.9;
+    }
+}
+
+
+
+

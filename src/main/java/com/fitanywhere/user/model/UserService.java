@@ -58,6 +58,11 @@ public class UserService {
 		return userVO;
     }
     
+    //andy 單取出user大頭照
+    public byte[] getUserHeadshot(Integer uId) {
+    	byte[] uHeadshot = userJpaRepository.getUserHeadshotByUserId(uId);
+    	return uHeadshot;
+    }
 
  // Tommy
  	public List<UserVO> getAll() {

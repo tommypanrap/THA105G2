@@ -1,0 +1,70 @@
+/*----------------------------
+    BG Color Darker  
+------------------------------*/
+.bg-color-darker {
+
+    --dark-border: #525260;
+
+
+    input[type=text], 
+    input[type=password], 
+    input[type=email], 
+    input[type=number], 
+    input[type=tel], 
+    textarea,
+    select {
+        color: var(--color-white-off);
+    }
+
+    // Information List 
+    .rbt-information-list {
+        li {
+            a {
+                color: var(--color-white-off);
+                &:hover {
+                    color: var(--color-white);
+                }
+            }
+        }
+    }
+
+    .social-share-transparent {
+        li {
+            a {
+                color: var(--color-white-off);
+                &:hover {
+                    color: var(--color-white);
+                }
+            }
+        }
+    }
+    .quick-access > li > a {
+        color: var(--color-white-off);
+    }
+    .rbt-header-top-news .inner .content .news-text,
+    ul.rbt-dropdown-menu > li > a,
+    .rbt-search-with-category .search-field .serach-btn,
+    .rbt-secondary-menu li a {
+        color: var(--color-white-off);
+    }
+
+    .rbt-btn.btn-border-gradient {
+        box-shadow: none;
+    }
+
+    .rbt-search-with-category {
+        border-color: var(--dark-border);
+    }
+
+
+    .rbt-search-with-category .search-by-category::after,
+    .rbt-separator::after {
+        background: var(--dark-border);
+    }
+
+    .rbt-round-btn::after,
+    .social-share-transparent li a::before {
+        background: var(--white-opacity);
+    }
+
+}

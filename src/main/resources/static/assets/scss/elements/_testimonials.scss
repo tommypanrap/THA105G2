@@ -1,0 +1,213 @@
+// Start Testimonial Style
+
+.rbt-testimonial{
+    background: var(--color-card-4);
+    padding: 30px 30px;
+    border-radius: var(--radius-big);
+    overflow: hidden;
+    height: 100%;
+    p.testimonial-text{
+        font-size: var(--font-size-b2);
+        color: var(--color-body);
+        margin-bottom: 25px;
+        @media #{$md-layout} {
+            margin-bottom: 7px;
+        }
+        @media #{$sm-layout} {
+            font-size: var(--font-size-b3);
+            margin-bottom: 3px;
+        }
+    }
+    .testimonial-icon{
+        margin-bottom: 30px;
+        @media #{$md-layout} {
+            margin-bottom: 25px;
+        }
+        @media #{$sm-layout} {
+            margin-bottom: 15px;
+        }
+        ul{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            li{
+                margin: 0;
+                display: inline-block;
+                a{
+                    display: inline-block;
+                    color: #FF9747;;
+                    font-size: var(--font-size-b3);
+                }
+            }
+        }
+    }
+    .testimonial-profile{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding-top: 30px;
+        border-top: 2px solid #EBECED;
+        @media #{$md-layout} {
+            padding-top: 25px;
+        }
+        @media #{$sm-layout} {
+            padding-top: 15px;
+        }
+        .postman-img a{
+            img{
+                width: 55px;
+                height: 55px;
+                margin-right: 20px;
+                border-radius: 100%;
+                object-fit: cover;
+                box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.1);
+            }
+        }
+        .postman-info{
+            a {
+                .postman-name{
+                    display: block;
+                    color: var(--color-heading-2);
+                    font-size: 22px;
+                    font-weight: var(--f-semi-bold);
+                    @media #{$sm-layout} {
+                        font-size: 17px;
+                    }
+                    &:hover{
+                        color: var(--color-secondary);
+                        transition: 0.3s;
+                    }
+
+                }
+            }
+            .postman-prf{
+                display: block;
+                color: var(--color-body);
+                font-size: var(--font-size-b3);
+            }
+        }
+    }
+    &.rbt-testimonial-1{
+        padding-top: 90px;
+        @media #{$lg-layout} {
+            padding-top: 80px;
+        }
+        @media #{$md-layout} {
+            padding-top: 70px;
+        }
+        @media #{$sm-layout} {
+            padding-top: 60px;
+        }
+        p.testimonial-text{
+            position: relative;
+            &::before{
+                content: '';
+                position: absolute;
+                background: url(../images/testimonials-img/comma.png);
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                top: -65px;
+                left: 0;
+                width: 55px;
+                height: 40px;
+                filter: grayscale(100%);
+                opacity: 0.2;
+                @media #{$lg-layout} {
+                    top: -65px;  
+                    width: 54px;
+                    height: 40px;    
+                }
+                @media #{$md-layout} {
+                    top: -60px;  
+                    width: 54px;
+                    height: 40px;    
+                }
+                @media #{$sm-layout} {
+                    top: -42px;  
+                    width: 45px;
+                    height: 33px;    
+                }
+            }
+        }
+        .testimonial-profile{
+            
+        }
+    }
+    &.rbt-testimonial-2{
+        padding-top: 74px;
+        padding-left: 105px;
+        box-shadow: 0px 20px 40px -15px #DCE4EE;
+        @media #{$lg-layout} {
+            padding-left: 90px;
+            padding-top: 65px;
+        }
+        @media #{$md-layout} {
+            padding-left: 70px;
+        }
+        p.testimonial-text{
+            position: relative;
+            margin-bottom: 30px;
+            &::before{
+                content: '';
+                position: absolute;
+                background: url(../images/testimonials-img/comma.png);
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                top: -50px;
+                left: -79px;
+                width: 71px;
+                height: 52px;
+                filter: grayscale(100%);
+                opacity: 0.2;
+                @media #{$lg-layout} {
+                    top: -40px;
+                    left: -65px;
+                    width: 60px;
+                    height: 44px;
+                }
+                @media #{$md-layout} {
+                    top: -39px;
+                    left: -58px;
+                    width: 52px;
+                    height: 38px;
+                }
+            }
+        }
+        .review-area{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            flex-wrap: wrap;
+            padding-top: 30px;
+            border-top: 2px solid #EBECED;
+            @media #{$md-layout} {
+                display: block;
+            }
+            .testimonial-profile{
+                padding-top: 0;
+                border: none;
+                @media #{$md-layout} {
+                    display: flex;
+                }
+            }
+            .testimonial-icon{
+                margin-bottom: 0;
+                @media #{$md-layout} {
+                    display: flex;
+                    justify-content: center;
+                }
+                @media #{$small-mobile} {
+                    margin-top: 15px;
+                }
+            }
+
+        }
+    }
+}
+
+
+
+

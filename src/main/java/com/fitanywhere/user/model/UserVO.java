@@ -15,6 +15,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Date;
 import com.fitanywhere.mood.model.MoodVO;
 import com.fitanywhere.socialpost.model.SocialPostVO;
@@ -35,7 +36,7 @@ public class UserVO implements java.io.Serializable{
 	private MoodVO moodVO;
 
 	public MoodVO getMoodVO() {
-		return moodVO;
+		return this.moodVO;
 	}
 
 	public void setMoodVO(MoodVO moodVO) {
@@ -96,7 +97,7 @@ public class UserVO implements java.io.Serializable{
 
 	// Getters and setters 
 	public Integer getuId() {
-		return uId;
+		return this.uId;
 	}
 
 	public void setuId(Integer uId) {
@@ -112,7 +113,7 @@ public class UserVO implements java.io.Serializable{
 //	}
 
 	public String getuNickname() {
-		return uNickname;
+		return this.uNickname;
 	}
 
 	public void setuNickname(String uNickname) {
@@ -120,7 +121,7 @@ public class UserVO implements java.io.Serializable{
 	}
 
 	public String getuName() {
-		return uName;
+		return this.uName;
 	}
 
 	public void setuName(String uName) {
@@ -128,7 +129,7 @@ public class UserVO implements java.io.Serializable{
 	}
 
 	public String getuMail() {
-		return uMail;
+		return this.uMail;
 	}
 
 	public void setuMail(String uMail) {
@@ -136,7 +137,7 @@ public class UserVO implements java.io.Serializable{
 	}
 
 	public String getuPassword() {
-		return uPassword;
+		return this.uPassword;
 	}
 
 	public void setuPassword(String uPassword) {
@@ -144,7 +145,7 @@ public class UserVO implements java.io.Serializable{
 	}
 
 	public String getuPhone() {
-		return uPhone;
+		return this.uPhone;
 	}
 
 	public void setuPhone(String uPhone) {
@@ -152,7 +153,7 @@ public class UserVO implements java.io.Serializable{
 	}
 
 	public Integer getuGender() {
-		return uGender;
+		return this.uGender;
 	}
 
 	public void setuGender(Integer uGender) {
@@ -160,7 +161,7 @@ public class UserVO implements java.io.Serializable{
 	}
 
 	public byte[] getuHeadshot() {
-		return uHeadshot;
+		return this.uHeadshot;
 	}
 
 	public void setuHeadshot(byte[] uHeadshot) {
@@ -168,7 +169,7 @@ public class UserVO implements java.io.Serializable{
 	}
 
 	public Date getuBirth() {
-		return uBirth;
+		return this.uBirth;
 	}
 
 	public void setuBirth(Date uBirth) {
@@ -176,7 +177,7 @@ public class UserVO implements java.io.Serializable{
 	}
 
 	public Integer getuStatus() {
-		return uStatus;
+		return this.uStatus;
 	}
 
 	public void setuStatus(Integer uStatus) {
@@ -184,7 +185,7 @@ public class UserVO implements java.io.Serializable{
 	}
 
 	public Date getuRegisterdate() {
-		return uRegisterdate;
+		return this.uRegisterdate;
 	}
 
 	public void setuRegisterdate(Date uRegisterdate) {

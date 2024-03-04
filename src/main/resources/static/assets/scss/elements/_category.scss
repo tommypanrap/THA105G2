@@ -1,0 +1,63 @@
+/*----------------------
+    Category Styles  
+-------------------------*/
+
+.rbt-category-gallery {
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+    img {
+        border-radius: 6px;
+        width: 100%;
+    }
+    .rbt-bg-overlay {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(0,0,0,.4);
+        transition-duration: .45s;
+        transition-timing-function: cubic-bezier(.23,1,.32,1);
+        opacity: 0;
+        visibility: hidden;
+        border-radius: 6px;
+    }
+    .hover-content {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        text-align: center;
+        z-index: 2;
+        .title {
+            margin: 0;
+            color: inherit;
+            opacity: 0;
+            transform: translateY(10px);
+            transition-property: transform,opacity;
+            transition-duration: .45s;
+            transition-timing-function: cubic-bezier(.23,1,.32,1);
+            margin-bottom: 0;
+            color: var(--color-white);
+        }
+    }
+    &:hover {
+        .rbt-bg-overlay {
+            opacity: 1;
+            visibility: visible;
+        }
+        .hover-content {
+            .title {
+                opacity: 1;
+                transition-delay: .1s;
+                transform: translateY(0);
+            }
+        }
+    }
+}
+
+
+
+
+

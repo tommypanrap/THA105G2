@@ -1,0 +1,290 @@
+/*---------------------
+    Header Top  
+----------------------*/
+/*------------------------------------------
+    Header With TopBar Transparent  
+----------------------------------------------*/
+.topbar-transparent {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: auto;
+    z-index: 9;
+    .rbt-header-top {
+        background: transparent;
+    }
+    .rbt-header {
+        .rbt-header-wrapper {
+            background: transparent;
+        }
+    }
+    .rbt-header-top {
+        border-color: #e6e3f14f;
+    }
+}
+
+
+.rbt-header-top {
+    &.rbt-header-top-1 {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 40px;
+        padding-top: 7px;
+        padding-bottom: 7px;
+
+        .rbt-header-sec {
+            display: flex;
+            flex-wrap: wrap;
+
+            .rbt-header-sec-col {
+                flex-basis: 0;
+                flex-grow: 1;
+                max-width: 100%;
+                .rbt-header-content {
+                    display: flex;
+                    align-items: center;
+                    margin: 0 var(--div-gap-1);
+                    & > div {
+                        padding: 0 var(--div-gap-1);
+                    }
+                }
+            }
+
+
+            .rbt-header-left {
+                text-align: left;
+                .rbt-header-content {
+                    justify-content: flex-start;
+                }
+            }
+
+            .rbt-header-right {
+                text-align: right;
+                .rbt-header-content {
+                    justify-content: flex-end;
+                }
+            }
+
+            .rbt-header-center {
+                text-align: center;
+                .rbt-header-content {
+                    justify-content: center;
+                }
+            }
+
+            &.flex-row-reverse {
+                .rbt-header-left {
+                    text-align: right;
+                    .rbt-header-content {
+                        justify-content: flex-end;
+                    }
+                }
+                .rbt-header-right {
+                    text-align: left;
+                    .rbt-header-content {
+                        justify-content: flex-start;
+                    }
+                }
+            }
+
+
+        }
+    }
+}
+
+
+/*----------------------------
+    Header Top Bar  
+----------------------------*/
+.rbt-header-top-2 {
+    border-bottom: 1px solid var(--color-border);
+    background-color: var(--color-white);
+
+    p {
+        margin-bottom: 0;
+        font-size: 14px;
+        a {
+            transition: 0.3s;
+            i {
+                position: relative;
+                top: 2px;
+            }
+        }
+    }
+
+    .address-content {
+        display: flex;
+        align-items: center;
+        margin: 0 -10px;
+        p {
+            margin-bottom: 0;
+            padding: 0 10px;
+            font-size: 14px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            @media #{$large-mobile} {
+                padding: 0 8px;
+            }
+            & + p {
+                &::before {
+                    position: absolute;
+                    content: "";
+                    height: 20px;
+                    width: 2px;
+                    background: var(--color-border);
+                    top: 50%;
+                    transform: translateY(-50%);
+                    left: -1px;
+                    opacity: 0.5;
+                }
+            }
+            a {
+                transition: 0.3s;
+                &:hover {
+                    color: var(--color-primary);
+                }
+            }
+            i {
+                margin-right: 8px;
+                font-size: 14px;
+            }
+        }
+    }
+
+    .fancy-menu-text {
+        @media #{$md-layout} {
+            text-align: center;
+        }
+        @media #{$sm-layout} {
+            text-align: center;
+        }
+    }
+
+    .fancy-menu-address {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        @media #{$md-layout} {
+            justify-content: center;
+            margin-top: 6px;
+        }
+        @media #{$sm-layout} {
+            justify-content: center;
+            margin-top: 6px;
+        }
+    }
+
+
+    .fancu-menu-end {
+        justify-content: flex-end;
+        text-align: end;
+    }
+
+
+    &.header-top-2 {
+        .header-right {
+            @media #{$md-layout} {
+                justify-content: end;
+            }
+            @media #{$sm-layout} {
+                justify-content: center;
+            }
+            @media #{$small-mobile} {
+                display: block;
+            }
+
+            .social-icon-wrapper {
+                margin-left: 10px;
+                padding-left: 10px;
+                flex-basis: auto;
+
+                @media #{$small-mobile} {
+                    margin-top: 10px;
+                }
+
+                .social-default {
+                    &.icon-naked {
+                        margin: -5px;
+                    }
+                }
+
+            }
+        }
+    }
+
+    .social-default {
+        &.icon-naked {
+            li {
+                margin: 5px;
+                a {
+                    color: var(--color-body);
+                    font-size: 15px;
+                    line-height: 14px;
+                    display: block;
+                }
+            }
+        }
+    }
+
+    .social-icon-wrapper {
+        position: relative;
+        margin-left: 10px;
+        padding-left: 10px;
+        @media #{$large-mobile} {
+            margin-left: 0;
+            padding-left: 0;
+            flex-basis: 100%;
+        }
+        &::before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 2px;
+            background: var(--color-border);
+            top: 50%;
+            transform: translateY(-50%);
+            left: -1px;
+            opacity: 0.5;
+            @media #{$large-mobile} {
+                display: none;
+            }
+        }
+    }
+
+    &.header-top-transparent {
+        position: absolute;
+        left: 0;
+        right: 0;
+        width: auto;
+        background-color: transparent;
+    }
+
+    &.color-white {
+        p {
+            color: var(--color-white);
+            opacity: 0.7;
+        }
+        a {
+            color: var(--color-white);
+        }
+        .social-default {
+            li {
+                opacity: 0.7;
+                a {
+                    color: var(--color-white);
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+

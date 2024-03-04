@@ -125,7 +125,7 @@ public class UserRestController {
 	public int processUserLogin(@RequestBody Map<String, String> loginData, HttpServletRequest request) {
 		String uMail = loginData.get("u_email");
 		String password = loginData.get("u_password");
-		UserVO user = userService.userLogin(uMail, password);
+		UserReadDataDTO user = userService.userLogin(uMail, password);
 
 		if (user != null) {
 			// 登入成功的Session處理
@@ -148,6 +148,7 @@ public class UserRestController {
 
 			System.out.println("uId: " + newSession.getAttribute("uId"));
 			System.out.println("uNickname: " + newSession.getAttribute("uNickname"));
+			System.out.println("uStatus: " + newSession.getAttribute("uStatus"));
 
 			return 0; // 登入成功
 		} else {
@@ -177,7 +178,7 @@ public class UserRestController {
 		}
 	}
 
-	@PostMapping("/user_headshot")
+	@PostMapping("/user_headshot_test")
 	public ResponseEntity<byte[]> getUserHeadshot(@RequestBody Map<String, Integer> body) {
 		Integer uId = body.get("u_id");
 		UserHeadshotOnlyDTO headshotDTO = userService.getUserDTOWithHeadshotById(uId);
@@ -193,14 +194,14 @@ public class UserRestController {
 		}
 	}
 	
-	@PostMapping("/get_user_all_data")
+	@PostMapping("/get_user_all_data_test")
     public UserReadDataDTO getUserAllData(@RequestBody Map<String, Integer> request) {
         Integer uId = request.get("uId");
         UserReadDataDTO userData = userService.getUserDataExcludeUHeadshot(uId);  
         return userData;
     }
 	
-	@PostMapping("/update_user_data")
+	@PostMapping("/update_user_data_test")
     public ResponseEntity<?> updateUserData(@RequestBody UserWriteDataDTO userDTO) {
         boolean updateResult = userService.updateUserData(userDTO);
         if (updateResult) {

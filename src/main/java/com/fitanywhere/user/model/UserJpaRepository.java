@@ -9,6 +9,18 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserJpaRepository extends JpaRepository<UserVO, Integer> {
 
+// =========================
+	// 如果只是要單純判斷會員資料是否存在 用這個比較省效能
+	boolean existsByuMail(String uMail);
+
+	boolean existsByuNickname(String uNickname);
+
+	boolean existsByuPhone(String uPhone);
+
+	boolean existsByuId(Integer uId);
+
+// =========================
+	// 如果需要透過指定資料查詢整筆會員資料才用這些 因為都會讀整筆資料封裝UserVO比較吃效能
 	@Query("FROM UserVO WHERE uMail = :uMail")
 	UserVO findByuMail(String uMail);
 
@@ -21,11 +33,27 @@ public interface UserJpaRepository extends JpaRepository<UserVO, Integer> {
 	@Query("FROM UserVO WHERE uId = :uId")
 	UserVO findByuId(Integer uId);
 
+// =========================
+// 使用DTO封裝 適合從別的Controller呼叫對應的UserService取得	
+
+	// 讀取指定uID的uHeadshot
 	@Query("SELECT new com.fitanywhere.user.model.UserHeadshotOnlyDTO(u.uId, u.uHeadshot) FROM UserVO u WHERE u.uId = :uId")
 	UserHeadshotOnlyDTO findUserHeadshotById(@Param("uId") Integer uId);
 
+	// 讀取指定uID除uHeadshot外的所有非敏感資料
 	@Query("SELECT new com.fitanywhere.user.model.UserReadDataDTO(" + "u.uId, u.uNickname, u.uName, u.uMail, u.uPhone, "
 			+ "u.uGender, u.uBirth, u.uStatus, u.uRegisterdate) " + "FROM UserVO u WHERE u.uId = :uId")
 	UserReadDataDTO findUserDataById(Integer uId);
+
+// =========================
+// 精準讀取某特定欄位	
+
+	// 依照uMail取得uPassword
+	@Query("SELECT u.uPassword FROM UserVO u WHERE u.uMail = :uMail")
+	String findPasswordByuMail(String uMail);
+
+	// 依照uMail取得uId
+	@Query("SELECT u.uId FROM UserVO u WHERE u.uMail = :uMail")
+	Integer findIdByuMail(String uMail);
 
 }

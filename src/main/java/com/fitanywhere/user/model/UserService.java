@@ -10,6 +10,7 @@ import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
 import com.fitanywhere.service.PasswordEncryptionService;
@@ -19,7 +20,7 @@ import com.fitanywhere.service.MailService;
 public class UserService {
 
 // =============================================    
-//    寄送信箱驗證信功能
+//    註冊-寄送信箱驗證信功能
 	@Autowired
 	private MailService mailService;
 
@@ -47,11 +48,12 @@ public class UserService {
 	}
 
 // =============================================	
+	// 註冊-生成驗證碼並寫入Redis
 	@Autowired
 	private StringRedisTemplate redisTemplate;
 
 	public String getVerificationCode(String email) {
-		// 生成隨機驗證碼的方法，這裡使用SecureRandom來生成一個六位數字的驗證碼
+		// 使用下方的方法生成驗證碼
 		String verificationCode = generateRandomCode();
 
 		// 將驗證碼與電子郵件地址關聯後存入Redis，並設置存活時間為12分鐘
@@ -62,6 +64,7 @@ public class UserService {
 		return verificationCode;
 	}
 
+	// 使用SecureRandom來生成一個六位數字的驗證碼
 	private String generateRandomCode() {
 		// 使用java.security.SecureRandom來生成一個範圍在000000到999999之間的隨機數
 		SecureRandom random = new SecureRandom();
@@ -71,62 +74,65 @@ public class UserService {
 	}
 
 // =============================================    
-
+	// 註冊-基本資料重複性檢查和註冊資料處理
 	@Autowired
 	private UserJpaRepository userJpaRepository;
 
 	// 檢查信箱是否註冊
+	@Transactional(readOnly = true)
 	public boolean isEmailRegistered(String uMail) {
-		UserVO user = userJpaRepository.findByuMail(uMail);
-		return user != null;
+		return userJpaRepository.existsByuMail(uMail);
 	}
 
-	// 檢查信箱是否註冊
+	// 檢查暱稱是否註冊
+	@Transactional(readOnly = true)
 	public boolean isNicknameRegistered(String uNickname) {
-		UserVO user = userJpaRepository.findByuNickname(uNickname);
-		return user != null;
+		return userJpaRepository.existsByuNickname(uNickname);
 	}
 
-	// 檢查信箱是否註冊
+	// 檢查手機是否註冊
+	@Transactional(readOnly = true)
 	public boolean isPhoneRegistered(String uPhone) {
-		UserVO user = userJpaRepository.findByuPhone(uPhone);
-		return user != null;
+		return userJpaRepository.existsByuPhone(uPhone);
 	}
 
 	// 單向將密碼加密
-
+	@Transactional
 	public String encryptNewPassword(String uPassword) {
 		String encryptedPassword = PasswordEncryptionService.encryptPassword(uPassword);
 		return encryptedPassword;
 	}
 
-	// 核對登入密碼是否正確
-	public UserVO userLogin(String uMail, String inputPassword) {
-		UserVO user = userJpaRepository.findByuMail(uMail);
-		if (user != null && PasswordEncryptionService.checkPassword(inputPassword, user.getuPassword())) {
-			return user; // 登入成功 返回會員資料
+// =============================================
+	// 登入-核對登入密碼是否正確
+	@Transactional(readOnly = true)
+	public UserReadDataDTO userLogin(String uMail, String inputPassword) {
+		String savedPassword = userJpaRepository.findPasswordByuMail(uMail);
+		Integer savedId = userJpaRepository.findIdByuMail(uMail);
+		if (PasswordEncryptionService.checkPassword(inputPassword, savedPassword)) {
+			return userJpaRepository.findUserDataById(savedId);
 		}
 		return null; // 登錄失敗
 	}
+// =============================================
+	// 可供調用的共用Service
+// =============================================
+// 讀取類Service	
 
-	// 返回uID對應的整筆MySQL資料 (不建議使用 若大家都不用 未來考慮移除)
-	public UserVO getUserDataByID(Integer uId) {
-
-		UserVO userVO = userJpaRepository.findByuId(uId);
-		return userVO;
-	}	
-
-	
 	// 讀取User照片
+	@Transactional(readOnly = true)
 	public UserHeadshotOnlyDTO getUserDTOWithHeadshotById(Integer uId) {
 		return userJpaRepository.findUserHeadshotById(uId);
 	}
-	
+
+	// 讀取User除照片以外的所有非敏感資訊
+	@Transactional(readOnly = true)
 	public UserReadDataDTO getUserDataExcludeUHeadshot(Integer uId) {
 		return userJpaRepository.findUserDataById(uId);
 	}
 
-	// =============================================
+// =============================================
+// 寫入類Service
 
 	@Autowired
 	public UserService(UserJpaRepository userJpaRepository) {
@@ -134,6 +140,7 @@ public class UserService {
 	}
 
 	// 負責接收uId和照片封裝DTO寫入DB並返回Boolean
+	@Transactional
 	public boolean updateUserHeadshot(UserHeadshotOnlyDTO headshotDTO) {
 		Optional<UserVO> userOptional = userJpaRepository.findById(headshotDTO.getuId());
 		if (userOptional.isPresent()) {
@@ -146,33 +153,44 @@ public class UserService {
 			return false; // 更新失敗
 		}
 	}
-	
-	// 負責接收uId和DATA封裝DTO寫入DB並返回Boolean
-	public boolean updateUserData(UserWriteDataDTO userDTO) {
-        Optional<UserVO> userOptional = userJpaRepository.findById(userDTO.getuId());
-        if (userOptional.isPresent()) {
-            UserVO user = userOptional.get();
-            
-            // 使用Java 8的Optional來避免null檢查，並允許部分更新
-            Optional.ofNullable(userDTO.getuName()).ifPresent(user::setuName);
-            Optional.ofNullable(userDTO.getuPhone()).ifPresent(user::setuPhone);
-            Optional.ofNullable(userDTO.getuGender()).ifPresent(user::setuGender);
-            Optional.ofNullable(userDTO.getuBirth()).ifPresent(user::setuBirth);
-            
-            userJpaRepository.save(user);
-            return true; // 更新成功
-        } else {
-            return false; // 更新失敗
-        }
-    }
-	// =============================================
 
-//	Andy
+	// 負責接收uId和DATA封裝DTO寫入DB並返回Boolean
+	@Transactional
+	public boolean updateUserData(UserWriteDataDTO userDTO) {
+		Optional<UserVO> userOptional = userJpaRepository.findById(userDTO.getuId());
+		if (userOptional.isPresent()) {
+			UserVO user = userOptional.get();
+
+			// 使用Java 8的Optional來避免null檢查，並允許部分更新
+			Optional.ofNullable(userDTO.getuName()).ifPresent(user::setuName);
+			Optional.ofNullable(userDTO.getuPhone()).ifPresent(user::setuPhone);
+			Optional.ofNullable(userDTO.getuGender()).ifPresent(user::setuGender);
+			Optional.ofNullable(userDTO.getuBirth()).ifPresent(user::setuBirth);
+
+			userJpaRepository.save(user);
+			return true; // 更新成功
+		} else {
+			return false; // 更新失敗
+		}
+	}
+
+// =============================================
+// 舊產物區 未來可能移除
+
+	// 返回uID對應的整筆MySQL資料 (不建議使用 若大家都不用 未來考慮移除)
+	@Transactional(readOnly = true)
+	public UserVO getUserDataByID(Integer uId) {
+
+		UserVO userVO = userJpaRepository.findByuId(uId);
+		return userVO;
+	}
+
+	// Andy
+	@Transactional(readOnly = true)
 	public UserVO getUser(Integer uId) {
 
 		UserVO userVO = userJpaRepository.findByuId(uId);
 		return userVO;
 	}
-	
-	
+
 }

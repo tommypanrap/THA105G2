@@ -1,6 +1,5 @@
 package com.fitanywhere.user.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -37,12 +36,24 @@ public class UserController {
 		System.out.println("loginMessage: " + modelAndView.getModel().get("loginMessage"));
 		return modelAndView;
 	}
-	
-	
 
-	@GetMapping("/test")
-	public String testPage() {
-		return "front-end/user/test";
+// ==================================
+
+
+	// 開發測試用
+	@GetMapping("/test1")
+	public String test1Page() {
+		return "front-end/user/test-only/test1";
+	}
+	
+	@GetMapping("/test2")
+	public String test2Page() {
+		return "front-end/user/test-only/test2";
+	}
+	
+	@GetMapping("/test3")
+	public String test3Page() {
+		return "front-end/user/test-only/test3";
 	}
 
 //	Andy

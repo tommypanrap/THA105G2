@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,30 +29,33 @@ public class UserRestController {
 	// 註冊-檢查信箱是否重複註冊
 	@PostMapping("/check_register_duplicate")
 	public String checkRegisterDuplicate(HttpServletRequest request) {
-	    boolean isRegisterDuplicate = false;
-	    String requestType = request.getParameter("fieldId");
-	    
+		boolean isRegisterDuplicate = false;
+		String requestType = request.getParameter("fieldId");
 
 		// 根據不同數據資料呼叫對應的方法判斷
-	    switch (requestType) {
-        case "u_email":
-            isRegisterDuplicate = userService.isEmailRegistered(request.getParameter("fieldValue"));
-            System.out.println("mail" + isRegisterDuplicate);
-            break;
-        case "u_Nickname":
-            isRegisterDuplicate = userService.isNicknameRegistered(request.getParameter("fieldValue"));
-            System.out.println("nickname" + isRegisterDuplicate);
-            break;
-        case "u_Phone":
-            isRegisterDuplicate = userService.isPhoneRegistered(request.getParameter("fieldValue"));
-            System.out.println("phone" + isRegisterDuplicate);
-            break;
-        default:
-            break;
-    }
-
-		return isRegisterDuplicate ? "true" : "false";
+		switch (requestType) {
+		case "u_email":
+			isRegisterDuplicate = userService.isEmailRegistered(request.getParameter("fieldValue"));
+			System.out.println("mail" + isRegisterDuplicate);
+			break;
+		case "u_Nickname":
+			isRegisterDuplicate = userService.isNicknameRegistered(request.getParameter("fieldValue"));
+			System.out.println("nickname" + isRegisterDuplicate);
+			break;
+		case "u_Phone":
+			isRegisterDuplicate = userService.isPhoneRegistered(request.getParameter("fieldValue"));
+			System.out.println("phone" + isRegisterDuplicate);
+			break;
+		default:
+			break;
+		}
+		return "0"; // 登入成功
 	}
+//		}else{
+//		return "1"; // 登入失敗
+//	}
+//	}
+//}
 
 	// 註冊-接收註冊資料表單並暫存到Session
 	@PostMapping("/hold_register_form")
@@ -88,7 +93,7 @@ public class UserRestController {
 
 			// 在新Session寫入已登入會員資訊
 			newSession.setAttribute("uId", user.getuId());
-			newSession.setAttribute("uNickname", user.getuNickname());			
+			newSession.setAttribute("uNickname", user.getuNickname());
 			newSession.setAttribute("uStatus", user.getuStatus());
 
 			// 有登入的Session才有"loginStatus" 直接確認Session有沒有"loginStatus"這個項目就能判斷有無登入
@@ -105,5 +110,4 @@ public class UserRestController {
 			return 1; // 登入失敗
 		}
 	}
-
 }

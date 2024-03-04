@@ -1,0 +1,121 @@
+
+// Start Brand Area
+
+.rbt-brand{
+    .rbt-brand-style{
+        text-align: center;
+        ul{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            li{
+                margin: 20px 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-basis: 20%;
+                @media #{$md-layout} {
+                    flex-basis: 33.33%;
+                    margin: 20px 0;
+                }
+                @media #{$sm-layout} {
+                    flex-basis: 33.33%;
+                    margin: 15px 5px;
+                }
+                a{
+                    display: block;
+                    img{                 
+                        max-height: 100px;
+                        width: auto;
+                    }
+                }
+            }
+        }
+        &.rbt-brand-style-two{
+            background-color: var(--color-bg-1);
+            padding: 45px 0;
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            &::before{
+                content: '';
+                position: absolute;
+                top: -50px;
+                left: -50px;
+                background: url(../images/brands/brand-shape/shape-1.png);
+                width: 95px;
+                height: 87px;
+                z-index: -1;
+            }
+            ul{
+                width: 100%;
+                li{
+                    @media #{$sm-layout} {
+                        flex-basis: 33.33%;
+                        margin: 25px 20px;
+                    }
+                    .rbt-counterup{
+                        position: relative;
+                        &::after{
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            background: rgba(20, 140, 138, 0.5);
+                            width: 1px;
+                            height: 100%;
+                            @media #{$sm-layout} {
+                                right: -17px;
+                            }
+                        }
+                        .count-number{
+                            line-height: 48px;
+                            span{
+                                &.userNumBar{
+                                    @media #{$large-mobile} {
+                                        font-size: 34px;
+                                    }
+                                    @media #{$small-mobile} {
+                                        font-size: 30px;
+                                    }
+                                }
+                                &.extra-text{
+                                    @media #{$large-mobile} {
+                                        font-size: 34px;
+                                    }
+                                    @media #{$small-mobile} {
+                                        font-size: 30px;
+                                    }
+                                }
+                            }
+                        }
+                        .counterup-text{
+                            color: var(--color-primary);
+                            line-height: 30px;
+                            @media #{$large-mobile} {
+                                font-size: var(--font-size-b3);
+                            }
+                            @media #{$small-mobile} {
+                                font-size: var(--font-size-b4);
+                                line-height: 15px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.rbt-brand-area{
+    .rbt-brand{
+        &:nth-child(3){
+            margin-top: 100px;
+        }
+    }
+}

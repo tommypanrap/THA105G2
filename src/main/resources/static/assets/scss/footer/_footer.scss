@@ -1,0 +1,124 @@
+/*===========================
+    Start Footer Area 
+=============================*/
+/*-----------------------
+    Footer Style One  
+-------------------------*/
+.footer-style-1 {
+    .footer-top {
+        padding-top: 80px;
+        padding-bottom: 90px;
+        @media #{$sm-layout} {
+            padding-top: 60px;
+            padding-bottom: 60px;
+        }
+    }
+    .ft-title {
+        color: var(--color-heading);
+        margin-bottom: 20px;
+        @media #{$lg-layout} {
+            font-size: 18px;
+        }
+    }
+    .description {
+        font-size: 16px;
+        line-height: 25px;
+    }
+    .newsletter-form  {
+        input {
+            min-width: 100%;
+        }
+        .right-icon {
+            display: block;
+            input {
+                padding-right: 30px;
+            }
+            &::after {
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                font-family: 'feather' !important;
+            }
+            &.icon-email {
+                &::after {
+                    content: "\e98a";
+                }
+            }
+        }
+
+
+    }
+
+
+    
+}
+
+.footer-widget {
+    .ft-link {
+        @extend %liststyle;
+        li {
+            margin: 0;
+            color: var(--color-body);
+            font-size: 16px;
+            line-height: 25px;
+            span {
+                font-weight: 500;
+            }
+            a {
+                color: var(--color-body);
+                display: inline-block;
+                position: relative;
+                &:after {
+                    content: '';
+                    position: absolute;
+                    width: 100%;
+                    height: 2px;
+                    bottom: 0;
+                    left: 0;
+                    background-color: currentColor;
+                    transform: scaleX(0);
+                    transform-origin: bottom right;
+                    transition: transform 0.3s;
+                }
+                &:hover {
+                    color: var(--color-primary);
+                    &:after {
+                        transform-origin: bottom left;
+                        transform: scaleX(1);
+                    }
+                }
+            }
+            & + li {
+                margin-top: 10px;
+            }
+        }
+    }
+    .form-group {
+        label {
+            font-size: 16px;
+            line-height: 31px;
+        }
+    }
+}
+
+
+/* Footer Style Three  */
+.footer-style-2 {
+    .logo {
+        margin-bottom: 30px;
+        position: relative;
+    }
+    .text {
+        p {
+            margin-top: 30px;
+            a {
+                transition: 0.3s;
+                &:hover {
+                    color: var(--color-primary);
+                }
+            }
+        }
+    }
+}
+

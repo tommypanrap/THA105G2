@@ -2187,7 +2187,7 @@
                         <div class="rbt-tutor-information">
                             <div class="rbt-tutor-information-left">
                                 <div class="thumbnail rbt-avatars size-lg">
-                                    <img src="assets/images/team/avatar.jpg" alt="Instructor">
+                                    <img th:src="'data:image/jpeg;base64,' + ${uHeadshot}" alt="Instructor">
                                 </div>
                                 <div class="tutor-content">
                                     <h5 class="title">John Due</h5>
@@ -2278,15 +2278,6 @@
                                             		<option th:each="courseVO : ${courseListData}" th:value="${courseVO.crId}" th:text="${courseVO.crTitle}">
                                             		</option>
                                             	</select>
-                                                <!-- <select class="w-100" data-live-search="true" id="crClass" title="選擇課程分類 ex. 有氧,健身" data-size="6" data-actions-box="true" >
-                                                    <option>有氧</option>
-                                                    <option>健身</option>
-                                                    <option>減脂</option>
-                                                    <option>重量訓練</option>
-                                                    <option>皮拉提斯</option>
-                                                    <option>其他</option>
-                                                    
-                                                </select> -->
                                             </div>
                                         </div>
 
@@ -2334,7 +2325,7 @@
         for (const key in data) {
             formData.append(key, data[key]);
         }
-        /* $.post('http://localhost:8081/ann/insert', data) */
+        /* $.post('http://localhost:8080/ann/insert', data) */
         $.post('http://localhost:8081/THA105G2/ann/insert', data)
         .done(function(responseData) {
 			window.alert("成功創建課程課程公告");

@@ -1,0 +1,73 @@
+/*--------------------------
+    Header Top Styles  
+-----------------------------*/
+.rbt-header-top-news {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: auto;
+    z-index: 99;
+    transition: 0.4s;
+    margin-bottom: -1px;
+    &.bg-image1 {
+        background-image: url(../images/bg/top-banner.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+    }
+    .inner {
+        display: flex;
+        padding: 8px 0;
+        align-items: center;
+        position: relative;
+        @media #{$sm-layout} {
+            display: block;
+            text-align: center;
+            padding: 15px 0;
+        }
+
+        .content {
+            .news-text {
+                img {
+                    width: 22px;
+                    margin-right: 10px;
+                }
+                display: inline-block;
+                margin-left: 15px;
+                color: var(--color-body);
+                font-size: 14px;
+                @media #{$large-mobile} {
+                    margin-left: 0;
+                    margin-top: 10px;
+                    display: block;
+                }
+            }
+        }
+
+        .right-button {
+            margin-left: 30px;
+            margin-top: -4px;
+            @media #{$sm-layout} {
+                margin-left: 0;
+            }
+        }
+    }
+    .icon-close {
+        &.position-right {
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            @media #{$sm-layout} {
+                right: 10px;
+                top: 9px;
+                transform: none;
+            }
+        }
+    }
+ 
+    &.deactive {
+        display: none;
+    }
+}

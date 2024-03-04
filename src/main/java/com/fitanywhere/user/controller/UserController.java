@@ -37,6 +37,8 @@ public class UserController {
 		System.out.println("loginMessage: " + modelAndView.getModel().get("loginMessage"));
 		return modelAndView;
 	}
+	
+	
 
 	@GetMapping("/test")
 	public String testPage() {

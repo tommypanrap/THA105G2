@@ -8,7 +8,7 @@
 	font-style: normal;
 }
 [class^="feather-"], [class*=" feather-"] {
-	font-family: 'feather'  ;
+	font-family: 'feather' !important;
 	speak: none;
 	font-style: normal;
 	font-weight: normal;

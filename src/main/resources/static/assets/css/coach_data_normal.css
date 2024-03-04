@@ -1,8 +1,0 @@
-.data-normal{
-   
-}
-
-.coach-data-content-row1 .data-normal:not(:first-child){
-    margin-left: 50px;
-}
-

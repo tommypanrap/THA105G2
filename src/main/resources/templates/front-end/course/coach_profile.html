@@ -2253,7 +2253,7 @@
 
                                             <nav class="mainmenu-nav">
                                                 <ul class="dashboard-mainmenu rbt-default-sidebar-list">
-                                                    <li><a href="instructor-settings.html"><i class="feather-settings"></i><span>設定</span></a></li>
+                                                    <li><a th:href="@{coach_settings}"><i class="feather-settings"></i><span>資料設定</span></a></li>
                                                     <li><a href="index.html"><i class="feather-log-out"></i><span>登出</span></a></li>
                                                 </ul>
                                             </nav>
@@ -2568,8 +2568,9 @@
     <script th:src="@{/assets/js/main.js}"></script>
     <script>
  // 发送AJAX请求
-    $.get('http://localhost:8081/user/coach_profile', function(response) {
-        // 处理后端返回的数据
+    /* $.get('http://localhost:8080/user_api/coach_profile', function(response) { */
+    $.get('http://localhost:8081/THA105G2/user_api/coach_profile', function(response) {
+    	// 处理后端返回的数据
         const {
             uBirth,
             uName,

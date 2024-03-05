@@ -98,6 +98,12 @@ margin-bottom: 20px;
     align-items: center;
 }
 
+.title-info-wrapper img{
+	width:69px;
+	aspect-ratio:1;
+	border-radius:100%;
+}
+
 .tutor-btn a{
     padding-top: 7px;
     display: flex;
@@ -125,6 +131,10 @@ margin-bottom: 20px;
 .rbt-avatars.size-lg{
     margin: 0 auto;
     margin-bottom: 15px;
+}
+
+#article{
+	margin-top:15px;
 }
 
 #article img{
@@ -231,4 +241,12 @@ position: relative;
     background-color: inherit;
     background-position: 102% 0;
     
+}
+
+.spid{
+	display:none;
+}
+
+#article img{
+	border-radius:100%;
 }

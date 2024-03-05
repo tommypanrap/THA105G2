@@ -19,16 +19,17 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	//註冊頁面
 	@GetMapping("/user_register")
 	public String userRegister() {
 		return "front-end/user/user_register";
 	}
-
+	//登入頁面
 	@GetMapping("/user_login")
 	public String userLogin() {
 		return "front-end/user/user_login";
 	}
-
+	//過濾器將未登入跳轉登入頁面
 	@GetMapping("/force_user_login")
 	public ModelAndView userForceLogin() {
 		ModelAndView modelAndView = new ModelAndView("front-end/user/user_login");

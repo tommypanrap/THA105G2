@@ -1,6 +1,8 @@
 package com.fitanywhere.user.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +21,6 @@ import com.fitanywhere.service.MailService;
 
 @Service
 public class UserService {
-
 
 // =============================================    
 //    註冊-寄送信箱驗證信功能
@@ -75,6 +76,28 @@ public class UserService {
 		return String.format("%06d", num);
 	}
 
+	// 註冊-從Redis讀取暫存的信箱驗證碼
+	public String getVerifiactionCodeInRedis(String uMail) {
+		String key = "MailVerificationCode:" + uMail;
+		String savedVerifiactionCodeInRedis = redisTemplate.opsForValue().get(key);
+
+		try {
+			String result = redisTemplate.opsForValue().get(key);
+			if (result != null) {
+				// 有找到並回傳儲存的驗證碼
+				return result;
+			} else {
+				// 沒找到儲存的驗證碼
+				System.out.println("Redis中查無資料!");
+				return "noDataFound";
+			}
+		} catch (Exception e) {
+			System.out.println("Redis操作異常!");
+			e.printStackTrace();
+			return "RedisError";
+		}
+	}
+
 // =============================================    
 	// 註冊-基本資料重複性檢查和註冊資料處理
 	@Autowired
@@ -103,6 +126,38 @@ public class UserService {
 	public String encryptNewPassword(String uPassword) {
 		String encryptedPassword = PasswordEncryptionService.encryptPassword(uPassword);
 		return encryptedPassword;
+	}
+
+	// 將註冊資料封裝DTO並寫入mySQL
+	@Transactional
+	public int isRegisterUserSuccess(UserRegisterDataDTO dto) {		
+		try {
+			UserVO user = new UserVO();
+			user.setuNickname(dto.getuNickname());
+			user.setuName(dto.getuName());
+			user.setuMail(dto.getuMail());
+			user.setuPhone(dto.getuPhone());
+			user.setuGender(dto.getuGender());
+
+			// 如果uBirth是java.util.Date類型，轉換為LocalDate
+			LocalDate birthDate = dto.getuBirth().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			user.setuBirth(java.sql.Date.valueOf(birthDate));
+
+			user.setuPassword(dto.getuPassword());
+			user.setuStatus(dto.getuStatus());
+
+			// 轉換uRegisterDate到java.util.Date，如果必要的話
+			LocalDate registerDate = dto.getuRegisterDate();
+			user.setuRegisterdate(java.sql.Date.valueOf(registerDate));
+			
+			userJpaRepository.save(user);
+			return 0;
+		} catch (Exception e) {
+			System.out.println("註冊流程異常!");
+			e.printStackTrace();
+			return 1;
+		}
+
 	}
 
 // =============================================
@@ -198,16 +253,15 @@ public class UserService {
 		return userVO;
 	}
 
-    
-    //andy 單取出user大頭照
-    public byte[] getUserHeadshot(Integer uId) {
-    	byte[] uHeadshot = userJpaRepository.getUserHeadshotByUserId(uId);
-    	return uHeadshot;
-    }
+	// Aandy 單取出user大頭照
+	public byte[] getUserHeadshot(Integer uId) {
+		byte[] uHeadshot = userJpaRepository.getUserHeadshotByUserId(uId);
+		return uHeadshot;
+	}
 
- // Tommy
- 	public List<UserVO> getAll() {
- 		return userJpaRepository.findAll();
- 	}
+	// Tommy
+	public List<UserVO> getAll() {
+		return userJpaRepository.findAll();
+	}
 
 }

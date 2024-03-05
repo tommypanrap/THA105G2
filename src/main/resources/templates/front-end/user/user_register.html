@@ -750,10 +750,7 @@
 
         // 請求發送後的操作，因為後端不回應，所以直接進行操作
         alert("驗證信已重新寄送到您的信箱, 請輸入新的驗證碼!");
-
-        // 按鈕隱藏或永久禁用，根據需求選擇一種
-        // button.style.display = 'none'; // 如果想要隱藏按鈕
-        // 或者保持按鈕禁用狀態，按鈕已經被設為disabled
+        // 保持按鈕禁用狀態，按鈕已經被設為disabled
       });
 
 
@@ -779,7 +776,7 @@
           // FormData轉URL編碼
           let urlEncodedData = new URLSearchParams(formData).toString();
 
-          fetch("/THA105G2_SpringBoot/user_api/user_controller", {
+          fetch("/user_api/check_verifivation_code", {
             method: "POST",
             headers: {
               "Content-Type": "application/x-www-form-urlencoded",
@@ -789,11 +786,19 @@
             .then(response => response.text())
             .then(data => {
               if (data === "1") {
-                alert("驗證碼錯誤");
+                alert("驗證碼輸入錯誤!");
                 inputs.forEach(input => input.value = "");
-              } else if (data === "0") {
+              } else if (data === "2") {
+                // 處理驗證碼過期
+                alert("驗證碼已逾期，請重新取得驗證碼或重新註冊!");
+                inputs.forEach(input => input.value = "");
+              }else if (data === "3") {
+                // 處理後台錯誤
+                alert("伺服器異常，請稍後重試或通知站方檢查!");
+                inputs.forEach(input => input.value = "");
+              }else if (data === "0") {
                 // 註冊成功，重定向到登入頁面
-                window.location.href = "/THA105G2_SpringBoot/user_api/front-end/user/user_login.jsp";
+                window.location.href = "/user/user_login";
               }
             })
             .catch(error => console.error("Error:", error));

@@ -255,15 +255,15 @@
 
         <div class="row g-5 mt--30 content-width">
             <!-- Start Feature Box  -->
-            <div class="col-lg-4 col-md-6 col-12" data-sal-delay="200" data-sal="slide-up" data-sal-duration="800">
+            <div class="col-lg-4 col-md-6 col-12" data-sal-delay="200" data-sal="slide-up" data-sal-duration="800" th:each="courseVO : ${courseListData}">
                 <div class="rbt-default-card style-three rbt-hover">
                     <!-- 課程卡片 開始 -->
                     <div class="inner">
                         <div class="content pt--0 pb--10">
-                            <h2 class="title"><a href="single-product.html">魔鬼有氧</a></h2>
+                            <h2 class="title"><a href="single-product.html" th:text="${courseVO.crTitle}">魔鬼有氧2</a></h2>
 
                             <span class="team-form">
-                                <span class="location">By 吳永志</span>
+                                <span class="location" >By 吳永志</span>
                             </span>
                         </div>
                         <div class="thumbnail"><a href="single-product.html"><img src="https://images.ctee.com.tw/newsphoto/2022-02-02/1024/20220202700118.jpg" alt="Histudy Book Image"></a></div>
@@ -283,104 +283,48 @@
                                 <span class="current-price theme-gradient">$60.50</span>
                                 <span class="off-price">$110.50</span>  
                             </div>
-                            <!-- <div class="addto-cart-btn mt--20">
-                                <a class="rbt-btn btn-gradient hover-icon-reverse" href="cart.html">
-                                    <span class="icon-reverse-wrapper">
-                                        <span class="btn-text">Add To Cart</span>
-                                    <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                    <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                    </span>
-                                </a>
-                            </div> -->
+
                         </div>
                     </div>
                     <!-- 課程卡片 結束 -->
                 </div>
             </div>
-            <!-- End Feature Box  -->
-            <!-- Start Feature Box  -->
-            <div class="col-lg-4 col-md-6 col-12" data-sal-delay="200" data-sal="slide-up" data-sal-duration="800">
-                <div class="rbt-default-card style-three rbt-hover">
-                    <div class="inner">
-                        <div class="content pt--0 pb--10">
-                            <h2 class="title"><a href="single-product.html">帶你輕鬆穿上馬甲線</a></h2>
 
-                            <span class="team-form">
-                                <span class="location">By 莫舒涵</span>
-                            </span>
-                        </div>
-                        <div class="thumbnail"><a href="single-product.html"><img src="https://www.fitnessfactory.com.tw/upload/2023_04_10/2_20230410123750z4vbkabDZ5.jpg" alt="Histudy Book Image"></a></div>
-                        <div class="content">
+<!--             <div class="col-lg-4 col-md-6 col-12" data-sal-delay="200" data-sal="slide-up" data-sal-duration="800"> -->
+<!--                 <div class="rbt-default-card style-three rbt-hover"> -->
+<!--                     <div class="inner"> -->
+<!--                         <div class="content pt--0 pb--10"> -->
+<!--                             <h2 class="title"><a href="single-product.html">帶你輕鬆穿上馬甲線</a></h2> -->
 
-                            <div class="rbt-review justify-content-center">
-                                <div class="rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <span class="rating-count">打破女性健身迷思！不怕變肌肉女！每天10分鐘瘦出健康美</span>
-                            </div>
-                            <div class="rbt-price justify-content-center mt--10">
-                                <span class="current-price theme-gradient">$60.50</span>
-                                <span class="off-price">$110.50</span>  
-                            </div>
-                            <!-- <div class="addto-cart-btn mt--20">
-                                <a class="rbt-btn btn-gradient hover-icon-reverse" href="cart.html">
-                                    <span class="icon-reverse-wrapper">
-                                        <span class="btn-text">Add To Cart</span>
-                                    <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                    <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                    </span>
-                                </a>
-                            </div> -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End Feature Box  -->
+<!--                             <span class="team-form"> -->
+<!--                                 <span class="location">By 莫舒涵</span> -->
+<!--                             </span> -->
+<!--                         </div> -->
+<!--                         <div class="thumbnail"><a href="single-product.html"><img src="https://www.fitnessfactory.com.tw/upload/2023_04_10/2_20230410123750z4vbkabDZ5.jpg" alt="Histudy Book Image"></a></div> -->
+<!--                         <div class="content"> -->
 
-            <!-- Start Feature Box  -->
-            <div class="col-lg-4 col-md-6 col-12" data-sal-delay="200" data-sal="slide-up" data-sal-duration="800">
-                <div class="rbt-default-card style-three rbt-hover">
-                    <div class="inner">
-                        <div class="content pt--0 pb--10">
-                            <h2 class="title"><a href="single-product.html">30天練出六塊肌</a></h2>
+<!--                             <div class="rbt-review justify-content-center"> -->
+<!--                                 <div class="rating"> -->
+<!--                                     <i class="fas fa-star"></i> -->
+<!--                                     <i class="fas fa-star"></i> -->
+<!--                                     <i class="fas fa-star"></i> -->
+<!--                                     <i class="fas fa-star"></i> -->
+<!--                                     <i class="fas fa-star"></i> -->
+<!--                                 </div> -->
+<!--                                 <span class="rating-count">打破女性健身迷思！不怕變肌肉女！每天10分鐘瘦出健康美</span> -->
+<!--                             </div> -->
+<!--                             <div class="rbt-price justify-content-center mt--10"> -->
+<!--                                 <span class="current-price theme-gradient">$60.50</span> -->
+<!--                                 <span class="off-price">$110.50</span>   -->
+<!--                             </div> -->
+  
+<!--                         </div> -->
+<!--                     </div> -->
+<!--                 </div> -->
+<!--             </div> -->
 
-                            <span class="team-form">
-                                <span class="location">By 潘立委</span>
-                            </span>
-                        </div>
-                        <div class="thumbnail"><a href="single-product.html"><img src="https://media.gq.com.tw/photos/60ab1e2f33b9a41b0a37b7fe/16:9/w_2560%2Cc_limit/maxresdefault.jpg" alt="Histudy Book Image"></a></div>
-                        <div class="content">
-
-                            <div class="rbt-review justify-content-center">
-                                <div class="rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <span class="rating-count">台灣第一健身強人，科學化鍛鍊全書</span>
-                            </div>
-                            <div class="rbt-price justify-content-center mt--10">
-                                <span class="current-price theme-gradient">$60.50</span>
-                                <span class="off-price">$110.50</span>  
-                            </div>
-                            <!-- <div class="addto-cart-btn mt--20">
-                                <a class="rbt-btn btn-gradient hover-icon-reverse" href="cart.html">
-                                    <span class="icon-reverse-wrapper">
-                                        <span class="btn-text">Add To Cart</span>
-                                    <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                    <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                    </span>
-                                </a>
-                            </div> -->
-                        </div>
-                    </div>
-                </div>
+<!--             <div class="col-lg-4 col-md-6 col-12" data-sal-delay="200" data-sal="slide-up" data-sal-duration="800"> -->
+                
             </div>
             <!-- End Feature Box  -->
         </div>

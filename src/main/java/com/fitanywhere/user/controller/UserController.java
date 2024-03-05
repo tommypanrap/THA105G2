@@ -24,16 +24,33 @@ public class UserController {
 	public String userRegister() {
 		return "front-end/user/user_register";
 	}
+	
 	//登入頁面
 	@GetMapping("/user_login")
 	public String userLogin() {
 		return "front-end/user/user_login";
 	}
-	//過濾器將未登入跳轉登入頁面
+	
+	//登入頁面
+	@GetMapping("/user_forget_password")
+	public String userForgetPassword() {
+		return "front-end/user/user_forget_password";
+	}
+	
+	//過濾器將未登入遊客跳轉登入頁面
 	@GetMapping("/force_user_login")
 	public ModelAndView userForceLogin() {
 		ModelAndView modelAndView = new ModelAndView("front-end/user/user_login");
-		modelAndView.addObject("loginMessage", "您需要登入才能訪問此頁面。");
+		modelAndView.addObject("loginMessage", "您需要登入才能訪問此頁面!");
+		System.out.println("loginMessage: " + modelAndView.getModel().get("loginMessage"));
+		return modelAndView;
+	}
+	
+	//過濾器將未登入跳轉登入頁面
+	@GetMapping("/user_login_after_register")
+	public ModelAndView userLoginAfterRegister() {
+		ModelAndView modelAndView = new ModelAndView("front-end/user/user_login");
+		modelAndView.addObject("loginMessage", "您已完成註冊，請輸入信箱和密碼登入!");
 		System.out.println("loginMessage: " + modelAndView.getModel().get("loginMessage"));
 		return modelAndView;
 	}

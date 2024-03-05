@@ -47,6 +47,7 @@ public class UserRestController {
 	@Autowired
 	private UserService userService;
 
+// ===================================================================
 	// 註冊-檢查信箱是否重複註冊
 	@PostMapping("/check_register_duplicate")
 	public String checkRegisterDuplicate(HttpServletRequest request) {
@@ -169,31 +170,29 @@ public class UserRestController {
 					String uNickname = (String) session.getAttribute("u_nickname");
 					String uPhone = (String) session.getAttribute("u_phone");
 					String uPassword = (String) session.getAttribute("u_password");
-					
+
 					String uBirthString = (String) session.getAttribute("u_birth");
 					Date uBirth = null;
 					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 					try {
 						uBirth = dateFormat.parse(uBirthString);
-						//轉Date成功
+						// 轉Date成功
 					} catch (ParseException e) {
 						System.out.println("uBirth轉換Date失敗!");
 					}
-					
+
 					Integer uStatus = 0;
 					LocalDate uRegisterDate = LocalDate.now();
 
-					
 					// 註冊資料封裝DTO
 					UserRegisterDataDTO userRegisterDataDTO = new UserRegisterDataDTO(uNickname, uName, uMail, uPhone,
 							uGender, uBirth, uPassword, uStatus, uRegisterDate);
-					
 
 					// 呼叫Service傳入DTO
 					if (userService.isRegisterUserSuccess(userRegisterDataDTO) == 0) {
 						// 驗證碼通過並完成註冊
 						request.getSession().invalidate();
-						// 透過銷毀現有Session刪除註冊資料					
+						// 透過銷毀現有Session刪除註冊資料
 						return "0";
 					} else {
 						// 寫入執行錯誤返回"3"表示系統錯誤
@@ -259,6 +258,39 @@ public class UserRestController {
 		} else {
 			return 1; // 登入失敗
 		}
+	}
+
+// ===================================================================
+	// 忘記密碼-檢查信箱和寄送驗證碼
+
+	@PostMapping("/send_password_mail")
+	public int sendMailForChangingPassword(@RequestBody Map<String, String> requestBody) {
+		String uMail = requestBody.get("u_email");		
+
+		if (userService.isEmailRegistered(uMail)) {
+			return userService.sendChangePasswordMail(uMail);
+			// return為0表示信件寄送成功 為2表示系統異常
+		} else {
+			// 會員不存在
+			return 1;
+		}
+	}
+
+	@PostMapping("/user_forget_password")
+	public int userForgetPassword(@RequestBody Map<String, String> requestBody) {
+		
+			String uMail = requestBody.get("u_email");
+			String uPassword = requestBody.get("u_password");
+			String inputVarificationCode = requestBody.get("verification_code");
+			
+			try {
+				return userService.changeUserPassword(uMail, uPassword, inputVarificationCode);
+				// 依據處理結果返回代碼
+		} catch (Exception e) {
+			return 3;
+			// 系統異常
+		}
+
 	}
 
 //	======================================

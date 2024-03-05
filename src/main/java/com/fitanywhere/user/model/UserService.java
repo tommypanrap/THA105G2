@@ -50,6 +50,32 @@ public class UserService {
 		}
 	}
 
+	// 更改密碼的驗證信
+	public void sendMailForChanginPassword(String registerEmail, String verificationCode) {
+		try {
+
+			String uNickname = userJpaRepository.findOnlyNicknameByuMail(registerEmail);
+			String subject = "FitAnyWhere會員密碼變更驗證信";
+			LocalDateTime validUntil = LocalDateTime.now().plusMinutes(10);
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+			String content = String.format("<html>" + "<body>"
+					+ "<p>親愛的 <strong style=\\\"color: blue\\\">%s</strong> 先生/小姐您好:<br></p>"
+					+ "<p>本站\"FitAnyWhere\"已收到您變更帳戶密碼的申請。</p>" + "<p>若您未提出申請或已不需要變更密碼則可以忽視本信內容。<br></p>"
+					+ "<p>請在驗證碼輸入欄輸入以下六位數字：<br><strong style=\"color: red; font-size: 20px;\">%s</strong><br></p>"
+					+ "<p>請在下列時間限制前完成驗證：<br><strong style=\"color: red; font-size: 16px;\">%s</strong><br>(驗證碼有效期限)</p>"
+					+ "<p>本信為系統自動發信，請勿直接回覆本信。<br></p>"
+					+ "<p>若有任何問題歡迎隨時另外來信至<br> <a href='mailto:FitAnyWhere2024@gmail.com'>FitAnyWhere2024@gmail.com</a><br>"
+					+ "我們將竭誠為您服務!</p>" + "</body>" + "</html>", uNickname, verificationCode,
+					validUntil.format(formatter));
+
+			mailService.sendEmail(registerEmail, subject, content);
+		} catch (MessagingException e) {
+			System.out.println("驗證碼寄信過程異常!");
+			e.printStackTrace();
+		}
+	}
+
 // =============================================	
 	// 註冊-生成驗證碼並寫入Redis
 	@Autowired
@@ -130,7 +156,7 @@ public class UserService {
 
 	// 將註冊資料封裝DTO並寫入mySQL
 	@Transactional
-	public int isRegisterUserSuccess(UserRegisterDataDTO dto) {		
+	public int isRegisterUserSuccess(UserRegisterDataDTO dto) {
 		try {
 			UserVO user = new UserVO();
 			user.setuNickname(dto.getuNickname());
@@ -149,7 +175,7 @@ public class UserService {
 			// 轉換uRegisterDate到java.util.Date，如果必要的話
 			LocalDate registerDate = dto.getuRegisterDate();
 			user.setuRegisterdate(java.sql.Date.valueOf(registerDate));
-			
+
 			userJpaRepository.save(user);
 			return 0;
 		} catch (Exception e) {
@@ -172,6 +198,57 @@ public class UserService {
 		System.out.println("Service <userLogin>  處理登入失敗!");
 		return null; // 登錄失敗
 	}
+// =============================================
+	// 修改密碼
+
+	// 寄送修改密碼驗證信
+	@Transactional
+	public int sendChangePasswordMail(String uMail) {
+		try {// 取得亂數驗證碼
+			String verificationCode = getVerificationCode(uMail);
+			// 寄送更改密碼驗證信
+			sendMailForChanginPassword(uMail, verificationCode);
+			// 會員存在並寄出驗證信
+			return 0;
+		} catch (Exception e) {
+			// 系統操作異常
+			return 2;
+		}
+	}
+
+	// 處理密碼修改
+	@Transactional
+	public int changeUserPassword(String uMail, String uPassword, String inputVarificationCode) {
+
+		String savedVerificationCode = getVerifiactionCodeInRedis(uMail);
+
+		if (savedVerificationCode.equals("noDataFound")) {
+			// Redis查無資料返回"2"表示驗證碼已逾期
+			return 2;
+		} else if (savedVerificationCode.equals("RedisError")) {
+			// Redis執行錯誤返回"3"表示系統錯誤
+			return 3;
+		} else {
+			if (savedVerificationCode.equals(inputVarificationCode)) {
+				// 驗證碼正確 更新密碼
+				try {
+					Integer uId = userJpaRepository.findOnlyIdByuMail(uMail);
+					String encryptedPassword = encryptNewPassword(uPassword);
+					userJpaRepository.updatePasswordById(uId, encryptedPassword);
+					return 0;
+					//更新成功
+				} catch (Exception e) {
+					// 系統操作異常
+					return 3;
+				}
+			} else {
+				// 輸入錯誤的驗證碼
+				return 1;
+			}
+		}
+
+	}
+
 // =============================================
 	// 可供調用的共用Service
 // =============================================

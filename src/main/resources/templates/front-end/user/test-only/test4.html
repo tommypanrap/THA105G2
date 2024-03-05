@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>設置和獲取用戶心情狀態</title>
+</head>
+<body>
+
+<h2>設置用戶心情</h2>
+<form id="setMoodForm">
+    <label for="set_u_id">u_id:</label>
+    <input type="text" id="set_u_id" name="u_id" required><br><br>
+    <label for="set_mood_id">mood_id:</label>
+    <input type="text" id="set_mood_id" name="mood_id" required><br><br>
+    <button type="button" onclick="setUserMood()">送出</button>
+</form>
+
+<h2>獲取用戶心情</h2>
+<form id="getMoodForm">
+    <label for="get_u_id">u_id:</label>
+    <input type="text" id="get_u_id" name="u_id" required><br><br>
+    <button type="button" onclick="getUserMood()">送出</button>
+</form>
+
+<div id="moodResult"></div>
+
+<script>
+function setUserMood() {
+    var uId = document.getElementById("set_u_id").value;
+    var moodId = document.getElementById("set_mood_id").value;
+    // 向後端發送POST請求，設置用戶心情
+    fetch('/user_api/set_user_mood_test/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ u_id: uId, mood_id: moodId })
+    })
+    .then(response => response.json().then(data => ({ status: response.status, body: data })))
+    .then(obj => {
+        // 根據HTTP狀態碼和響應數據體顯示對應消息
+        if (obj.status === 200) {
+            alert(obj.body.message || "操作成功"); // 顯示成功消息
+        } else {
+            throw new Error(obj.body.error || "心情設置失敗"); // 拋出錯誤
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert(error.message); // 顯示錯誤消息
+    });
+}
+
+
+function getUserMood() {
+    var uId = document.getElementById("get_u_id").value;
+    // 使用fetch發送POST請求到獲取心情的API
+    fetch('/user_api/get_user_mood_test/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ u_id: uId })
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("moodResult").innerHTML = "用戶心情: " + data.mood;
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        document.getElementById("moodResult").innerHTML = "獲取用戶心情失敗";
+    });
+}
+</script>
+
+</body>
+</html>

@@ -1,6 +1,8 @@
 package com.fitanywhere.user.controller;
 
 import java.awt.PageAttributes.MediaType;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.*;
 import java.util.Date;
 import java.util.Map;
@@ -32,6 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fitanywhere.service.PasswordEncryptionService;
 import com.fitanywhere.user.model.UserHeadshotOnlyDTO;
 import com.fitanywhere.user.model.UserReadDataDTO;
+import com.fitanywhere.user.model.UserRegisterDataDTO;
 import com.fitanywhere.user.model.UserService;
 import com.fitanywhere.user.model.UserVO;
 import com.fitanywhere.user.model.UserWriteDataDTO;
@@ -44,6 +47,7 @@ public class UserRestController {
 	@Autowired
 	private UserService userService;
 
+// ===================================================================
 	// 註冊-檢查信箱是否重複註冊
 	@PostMapping("/check_register_duplicate")
 	public String checkRegisterDuplicate(HttpServletRequest request) {
@@ -75,7 +79,6 @@ public class UserRestController {
 
 	}
 
-
 	// 註冊-接收註冊資料表單並暫存到Session
 	@PostMapping("/hold_register_form")
 	public String holdRegisterForm(@RequestParam("u_name") String uName, @RequestParam("u_gender") String uGender,
@@ -98,7 +101,7 @@ public class UserRestController {
 
 			// 生成六位數驗證碼並同時寫入Redis 並返回驗證碼
 			String verificationCode = userService.getVerificationCode(uMail);
-
+			// 寄送驗證信
 			userService.sendVerificationMail(uMail, uNickname, verificationCode);
 
 			// 返回成功的文字0
@@ -114,9 +117,102 @@ public class UserRestController {
 
 	// 註冊-重新發送驗證信
 	@PostMapping("/resend_verification_mail")
-	public void resendVerificationMail() {
+	public void resendVerificationMail(HttpServletRequest request) {
+		try {
+			HttpSession session = request.getSession(false);
+			if (session != null) {
+				String uMail = (String) session.getAttribute("u_mail");
+				String uNickname = (String) session.getAttribute("u_nickname");
+
+				// 生成六位數驗證碼並同時寫入Redis 並返回驗證碼
+				String verificationCode = userService.getVerificationCode(uMail);
+				// 寄送驗證信
+				userService.sendVerificationMail(uMail, uNickname, verificationCode);
+			} else {
+				System.out.println("Session不存在或已過期");
+			}
+		} catch (Exception e) {
+			System.out.println("驗證碼重新寄信過程異常!");
+			e.printStackTrace();
+		}
 
 	}
+
+	// 註冊-接收會員輸入的驗證碼&核對&完成註冊
+	@PostMapping("/check_verifivation_code")
+	public String verifyMailInReigsterData(HttpServletRequest request) {
+		try {
+			HttpSession session = request.getSession(false);
+			String uMail = (String) session.getAttribute("u_mail");
+			String inputVerificationCode = request.getParameter("verificationCode");
+			String savedVerificationCode = userService.getVerifiactionCodeInRedis(uMail);
+
+			if (savedVerificationCode.equals("noDataFound")) {
+				// Redis查無資料返回"2"表示驗證碼已逾期
+				return "2";
+			} else if (savedVerificationCode.equals("RedisError")) {
+				// Redis執行錯誤返回"3"表示系統錯誤
+				return "3";
+			} else {
+				if (inputVerificationCode.equals(savedVerificationCode)) {
+					// 驗證碼通過並開始處理註冊
+					String uName = (String) session.getAttribute("u_name");
+
+					String uGenderString = (String) session.getAttribute("u_gender");
+					Integer uGender = null;
+					try {
+						uGender = Integer.parseInt(uGenderString);
+						// 轉換Integer成功
+					} catch (NumberFormatException e) {
+						System.out.println("uGender轉換Interger失敗!");
+					}
+
+					String uNickname = (String) session.getAttribute("u_nickname");
+					String uPhone = (String) session.getAttribute("u_phone");
+					String uPassword = (String) session.getAttribute("u_password");
+
+					String uBirthString = (String) session.getAttribute("u_birth");
+					Date uBirth = null;
+					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+					try {
+						uBirth = dateFormat.parse(uBirthString);
+						// 轉Date成功
+					} catch (ParseException e) {
+						System.out.println("uBirth轉換Date失敗!");
+					}
+
+					Integer uStatus = 0;
+					LocalDate uRegisterDate = LocalDate.now();
+
+					// 註冊資料封裝DTO
+					UserRegisterDataDTO userRegisterDataDTO = new UserRegisterDataDTO(uNickname, uName, uMail, uPhone,
+							uGender, uBirth, uPassword, uStatus, uRegisterDate);
+
+					// 呼叫Service傳入DTO
+					if (userService.isRegisterUserSuccess(userRegisterDataDTO) == 0) {
+						// 驗證碼通過並完成註冊
+						request.getSession().invalidate();
+						// 透過銷毀現有Session刪除註冊資料
+						return "0";
+					} else {
+						// 寫入執行錯誤返回"3"表示系統錯誤
+						return "3";
+					}
+
+				} else {
+					// 驗證碼錯誤並未完成註冊
+					return "1";
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("驗證碼核對過程異常!");
+			e.printStackTrace();
+			// Controller執行錯誤返回"3"表示系統錯誤
+			return "3";
+		}
+	}
+
+// ===================================================================			
 
 	// 登入-依據會員輸入的信箱檢查此帳戶是否存在
 	@PostMapping("/find_account_by_mail")
@@ -164,6 +260,38 @@ public class UserRestController {
 		}
 	}
 
+// ===================================================================
+	// 忘記密碼-檢查信箱和寄送驗證碼
+
+	@PostMapping("/send_password_mail")
+	public int sendMailForChangingPassword(@RequestBody Map<String, String> requestBody) {
+		String uMail = requestBody.get("u_email");
+
+		if (userService.isEmailRegistered(uMail)) {
+			return userService.sendChangePasswordMail(uMail);
+			// return為0表示信件寄送成功 為2表示系統異常
+		} else {
+			// 會員不存在
+			return 1;
+		}
+	}
+
+	@PostMapping("/user_forget_password")
+	public int userForgetPassword(@RequestBody Map<String, String> requestBody) {
+
+		String uMail = requestBody.get("u_email");
+		String uPassword = requestBody.get("u_password");
+		String inputVarificationCode = requestBody.get("verification_code");
+
+		try {
+			return userService.changeUserPassword(uMail, uPassword, inputVarificationCode);
+			// 依據處理結果返回代碼
+		} catch (Exception e) {
+			return 3;
+			// 系統異常
+		}
+
+	}
 
 //	======================================
 	// 測試開發用
@@ -202,23 +330,50 @@ public class UserRestController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
-	@PostMapping("/get_user_all_data_test")
-    public UserReadDataDTO getUserAllData(@RequestBody Map<String, Integer> request) {
-        Integer uId = request.get("uId");
-        UserReadDataDTO userData = userService.getUserDataDTOByID(uId);  
-        return userData;
-    }
-	
-	@PostMapping("/update_user_data_test")
-    public ResponseEntity<?> updateUserData(@RequestBody UserWriteDataDTO userDTO) {
-        boolean updateResult = userService.updateUserData(userDTO);
-        if (updateResult) {
-            return ResponseEntity.ok().body("資料更新成功");
-        } else {
-            return ResponseEntity.badRequest().body("資料更新失敗");
-        }
-    }
 
+	@PostMapping("/get_user_all_data_test")
+	public UserReadDataDTO getUserAllData(@RequestBody Map<String, Integer> request) {
+		Integer uId = request.get("uId");
+		UserReadDataDTO userData = userService.getUserDataDTOByID(uId);
+		return userData;
+	}
+
+	@PostMapping("/update_user_data_test")
+	public ResponseEntity<?> updateUserData(@RequestBody UserWriteDataDTO userDTO) {
+		boolean updateResult = userService.updateUserData(userDTO);
+		if (updateResult) {
+			return ResponseEntity.ok().body("資料更新成功");
+		} else {
+			return ResponseEntity.badRequest().body("資料更新失敗");
+		}
+	}
+
+	@PostMapping("/set_user_mood_test/")
+	public ResponseEntity<?> setUserMood(@RequestBody Map<String, Integer> requestBody) {
+		Integer uId = requestBody.get("u_id");
+		Integer moodId = requestBody.get("mood_id");
+		boolean updateResult = userService.updateUserMood(uId, moodId);
+
+		if (updateResult) {
+			// 操作成功，返回JSON格式的成功消息
+			return ResponseEntity.ok().body(Map.of("message", "心情更新成功"));
+		} else {
+			// 操作失敗，返回JSON格式的錯誤消息
+			return ResponseEntity.badRequest().body(Map.of("error", "心情更新失敗"));
+		}
+	}
+
+	@PostMapping("/get_user_mood_test/")
+	public ResponseEntity<?> getUserMood(@RequestBody Map<String, Integer> requestBody) {
+		Integer uId = requestBody.get("u_id");
+		Integer mood = userService.getUserMoodById(uId);
+		System.out.println("uId = " + uId);
+		System.out.println("mood = " + mood);
+		if (mood != null) {
+			return ResponseEntity.ok().body(Map.of("mood", mood)); // 確保這裡的Map包含了mood這個鍵
+		} else {
+			return ResponseEntity.badRequest().body("找不到指定用戶的心情");
+		}
+	}
 
 }

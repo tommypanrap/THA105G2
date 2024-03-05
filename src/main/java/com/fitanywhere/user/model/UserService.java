@@ -1,6 +1,8 @@
 package com.fitanywhere.user.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +22,6 @@ import com.fitanywhere.service.MailService;
 @Service
 public class UserService {
 
-
 // =============================================    
 //    註冊-寄送信箱驗證信功能
 	@Autowired
@@ -38,6 +39,32 @@ public class UserService {
 					+ "<p>請在驗證碼輸入欄輸入以下六位數字：<br><strong style=\"color: red; font-size: 20px;\">%s</strong><br></p>"
 					+ "<p>請在下列時間限制前完成驗證：<br><strong style=\"color: red; font-size: 16px;\">%s</strong><br>(驗證碼有效期限)</p>"
 					+ "<p>若驗證信已過期請使用重新取得驗證信功能重新取得有效的驗證碼。<br></p>" + "<p>本信為系統自動發信，請勿直接回覆本信。<br></p>"
+					+ "<p>若有任何問題歡迎隨時另外來信至<br> <a href='mailto:FitAnyWhere2024@gmail.com'>FitAnyWhere2024@gmail.com</a><br>"
+					+ "我們將竭誠為您服務!</p>" + "</body>" + "</html>", uNickname, verificationCode,
+					validUntil.format(formatter));
+
+			mailService.sendEmail(registerEmail, subject, content);
+		} catch (MessagingException e) {
+			System.out.println("驗證碼寄信過程異常!");
+			e.printStackTrace();
+		}
+	}
+
+	// 更改密碼的驗證信
+	public void sendMailForChanginPassword(String registerEmail, String verificationCode) {
+		try {
+
+			String uNickname = userJpaRepository.findOnlyNicknameByuMail(registerEmail);
+			String subject = "FitAnyWhere會員密碼變更驗證信";
+			LocalDateTime validUntil = LocalDateTime.now().plusMinutes(10);
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+			String content = String.format("<html>" + "<body>"
+					+ "<p>親愛的 <strong style=\\\"color: blue\\\">%s</strong> 先生/小姐您好:<br></p>"
+					+ "<p>本站\"FitAnyWhere\"已收到您變更帳戶密碼的申請。</p>" + "<p>若您未提出申請或已不需要變更密碼則可以忽視本信內容。<br></p>"
+					+ "<p>請在驗證碼輸入欄輸入以下六位數字：<br><strong style=\"color: red; font-size: 20px;\">%s</strong><br></p>"
+					+ "<p>請在下列時間限制前完成驗證：<br><strong style=\"color: red; font-size: 16px;\">%s</strong><br>(驗證碼有效期限)</p>"
+					+ "<p>本信為系統自動發信，請勿直接回覆本信。<br></p>"
 					+ "<p>若有任何問題歡迎隨時另外來信至<br> <a href='mailto:FitAnyWhere2024@gmail.com'>FitAnyWhere2024@gmail.com</a><br>"
 					+ "我們將竭誠為您服務!</p>" + "</body>" + "</html>", uNickname, verificationCode,
 					validUntil.format(formatter));
@@ -75,6 +102,28 @@ public class UserService {
 		return String.format("%06d", num);
 	}
 
+	// 註冊-從Redis讀取暫存的信箱驗證碼
+	public String getVerifiactionCodeInRedis(String uMail) {
+		String key = "MailVerificationCode:" + uMail;
+		String savedVerifiactionCodeInRedis = redisTemplate.opsForValue().get(key);
+
+		try {
+			String result = redisTemplate.opsForValue().get(key);
+			if (result != null) {
+				// 有找到並回傳儲存的驗證碼
+				return result;
+			} else {
+				// 沒找到儲存的驗證碼
+				System.out.println("Redis中查無資料!");
+				return "noDataFound";
+			}
+		} catch (Exception e) {
+			System.out.println("Redis操作異常!");
+			e.printStackTrace();
+			return "RedisError";
+		}
+	}
+
 // =============================================    
 	// 註冊-基本資料重複性檢查和註冊資料處理
 	@Autowired
@@ -105,6 +154,38 @@ public class UserService {
 		return encryptedPassword;
 	}
 
+	// 將註冊資料封裝DTO並寫入mySQL
+	@Transactional
+	public int isRegisterUserSuccess(UserRegisterDataDTO dto) {
+		try {
+			UserVO user = new UserVO();
+			user.setuNickname(dto.getuNickname());
+			user.setuName(dto.getuName());
+			user.setuMail(dto.getuMail());
+			user.setuPhone(dto.getuPhone());
+			user.setuGender(dto.getuGender());
+
+			// 如果uBirth是java.util.Date類型，轉換為LocalDate
+			LocalDate birthDate = dto.getuBirth().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			user.setuBirth(java.sql.Date.valueOf(birthDate));
+
+			user.setuPassword(dto.getuPassword());
+			user.setuStatus(dto.getuStatus());
+
+			// 轉換uRegisterDate到java.util.Date，如果必要的話
+			LocalDate registerDate = dto.getuRegisterDate();
+			user.setuRegisterdate(java.sql.Date.valueOf(registerDate));
+
+			userJpaRepository.save(user);
+			return 0;
+		} catch (Exception e) {
+			System.out.println("註冊流程異常!");
+			e.printStackTrace();
+			return 1;
+		}
+
+	}
+
 // =============================================
 	// 登入-核對登入密碼是否正確
 	@Transactional(readOnly = true)
@@ -118,17 +199,74 @@ public class UserService {
 		return null; // 登錄失敗
 	}
 // =============================================
+	// 修改密碼
+
+	// 寄送修改密碼驗證信
+	@Transactional
+	public int sendChangePasswordMail(String uMail) {
+		try {// 取得亂數驗證碼
+			String verificationCode = getVerificationCode(uMail);
+			// 寄送更改密碼驗證信
+			sendMailForChanginPassword(uMail, verificationCode);
+			// 會員存在並寄出驗證信
+			return 0;
+		} catch (Exception e) {
+			// 系統操作異常
+			return 2;
+		}
+	}
+
+	// 處理密碼修改
+	@Transactional
+	public int changeUserPassword(String uMail, String uPassword, String inputVarificationCode) {
+
+		String savedVerificationCode = getVerifiactionCodeInRedis(uMail);
+
+		if (savedVerificationCode.equals("noDataFound")) {
+			// Redis查無資料返回"2"表示驗證碼已逾期
+			return 2;
+		} else if (savedVerificationCode.equals("RedisError")) {
+			// Redis執行錯誤返回"3"表示系統錯誤
+			return 3;
+		} else {
+			if (savedVerificationCode.equals(inputVarificationCode)) {
+				// 驗證碼正確 更新密碼
+				try {
+					Integer uId = userJpaRepository.findOnlyIdByuMail(uMail);
+					String encryptedPassword = encryptNewPassword(uPassword);
+					userJpaRepository.updatePasswordById(uId, encryptedPassword);
+					return 0;
+					// 更新成功
+				} catch (Exception e) {
+					// 系統操作異常
+					return 3;
+				}
+			} else {
+				// 輸入錯誤的驗證碼
+				return 1;
+			}
+		}
+
+	}
+
+// =============================================
 	// 可供調用的共用Service
 // =============================================
 // 讀取類Service	
+	
+	// 透過uId讀取moodId
+	@Transactional(readOnly = true)
+	public Integer getUserMoodById(Integer uId) {
+		return userJpaRepository.findOnlyMoodByuId(uId);
+	}
 
-	// 讀取User照片
+	// 透過uId讀取User照片
 	@Transactional(readOnly = true)
 	public UserHeadshotOnlyDTO getUserHeadshotDTOById(Integer uId) {
 		return userJpaRepository.findUserHeadshotDTOById(uId);
 	}
 
-	// 讀取User除照片以外的所有非敏感資訊
+	// 透過uId讀取User除照片以外的所有非敏感資訊
 	@Transactional(readOnly = true)
 	public UserReadDataDTO getUserDataDTOByID(Integer uId) {
 		return userJpaRepository.findUserDataDTOById(uId);
@@ -140,6 +278,19 @@ public class UserService {
 	@Autowired
 	public UserService(UserJpaRepository userJpaRepository) {
 		this.userJpaRepository = userJpaRepository;
+	}
+
+	// 負責接收uId和moodId更新User表格並返回Boolean
+	@Transactional
+	public boolean updateUserMood(Integer uId, Integer moodId) {
+		try {
+			userJpaRepository.updateMoodById(uId, moodId);
+			return true;
+			// 更新成功
+		} catch (Exception e) {
+			return false;
+			// 更新失敗
+		}
 	}
 
 	// 負責接收uId和照片封裝DTO寫入DB並返回Boolean
@@ -198,16 +349,15 @@ public class UserService {
 		return userVO;
 	}
 
-    
-    //andy 單取出user大頭照
-    public byte[] getUserHeadshot(Integer uId) {
-    	byte[] uHeadshot = userJpaRepository.getUserHeadshotByUserId(uId);
-    	return uHeadshot;
-    }
+	// Aandy 單取出user大頭照
+	public byte[] getUserHeadshot(Integer uId) {
+		byte[] uHeadshot = userJpaRepository.getUserHeadshotByUserId(uId);
+		return uHeadshot;
+	}
 
- // Tommy
- 	public List<UserVO> getAll() {
- 		return userJpaRepository.findAll();
- 	}
+	// Tommy
+	public List<UserVO> getAll() {
+		return userJpaRepository.findAll();
+	}
 
 }

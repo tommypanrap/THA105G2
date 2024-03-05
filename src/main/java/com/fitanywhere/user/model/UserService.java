@@ -236,7 +236,7 @@ public class UserService {
 					String encryptedPassword = encryptNewPassword(uPassword);
 					userJpaRepository.updatePasswordById(uId, encryptedPassword);
 					return 0;
-					//更新成功
+					// 更新成功
 				} catch (Exception e) {
 					// 系統操作異常
 					return 3;
@@ -253,14 +253,20 @@ public class UserService {
 	// 可供調用的共用Service
 // =============================================
 // 讀取類Service	
+	
+	// 透過uId讀取moodId
+	@Transactional(readOnly = true)
+	public Integer getUserMoodById(Integer uId) {
+		return userJpaRepository.findOnlyMoodByuId(uId);
+	}
 
-	// 讀取User照片
+	// 透過uId讀取User照片
 	@Transactional(readOnly = true)
 	public UserHeadshotOnlyDTO getUserHeadshotDTOById(Integer uId) {
 		return userJpaRepository.findUserHeadshotDTOById(uId);
 	}
 
-	// 讀取User除照片以外的所有非敏感資訊
+	// 透過uId讀取User除照片以外的所有非敏感資訊
 	@Transactional(readOnly = true)
 	public UserReadDataDTO getUserDataDTOByID(Integer uId) {
 		return userJpaRepository.findUserDataDTOById(uId);
@@ -272,6 +278,19 @@ public class UserService {
 	@Autowired
 	public UserService(UserJpaRepository userJpaRepository) {
 		this.userJpaRepository = userJpaRepository;
+	}
+
+	// 負責接收uId和moodId更新User表格並返回Boolean
+	@Transactional
+	public boolean updateUserMood(Integer uId, Integer moodId) {
+		try {
+			userJpaRepository.updateMoodById(uId, moodId);
+			return true;
+			// 更新成功
+		} catch (Exception e) {
+			return false;
+			// 更新失敗
+		}
 	}
 
 	// 負責接收uId和照片封裝DTO寫入DB並返回Boolean

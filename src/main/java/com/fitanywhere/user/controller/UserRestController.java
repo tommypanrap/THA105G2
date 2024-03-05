@@ -265,7 +265,7 @@ public class UserRestController {
 
 	@PostMapping("/send_password_mail")
 	public int sendMailForChangingPassword(@RequestBody Map<String, String> requestBody) {
-		String uMail = requestBody.get("u_email");		
+		String uMail = requestBody.get("u_email");
 
 		if (userService.isEmailRegistered(uMail)) {
 			return userService.sendChangePasswordMail(uMail);
@@ -278,14 +278,14 @@ public class UserRestController {
 
 	@PostMapping("/user_forget_password")
 	public int userForgetPassword(@RequestBody Map<String, String> requestBody) {
-		
-			String uMail = requestBody.get("u_email");
-			String uPassword = requestBody.get("u_password");
-			String inputVarificationCode = requestBody.get("verification_code");
-			
-			try {
-				return userService.changeUserPassword(uMail, uPassword, inputVarificationCode);
-				// 依據處理結果返回代碼
+
+		String uMail = requestBody.get("u_email");
+		String uPassword = requestBody.get("u_password");
+		String inputVarificationCode = requestBody.get("verification_code");
+
+		try {
+			return userService.changeUserPassword(uMail, uPassword, inputVarificationCode);
+			// 依據處理結果返回代碼
 		} catch (Exception e) {
 			return 3;
 			// 系統異常
@@ -345,6 +345,34 @@ public class UserRestController {
 			return ResponseEntity.ok().body("資料更新成功");
 		} else {
 			return ResponseEntity.badRequest().body("資料更新失敗");
+		}
+	}
+
+	@PostMapping("/set_user_mood_test/")
+	public ResponseEntity<?> setUserMood(@RequestBody Map<String, Integer> requestBody) {
+		Integer uId = requestBody.get("u_id");
+		Integer moodId = requestBody.get("mood_id");
+		boolean updateResult = userService.updateUserMood(uId, moodId);
+
+		if (updateResult) {
+			// 操作成功，返回JSON格式的成功消息
+			return ResponseEntity.ok().body(Map.of("message", "心情更新成功"));
+		} else {
+			// 操作失敗，返回JSON格式的錯誤消息
+			return ResponseEntity.badRequest().body(Map.of("error", "心情更新失敗"));
+		}
+	}
+
+	@PostMapping("/get_user_mood_test/")
+	public ResponseEntity<?> getUserMood(@RequestBody Map<String, Integer> requestBody) {
+		Integer uId = requestBody.get("u_id");
+		Integer mood = userService.getUserMoodById(uId);
+		System.out.println("uId = " + uId);
+		System.out.println("mood = " + mood);
+		if (mood != null) {
+			return ResponseEntity.ok().body(Map.of("mood", mood)); // 確保這裡的Map包含了mood這個鍵
+		} else {
+			return ResponseEntity.badRequest().body("找不到指定用戶的心情");
 		}
 	}
 

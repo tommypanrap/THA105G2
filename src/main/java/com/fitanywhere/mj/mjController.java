@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/mj")
 public class mjController {
+	@GetMapping("checkout")
+	public String checkout(ModelMap model){
+		return "front-end/mj/checkout";
+	}
 	@GetMapping("cart")
 	public String cart(ModelMap model) {
 		return "front-end/mj/cart";
@@ -23,10 +27,10 @@ public class mjController {
 	}
 	
 	
-	@GetMapping("course_filter_two_toggle")
-	public String courseList(ModelMap model) {
-		return "front-end/mj/course_filter_two_toggle";
-	}	
+//	@GetMapping("course_filter_two_toggle")
+//	public String courseList(ModelMap model) {
+//		return "front-end/mj/course_filter_two_toggle";
+//	}
 	
 	@GetMapping("student_enrolled_courses")
 	public String studentCourses(ModelMap model) {

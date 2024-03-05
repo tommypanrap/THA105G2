@@ -8,7 +8,6 @@
     <meta name="robots" content="noindex, follow" />
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" th:href="@{/assets/images/favicon.png}">
 
@@ -33,133 +32,17 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>                                    <!-- ●●js  for jquery datatables 用 -->
 <script	src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>              <!-- ●●js  for jquery datatables 用 -->
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.jqueryui.min.css" />
+
+
 </head>
 
 <body>
     <!-- Start Header Area -->
     <header class="rbt-header rbt-header-10">
         <div class="rbt-sticky-placeholder"></div>
-        <!-- Start Header Top  -->
-        <div class="rbt-header-top rbt-header-top-1 header-space-betwween bg-not-transparent bg-color-darker top-expended-activation">
-            <div class="container-fluid">
-                <div class="top-expended-wrapper">
-                    <div class="top-expended-inner rbt-header-sec align-items-center ">
-                        <div class="rbt-header-sec-col rbt-header-left d-none d-xl-block">
-                            <div class="rbt-header-content">
-                                <!-- Start Header Information List  -->
-                                <div class="header-info">
-                                    <ul class="rbt-information-list">
-                                        <li>
-                                            <a href="#"><i class="fab fa-instagram"></i>100k <span class="d-none d-xxl-block">Followers</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fab fa-facebook-square"></i>500k <span class="d-none d-xxl-block">Followers</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="feather-phone"></i>+1-202-555-0174</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <!-- End Header Information List  -->
-                            </div>
-                        </div>
-                        <div class="rbt-header-sec-col rbt-header-center">
-                            <div class="rbt-header-content justify-content-start justify-content-xl-center">
-                                <div class="header-info">
-                                    <div class="rbt-header-top-news">
-                                        <div class="inner">
-                                            <div class="content">
-                                                <span class="rbt-badge variation-02 bg-color-primary color-white radius-round">Hot</span>
-                                                <span class="news-text"><img th:src="@{/assets/images/icons/hand-emojji.svg}" alt="Hand Emojji Images"> Intro price. Get Histudy for Big Sale -95% off.</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="rbt-header-sec-col rbt-header-right mt_md--10 mt_sm--10">
-                            <div class="rbt-header-content justify-content-start justify-content-lg-end">
-                                <div class="header-info d-none d-xl-block">
-                                    <ul class="social-share-transparent">
-                                        <li>
-                                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fab fa-twitter"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fab fa-instagram"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div class="rbt-separator d-none d-xl-block"></div>
-
-                                <div class="header-info">
-                                    <ul class="rbt-dropdown-menu switcher-language">
-                                        <li class="has-child-menu">
-                                            <a href="#">
-                                                <img class="left-image" src="assets/images/icons/en-us.png" alt="Language Images">
-                                                <span class="menu-item">English</span>
-                                                <i class="right-icon feather-chevron-down"></i>
-                                            </a>
-                                            <ul class="sub-menu">
-                                                <li>
-                                                    <a href="#">
-                                                        <img class="left-image" src="assets/images/icons/fr.png" alt="Language Images">
-                                                        <span class="menu-item">Français</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <img class="left-image" src="assets/images/icons/de.png" alt="Language Images">
-                                                        <span class="menu-item">Deutsch</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div class="header-info">
-                                    <ul class="rbt-dropdown-menu currency-menu">
-                                        <li class="has-child-menu">
-                                            <a href="#">
-                                                <span class="menu-item">USD</span>
-                                                <i class="right-icon feather-chevron-down"></i>
-                                            </a>
-                                            <ul class="sub-menu hover-reverse">
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="menu-item">EUR</span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="menu-item">GBP</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="header-info">
-                        <div class="top-bar-expended d-block d-lg-none">
-                            <button class="topbar-expend-button rbt-round-btn"><i class="feather-plus"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <!-- End Header Top  -->
-        <div class="rbt-header-wrapper header-space-betwween header-sticky">
-            <div class="container-fluid">
+        <div class="rbt-header-wrapper header-space-betwween header-sticky" style="padding: 0px;">
+            <div class="container-fluid" style="padding: 0px;">
                 <div class="mainbar-row rbt-navigation-center align-items-center">
                     <div class="header-left rbt-header-content">
                         <div class="header-info">
@@ -167,147 +50,6 @@
                                 <a href="index.html">
                                     <img th:src="@{/assets/images/logo/logo.png}" alt="Education Logo Images">
                                 </a>
-                            </div>
-                        </div>
-                        <div class="header-info">
-                            <div class="rbt-category-menu-wrapper">
-                                <div class="rbt-category-btn rbt-side-offcanvas-activation">
-                                    <div class="rbt-offcanvas-trigger md-size icon">
-                                        <span class="d-none d-xl-block">
-                                    <i class="feather-grid"></i>
-                                </span>
-                                        <i title="Category" class="feather-grid d-block d-xl-none"></i>
-                                    </div>
-                                    <span class="category-text d-none d-xl-block">Category</span>
-                                </div>
-
-                                <div class="category-dropdown-menu d-none d-xl-block">
-                                    <div class="category-menu-item">
-                                        <div class="rbt-vertical-nav">
-                                            <ul class="rbt-vertical-nav-list-wrapper vertical-nav-menu">
-                                                <li class="vertical-nav-item active">
-                                                    <a href="#tab1">Course School</a>
-                                                </li>
-                                                <li class="vertical-nav-item">
-                                                    <a href="#tab2">Online School</a>
-                                                </li>
-                                                <li class="vertical-nav-item">
-                                                    <a href="#tab3">kindergarten</a>
-                                                </li>
-                                                <li class="vertical-nav-item">
-                                                    <a href="#tab4">Classic LMS</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="rbt-vertical-nav-content">
-                                            <!-- Start One Item  -->
-                                            <div class="rbt-vertical-inner tab-content" id="tab1" style="display: block">
-                                                <div class="rbt-vertical-single">
-                                                    <div class="row">
-                                                        <div class="col-lg-6 col-sm-6 col-6">
-                                                            <div class="vartical-nav-content-menu">
-                                                                <h3 class="rbt-short-title">Course Title</h3>
-                                                                <ul class="rbt-vertical-nav-list-wrapper">
-                                                                    <li><a href="#">Web Design</a></li>
-                                                                    <li><a href="#">Art</a></li>
-                                                                    <li><a href="#">Figma</a></li>
-                                                                    <li><a href="#">Adobe</a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-6 col-sm-6 col-6">
-                                                            <div class="vartical-nav-content-menu">
-                                                                <h3 class="rbt-short-title">Course Title</h3>
-                                                                <ul class="rbt-vertical-nav-list-wrapper">
-                                                                    <li><a href="#">Photo</a></li>
-                                                                    <li><a href="#">English</a></li>
-                                                                    <li><a href="#">Math</a></li>
-                                                                    <li><a href="#">Read</a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- End One Item  -->
-
-                                            <!-- Start One Item  -->
-                                            <div class="rbt-vertical-inner tab-content" id="tab2">
-                                                <div class="rbt-vertical-single">
-                                                    <div class="row">
-                                                        <div class="col-lg-6">
-                                                            <div class="vartical-nav-content-menu">
-                                                                <h3 class="rbt-short-title">Course Title</h3>
-                                                                <ul class="rbt-vertical-nav-list-wrapper">
-                                                                    <li><a href="#">Photo</a></li>
-                                                                    <li><a href="#">English</a></li>
-                                                                    <li><a href="#">Math</a></li>
-                                                                    <li><a href="#">Read</a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-6">
-                                                            <div class="vartical-nav-content-menu">
-                                                                <h3 class="rbt-short-title">Course Title</h3>
-                                                                <ul class="rbt-vertical-nav-list-wrapper">
-                                                                    <li><a href="#">Web Design</a></li>
-                                                                    <li><a href="#">Art</a></li>
-                                                                    <li><a href="#">Figma</a></li>
-                                                                    <li><a href="#">Adobe</a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- End One Item  -->
-
-                                            <!-- Start One Item  -->
-                                            <div class="rbt-vertical-inner tab-content" id="tab3">
-                                                <div class="rbt-vertical-single">
-                                                    <div class="row">
-                                                        <div class="col-lg-12">
-                                                            <div class="vartical-nav-content-menu">
-                                                                <h3 class="rbt-short-title">Course Title</h3>
-                                                                <ul class="rbt-vertical-nav-list-wrapper">
-                                                                    <li><a href="#">Photo</a></li>
-                                                                    <li><a href="#">English</a></li>
-                                                                    <li><a href="#">Math</a></li>
-                                                                </ul>
-                                                                <div class="read-more-btn">
-                                                                    <a class="rbt-btn-link" href="#">Learn More<i
-                                                                    class="feather-arrow-right"></i></a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- End One Item  -->
-
-                                            <!-- Start One Item  -->
-                                            <div class="rbt-vertical-inner tab-content" id="tab4">
-                                                <div class="rbt-vertical-single">
-                                                    <div class="row">
-                                                        <div class="col-lg-12">
-                                                            <div class="vartical-nav-content-menu">
-                                                                <h3 class="rbt-short-title">Course Title</h3>
-                                                                <ul class="rbt-vertical-nav-list-wrapper">
-                                                                    <li><a href="#">Photo</a></li>
-                                                                    <li><a href="#">English</a></li>
-                                                                    <li><a href="#">Math</a></li>
-                                                                    <li><a href="#">Read</a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- End One Item  -->
-
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -920,7 +662,7 @@
                         </nav>
                     </div>
 
-                    <div class="header-right">
+                    <div class="header-right" style="margin-right: 10px">
 
                         <!-- Navbar Icons -->
                         <ul class="quick-access">
@@ -939,7 +681,7 @@
 
                             <li class="account-access rbt-user-wrapper d-none d-xl-block">
                                 <a href="#"><i class="feather-user"></i>Admin</a>
-                                <div class="rbt-user-menu-list-wrapper">
+                                <div class="rbt-user-menu-list-wrapper" style="right: 10px; left: auto;">
                                     <div class="inner">
                                         <div class="rbt-admin-profile">
                                             <div class="admin-thumbnail">
@@ -1120,12 +862,6 @@
                             </li>
 
                         </ul>
-
-                        <div class="rbt-btn-wrapper d-none d-xl-block">
-                            <a class="rbt-btn rbt-marquee-btn marquee-auto btn-border-gradient radius-round btn-sm hover-transform-none" href="#">
-                                <span data-text="Enroll Now">Enroll Now</span>
-                            </a>
-                        </div>
 
                         <!-- Start Mobile-Menu-Bar -->
                         <div class="mobile-menu-bar d-block d-xl-none">

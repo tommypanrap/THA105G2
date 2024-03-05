@@ -42,6 +42,15 @@ public class CourseController {
 	@Autowired
 	UserService userSvc;
 
+
+
+	@GetMapping("courses")
+	public String getCourses(ModelMap model) {
+		List<CourseVO> list = courseSvc.getAll();
+		model.addAttribute("courseListData", list);
+		return "front-end/mj/course_filter_two_toggle";
+	}
+
 	@GetMapping("create_course")
 	public String addCourse(ModelMap model) {
 		List<CourseVO> list = courseSvc.getAll();

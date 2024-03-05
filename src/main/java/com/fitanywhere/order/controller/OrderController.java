@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -36,16 +37,22 @@ public class OrderController {
 
 
 	
-	
+	// 結帳 -> 創建訂單
+	@PostMapping("addOrder")
+	public String addOrder(ModelMap model){
+		OrderVO orderVO = new OrderVO();
+		model.addAttribute("orderVO",orderVO);
+		return "front-end/order/addOrder";
+	}
 	
 	
 	// add one Order
-	@GetMapping("addOrder")
-	public String addOrder(ModelMap model) {
-		OrderVO orderVO = new OrderVO();
-		model.addAttribute("orderVO", orderVO);
-		return "back-end/order/addOrder";
-	}
+//	@GetMapping("addOrder")
+//	public String addOrder(ModelMap model) {
+//		OrderVO orderVO = new OrderVO();
+//		model.addAttribute("orderVO", orderVO);
+//		return "back-end/order/addOrder";
+//	}
 
 	/*
 	 * This method will be called on addEmp.html form submission, handling POST request It also validates the user input

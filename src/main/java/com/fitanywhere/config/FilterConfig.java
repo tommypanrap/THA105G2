@@ -16,7 +16,7 @@ public class FilterConfig {
         FilterRegistrationBean<LoginStatusFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(new LoginStatusFilter());
 //      請在這邊設定需要過濾登入狀態的網址  
-        registrationBean.addUrlPatterns("/user/test_B/*", "/test_B/", "/test_C/");
+        registrationBean.addUrlPatterns("/user/test_B/*", "/test_B/", "/test_C/","/socialpost/student_socialpost");
         return registrationBean;
     }
 //    =========================================================================

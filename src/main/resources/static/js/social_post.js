@@ -32,7 +32,41 @@ $(document).ready(function() {
 	
 	});
 	
-	
+	$(".delete-socialpost").on("click",function(){
+		
+		alert("delete");
+		
+		let innerHTMLContent = $(".spid").html();
+		var spid = parseInt(innerHTMLContent, 10);
+		
+		var data = {
+			spStatus : 0 ,
+			spid : spid
+			
+		};
+		
+		const formData = new FormData();
+        for (const key in data) {
+            formData.append(key, data[key]);
+        }
+        
+        $.ajax({
+        url: 'http://localhost:8080/socialpost/update_for_delete',
+        type: 'POST',
+        data: formData,
+        contentType: false, // 必須為 false，告訴 jQuery 不要設置 contentType
+        processData: false, // 必須為 false，告訴 jQuery 不要處理數據
+        success: function (responseData) {
+            window.alert("已刪除貼文");
+            window.location.href = 'student_socialpost';
+        },
+        error: function (error) {
+            console.error('Error:', error);
+        }
+    });
+        
+		
+	})
 	
 	
 	

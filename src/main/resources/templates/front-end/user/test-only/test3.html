@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>更新用戶資料</title>
+</head>
+<body>
+    <h2>更新用戶資料</h2>
+    <form id="updateUserForm">
+        <label for="uId">用戶ID：</label>
+        <input type="text" id="uId" name="uId" required><br>
+        <label for="uName">姓名：</label>
+        <input type="text" id="uName" name="uName" required><br>
+        <label for="uPhone">電話：</label>
+        <input type="text" id="uPhone" name="uPhone" required><br>
+        <label for="uGender">性別（0=男, 1=女, 2=其他）：</label>
+        <input type="number" id="uGender" name="uGender" required><br>
+        <label for="uBirth">出生日期（格式：yyyy-MM-dd）：</label>
+        <input type="date" id="uBirth" name="uBirth" required><br>
+        <button type="button" onclick="submitForm()">提交</button>
+    </form>
+
+    <script>
+        function submitForm() {
+            const formData = {
+                uId: document.getElementById('uId').value,
+                uName: document.getElementById('uName').value,
+                uPhone: document.getElementById('uPhone').value,
+                uGender: document.getElementById('uGender').value,
+                uBirth: document.getElementById('uBirth').value
+            };
+            fetch('/user_api/update_user_data_test', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.text()) 
+            .then(data => {
+                alert('更新成功！');
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('更新失敗！');
+            });
+        }
+    </script>
+</body>
+</html>

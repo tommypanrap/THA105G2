@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent><!-- ＠用途說明1: Inherit defaults from Spring Boot -->
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.7.0</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.fitanywhere</groupId>
 	<artifactId>THA105G2</artifactId>
@@ -18,7 +19,21 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
-<!--		Eugen Start-->		
+		<!--		Eugen Start-->
+		
+
+		<!-- Spring Redis (預設使用Lettuce) -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+
+		<!-- Spring Email -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.mindrot/jbcrypt -->
 		<dependency>
 			<groupId>org.mindrot</groupId>
@@ -53,14 +68,15 @@
 			<artifactId>javax.mail</artifactId>
 			<version>1.6.2</version>
 		</dependency>
-<!--		Eugen End-->
-		
+		<!--		Eugen End-->
+
 		<dependency><!-- ＠用途說明2: Add typical dependencies for a web application -->
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
- 
-		<dependency><!-- ＠用途說明3: marked the embedded servlet container as provided -->
+
+		<dependency><!-- ＠用途說明3: marked the embedded servlet container as
+			provided -->
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
@@ -70,19 +86,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 		<!-- 用途說明5: Starter for using Spring Data JPA with Hibernate -->
@@ -110,25 +113,29 @@
 			<artifactId>spring-boot-starter-log4j2</artifactId>
 			<!-- <version>2.7.0</version> -->
 		</dependency>
-		
-		<!-- ========================================================================================== -->
+
+		<!--
+		========================================================================================== -->
 		<!-- ●前面的jpa已經包含有hibernate，以下為純 hibernate 使用● -->
 
-		<!-- hibernate-core 核心 -->  <!-- spring-boot-starter-data-jpa(2.7.0) 已內建 Hibernate 5.6.9 依賴，但預設未下載 -->
+		<!-- hibernate-core 核心 -->  <!--
+		spring-boot-starter-data-jpa(2.7.0) 已內建 Hibernate 5.6.9 依賴，但預設未下載 -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<!-- <version>5.6.9.Final</version> -->
 		</dependency>
 
-		<!-- hibernate-c3p0 連線池 -->                  <!-- spring-boot 已內建依賴，但預設未下載 -->
+		<!-- hibernate-c3p0 連線池 -->                  <!--
+		spring-boot 已內建依賴，但預設未下載 -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-c3p0</artifactId>
 			<!-- <version>5.6.9.Final</version> -->
 		</dependency>
 
-		<!-- hibernate-proxool 連線池 -->               <!-- spring-boot 已內建依賴，但預設未下載 -->
+		<!-- hibernate-proxool 連線池 -->               <!--
+		spring-boot 已內建依賴，但預設未下載 -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-proxool</artifactId>
@@ -136,10 +143,12 @@
 		</dependency>
 
 
-		<!-- ========================================================================================== -->
+		<!--
+		========================================================================================== -->
 		<!-- ●以下為 Web App 預備使用● -->
 
-		<!-- Servlet 4.0.1 -->                                 <!-- spring-boot 已內建 Servlet 4.0.1 依賴，但預設未下載 -->
+		<!-- Servlet 4.0.1 -->                                 <!--
+		spring-boot 已內建 Servlet 4.0.1 依賴，但預設未下載 -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
@@ -161,7 +170,8 @@
 			<version>1.2.5</version>
 		</dependency>
 
-		<!-- websocket -->                                    <!-- spring-boot 已內建依賴，但預設未下載 -->
+		<!-- websocket -->                                    <!-- spring-boot
+		已內建依賴，但預設未下載 -->
 		<dependency>
 			<groupId>javax.websocket</groupId>
 			<artifactId>javax.websocket-api</artifactId>
@@ -184,25 +194,28 @@
 		</dependency>
 
 
-		
-		<!-- ========================================================================================== -->
+		<!--
+		========================================================================================== -->
 		<!-- ●以下為 JSR 303/349/380 Bean Validation Framework 預備使用● -->
 
-		<!-- javax.validation -->                             <!-- spring-boot(2.7.0) 已內建依賴，但預設未下載 -->
+		<!-- javax.validation -->                             <!-- spring-boot(2.7.0)
+		已內建依賴，但預設未下載 -->
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
 			<!-- <version>2.0.1.Final</version> -->
 		</dependency>
 
-		<!-- org.hibernate.validator -->                  <!-- spring-boot(2.7.0) 已內建依賴，但預設未下載 -->
+		<!-- org.hibernate.validator -->                  <!--
+		spring-boot(2.7.0) 已內建依賴，但預設未下載 -->
 		<dependency>
 			<groupId>org.hibernate.validator</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<!-- <version>6.2.3.Final</version> -->
 		</dependency>
 
-		<!-- ========================================================================================== -->
+		<!--
+		========================================================================================== -->
 		<!-- ●以下為 資料庫驅動程式 預備使用● -->
 
 		<!-- Oracle JDBC驅動程式 ojdbc8.jar -->
@@ -211,7 +224,8 @@
 		<dependency>
 			<groupId>com.oracle.database.jdbc</groupId>
 			<artifactId>ojdbc8</artifactId>
-			<!-- <version>21.5.0.0</version> -->     <!-- spring-boot(2.7.0) 已內建依賴21.5.0.0，但預設未下載 -->
+			<!-- <version>21.5.0.0</version> -->     <!-- spring-boot(2.7.0)
+			已內建依賴21.5.0.0，但預設未下載 -->
 		</dependency>
 
 		<!-- MySQL8 JDBC驅動程式 mysql-connector-java-8.x.xx.jar -->
@@ -219,23 +233,13 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<!-- <version>8.0.29</version> -->       <!-- spring-boot(2.7.0) 已內建依賴8.029，但預設未下載 -->
+			<!-- <version>8.0.29</version> -->       <!-- spring-boot(2.7.0)
+			已內建依賴8.029，但預設未下載 -->
 		</dependency>
 
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		<!-- ========================================================================================== -->
+
+		<!--
+		========================================================================================== -->
 		<!-- ●以下為 thymeleaf 預備使用● -->
 
 		<!-- thymeleaf -->
@@ -244,9 +248,9 @@
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 		<dependency>
-            <groupId>nz.net.ultraq.thymeleaf</groupId>
-            <artifactId>thymeleaf-layout-dialect</artifactId>
-        </dependency>
+			<groupId>nz.net.ultraq.thymeleaf</groupId>
+			<artifactId>thymeleaf-layout-dialect</artifactId>
+		</dependency>
 
 		<!-- hot swapping, disable cache for template, enable live reload -->
 		<dependency>
@@ -260,6 +264,12 @@
 			<groupId>org.webjars</groupId>
 			<artifactId>bootstrap</artifactId>
 			<version>4.2.1</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>redis.clients</groupId>
+		    <artifactId>jedis</artifactId>
+		    <version>5.0.0</version>
 		</dependency>
 
 	</dependencies>

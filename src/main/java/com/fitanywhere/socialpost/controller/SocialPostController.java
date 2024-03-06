@@ -90,11 +90,9 @@ public class SocialPostController {
 	@GetMapping("student_socialpost")
 	public String getUserInfo(HttpServletRequest req, ModelMap model) {
 		HttpSession newSession = req.getSession(true);
-		System.out.println("印出session"+newSession);
+		
 	    UserVO userVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
 	    model.addAttribute("userVO", userVO);
-	    
-	    System.out.println("心情"+userVO.getMoodVO());
 	    
 	    SocialPostVO socialPostVO = new SocialPostVO();
 		model.addAttribute("socialPostVO", socialPostVO);
@@ -111,7 +109,7 @@ public class SocialPostController {
 		HttpSession newSession = req.getSession(true);
 		UserVO userVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
 		socialPostVO.setUserVO(userVO);
-		
+		socialPostVO.setSpstatus(1);
 		socialPostVO.setSptime(new Timestamp(System.currentTimeMillis()));
 		
 		
@@ -154,17 +152,71 @@ public class SocialPostController {
 		return "front-end/socialpost/update_socialpost_input"; // 查詢完成後轉交update_emp_input.html
 	}
 	
+
 	
 	@PostMapping("update_social_post")
-	public String update_social_post(@RequestParam("spid") String spid, ModelMap model) {
-		System.out.println("update_social_post有	進來");
-		/*************************** 2.開始查詢資料 *****************************************/
-		SocialPostVO socialPostVO = socialPostSvc.getOneSocialPost(Integer.valueOf(spid));
+	public String update_social_post(@Valid SocialPostVO socialPostVO, BindingResult result, ModelMap model,
+			@RequestParam("sppic") MultipartFile[] parts) throws IOException {
+		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
+		// 去除BindingResult中upFiles欄位的FieldError紀錄 --> 見第172行
+		result = removeFieldError(socialPostVO, result, "sppic");
+
+		if (parts[0].isEmpty()) { // 使用者未選擇要上傳的新圖片時
+			// EmpService empSvc = new EmpService();
+			byte[] sppic = socialPostSvc.getOneSocialPost(socialPostVO.getSpid()).getSppic();
+			socialPostVO.setSppic(sppic);
+		} else {
+			for (MultipartFile multipartFile : parts) {
+				byte[] sppic = multipartFile.getBytes();
+				socialPostVO.setSppic(sppic);
+			}
+		}
+		if (result.hasErrors()) {
+			return "redirect:/socialpost/student_socialpost";
+		}
+		SocialPostVO getSocialPostVO = socialPostSvc.getOneSocialPost(socialPostVO.getSpid());
 		
-		/*************************** 3.查詢完成,準備轉交(Send the Success view) **************/
+		socialPostVO.setUserVO(getSocialPostVO.getUserVO());
+		socialPostVO.setSptime(getSocialPostVO.getSptime());
+		socialPostVO.setSpstatus(getSocialPostVO.getSpstatus());
+		
+		/*************************** 2.開始修改資料 *****************************************/
+//		System.out.println(socialPostVO.toString());
+		socialPostSvc.updateSocialPost(socialPostVO);
+		
+		/*************************** 3.修改完成,準備轉交(Send the Success view) **************/
+		model.addAttribute("success", "- (修改成功)");
+		socialPostVO = socialPostSvc.getOneSocialPost(Integer.valueOf(socialPostVO.getSpid()));
 		model.addAttribute("socialPostVO", socialPostVO);
 		
-		return "redirect:/socialpost/student_socialpost"; // 
+		
+
+		return "redirect:/socialpost/student_socialpost";
+	}
+	
+	@PostMapping("update_for_delete")
+	public String update_for_delete(@Valid SocialPostVO socialPostVO, BindingResult result, ModelMap model,
+			@RequestParam Integer spStatus,@RequestParam Integer spid) throws IOException {
+		System.out.println("update_for_delete");
+		System.out.println("socialPostVO:"+socialPostVO);
+		System.out.println("spid:"+spid);
+		
+		
+//		System.out.println(socialPostSvc.getOneSocialPost(spid));
+		socialPostVO = socialPostSvc.getOneSocialPost(spid);
+		socialPostVO.setSpstatus(spStatus);
+		System.out.println("socialPostVO:"+socialPostVO);
+		
+		/*************************** 2.開始修改資料 *****************************************/
+		socialPostSvc.updateSocialPost(socialPostVO);
+		
+		/*************************** 3.修改完成,準備轉交(Send the Success view) **************/
+		model.addAttribute("success", "- (修改成功)");
+		socialPostVO = socialPostSvc.getOneSocialPost(Integer.valueOf(socialPostVO.getSpid()));
+		model.addAttribute("socialPostVO", socialPostVO);
+		
+		
+		return "redirect:/socialpost/student_socialpost";
 	}
 	
 	@PostMapping("update")

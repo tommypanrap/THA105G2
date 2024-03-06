@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-
+// Eugen
 // 要過濾網址請到com.fitanywhere.config中的FilterConfig設定
 public class LoginStatusFilter implements Filter {
 

@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,6 +30,13 @@ public class SocialPostVO {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer spid;
 	
+	@Override
+	public String toString() {
+		return "SocialPostVO [spid=" + spid + ", userVO=" + userVO + ", spcategory=" + spcategory + ", sptime=" + sptime
+				+ ", spupdated=" + spupdated + ", spstatus=" + spstatus + ", sptitle=" + sptitle + ", spcontent="
+				+ spcontent + ", sppic=" + Arrays.toString(sppic) + "]";
+	}
+
 	@ManyToOne
 	@JoinColumn(name = "u_id")
 	private UserVO userVO;

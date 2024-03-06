@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
     <!-- Thymeleaf dependencies -->
-    <script src="https://www.thymeleaf.org/thymeleaf.js}"></script>
+    <script src="https://www.thymeleaf.org/thymeleaf.js"></script>
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" th:href="@{/images/favicon.png}" />
@@ -46,7 +46,7 @@
     </style>
 
     <!-- Eugen追加 -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
   </head>
 
@@ -87,15 +87,15 @@
                   </li>
 
                   <li class="not-hamber">
-                    <a href=""><img src=".//THA105G2_SpringBoot/user_api/assets/images/bell.png}" alt="" /></a>
+                    <a href=""><img th:src="@{/images/bell.png}" alt="" /></a>
                   </li>
                   <li class="not-hamber">
-                    <a href="./g2-cart.html"><img src=".//THA105G2_SpringBoot/user_api/assets/images/cart.png}"
+                    <a href="./g2-cart.html"><img th:src="@{/images/cart.png}"
                         alt="" /></a>
                   </li>
                   <li class="not-hamber">
                     <a href="" class="button_model feed_back">
-                      <img src=".//THA105G2_SpringBoot/user_api/assets/images/mail.png}" alt="" />
+                      <img th:src="@{/images/mail.png}" alt="" />
                     </a>
                     <div id="lightbox" class="none">
                       <form action="">
@@ -697,46 +697,36 @@
     <script>
 
       // 處理註冊表單在按下"寄送驗證碼"後會送往後端儲存在session並顯示彈窗
-      document
-        .getElementById("nextStepButton")
-        .addEventListener("click", function () {
-          var formElement = document.querySelector(".registerForm");
-          var formData = new FormData(formElement);
-          var urlEncodedData = "";
-          var urlEncodedDataPairs = [];
+      document.getElementById("nextStepButton").addEventListener("click", function () {
+    var formElement = document.querySelector(".registerForm");
+    var formData = new FormData(formElement);
+    formData.append("requestType", "registerForm");
 
-          // 將FormData轉換為URL編碼字符串
-          formData.append("requestType", "registerForm");
-          for (var pair of formData.entries()) {
-            urlEncodedDataPairs.push(
-              encodeURIComponent(pair[0]) + "=" + encodeURIComponent(pair[1])
-            );
-          }
-          urlEncodedData = urlEncodedDataPairs.join("&").replace(/%20/g, "+");
-
-          // 發送AJAX請求
-          fetch("/user_api/hold_register_form", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-            },
-            body: urlEncodedData,
-          })
-            .then((response) => {
-              if (response.ok) {
-                return response.text(); // 或者 response.json() 如果回應是JSON
-              }
-              throw new Error("Network response was not ok.");
-            })
-            .then((data) => {
-              document
-                .getElementById("lightbox-verify")
-                .classList.remove("hidden");
-              console.log(data); // 處理服務器回應的數據             
-            })
-            .catch((error) => console.error("發生錯誤:", error));
-        });
-
+    fetch("/user_api/hold_register_form", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams(formData).toString(),
+    })
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error("Network response was not ok.");
+        }
+        return response.text(); // 或者 response.json() 如果回應是JSON
+    })
+    .then((data) => {
+    if (data === "0") {
+        // 根據後端返回的數據來判斷是否顯示彈窗
+        document.getElementById("lightbox-verify").classList.remove("hidden");
+    } else if (data === "1") {
+        // 如果後端返回的數據是1，彈出警告
+        alert("伺服器異常，請稍後嘗試再註冊！");
+    }
+    console.log(data); // 處理服務器回應的數據
+})
+    .catch((error) => console.error("發生錯誤:", error));
+});
       // ===================================================================  
       // 處理按鈕"重新寄送驗證信"
 
@@ -760,10 +750,7 @@
 
         // 請求發送後的操作，因為後端不回應，所以直接進行操作
         alert("驗證信已重新寄送到您的信箱, 請輸入新的驗證碼!");
-
-        // 按鈕隱藏或永久禁用，根據需求選擇一種
-        // button.style.display = 'none'; // 如果想要隱藏按鈕
-        // 或者保持按鈕禁用狀態，按鈕已經被設為disabled
+        // 保持按鈕禁用狀態，按鈕已經被設為disabled
       });
 
 
@@ -789,7 +776,7 @@
           // FormData轉URL編碼
           let urlEncodedData = new URLSearchParams(formData).toString();
 
-          fetch("/THA105G2_SpringBoot/user_api/user_controller", {
+          fetch("/user_api/check_verifivation_code", {
             method: "POST",
             headers: {
               "Content-Type": "application/x-www-form-urlencoded",
@@ -799,11 +786,19 @@
             .then(response => response.text())
             .then(data => {
               if (data === "1") {
-                alert("驗證碼錯誤");
+                alert("驗證碼輸入錯誤!");
                 inputs.forEach(input => input.value = "");
-              } else if (data === "0") {
+              } else if (data === "2") {
+                // 處理驗證碼過期
+                alert("驗證碼已逾期，請重新取得驗證碼或重新註冊!");
+                inputs.forEach(input => input.value = "");
+              }else if (data === "3") {
+                // 處理後台錯誤
+                alert("伺服器異常，請稍後重試或通知站方檢查!");
+                inputs.forEach(input => input.value = "");
+              }else if (data === "0") {
                 // 註冊成功，重定向到登入頁面
-                window.location.href = "/THA105G2_SpringBoot/user_api/front-end/user/user_login.jsp";
+                window.location.href = "/user/user_login_after_register";
               }
             })
             .catch(error => console.error("Error:", error));

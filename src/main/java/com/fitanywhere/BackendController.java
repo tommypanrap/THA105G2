@@ -21,37 +21,42 @@ public class BackendController {
 
 	@GetMapping("/backend_user")
 	public String backend_user(Model model)  {
-        return "back-end/backend_user"; //view
+        return "back-end/backend_user"; 
     }
 	
 	@GetMapping("/backend_post")
 	public String backend_post(Model model)  {
-        return "back-end/backend_post"; //view
+        return "back-end/backend_post"; 
     }
 	
 	@GetMapping("/backend_opinion")
 	public String backend_opinion(Model model)  {
-        return "back-end/backend_opinion"; //view
+        return "back-end/backend_opinion"; 
     }
 	
 	@GetMapping("/backend_news")
 	public String backend_news(Model model)  {
-        return "back-end/backend_news"; //view
+        return "back-end/backend_news"; 
     }
 	
 	@GetMapping("/backend_course")
 	public String backend_course(Model model)  {
-        return "back-end/backend_course"; //view
+        return "back-end/backend_course"; 
     }
 	
 	@GetMapping("/backend_ad")
 	public String backend_ad(Model model)  {
-        return "back-end/backend_ad"; //view
-    }
+        return "back-end/backend_ad"; 
+	}
 	
 	@GetMapping("/backend_ad_list")
 	public String backend_ad_list(Model model)  {
-        return "back-end/backend_ad_list"; //view
+        return "back-end/backend_ad_list"; 
+    }
+	
+	@GetMapping("/backend_course_order")
+	public String backend_course_order(Model model)  {
+        return "back-end/backend_course_order"; 
     }
 	
 }

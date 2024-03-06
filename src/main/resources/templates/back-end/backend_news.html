@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:insert="~{/back-end/backend_included_head}"></head>
+
+<body>
+    <!-- header -->
+    <div class="header_wrapper">
+        <header>
+            <p class="f-b-title">FitAnyWhere後台管理系統</p>
+            <div class="manager">
+                <img src="./images/member.png" alt="">
+                <p>最高管理員</p>
+            </div>
+        </header>
+    </div>
+
+    <!-- 下面一層容器 -->
+        <!-- side-bar -->
+        <div class="wrapper">
+            <div th:replace="~{/back-end/backend_included_sidebar}"></div>
+
+            <!-- 內容 -->
+            <div class="content">
+                <h1>最新消息</h1>
+                <div class="content-row">
+                    <input type="text" class="search" placeholder="搜尋電子信箱">
+                    <button class="search-action">搜尋</button>
+                    <!-- <select name="" id="" value="" class="filter-state">
+                    <option value="none" selected hidden>篩選用戶狀態</option>
+                    <option value="all">全部</option>
+                    <option value="on">啟用中</option>
+                    <option value="off">已停權</option>
+                </select> -->
+                </div>
+
+                <table class="backstage_table backstage_table_news">
+                    <td><button>新增</button></td>
+                    <tr>
+                        <th>消息編號</th>
+                        <th>消息名稱</th>
+                        <th>分類</th>
+                        <th>發布消息日期</th>
+                        <th>發送狀態</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr>
+                        <td>N0001</td>
+                        <td>新年特價優惠</td>
+                        <td>節慶活動優惠</td>
+                        <td>2024.02.08</td>
+                        <td>編輯中</td>
+                        <td><button>修改</button></td>
+                    </tr>
+                    <tr>
+                        <td>N0002</td>
+                        <td>一月最新課程</td>
+                        <td>最新課程內容</td>
+                        <td>2024.01.01</td>
+                        <td>已發送</td>
+                        <td><button>修改</button></td>
+                    </tr>
+                    <tr>
+                        <td>N0003</td>
+                        <td>新年特價優惠</td>
+                        <td>節慶活動優惠</td>
+                        <td>2024.01.31</td>
+                        <td>已取消</td>
+                        <td><button>修改</button></td>
+                    </tr>
+                    <tr>
+                        <td>N0004</td>
+                        <td>一月最新課程</td>
+                        <td>最新課程內容</td>
+                        <td>2024.01.12</td>
+                        <td>已發送</td>
+                        <td><button>修改</button></td>
+                    </tr>
+
+                </table>
+
+            </div>
+            </form>
+        </div>
+    </div>
+
+    </table>
+    </div>
+    </div>
+
+
+    <!-- footer -->
+    <div class="footer_wrapper">
+        <footer>
+            <p class="f-b-title">FitAnyWhere Backstage</p>
+        </footer>
+    </div>
+
+</body>
+
+</html>

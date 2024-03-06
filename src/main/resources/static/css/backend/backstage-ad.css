@@ -1,0 +1,127 @@
+.ad-content{
+  display: block;
+  max-width: 100%;
+  border-radius: 20px;
+  background: #FFF;
+  box-shadow: 0px 6px 34px rgba(215, 216, 222, 3.5);
+  margin-left: 0%;  
+  justify-content: center;
+  margin-top: 3%;
+  margin-left: 6%;
+}
+
+
+.parent1{
+  display: flex;
+  justify-content: space-around;
+  margin: 0px auto;
+  padding: 3%;
+  align-items: center;
+}
+
+.parent2{
+  font-weight: bold;
+  margin: 0px 30px 0 40px;
+}
+
+.parent3{
+  font-weight: bold;
+  display: block;
+  margin: 15px 30px 0 40px;
+
+}
+
+.ad-change{
+    width: 160px;
+    height: 50px;
+    background-color: transparent;
+    border-radius: 20px;
+    font-size: 18px;
+    margin-left: 6%;
+}
+
+.ad-change2{
+  width: 100px;
+  height: 60px;
+  background-color: transparent;
+  border-radius: 10px;
+  font-size: 18px;
+  margin-right: 20px; 
+}
+
+.content-row{
+  margin: auto;
+  padding: auto;
+}
+
+.ad-text3{
+  margin: auto;
+}
+
+.ad-text4{
+  font-size: 16px;
+  font-weight:normal;
+  margin: 10px 0 auto;
+}
+
+.ad-text5{
+  font-size: 16px;
+  font-weight:normal;
+  margin: 20px auto;
+}
+
+.ad-textlab{
+  resize: none;
+  padding: 10px 20px;
+  margin: 10px 0;
+}
+
+.ad-textlab2{
+  resize: none;
+  padding: 5px 5px;
+  margin: 10px 0;
+}
+
+.ad-textlab3{
+  resize: none;
+  padding: 5px 5px;
+  margin: 10px 10px 0 0;
+}
+
+.ad-textlab4{
+  resize: none;
+  padding: 5px 5px;
+  margin: 10px 10px 0 0;
+}
+
+.ad-textlab5{
+  resize: none;
+  padding: 5px 5px;
+  margin: 10px 10px 0 0;
+}
+
+.ad-button{
+  width: 70px;
+  height: 30px;
+  background-color: transparent;
+  border-radius: 20px;
+  font-size: 16px;
+}
+.ad-button2{
+  width: 70px;
+  height: 30px;
+  background-color: transparent;
+  border-radius: 20px;
+  font-size: 16px;
+}
+.ad-button3{
+  width: 70px;
+  height: 30px;
+  background-color: transparent;
+  border-radius: 20px;
+  font-size: 16px;
+  margin: 0 5px;
+}
+.ad-span1{
+  margin-left: 20px;
+}

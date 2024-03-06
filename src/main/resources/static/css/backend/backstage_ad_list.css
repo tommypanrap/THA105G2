@@ -1,0 +1,11 @@
+th,td{
+    min-width: 65px;
+}
+
+th, td{
+    padding: 0 18px;
+}
+
+td:nth-child(3){
+    min-width: 90px;
+}

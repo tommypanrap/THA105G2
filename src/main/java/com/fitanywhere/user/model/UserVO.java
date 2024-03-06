@@ -3,6 +3,7 @@ package com.fitanywhere.user.model;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,12 +12,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
-import java.io.Serializable;
-import java.util.Date;
+
+import com.fitanywhere.forumpost.model.ForumPostVO;
 import com.fitanywhere.mood.model.MoodVO;
 import com.fitanywhere.socialpost.model.SocialPostVO;
 //Tommy implements java.io.Serializable
@@ -28,7 +29,6 @@ public class UserVO implements java.io.Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "u_id")
 	private Integer uId;
-	
 	
 	// Tommy
 	@ManyToOne
@@ -74,6 +74,19 @@ public class UserVO implements java.io.Serializable{
 
 	@Column(name = "u_registerdate")
 	private Date uRegisterdate;
+
+	
+	//ROY	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy="userVO")
+	@OrderBy("u_id asc") //asc = 根據指定的欄位排序
+	private Set<ForumPostVO> forumPost = new HashSet<ForumPostVO>();
+	public Set<ForumPostVO> getForumPost() {
+		return forumPost;
+	}
+
+	public void setForumPost(Set<ForumPostVO> forumPost) {
+		this.forumPost = forumPost;
+	}
 
 
 

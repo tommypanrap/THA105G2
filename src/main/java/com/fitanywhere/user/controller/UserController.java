@@ -78,6 +78,12 @@ public class UserController {
 	public String test4Page() {
 		return "front-end/user/test-only/test4";
 	}
+	
+	// 自行更新密碼
+	@GetMapping("/test5")
+	public String test5Page() {
+		return "front-end/user/test-only/test5";
+	}
 
 //	Andy
 	@GetMapping("/coach_profile")

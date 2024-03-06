@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{/front-end/included-head}"></head>
+<header th:insert="~{/front-end/included-header}"></header>                  
+
+                            <div class=" title-wrapper">
+                                <h1 class="title mb--0">會員討論區</h1>
+                                <div class="eugen-search-container">
+                                    <input type="text" class="eugen-search-input" placeholder="搜尋...">
+                                    <button class="eugen-search-button">搜尋</button>
+                                    <button class="eugen-search-button write">發布文章</button>
+                                </div>
+                                <div class="chat-tag-wrapper">
+                                    <a href="#" class="rbt-badge-2">
+                                        全部
+                                    </a>
+                                    <a href="#" class="rbt-badge-2">
+                                        健身
+                                    </a>
+                                    <a href="#" class="rbt-badge-2">
+                                        瑜珈
+                                    </a>
+                                    <a href="#" class="rbt-badge-2">
+                                        有氧
+                                    </a>
+                                    <a href="#" class="rbt-badge-2">
+                                        徒手健身
+                                    </a>
+                                    <a href="#" class="rbt-badge-2">
+                                        飲食分享 
+                                    </a>
+                                </div>
+                            </div>
+
+                            <p class="description">歡迎與其他會員一起討論，一起分享，一起成長!</p>
+                        
+                    
+               
+            
+            <!-- End Banner Content Top  -->
+        
+   
+    
+    <div class="row" th:each="forumPostVO : ${forumPostListData}">
+    <div class="col-lg-10 offset-lg-1 mt_dec--30">
+        <div class="rbt-card card-list variation-02 rbt-hover mt--30 new-classname">
+            <div class="rbt-card-img">
+                <a th:href="@{/forumpost/details/{fpId}(fpId=${forumPostVO.fpId})}">
+                    <img th:src="@{/forumpost/DBGifReader(fpId=${forumPostVO.fpId})}" alt="Card image">
+                </a>
+            </div>
+            <div class="rbt-card-body">
+                <a th:href="@{/forumpost/category/{fpCategory}(fpCategory=${forumPostVO.fpCategory})}" class="rbt-badge-2">
+                    <span th:text="${forumPostVO.fpCategory}"></span>
+                </a>
+                <h5 class="rbt-card-title">
+                    <a th:href="@{/forumpost/details/{fpId}(fpId=${forumPostVO.fpId})" th:text="${forumPostVO.fpTitle}"></a>
+                    <p th:text="${forumPostVO.fpContent}"></p>
+                </h5>
+                <div class="rbt-card-bottom">
+                    <a class="transparent-button" th:href="@{/forumpost/details/{fpId}(fpId=${forumPostVO.fpId})">閱讀內文
+                        <i><svg width="17" height="12" xmlns="http://www.w3.org/2000/svg"><g stroke="#27374D" fill="none" fill-rule="evenodd"><path d="M10.614 0l5.629 5.629-5.63 5.629"/><path stroke-linecap="square" d="M.663 5.572h14.594"/></g></svg></i>
+                    </a>
+                </div>
+                <div class="rbt-card-bottom">
+                    <a class="transparent-button-time">
+                        作者：<span th:text="${forumPostVO.userVO.nickname}"></span>
+                        文章發布時間：<span th:text="${forumPostVO.fpTime}"></span>
+                        最後回文時間：<span th:text="${forumPostVO.fpUpdate}"></span>
+                        <i><g stroke="#27374D" fill="none" fill-rule="evenodd"><path d="M10.614 0l5.629 5.629-5.63 5.629"/><path stroke-linecap="square" d="M.663 5.572h14.594"/></g></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+
+<!--     Start Card Style -->
+<!--     <div class="rbt-blog-area rbt-section-overlayping-top rbt-section-gapBottom"> -->
+<!--         <div class="container"> -->
+<!--             Start Card Area -->
+<!--             <div class="row"> -->
+<!--                 <div class="col-lg-10 offset-lg-1 mt_dec--30"> -->
+
+                    
+
+
+<!--                     <div class="rbt-card card-list variation-02 rbt-hover mt--30 new-classname"> -->
+<!--                         <div class="rbt-card-img"> -->
+<!--                             <a href="blog-details.html"> -->
+<!--                                 <img src="assets/images/blog/blog-card-03.jpg" alt="Card image"> </a> -->
+<!--                         </div> -->
+<!--                         <div class="rbt-card-body"> -->
+<!--                             <a href="#" class="rbt-badge-2"> -->
+<!--                                    健身                                     -->
+<!--                             </a>  -->
+<!--                             <h5 class="rbt-card-title"><a href="blog-details.html">健身嗎</a> -->
+<!--                                 <p> -->
+<!--                                     健身嗎健身嗎健身嗎健身嗎健身嗎健身嗎健身嗎健身嗎健身嗎健身嗎健身嗎健身嗎 -->
+<!--                                 </p> -->
+<!--                             </h5> -->
+<!--                             <div class="rbt-card-bottom"> -->
+<!--                                 <a class="transparent-button" href="blog-details.html">閱讀內文 -->
+<!--                                     <i><svg width="17" height="12" xmlns="http://www.w3.org/2000/svg"><g stroke="#27374D" fill="none" fill-rule="evenodd"><path d="M10.614 0l5.629 5.629-5.63 5.629"/><path stroke-linecap="square" d="M.663 5.572h14.594"/></g></svg></i></a> -->
+<!--                             </div> -->
+<!--                             <div class="rbt-card-bottom"> -->
+<!--                                 <a class="transparent-button-time">作者：會員暱稱A  文章發布時間：2024-01-20 10:00:56<i><g stroke="#27374D" fill="none" fill-rule="evenodd"><path d="M10.614 0l5.629 5.629-5.63 5.629"/><path stroke-linecap="square" d="M.663 5.572h14.594"/></g></svg></i></a> -->
+<!--                             </div> -->
+<!--                             <div class="rbt-card-bottom"> -->
+<!--                                 <a class="transparent-button-time">作者：會員暱稱B  最後回文時間：2024-01-20 22:30:38<i><g stroke="#27374D" fill="none" fill-rule="evenodd"><path d="M10.614 0l5.629 5.629-5.63 5.629"/><path stroke-linecap="square" d="M.663 5.572h14.594"/></g></svg></i></a> -->
+<!--                             </div> -->
+<!--                         </div> -->
+<!--                     </div> -->
+
+                    
+
+
+
+
+
+
+
+
+
+
+<!--                 </div> -->
+<!--             </div> -->
+
+<!--             <div class="row"> -->
+<!--                 <div class="col-lg-10 offset-lg-1 mt_dec--30"> -->
+
+                    
+
+
+<!--                     <div class="rbt-card card-list variation-02 rbt-hover mt--30 new-classname"> -->
+<!--                         <div class="rbt-card-img"> -->
+<!--                             <a href="blog-details.html"> -->
+<!--                                 <img src="assets/images/blog/blog-card-03.jpg" alt="Card image"> </a> -->
+<!--                         </div> -->
+<!--                         <div class="rbt-card-body"> -->
+<!--                             <a href="#" class="rbt-badge-2"> -->
+<!--                                    健身                                     -->
+<!--                             </a>  -->
+<!--                             <h5 class="rbt-card-title"><a href="blog-details.html">健身嗎</a> -->
+<!--                                 <p> -->
+<!--                                     健身嗎健身嗎健身嗎健身嗎健身嗎健身嗎健身嗎健身嗎健身嗎健身嗎健身嗎健身嗎 -->
+<!--                                 </p> -->
+<!--                             </h5> -->
+<!--                             <div class="rbt-card-bottom"> -->
+<!--                                 <a class="transparent-button" href="blog-details.html">閱讀內文 -->
+<!--                                     <i><svg width="17" height="12" xmlns="http://www.w3.org/2000/svg"><g stroke="#27374D" fill="none" fill-rule="evenodd"><path d="M10.614 0l5.629 5.629-5.63 5.629"/><path stroke-linecap="square" d="M.663 5.572h14.594"/></g></svg></i></a> -->
+<!--                             </div> -->
+<!--                             <div class="rbt-card-bottom"> -->
+<!--                                 <a class="transparent-button-time">作者：會員暱稱A  文章發布時間：2024-01-20 10:00:56<i><g stroke="#27374D" fill="none" fill-rule="evenodd"><path d="M10.614 0l5.629 5.629-5.63 5.629"/><path stroke-linecap="square" d="M.663 5.572h14.594"/></g></svg></i></a> -->
+<!--                             </div> -->
+<!--                             <div class="rbt-card-bottom"> -->
+<!--                                 <a class="transparent-button-time">作者：會員暱稱B  最後回文時間：2024-01-20 22:30:38<i><g stroke="#27374D" fill="none" fill-rule="evenodd"><path d="M10.614 0l5.629 5.629-5.63 5.629"/><path stroke-linecap="square" d="M.663 5.572h14.594"/></g></svg></i></a> -->
+<!--                             </div> -->
+<!--                         </div> -->
+<!--                     </div> -->
+
+                    
+
+
+
+
+
+
+
+
+
+
+<!--                 </div> -->
+<!--             </div> -->
+<!--             End Card Area -->
+<!--             <div class="row"> -->
+<!--                 <div class="col-lg-12 mt--60"> -->
+<!--                     <nav> -->
+<!--                         <ul class="rbt-pagination"> -->
+<!--                             <li><a href="#" aria-label="Previous"><i class="feather-chevron-left"></i></a></li> -->
+<!--                             <li><a href="#">1</a></li> -->
+<!--                             <li class="active"><a href="#">2</a></li> -->
+<!--                             <li><a href="#">3</a></li> -->
+<!--                             <li><a href="#" aria-label="Next"><i class="feather-chevron-right"></i></a></li> -->
+<!--                         </ul> -->
+<!--                     </nav> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!--         </div> -->
+<!--     </div> -->
+<!--     End Card Style -->
+
+    <div class="rbt-separator-mid">
+        <div class="container">
+            <hr class="rbt-separator m-0">
+        </div>
+    </div>
+    <!-- Start Footer aera -->
+    <div class="copyright-area copyright-style-1 ptb--20 bg-color-darker g2_footer">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-12">
+                    <p class="rbt-link-hover text-center color-white-off">Fit AnyWhere© </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Footer aera -->
+    <div class="rbt-progress-parent">
+        <svg class="rbt-back-circle svg-inner" width="100%" height="100%" viewBox="-1 -1 102 102">
+            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+        </svg>
+    </div>
+
+	<!-- Modernizer JS -->
+    <script th:src="@{/js/vendor/modernizr.min.js}"></script>
+    <!-- jQuery JS -->
+    <script th:src="@{/js/vendor/jquery.js}"></script>
+    <!-- Bootstrap JS -->
+    <script th:src="@{/js/vendor/bootstrap.min.js}"></script>
+    <!-- sal.js -->
+    <script th:src="@{/js/vendor/sal.js}"></script>
+    <script th:src="@{/js/vendor/swiper.js}"></script>
+    <script th:src="@{/js/vendor/magnify.min.js}"></script>
+    <script th:src="@{/js/vendor/jquery-appear.js}"></script>
+    <script th:src="@{/js/vendor/odometer.js}"></script>
+    <script th:src="@{/js/vendor/backtotop.js}"></script>
+    <script th:src="@{/js/vendor/isotop.js}"></script>
+    <script th:src="@{/js/vendor/imageloaded.js}"></script>
+
+    <script th:src="@{/js/vendor/wow.js}"></script>
+    <script th:src="@{/js/vendor/waypoint.min.js}"></script>
+    <script th:src="@{/js/vendor/easypie.js}"></script>
+    <script th:src="@{/js/vendor/text-type.js}"></script>
+    <script th:src="@{/js/vendor/jquery-one-page-nav.js}"></script>
+    <script th:src="@{/js/vendor/bootstrap-select.min.js}"></script>
+    <script th:src="@{/js/vendor/jquery-ui.js}"></script>
+    <script th:src="@{/js/vendor/magnify-popup.min.js}"></script>
+    <script th:src="@{/js/vendor/paralax-scroll.js}"></script>
+    <script th:src="@{/js/vendor/paralax.min.js}"></script>
+    <script th:src="@{/js/vendor/countdown.js}"></script>
+    <script th:src="@{/js/vendor/plyr.js}"></script>
+    <!-- Main JS -->
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/mok/mok_opinion.js}"></script>
+</body>
+
+</html>

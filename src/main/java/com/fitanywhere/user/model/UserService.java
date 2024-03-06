@@ -1,23 +1,26 @@
 package com.fitanywhere.user.model;
 
+
 import java.time.LocalDate;
+import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
-import java.security.SecureRandom;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.data.redis.core.StringRedisTemplate;
 
-import com.fitanywhere.service.PasswordEncryptionService;
+import com.fitanywhere.forumpost.model.ForumPostVO;
 import com.fitanywhere.service.MailService;
+import com.fitanywhere.service.PasswordEncryptionService;
 
 @Service
 public class UserService {
@@ -358,6 +361,13 @@ public class UserService {
 	// Tommy
 	public List<UserVO> getAll() {
 		return userJpaRepository.findAll();
+	}
+
+ 	
+ 	//ROY
+	public Set<ForumPostVO> getForumPostByuId(Integer uId){
+	return getUser(uId).getForumPost();
+
 	}
 
 }

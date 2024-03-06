@@ -2,6 +2,8 @@
 
 package com.fitanywhere.course.model;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -19,5 +21,9 @@ public interface CourseRepository extends JpaRepository<CourseVO, Integer> {
 
 	@Query("SELECT COUNT(*) FROM CourseVO WHERE u_Id = :uId")
     Integer getCourseCount(Integer uId);
+	
+	@Modifying
+	@Query(value="SELECT * FROM course WHERE u_Id = :uId", nativeQuery = true)
+    List<CourseVO> getAllcourseByuId(Integer uId);
 	
     }

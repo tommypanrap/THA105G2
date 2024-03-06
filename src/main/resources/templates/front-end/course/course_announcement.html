@@ -2198,7 +2198,7 @@
                                     <img th:src="'data:image/jpeg;base64,' + ${uHeadshot}" alt="Instructor">
                                 </div>
                                 <div class="tutor-content">
-                                    <h5 class="title">John Due</h5>
+                                	<h5 class="title" th:text="${uName}"></h5>
                                     <div class="rbt-review">
                                         <div class="rating">
                                             <i class="fas fa-star"></i>
@@ -2321,7 +2321,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="announcement : ${announcements}">
+            <tr th:each="announcement : ${announcementList}">
             	<td style="padding: 30px;" th:text="${announcement.anId}"></td>
                 <td style="padding: 30px;" th:text="${announcement.crId}"></td>
                 <td style="padding: 30px;" th:text="${#dates.format(announcement.anDate, 'yyyy-MM-dd hh:mm:ss')}"></td>

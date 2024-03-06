@@ -2198,7 +2198,7 @@
                                     <img th:src="'data:image/jpeg;base64,' + ${uHeadshot}" alt="Instructor">
                                 </div>
                                 <div class="tutor-content">
-                                    <h5 class="title">John Due</h5>
+                                <h5 class="title" th:text="${uName}"></h5>
                                     <div class="rbt-review">
                                         <div class="rating">
                                             <i class="fas fa-star"></i>
@@ -2282,9 +2282,9 @@
                                                 <input id="anId" type="text" th:field="*{anId}" readonly>
                                                 </div>
                                             </div>
-                                            <input id="crId" type="text" th:field="*{crId}" hidden>
-                                            <input id="anDate" type="text" th:field="*{anDate}" hidden>
-                                            <input id="anEditDate" type="text" th:field="*{anEditDate}" hidden>
+                                            <input id="crId" type="hidden" th:field="*{crId}" >
+                                            <input id="anDate" type="hidden" th:field="*{anDate}"  >
+                                            <input id="anEditDate" type="hidden" th:field="*{anEditDate}" >
                                             <div class="course-field mb--15">
                                                 <label for="field-1" >課程名稱</label>
                                                 <div id="anTitle" th:text="${crTitle}">

@@ -2193,7 +2193,7 @@
                                     <img th:src="'data:image/jpeg;base64,' + ${uHeadshot}" alt="Instructor">
                                 </div>
                                 <div class="tutor-content">
-                                    <h5 class="title">John Due</h5>
+                                <h5 class="title" th:text="${uName}"></h5>
                                     <div class="rbt-review">
                                         <div class="rating">
                                             <i class="fas fa-star"></i>
@@ -2304,7 +2304,7 @@
                                                 <div class="rbt-tutor-information">
                                                     <div class="rbt-tutor-information-left">
                                                         <div class="thumbnail rbt-avatars size-lg position-relative">
-                                                            <img src="assets/images/team/avatar.jpg" alt="Instructor">
+                                                            <img th:src="'data:image/jpeg;base64,' + ${uHeadshot}" alt="Instructor">
                                                             <div class="rbt-edit-photo-inner">
                                                                 <button class="rbt-edit-photo" title="Upload Photo">
                                                                     <i class="feather-camera"></i>
@@ -2314,81 +2314,104 @@
                                                     </div>
                                                     <div class="rbt-tutor-information-right">
                                                         <div class="tutor-btn">
-                                                            <a class="rbt-btn btn-sm btn-border color-white radius-round-10" href="#">編輯大頭照</a>
+                                                            <button class="rbt-btn btn-sm btn-border color-white radius-round-10" type="submit" >編輯大頭照</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <!-- End Tutor Information  -->
                                             </div>
                                             <!-- Start Profile Row  -->
-                                            <form th:action="@{update}" method="post" th:object="${userVO}" enctype="multipart/form-data" class="rbt-profile-row rbt-default-form row row--15">
+                                            <form id="submitupdateprofile" th:action="@{updateUserProfile}" method="post" th:object="${userVO}" enctype="multipart/form-data" class="rbt-profile-row rbt-default-form row row--15">
                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                                	<input id="uId" type="text" th:field="*{uId}" hidden >
+                                                	<input id="uPassword" type="text" th:field="*{uPassword}" hidden >
+                                                	<input id="uGender" type="text" th:field="*{uGender}" hidden >
+                                                	<input id="uHeadshot" type="text" th:field="*{uHeadshot}" hidden >
+                                                	<input id="uStatus" type="text" th:field="*{uStatus}" hidden >
                                                     <div class="rbt-form-group">
                                                         <label for="firstname">姓名</label>
-                                                        <input id="firstname" type="text" th:value="*{uName}" >
+                                                        <input id="firstname" type="text" th:field="*{uName}" >
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div class="rbt-form-group">
                                                         <label for="mood">心情狀態</label>
-                                                        <input id="mood" type="text" th:value="*{moodVO.moodId}">
+                                                        <input id="moodId" type="text" th:field="*{moodVO.moodId}">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div class="rbt-form-group">
                                                         <label for="lastname">暱稱</label>
-                                                        <input id="lastname" type="text" th:value="*{uNickname}">
+                                                        <input id="lastname" type="text" th:field="*{uNickname}">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div class="rbt-form-group">
                                                         <label for="phonenumber">聯絡電話</label>
-                                                        <input id="phonenumber" type="tel" th:value="*{uPhone}">
+                                                        <input id="phonenumber" type="tel" th:field="*{uPhone}">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div class="rbt-form-group">
                                                         <label for="skill">電子信箱</label>
-                                                        <input id="skill" type="text" th:value="*{uMail}">
+                                                        <input id="skill" type="text" th:field="*{uMail}">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div class="rbt-form-group">
                                                         <label for="birth">生日</label>
-                                                        <input id="birth" type="text" th:value="*{uBirth}">
+                                                        <input id="birth" type="text" th:field="*{uBirth}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                                    <div class="rbt-form-group">
+                                                        <label for="birth">註冊日期</label>
+                                                        <input id="uRegisterdate" type="text" th:field="*{uRegisterdate}" readonly>
                                                     </div>
                                                 </div>
                                                 <div class="col-12 mt--20">
                                                     <div class="rbt-form-group">
-                                                        <a class="rbt-btn btn-gradient" href="#">更新個人資料</a>
+                                                        <button id="submitbutton" type="submit" class="rbt-btn btn-gradient" >更新個人資料</button>
                                                     </div>
                                                 </div>
                                             </form>
+                                            <script>
+                                            document.getElementById("submitbutton").addEventListener("click",function(){
+                                            	alert("成功更新個人資料");
+                                            });
+                                            </script>
                                             <!-- End Profile Row  -->
                                         </div>
 
                                         <div class="tab-pane fade" id="social" role="tabpanel" aria-labelledby="social-tab">
                                             <!-- Start Profile Row  -->
-                                            <form action="#" class="rbt-profile-row rbt-default-form row row--15">
+                                            <form id="updatecoach" th:action="@{updatecoach}" method="post" th:object="${coachVO}" class="rbt-profile-row rbt-default-form row row--15">
+                                                <input id="uId" type="text" th:field="*{uId}" hidden >
+                                                <input id="cId" type="text" th:field="*{cId}" hidden >
                                                 <div class="rbt-form-group">
                                                         <label for="bio">教練自我介紹</label>
-                                                        <textarea id="bio" cols="20" rows="5">I'm the Front-End Developer for #Rainbow IT in Bangladesh, OR. I have serious passion for UI effects, animations and creating intuitive, dynamic user experiences.</textarea>
+                                                        <textarea id="bio" cols="20" rows="5" th:field="*{cIntro}"></textarea>
                                                     </div>
                                                 <div class="rbt-form-group">
                                                         <label for="bio">教練證照</label>
-                                                        <textarea id="bio" cols="20" rows="5">I'm the Front-End Developer for #Rainbow IT in Bangladesh, OR. I have serious passion for UI effects, animations and creating intuitive, dynamic user experiences.</textarea>
+                                                        <textarea id="bio" cols="20" rows="5" th:field="*{cCertification}"></textarea>
                                                     </div>
                                                 <div class="rbt-form-group">
                                                         <label for="bio">教練專長</label>
-                                                        <textarea id="bio" cols="20" rows="5">I'm the Front-End Developer for #Rainbow IT in Bangladesh, OR. I have serious passion for UI effects, animations and creating intuitive, dynamic user experiences.</textarea>
+                                                        <textarea id="bio" cols="20" rows="5" th:field="*{cSkill}"></textarea>
                                                     </div>
                                                 
 												<div class="col-12 mt--10">
                                                     <div class="rbt-form-group">
-                                                        <a class="rbt-btn btn-gradient" href="#">更新教練資料</a>
+                                                        <button id="submitcoachbutton" type="submit" class="rbt-btn btn-gradient" >更新教練資料</button>
                                                     </div>
                                                 </div>
                                             </form>
+                                            <script>
+                                            document.getElementById("submitcoachbutton").addEventListener("click",function(){
+                                            	alert("成功更新教練資料");
+                                            });
+                                            </script>
                                             <!-- End Profile Row  -->
                                         </div>
 

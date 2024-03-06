@@ -27,10 +27,10 @@ public class CoachService {
 //		    repository.deleteById(empno);
 	}
 
-	public CoachVO getOneCoach(Integer cId) {
-		Optional<CoachVO> optional = repository.findById(cId);
+	public CoachVO getOneCoach(Integer uId) {
+		CoachVO coachVO = repository.findCoachVOById(uId);
 //		return optional.get();
-		return optional.orElse(null);  // public T orElse(T other) : 如果值存在就回傳其值，否則回傳other的值
+		return coachVO;  // public T orElse(T other) : 如果值存在就回傳其值，否則回傳other的值
 	}
 
 	public List<CoachVO> getAll() {

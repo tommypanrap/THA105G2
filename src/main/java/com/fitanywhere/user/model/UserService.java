@@ -68,4 +68,8 @@ public class UserService {
  	public List<UserVO> getAll() {
  		return userJpaRepository.findAll();
  	}
+ 	
+ 	public void updateUserProfile(UserVO userVO) {
+ 		userJpaRepository.save(userVO);
+ 	}
 }

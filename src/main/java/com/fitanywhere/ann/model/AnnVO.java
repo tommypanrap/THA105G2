@@ -90,8 +90,11 @@ public class AnnVO implements java.io.Serializable {
 	}
 
 
+	
+
+
 	public Timestamp getAnDate() {
-		return this.anDate;
+		return anDate;
 	}
 
 
@@ -106,11 +109,8 @@ public class AnnVO implements java.io.Serializable {
 
 
 	public void setAnEditDate(Timestamp anEditDate) {
-		long currentTimeMillis = System.currentTimeMillis();
-
-		Timestamp currentTimestamp = new Timestamp(currentTimeMillis);
-
-		this.anEditDate = currentTimestamp;
+		
+		this.anEditDate = anEditDate;
 	}
 
 

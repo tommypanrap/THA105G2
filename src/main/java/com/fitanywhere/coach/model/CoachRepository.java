@@ -13,5 +13,8 @@ public interface CoachRepository extends JpaRepository<CoachVO, Integer> {
 	@Modifying
 	@Query(value = "delete from coach where c_id =?1", nativeQuery = true)
 	void deleteByCid(int cId);
+	
+	@Query("FROM CoachVO WHERE uId = :uId")
+	CoachVO findCoachVOById(int uId);
 
 }

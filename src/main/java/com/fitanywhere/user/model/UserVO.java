@@ -16,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 import com.fitanywhere.mood.model.MoodVO;
@@ -67,6 +69,7 @@ public class UserVO implements java.io.Serializable{
 	private byte[] uHeadshot;
 
 	@Column(name = "u_birth")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date uBirth;
 
 	@Column(name = "u_status")
@@ -74,6 +77,7 @@ public class UserVO implements java.io.Serializable{
 //	0 = 正常會員; 1 = 帳號關閉; 
 
 	@Column(name = "u_registerdate")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date uRegisterdate;
 
 

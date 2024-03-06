@@ -24,6 +24,8 @@ import java.util.stream.Collectors;
 
 import com.fitanywhere.ann.model.AnnService;
 import com.fitanywhere.ann.model.AnnVO;
+import com.fitanywhere.coach.model.CoachService;
+import com.fitanywhere.coach.model.CoachVO;
 import com.fitanywhere.course.model.CourseService;
 import com.fitanywhere.course.model.CourseVO;
 import com.fitanywhere.user.model.UserService;
@@ -41,6 +43,9 @@ public class CourseController {
 	
 	@Autowired
 	UserService userSvc;
+	
+	@Autowired
+	CoachService coachSvc;
 
 	@GetMapping("create_course")
 	public String addCourse(ModelMap model) {
@@ -54,10 +59,9 @@ public class CourseController {
 //		Integer uId = (Integer)session.getAttribute("uId");
 		byte [] uHeadshot = userSvc.getUserHeadshot(uId);
 		Integer coursecount = courseSvc.getCourseCount(uId);
-		System.out.println(uId);
 		UserVO userVO = userSvc.getUser(uId);
 		String uName = userVO.getuName();
-		List<CourseVO> courseList = courseSvc.getAll();
+		List<CourseVO> courseList = courseSvc.getAllCourseByuId(uId);
 		/*************************** 3.新增完成,準備轉交(Send the Success view) **************/
 		model.addAttribute("uHeadshot", Base64.getEncoder().encodeToString(uHeadshot));
 		model.addAttribute("coursecount", coursecount);
@@ -78,7 +82,9 @@ public class CourseController {
 		byte [] uHeadshot = userSvc.getUserHeadshot(uId);
 		model.addAttribute("uHeadshot", Base64.getEncoder().encodeToString(uHeadshot));
 		List<AnnVO> announcementList = annSvc.getAll();
-	    model.addAttribute("announcements", announcementList);
+		UserVO userVO = userSvc.getUser(uId);
+	    model.addAttribute("announcementList", announcementList);
+	    model.addAttribute("userVO", userVO);
 		return "front-end/course/course_announcement";
 	}
 	@GetMapping("course_announce")
@@ -89,8 +95,11 @@ public class CourseController {
 
 		AnnVO annVO = new AnnVO();
 		List<CourseVO> list2 = courseSvc.getAll();
+		UserVO userVO = userSvc.getUser(uId);
+		
 		model.addAttribute("courseListData", list2);
 		model.addAttribute("annVO", annVO);
+		model.addAttribute("userVO", userVO);
 		return "front-end/course/course_announce";
 	}
 	@GetMapping("coach_settings")
@@ -98,9 +107,11 @@ public class CourseController {
 		Integer uId = 10001 ;//先寫死等登入uId
 		byte [] uHeadshot = userSvc.getUserHeadshot(uId);
 		model.addAttribute("uHeadshot", Base64.getEncoder().encodeToString(uHeadshot));
-
+		CoachVO coachVO = coachSvc.getOneCoach(uId);
 		UserVO userVO = userSvc.getUser(uId);
+		
 		model.addAttribute("userVO", userVO);
+		model.addAttribute("coachVO", coachVO);
 		return "front-end/course/coach_settings";
 	}
 	
@@ -162,10 +173,10 @@ public class CourseController {
 		String crTitle = courseVO.getCrTitle();
 		Integer uId = 10001;//先寫死等登入
 		byte [] uHeadshot = userSvc.getUserHeadshot(uId);
-		model.addAttribute("uHeadshot", Base64.getEncoder().encodeToString(uHeadshot));
 
 
 		/*************************** 3.查詢完成,準備轉交(Send the Success view) **************/
+		model.addAttribute("uHeadshot", Base64.getEncoder().encodeToString(uHeadshot));
 		model.addAttribute("anId", anId);
 		model.addAttribute("crTitle", crTitle);
 		model.addAttribute("annVO", annVO);
@@ -176,7 +187,41 @@ public class CourseController {
 	 * This method will be called on update_emp_input.html form submission, handling POST request It also validates the user input
 	 */
 	@PostMapping("update")
-	public String update(@Valid AnnVO annVO, BindingResult result, ModelMap model) throws IOException {
+	public String update(@Valid AnnVO annVO, BindingResult result, ModelMap model,@RequestParam("anDate") String anDate) throws IOException {
+		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
+		// 去除BindingResult中upFiles欄位的FieldError紀錄 --> 見第172行
+//		result = removeFieldError(courseVO, result, "upFiles");
+
+//		if (parts[0].isEmpty()) { // 使用者未選擇要上傳的新圖片時
+//			// EmpService empSvc = new EmpService();
+//			byte[] upFiles = empSvc.getOneEmp(empVO.getEmpno()).getUpFiles();
+//			empVO.setUpFiles(upFiles);
+//		} else {
+//			for (MultipartFile multipartFile : parts) {
+//				byte[] upFiles = multipartFile.getBytes();
+//				empVO.setUpFiles(upFiles);
+//			}
+//		}
+//		if (result.hasErrors()) {
+//			return "back-end/course/update_course_input";
+//		}
+		long currentTimeMillis = System.currentTimeMillis();
+		Timestamp currentTimestamp = new Timestamp(currentTimeMillis);
+		/*************************** 2.開始修改資料 *****************************************/
+		annVO.setAnEditDate(currentTimestamp);
+		annVO.setAnDate(java.sql.Timestamp.valueOf(anDate));
+		
+		annSvc.updateAnn(annVO);
+		List<AnnVO> announcementList = annSvc.getAll();
+	    model.addAttribute("announcementList", announcementList);
+		/*************************** 3.修改完成,準備轉交(Send the Success view) **************/
+		model.addAttribute("success", "- (修改成功)");
+//		courseVO = courseSvc.getOneCourse(Integer.valueOf(courseVO.getCrId()));
+//		model.addAttribute("courseVO", courseVO);
+		return "front-end/course/course_announcement"; // 修改成功後轉交listOneEmp.html
+	}
+	@PostMapping("updateUserProfile")
+	public String updateUserProfile(@Valid UserVO userVO, BindingResult result, ModelMap model) throws IOException {
 
 		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
 		// 去除BindingResult中upFiles欄位的FieldError紀錄 --> 見第172行
@@ -196,15 +241,48 @@ public class CourseController {
 //			return "back-end/course/update_course_input";
 //		}
 		/*************************** 2.開始修改資料 *****************************************/
-		annSvc.updateAnn(annVO);
-		
-		List<AnnVO> announcementList = annSvc.getAll();
-	    model.addAttribute("announcements", announcementList);
+		userSvc.updateUserProfile(userVO);
+		Integer uId = userVO.getuId();
+		byte [] uHeadshot = userSvc.getUserHeadshot(uId);
+		CoachVO coachVO = coachSvc.getOneCoach(uId);
 		/*************************** 3.修改完成,準備轉交(Send the Success view) **************/
+		model.addAttribute("userVO", userVO);
+		model.addAttribute("coachVO", coachVO);
 		model.addAttribute("success", "- (修改成功)");
-//		courseVO = courseSvc.getOneCourse(Integer.valueOf(courseVO.getCrId()));
-//		model.addAttribute("courseVO", courseVO);
-		return "front-end/course/course_announcement"; // 修改成功後轉交listOneEmp.html
+		model.addAttribute("uHeadshot", Base64.getEncoder().encodeToString(uHeadshot));
+		return "front-end/course/coach_settings"; // 修改成功後轉交listOneEmp.html
+	}
+	@PostMapping("updatecoach")
+	public String updatecoach(@Valid CoachVO coachVO, BindingResult result, ModelMap model) throws IOException {
+
+		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
+		// 去除BindingResult中upFiles欄位的FieldError紀錄 --> 見第172行
+//		result = removeFieldError(courseVO, result, "upFiles");
+
+//		if (parts[0].isEmpty()) { // 使用者未選擇要上傳的新圖片時
+//			// EmpService empSvc = new EmpService();
+//			byte[] upFiles = empSvc.getOneEmp(empVO.getEmpno()).getUpFiles();
+//			empVO.setUpFiles(upFiles);
+//		} else {
+//			for (MultipartFile multipartFile : parts) {
+//				byte[] upFiles = multipartFile.getBytes();
+//				empVO.setUpFiles(upFiles);
+//			}
+//		}
+//		if (result.hasErrors()) {
+//			return "back-end/course/update_course_input";
+//		}
+		/*************************** 2.開始修改資料 *****************************************/
+		coachSvc.updateCoach(coachVO);
+		Integer uId = coachVO.getuId();
+		byte [] uHeadshot = userSvc.getUserHeadshot(uId);
+		UserVO userVO = userSvc.getUser(uId);
+		/*************************** 3.修改完成,準備轉交(Send the Success view) **************/
+		model.addAttribute("coachVO", coachVO);
+		model.addAttribute("userVO", userVO);
+		model.addAttribute("success", "- (修改成功)");
+		model.addAttribute("uHeadshot", Base64.getEncoder().encodeToString(uHeadshot));
+		return "front-end/course/coach_settings"; // 修改成功後轉交listOneEmp.html
 	}
 
 	/*

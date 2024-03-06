@@ -1,0 +1,73 @@
+.order-detail ul{
+    display: flex;
+    width: 100%;
+    height: 35px;   
+}
+
+.order-detail{
+    display: block;
+    padding-top: 15px;
+    padding-left: 30px;
+    padding-right: 30px;
+    box-sizing:border-box;
+}
+
+.order-rhead{
+    border-bottom: 1px solid rgb(55, 2, 47);
+}
+
+
+
+.order-detail ul li{
+    padding: 0 10px;
+}
+
+.col-15{
+    width: 15%;
+}
+
+.col-30{
+    width: 30%;
+}
+
+.order-detail{
+    background-color: #f9f4ff;
+}
+
+.check-content{
+    line-height: 36px;
+}
+
+.input-2{
+    height: 30px;
+    width: 200px;
+    padding: 5px 28px;
+    box-sizing: border-box;
+    
+}
+
+.magnifier-container{
+    position: relative;
+}
+
+.magnifier{
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translate(0,-50%);
+}
+
+select{
+    height: 30px;
+}
+
+.input-wrapper{
+    display: flex;
+    margin-left: 97px;
+    margin-bottom: 20px;
+}
+
+.mr-input{
+    margin-right: 10px;
+}
+

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:insert="~{/back-end/backend_included_head}"></head>
+
+<body>
+  <!-- header -->
+  <div class="header_wrapper">
+    <header>
+      <p class="f-b-title">FitAnyWhere後台管理系統</p>
+      <div class="manager">
+        <img src="./images/member.png" alt="">
+        <p>最高管理員</p>
+      </div>
+    </header>
+  </div>
+  <!-- 下面一層容器 -->
+  <div class="wrapper">
+    <!-- sidebar -->
+    <div th:replace="~{/back-end/backend_included_sidebar}"></div>
+
+    <!-- 內容 -->
+    <div class="content">
+
+      <div class="content-row">
+        <button class="ad-change">廣告方案編輯</button>
+
+        <div class="ad-content">
+
+          <table class="backstage_table">
+
+            <div class="parent1">
+              <div class="ad-text">
+                <button class="ad-change2">方案</button>
+              </div>
+              <div cl-ass="ad-text2">
+                <h3>廣告方案:首頁輪播廣告</h3>
+              </div>
+
+              <div class="ad-text3"> ｜方案適用日期: YYYYMMDD ~ YYYYMMDD</div>
+            </div>
+
+
+            <div class="parent2">
+              <div>輸入方案文字說明</div>
+              <!-- <input type="text" name="ad-textlab" class="ad-textlab" value="此方案可使您想投放的課程縮圖，出現在網站首頁側邊的圖片式輪換廣告，增加您的課程曝光度，以達到增加您的課程銷量的目標，可直接套用您原本的課程介紹縮圖或使用您另外上傳的圖片！"> -->
+              <textarea name="ad-textlab" class="ad-textlab" cols="95" rows="10"
+                placeholder="此方案可使您想投放的課程縮圖，出現在網站首頁側邊的圖片式輪換廣告，增加您的課程曝光度，以達到增加您的課程銷量的目標，可直接套用您原本的課程介紹縮圖或使用您另外上傳的圖片！"></textarea>
+            </div>
+
+
+            <div class="parent3">
+              <div>設定廣告週期和定價</div>
+
+              <div class="ad-text4">
+                <span>新增週期</span>
+                <input type="text" name="ad-textlab2" class="ad-textlab2" value="輸入天數">
+
+                <span class="ad-span1">新增價錢</span>
+                <input type="text" name="ad-textlab3" class="ad-textlab3" value="輸入價錢">
+
+                <button class="ad-button">新增</button>
+              </div>
+              <hr background-color:gray>
+              
+              <div class="ad-text5">
+                <span>週期</span>
+                <input type="text" name="ad-textlab4" class="ad-textlab4" value="1週">
+                <span class="ad-span1">價錢</span>
+                <input type="text" name="ad-textlab5" class="ad-textlab5" value="500">
+                <button class="ad-button2">修改</button>
+                <button class="ad-button3">刪除</button>
+              </div>
+
+              <div class="ad-text5">
+                <span>週期</span>
+                <input type="text" name="ad-textlab4" class="ad-textlab4" value="2週">
+                <span class="ad-span1">價錢</span>
+                <input type="text" name="ad-textlab5" class="ad-textlab5" value="1000">
+                <button class="ad-button2">修改</button>
+                <button class="ad-button3">刪除</button>
+              </div>
+
+              <div class="ad-text5">
+                <span>週期</span>
+                <input type="text" name="ad-textlab4" class="ad-textlab4" value="一個月">
+                <span class="ad-span1">價錢</span>
+                <input type="text" name="ad-textlab5" class="ad-textlab5" value="4000">
+                <button class="ad-button2">修改</button>
+                <button class="ad-button3">刪除</button>
+              </div>
+
+              <div class="ad-text5">
+                <span>週期</span>
+                <input type="text" name="ad-textlab4" class="ad-textlab4" value="二個月">
+                <span class="ad-span1">價錢</span>
+                <input type="text" name="ad-textlab5" class="ad-textlab5" value="8000">
+                <button class="ad-button2">修改</button>
+                <button class="ad-button3">刪除</button>
+              </div>
+
+
+
+            </div>
+
+
+          </table>
+        </div>
+
+        <!-- footer -->
+        <div class="footer_wrapper">
+          <footer>
+            <p class="f-b-title">FitAnyWhere Backstage</p>
+          </footer>
+        </div>
+
+
+</body>
+
+</html>

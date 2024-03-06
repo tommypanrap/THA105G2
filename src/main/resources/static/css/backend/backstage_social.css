@@ -1,0 +1,24 @@
+.social-content {
+  display: block;
+  max-width: 100%;
+  border-radius: 20px;
+  background: #FFF;
+  box-shadow: 0px 6px 34px rgba(215, 216, 222, 3.5);
+  margin-left: 5%;
+  justify-content: center;
+}
+
+.social-text {
+  display: flex;
+  margin: 0px 0px 0px 0px;
+  padding: 0px;
+}
+
+.social-button {
+  display: flex;
+  margin: 0px 0px 0px 0px;
+}
+
+tr {
+  height: 50px;
+}

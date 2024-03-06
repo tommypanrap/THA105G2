@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>更新密碼表單</title>
+</head>
+<body>
+
+<h2>更新密碼</h2>
+
+<form action="/user_api/user_update_password_test/" method="POST">
+    <label for="uId">用戶ID:</label><br>
+    <input type="text" id="uId" name="uId" required><br>
+    <label for="oldPassword">舊密碼:</label><br>
+    <input type="password" id="oldPassword" name="oldPassword" required><br>
+    <label for="newPassword">新密碼:</label><br>
+    <input type="password" id="newPassword" name="newPassword" required><br>
+    <input type="submit" value="提交">
+</form> 
+
+<h2>尋找已儲存的密碼</h2>
+
+<form action="/user_api/user_find_saved_password" method="POST">
+    <label for="find_uId">用戶ID:</label><br>
+    <input type="text" id="find_uId" name="uId" required><br>
+    <input type="submit" value="尋找">
+</form>
+
+</body>
+</html>

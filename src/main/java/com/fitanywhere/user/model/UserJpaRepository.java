@@ -61,10 +61,14 @@ public interface UserJpaRepository extends JpaRepository<UserVO, Integer> {
 	// 依照uMail取得uNickname
 	@Query("SELECT u.uNickname FROM UserVO u WHERE u.uMail = :uMail")
 	String findOnlyNicknameByuMail(String uMail);
-	
+
 	// 依照uId取得moodId
 	@Query("SELECT u.moodVO.moodId FROM UserVO u WHERE u.uId = :uId")
 	Integer findOnlyMoodByuId(Integer uId);
+
+	// 依照uId取得uPassword
+	@Query("SELECT u.uPassword FROM UserVO u WHERE u.uId = :uId")
+	String findOnlyPasswordByuId(Integer uId);
 
 // =========================
 	// 精準寫入某特定欄位
@@ -84,6 +88,6 @@ public interface UserJpaRepository extends JpaRepository<UserVO, Integer> {
 // =========================
 	// andy 單取出user的大頭照
 	@Query("SELECT u.uHeadshot FROM UserVO u WHERE u.uId = :uId")
-    byte[] getUserHeadshotByUserId(Integer uId);
+	byte[] getUserHeadshotByUserId(Integer uId);
 
 }

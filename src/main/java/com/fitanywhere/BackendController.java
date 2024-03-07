@@ -19,10 +19,6 @@ import javax.validation.Valid;
 @Controller
 public class BackendController {
 
-	@GetMapping("/backend_user")
-	public String backend_user(Model model)  {
-        return "back-end/backend_user"; 
-    }
 	
 	@GetMapping("/backend_post")
 	public String backend_post(Model model)  {

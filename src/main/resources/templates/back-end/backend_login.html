@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <Style>
+        /* 全體樣式調整 */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Header 樣式 */
+        .top header {
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            font-weight: bold;
+        }
+
+        /* Footer 樣式 */
+        .botton footer {
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            font-weight: bold;
+            margin-top: auto;
+            /* 確保 footer 處於頁面底部 */
+        }
+
+        /* LoginForm 容器樣式 */
+        .login_part {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            /* 確保內容垂直排列 */
+            padding: 20px;
+            /* 保留一些間距 */
+        }
+
+        /* LoginForm 樣式 */
+        .login_part form {
+            border: 1px solid #ccc;
+            padding: 30px;
+            /* 從 20px 增加到 30px，增加更多內部空間 */
+            border-radius: 5px;
+            background-color: #0056b3;
+            /* 深藍色背景 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+            /* 可以適當加寬藍色區域以容納更寬的輸入欄位 */
+        }
+
+        .login_part h2 {
+            color: white;
+            font-weight: bold;
+            margin: 0 0 20px 0;
+            /* 增加一些底部間距 */
+        }
+
+        .login_part h5 {
+            color: white;
+            font-weight: bold;
+            margin: 0 0 20px 0;
+            /* 增加一些底部間距 */
+        }
+
+        .login_part input,
+        .login_part button {
+            width: calc(100% - 20px);
+            /* 使用 calc() 函數來計算寬度，減去一些值以確保不超出背景框 */
+            padding: 10px;
+            margin-bottom: 10px;
+            /* 保持底部間距 */
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            /* 確保邊框和內距不會擴大元素 */
+        }
+
+        .login_part button {
+            background-color: #004080;
+            /* 按鈕使用更深的藍色 */
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .login_part button:hover {
+            background-color: #002d5f;
+            /* 鼠標懸浮時的按鈕顏色 */
+        }
+    </Style>
+
+
+
+</head>
+
+<body>
+    <!-- header -->
+    <div class="top">
+        <header>
+            <p class="f-b-title header_title" style="font-size: 30px;">FitAnyWhere後台管理系統</p>
+            <div class="manager">
+            </div>
+        </header>
+    </div>
+
+    <div class="login_part">
+        <form name="login_form" action="/your_action_endpoint" method="post">
+            <h2>請先登入您的管理帳號</h2>
+            <h5>若忘記登入資料或無法登入請通知系統管理員(主管)</h5>
+            <input type="text" name="am_id" placeholder="工號">
+            <input type="text" name="am_name" placeholder="姓名">
+            <input type="password" name="am_password" placeholder="密碼">
+            <button type="submit">登入</button>
+        </form>
+    </div>
+
+
+    <!-- footer -->
+    <div class="botton">
+        <footer>
+            <p class="f-b-title">FitAnyWhere Backstage</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var adminIdInput = document.querySelector('input[name="am_id"]');
+
+            adminIdInput.addEventListener("blur", function () {
+                var adminId = adminIdInput.value;
+                if (!adminId) return; // 如果欄位為空，則不執行任何操作
+
+                // 基本的格式驗證
+                var adminIdPattern = /^[0-9]+$/;
+                if (!adminIdPattern.test(adminId)) {
+                    alert("請重新輸入有效的工號!");
+                    adminIdInput.value = ''; // 清空欄位
+                    return;
+                }
+
+                // 通過格式驗證後，使用AJAX發送請求
+                var fetchUrl = "/backend_login_api/check_admin_id/";
+                fetch(fetchUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ admin_id: adminId })
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            return; // 結束處理
+                        } else {
+                            switch (response.status) {
+                                case 404: // Not Found
+                                    alert("工號不存在!請重新輸入!");
+                                    adminIdInput.value = ''; // 清空欄位
+                                    break;
+                                default:
+                                    alert("未知錯誤");
+                                    adminIdInput.value = ''; // 清空欄位
+                            }
+                            throw new Error('HTTP error, status = ' + response.status);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Validation failed:', error);
+                    });
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var adminNameInput = document.querySelector('input[name="am_name"]');
+
+            adminNameInput.addEventListener("blur", function () {
+                console.log(adminNameInput.value); 
+                var adminName = adminNameInput.value;
+                if (!adminName) return; // 如果欄位為空，則不執行任何操作
+
+                // 正則表達式驗證：純中文（不含空格）或純英文（可以含空格）
+                var namePattern = /^([\u4e00-\u9fa5]+|[A-Za-z\s]+)$/;
+                if (!namePattern.test(adminName)) {
+                    alert("名字必須是純中文或純英文，中文不允許空格，英文可以含空格。");
+                    adminNameInput.value = ''; // 不符合格式，清空欄位
+                    return;
+                }
+
+                var fetchUrl = "/backend_login_api/check_admin_name/"; // 假設的後端API端點
+                fetch(fetchUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ admin_name: adminName }) // 封裝數據為JSON
+                })
+                    .then(response => {
+                        if (response.ok) {                            
+                            return; // 結束處理
+                        } else {
+                            // 根據後端設定的HTTP狀態碼進行處理
+                            switch (response.status) {
+                                case 404: // Not Found
+                                    alert("查無此人!請重新輸入!");
+                                    adminNameInput.value = ''; // 清空欄位
+                                    break;
+                                default:
+                                    alert("未知錯誤");
+                                    adminNameInput.value = ''; // 清空欄位
+                            }
+                            throw new Error('HTTP error, status = ' + response.status);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Validation failed:', error);
+                    });
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.getElementsByName('login_form')[0];
+            form.addEventListener('submit', function (e) {
+                e.preventDefault(); // 防止表單的默認提交行為
+
+                // 收集表單數據
+                const formData = new FormData(form);
+                const data = {
+                    am_id: formData.get('am_id'),
+                    am_name: formData.get('am_name'),
+                    am_password: formData.get('am_password')
+                };
+
+                // 使用 fetch 發送 POST 請求
+                fetch('/backend_login_api/admin_login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            // 如果HTTP狀態碼為200-299
+                            // alert("登入成功"); // 顯示成功訊息
+                            window.location.href = "/backend_user"; // 登入成功後跳轉到指定的頁面
+                            return; // 結束處理
+                        } else {
+                            // 處理不同的HTTP狀態碼
+                            switch (response.status) {
+                                case 401: // Unauthorized
+                                    alert("登入資訊錯誤!請重新輸入!");
+                                    form.reset();
+                                    break;
+                                case 500: // Internal Server Error
+                                    alert("伺服器或未知錯誤");
+                                    form.reset();
+                                    break;
+                                default:
+                                    alert("未知錯誤");
+                                    form.reset();
+                            }
+                            throw new Error('HTTP error, status = ' + response.status);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Login failed:', error);
+                    });
+            });
+        });
+
+
+    </script>
+
+
+
+</body>
+
+</html>

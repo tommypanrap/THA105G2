@@ -244,15 +244,15 @@ public class UserRestController {
 			// 有登入的Session才有"loginStatus" 直接確認Session有沒有"loginStatus"這個項目就能判斷有無登入
 			// "logged_in"值到是可不用比對
 			newSession.setAttribute("loginStatus", "logged_in"); // 登入狀態
-			newSession.setAttribute("uPerm", 9); // 暫定9代表一般會員
+//			newSession.setAttribute("uPerm", 9); // 暫定9代表一般會員
 
 			newSession.setAttribute("loginDate", new Date()); // 登入時間
 			newSession.setAttribute("lastActiveTime", new Date()); // 最後活動時間
 			newSession.setMaxInactiveInterval(60 * 60); // Session保存期限(秒)
 
-			System.out.println("uId: " + newSession.getAttribute("uId"));
-			System.out.println("uNickname: " + newSession.getAttribute("uNickname"));
-			System.out.println("uStatus: " + newSession.getAttribute("uStatus"));
+//			System.out.println("uId: " + newSession.getAttribute("uId"));
+//			System.out.println("uNickname: " + newSession.getAttribute("uNickname"));
+//			System.out.println("uStatus: " + newSession.getAttribute("uStatus"));
 
 			return 0; // 登入成功
 		} else {

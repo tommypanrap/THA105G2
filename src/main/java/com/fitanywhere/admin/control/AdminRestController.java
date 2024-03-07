@@ -1,9 +1,11 @@
 package com.fitanywhere.admin.control;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +41,7 @@ public class AdminRestController {
 		}
 
 		boolean isAdminIdExist = adminService.isAdminIdCorrect(adminId);
-		
+
 		if (isAdminIdExist) {
 			return ResponseEntity.ok().build(); // 200
 		} else {
@@ -51,9 +53,9 @@ public class AdminRestController {
 	@PostMapping("/check_admin_name")
 	public ResponseEntity<?> checkAccountbyAdminName(@RequestBody Map<String, String> requestBody) {
 		String adminName = requestBody.get("admin_name");
-		
-		boolean isAdminNameExist = adminService.isAdminNameCorrect(adminName);		
-		
+
+		boolean isAdminNameExist = adminService.isAdminNameCorrect(adminName);
+
 		if (isAdminNameExist) {
 			return ResponseEntity.ok().build(); // 200
 		} else {
@@ -106,6 +108,16 @@ public class AdminRestController {
 		default:
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
+	}
+
+	// 登出後台
+	@PostMapping("/admin_logout")
+	public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	    
+		request.getSession().invalidate(); // 使當前Session無效
+		
+		String contextPath = request.getContextPath();
+		response.sendRedirect(contextPath + "/backend_login"); // 重定向到登入頁面
 	}
 
 }

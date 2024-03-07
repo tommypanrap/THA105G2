@@ -1,6 +1,7 @@
 package com.fitanywhere.user.controller;
 
 import java.awt.PageAttributes.MediaType;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.*;
@@ -10,6 +11,7 @@ import java.util.Enumeration;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -292,7 +294,16 @@ public class UserRestController {
 		}
 
 	}
-	
+
+	// 登出後台
+	@PostMapping("/user_logout")
+	public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+		request.getSession().invalidate(); // 使當前Session無效
+
+		String contextPath = request.getContextPath();
+		response.sendRedirect(contextPath + "/"); // 重定向到首頁
+	}
 	
 	
 
@@ -378,30 +389,31 @@ public class UserRestController {
 			return ResponseEntity.badRequest().body("找不到指定用戶的心情");
 		}
 	}
-	
-	 @PostMapping("/user_update_password_test")
-	    public ResponseEntity<?> updateUserPassword(@RequestParam Integer uId, @RequestParam String oldPassword, @RequestParam String newPassword) {
-	        try {
-	            boolean updateResult = userService.updateUserPassword(uId, oldPassword, newPassword);
-	            if(updateResult) {
-	                return ResponseEntity.ok().body("Password updated successfully");
-	            } else {
-	                return ResponseEntity.badRequest().body("Failed to update password");
-	            }
-	        } catch (Exception e) {
-	            return ResponseEntity.internalServerError().body("An error occurred");
-	        }
-	    }
 
-	    @PostMapping("/user_find_saved_password")
-	    public ResponseEntity<?> getSavedPassword(@RequestParam Integer uId) {
-	        try {
-	            String savedPassword = userService.getSavedPasswordInMySQL(uId);
-	            // 注意：直接返回密碼是不安全的。這裡只是為了示範。
-	            return ResponseEntity.ok().body(savedPassword);
-	        } catch (Exception e) {
-	            return ResponseEntity.internalServerError().body("An error occurred");
-	        }
-	    }
+	@PostMapping("/user_update_password_test")
+	public ResponseEntity<?> updateUserPassword(@RequestParam Integer uId, @RequestParam String oldPassword,
+			@RequestParam String newPassword) {
+		try {
+			boolean updateResult = userService.updateUserPassword(uId, oldPassword, newPassword);
+			if (updateResult) {
+				return ResponseEntity.ok().body("Password updated successfully");
+			} else {
+				return ResponseEntity.badRequest().body("Failed to update password");
+			}
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body("An error occurred");
+		}
+	}
+
+	@PostMapping("/user_find_saved_password")
+	public ResponseEntity<?> getSavedPassword(@RequestParam Integer uId) {
+		try {
+			String savedPassword = userService.getSavedPasswordInMySQL(uId);
+			// 注意：直接返回密碼是不安全的。這裡只是為了示範。
+			return ResponseEntity.ok().body(savedPassword);
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body("An error occurred");
+		}
+	}
 
 }

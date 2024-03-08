@@ -44,6 +44,7 @@ public class CourseController {
 
 
 
+	// 購物車功能-課程資訊新增到 model
 	@GetMapping("courses")
 	public String getCourses(ModelMap model) {
 		List<CourseVO> list = courseSvc.getAll();

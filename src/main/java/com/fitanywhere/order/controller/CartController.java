@@ -1,40 +1,78 @@
 package com.fitanywhere.order.controller;
 
-import com.fitanywhere.course.model.CartVO;
-import org.springframework.stereotype.Controller;
+import com.fitanywhere.order.model.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import redis.clients.jedis.JedisPooled;
+import org.springframework.web.servlet.ModelAndView;
+
 
 import javax.servlet.http.HttpSession;
-import java.util.Map;
+
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/cart")
 public class CartController {
 
-    @PostMapping("/add")
-    public String addCart(@RequestBody CartVO cartVO, HttpSession session) {
-        Integer uId = 10001;//先寫死等登
-//		Integer uId = (Integer)session.getAttribute("uId");
-        String cartKey = "user:" + uId + ":cart";
-        JedisPooled jedis = new JedisPooled("localhost", 6379);
-        jedis.sadd(cartKey, cartVO.getCourseId().toString());
+    @Autowired
+    private CartService cartService;
 
-        System.out.println(cartVO);
-        return "{\"result\": \"good!\"}";
+    // 將課程新增到購物車中
+    @PostMapping("add")
+    public List<CartItemVO> addCart(@RequestBody CartItemVO cartItemVO, HttpSession session) {
+        Integer uId = (Integer) session.getAttribute("uId");
+        cartService.addItem(uId, cartItemVO);
+        List<CartItemVO> list = cartService.getCartItems(uId);
+        return list;
     }
 
-    @PostMapping("/get")
-    public  String getCart(@RequestBody CartVO cartVO, HttpSession session ){
-        Integer uId = 10001;//先寫死等登
-//		Integer uId = (Integer)session.getAttribute("uId");
 
-        JedisPooled jedis = new JedisPooled("localhost", 6379);
-        jedis.get("user:"+uId+":cart");
-
-
-        return "{\"result\": \"ok!\"}";
+    // 獲取購物車中所有課程的資訊
+    @GetMapping("get")
+    public List<CartItemVO> getItems(ModelMap model, HttpSession session) {
+        Integer uId = (Integer) session.getAttribute("uId");
+        List<CartItemVO> list = cartService.getCartItems(uId);
+        model.addAttribute("cartItemListData", list);
+        return list;
     }
 
+    // 刪除購物車個別課程
+    @DeleteMapping("remove/{crId}")
+    public List<CartItemVO> deleteItem(@PathVariable Integer crId, HttpSession session){
+        Integer uId = (Integer) session.getAttribute("uId");
+        cartService.removeItem(uId,crId);
+
+
+        return cartService.getCartItems(uId);
+    }
+
+    // 清空購物車
+    @DeleteMapping("clear")
+    public String clearItems(HttpSession session){
+        Integer uId = (Integer) session.getAttribute("uId");
+       cartService.clearCart(uId);
+       return "all clear";
+    }
+
+//    --------------------------------------------------
+
+
+    //確認購物車頁面
+    @GetMapping("check")
+    public ModelAndView checkCart(ModelMap model){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("front-end/cart/cart");
+        return modelAndView;
+    }
+
+    //結帳頁面
+    @GetMapping("checkout")
+    public ModelAndView checkoutCart(ModelMap model){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("front-end/cart/checkout");
+        return modelAndView;
+    }
 }

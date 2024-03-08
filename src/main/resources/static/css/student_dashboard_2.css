@@ -1,4 +1,4 @@
-div.content{
+div.content-social-post{
     border-radius: 5px;
 background: #FFF;
 
@@ -247,6 +247,44 @@ position: relative;
 	display:none;
 } 
 
+.uid-for-send{
+	display:none;
+}
+
 #article img{
 	border-radius:100%;
+}
+
+
+.reply-member{
+    display: flex;
+}
+
+.reply-name-text{
+margin-left: 10px;
+}
+
+.reply-name-text p{
+    margin-bottom: 0;
+}
+
+.member-nickname{
+    margin-top: 15px;
+}
+
+.reply-content{
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.social-reply{
+    margin-top: 15px;
+}
+
+.social-reply-input{
+    margin-top: 30px;
+}
+
+.reply-member img{
+    width: 69px;
 }

@@ -183,7 +183,7 @@ public class UserRestController {
 						System.out.println("uBirth轉換Date失敗!");
 					}
 
-					Integer uStatus = 0;
+					Integer uStatus = 0; // 0: 正常帳號
 					LocalDate uRegisterDate = LocalDate.now();
 
 					// 註冊資料封裝DTO
@@ -221,9 +221,28 @@ public class UserRestController {
 	public int checkAccountbyMail(@RequestBody Map<String, String> requestBody) {
 		String uMail = requestBody.get("u_email");
 		boolean isUserExist = userService.isEmailRegistered(uMail);
-
-		// 返回數字表示賬戶是否存在：0表示存在，1表示不存在
-		return isUserExist ? 0 : 1;
+		int uStatus = userService.userStatusCheck(uMail);
+		
+		if (isUserExist) {
+			switch (uStatus) {
+			// 前端檢查帳號使否允許登入
+			case 0:
+				return 0;
+			case 1:
+				return 0;
+			case 2:
+				return 2;
+			case 3:
+				return 3;
+			default:	
+				return 999;
+			}
+			
+		}else {
+			// 會員不存在
+			return 1;
+		}		
+		
 	}
 
 	// 登入-處理會員的登入，並在登入後重發Session並寫入常用資料
@@ -232,8 +251,10 @@ public class UserRestController {
 		String uMail = loginData.get("u_email");
 		String password = loginData.get("u_password");
 		UserReadDataDTO user = userService.userLogin(uMail, password);
-
-		if (user != null) {
+		int uStatus = user.getuStatus();
+		
+		// 再次檢查會員狀態是否允許登入
+		if (user != null && (uStatus == 0 || uStatus == 1)) {
 			// 登入成功的Session處理
 			request.getSession().invalidate(); // 刪除舊Session
 			HttpSession newSession = request.getSession(true); // 建立新Session
@@ -241,7 +262,7 @@ public class UserRestController {
 			// 在新Session寫入已登入會員資訊
 			newSession.setAttribute("uId", user.getuId());
 			newSession.setAttribute("uNickname", user.getuNickname());
-			newSession.setAttribute("uStatus", user.getuStatus());
+			newSession.setAttribute("uStatus", uStatus);
 
 			// 有登入的Session才有"loginStatus" 直接確認Session有沒有"loginStatus"這個項目就能判斷有無登入
 			// "logged_in"值到是可不用比對

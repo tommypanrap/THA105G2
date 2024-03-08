@@ -64,6 +64,10 @@ public interface UserJpaRepository extends JpaRepository<UserVO, Integer> {
 	@Query("SELECT u.uNickname FROM UserVO u WHERE u.uMail = :uMail")
 	String findOnlyNicknameByuMail(String uMail);
 
+	// 依照uMail取得uStatus
+	@Query("SELECT u.uStatus FROM UserVO u WHERE u.uMail = :uMail")
+	Integer findOnlyStatusByuMail(String uMail);
+
 	// 依照uId取得moodId
 	@Query("SELECT u.moodVO.moodId FROM UserVO u WHERE u.uId = :uId")
 	Integer findOnlyMoodByuId(Integer uId);
@@ -91,10 +95,10 @@ public interface UserJpaRepository extends JpaRepository<UserVO, Integer> {
 	// andy 單取出user的大頭照
 	@Query("SELECT u.uHeadshot FROM UserVO u WHERE u.uId = :uId")
 	byte[] getUserHeadshotByUserId(Integer uId);
-	
+
 // =========================
 	// Tommy 比對 nickname 取出包含搜尋字串的 UserVO 不包含自己
-	@Query("FROM UserVO u WHERE u.uNickname LIKE %:searchValue% AND u.uId != :uId " )
-	List<UserVO> findByuNicknameNoMyself(@Param("searchValue") String searchValue,@Param("uId") Integer uId);
+	@Query("FROM UserVO u WHERE u.uNickname LIKE %:searchValue% AND u.uId != :uId ")
+	List<UserVO> findByuNicknameNoMyself(@Param("searchValue") String searchValue, @Param("uId") Integer uId);
 
 }

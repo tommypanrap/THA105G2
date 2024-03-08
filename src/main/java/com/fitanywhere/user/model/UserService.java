@@ -186,6 +186,13 @@ public class UserService {
 	}
 
 // =============================================
+	// 登入-檢查帳號是否可登入
+	@Transactional(readOnly = true)
+	public int userStatusCheck(String uMail) {
+		return userJpaRepository.findOnlyStatusByuMail(uMail);
+	}
+	
+	
 	// 登入-核對登入密碼是否正確
 	@Transactional(readOnly = true)
 	public UserReadDataDTO userLogin(String uMail, String inputPassword) {

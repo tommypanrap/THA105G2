@@ -393,9 +393,9 @@ public class UserService {
 	
 // =============================================
 // Tommy 新增 為了搜尋比對
-	public List<UserVO> searchUsersByNickname(String searchValue) {
-        // 使用 UserRepository 進行相應的查詢
-        return userJpaRepository.findByuNicknameContaining(searchValue);
+	public List<UserVO> searchUsersByNickname(String searchValue, Integer uId) {
+
+        return userJpaRepository.findByuNicknameNoMyself(searchValue,uId);
     }
 
 

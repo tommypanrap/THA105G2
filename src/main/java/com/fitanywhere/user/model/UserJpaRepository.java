@@ -92,6 +92,9 @@ public interface UserJpaRepository extends JpaRepository<UserVO, Integer> {
 	@Query("SELECT u.uHeadshot FROM UserVO u WHERE u.uId = :uId")
 	byte[] getUserHeadshotByUserId(Integer uId);
 	
-	List<UserVO> findByuNicknameContaining(String searchValue);
+// =========================
+	// Tommy 比對 nickname 取出包含搜尋字串的 UserVO 不包含自己
+	@Query("FROM UserVO u WHERE u.uNickname LIKE %:searchValue% AND u.uId != :uId " )
+	List<UserVO> findByuNicknameNoMyself(@Param("searchValue") String searchValue,@Param("uId") Integer uId);
 
 }

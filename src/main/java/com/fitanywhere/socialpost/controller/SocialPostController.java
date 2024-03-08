@@ -18,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -118,12 +119,21 @@ public class SocialPostController {
 		return "front-end/socialpost/student_socialpost";
 	}
 	
+	@GetMapping("nav_student_socialpost")
+	public String nav_student_socialpost(HttpServletRequest req, ModelMap model) {
+		
+	
+		
+		
+		return "front-end/socialpost/student_socialpost";
+	}
+	
 	@PostMapping("search_social_member")
-	public String search_social_member(@RequestParam String searchValue, ModelMap model, HttpSession session) throws IOException  {
+	public String search_social_member(@RequestParam String searchValue, @RequestParam Integer uId, ModelMap model, HttpSession session) throws IOException  {
 		
 //		System.out.println(searchValue);
 		
-		List<UserVO> matchingUsers = userSvc.searchUsersByNickname(searchValue);
+		List<UserVO> matchingUsers = userSvc.searchUsersByNickname(searchValue,uId);
 		System.out.println(matchingUsers);
 		
 		session.setAttribute("matchingUsers", matchingUsers);
@@ -131,6 +141,15 @@ public class SocialPostController {
 		return "redirect:/socialpost/student_socialpost";
 	}
 
+	@GetMapping("nav_to_social_member/{uId}")
+	public String nav_to_social_member(@PathVariable String uId, ModelMap model ) {
+		
+		System.out.println("uId:"+uId);
+		
+		return "redirect:/socialpost/student_socialpost";
+	}
+	
+	
 	@PostMapping("insert")
 	public String insert(HttpServletRequest req, @Valid SocialPostVO socialPostVO, BindingResult result, ModelMap model,
 			@RequestParam("sppic") MultipartFile[] parts) throws IOException {

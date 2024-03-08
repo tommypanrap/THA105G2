@@ -72,13 +72,14 @@ $(document).ready(function() {
 		if (e.keyCode === 13) {
 			let searchValue = String($(this).val());
 
-			//			let innerHTMLContent = $(".uid-for-send").html();
-			//			let uid = parseInt(innerHTMLContent, 10);
+			let innerHTMLContent = $(".uid-for-send").html();
+			let uid = parseInt(innerHTMLContent, 10);
 
 			console.log("searchValue:" + searchValue);
 
 			var data = {
-				searchValue: searchValue
+				searchValue: searchValue,
+				uId : uid
 			}
 
 			const formData = new FormData();

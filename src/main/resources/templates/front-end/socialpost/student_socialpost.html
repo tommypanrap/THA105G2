@@ -90,10 +90,22 @@
 										class="search-member-social"> <img
 										th:src="@{/images/search.png}" alt="" class="search-icon">
 								</div>
-								<ul>
-									<li th:each="user : ${matchingUsers}"><span
-										th:text="${user.uNickname}"></span></li>
-								</ul>
+								<!-- 								<ul> -->
+								<!-- 									<li th:each="user : ${matchingUsers}"><span -->
+								<!-- 										th:text="${user.uNickname}"></span></li> -->
+								<!-- 								</ul> -->
+
+								<div class="search-result" th:if="${matchingUsers != null and not #lists.isEmpty(matchingUsers)}">
+									<div class="search-result-list-one"
+										th:each="user : ${matchingUsers}">
+										<img
+											th:src="@{/socialpost/UserPhotoDBGifReader} + '?uId=' + ${user.uId}"
+											alt="">
+										<a th:href="@{'/socialpost/nav_to_social_member/' + ${user.uId}}"><p th:text="${user.uNickname}">王小明</p></a>
+										<span th:text="${user.uId}" class="user-uid"></span>
+									</div>
+
+								</div>
 								<div class="content-social-post">
 									<div class="content-inner">
 										<div class="user-section-title">

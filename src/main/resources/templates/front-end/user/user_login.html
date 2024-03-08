@@ -1262,8 +1262,8 @@
                 .then(response => response.text())
                 .then(result => {
                     if (result === '0') {
-                        alert('登入成功');
-                        // 之後再修改為跳轉 window.location.href = "";
+                        // alert('登入成功');
+                        window.location.href = "/"; // 登入成功後跳轉到指定的頁面
                     } else if (result === '1') {
                         alert('密碼錯誤，請重新輸入密碼！');
                         document.querySelector('input[name="u_password"]').value = ''; // 清空密碼欄位

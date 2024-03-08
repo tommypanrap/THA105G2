@@ -18,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fitanywhere.socialpost.model.SocialPostService;
 import com.fitanywhere.socialpost.model.SocialPostVO;
+import com.fitanywhere.socialpost.model.SocialReplyVO;
 import com.fitanywhere.mood.model.MoodVO;
 import com.fitanywhere.user.model.UserService;
 import com.fitanywhere.user.model.UserVO;
@@ -32,56 +34,49 @@ import com.fitanywhere.user.model.UserVO;
 @Controller
 @RequestMapping("/socialpost")
 public class SocialPostController {
-	
+
 	@Autowired
 	SocialPostService socialPostSvc;
-	
+
 	@Autowired
 	UserService userSvc;
-	
+
 	@GetMapping("select_page")
 	public String select_page(Model model) {
 		return "front-end/socialpost/select_page";
 	}
-	
 
-	
-	
-	
-    @GetMapping("list_all_socialpost")
+	@GetMapping("list_all_socialpost")
 	public String listAllSocialPost(Model model) {
 		return "front-end/socialpost/list_all_socialpost";
 	}
-    
-    
-    @GetMapping("/socialpost/add_socialpost")
+
+	@GetMapping("/socialpost/add_socialpost")
 	public String addSocialPost(Model model) {
 		return "front-end/socialpost/add_socialpost";
 	}
-    
-    @ModelAttribute("socialPostListData")  // for select_page.html 第97 109行用 // for listAllEmp.html 第85行用
-  	protected List<SocialPostVO> referenceListData(Model model) {
-  		
-      	List<SocialPostVO> list = socialPostSvc.getAll();
-  		return list;
-  	}
-	/*
-	 * This method will serve as addEmp.html handler.
-	 */
+
+	@ModelAttribute("socialPostListData")
+	protected List<SocialPostVO> referenceListData(Model model) {
+
+		List<SocialPostVO> list = socialPostSvc.getAll();
+		return list;
+	}
+
 	@GetMapping("add_socialpost")
 	public String addSocialPost(ModelMap model) {
 		SocialPostVO socialPostVO = new SocialPostVO();
 		model.addAttribute("socialPostVO", socialPostVO);
 		return "front-end/socialpost/add_socialpost";
 	}
-	
+
 	@GetMapping("show_login_socialpost_test")
 	public String showLoginSocialPost(HttpServletRequest req, ModelMap model) {
 		HttpSession newSession = req.getSession(true);
-		
+
 		UserVO userVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
-	    model.addAttribute("userVO", userVO);
-		
+		model.addAttribute("userVO", userVO);
+
 		SocialPostVO socialPostVO = new SocialPostVO();
 		model.addAttribute("socialPostVO", socialPostVO);
 		return "front-end/socialpost/show_login_socialpost_test";
@@ -89,34 +84,84 @@ public class SocialPostController {
 
 	@GetMapping("student_socialpost")
 	public String getUserInfo(HttpServletRequest req, ModelMap model) {
-		HttpSession newSession = req.getSession(true);
 		
-	    UserVO userVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
-	    model.addAttribute("userVO", userVO);
-	    
-	    SocialPostVO socialPostVO = new SocialPostVO();
+		
+//		model.addAttribute("matchingUsers", matchingUsers);
+		
+		SocialReplyVO socialReplyVO = new SocialReplyVO();
+		model.addAttribute("SocialReplyVO", socialReplyVO);
+
+		HttpSession newSession = req.getSession(true);
+
+		UserVO userVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
+		model.addAttribute("userVO", userVO);
+		
+//		測試資料印出用
+//		for (SocialPostVO socialPost : userVO.getSocialposts()) {
+//			if (socialPost.getSpstatus().equals(1)) {
+//				System.out.println("SocialPost Spid: " + socialPost.getSpid());
+//				System.out.println("SocialPost Title: " + socialPost.getSptitle());
+//				System.out.println("SocialPost Content: " + socialPost.getSpcontent());
+//
+//				for (SocialReplyVO socialReply : socialPost.getSocialReplys()) {
+//					System.out.println("123 SocialReply Content: " + socialReply.getSrContent());
+//				}
+//			}
+//		}
+
+		SocialPostVO socialPostVO = new SocialPostVO();
 		model.addAttribute("socialPostVO", socialPostVO);
-		 
+
+		List<UserVO> matchingUsers = (List<UserVO>) req.getSession().getAttribute("matchingUsers");
+	    model.addAttribute("matchingUsers", matchingUsers);
+		
+		
 		return "front-end/socialpost/student_socialpost";
 	}
 	
-	/*
-	 * This method will be called on addEmp.html form submission, handling POST request It also validates the user input
-	 */
+	@GetMapping("nav_student_socialpost")
+	public String nav_student_socialpost(HttpServletRequest req, ModelMap model) {
+		
+	
+		
+		
+		return "front-end/socialpost/student_socialpost";
+	}
+	
+	@PostMapping("search_social_member")
+	public String search_social_member(@RequestParam String searchValue, @RequestParam Integer uId, ModelMap model, HttpSession session) throws IOException  {
+		
+//		System.out.println(searchValue);
+		
+		List<UserVO> matchingUsers = userSvc.searchUsersByNickname(searchValue,uId);
+		System.out.println(matchingUsers);
+		
+		session.setAttribute("matchingUsers", matchingUsers);
+		
+		return "redirect:/socialpost/student_socialpost";
+	}
+
+	@GetMapping("nav_to_social_member/{uId}")
+	public String nav_to_social_member(@PathVariable String uId, ModelMap model ) {
+		
+		System.out.println("uId:"+uId);
+		
+		return "redirect:/socialpost/student_socialpost";
+	}
+	
+	
 	@PostMapping("insert")
-		public String insert(HttpServletRequest req, @Valid SocialPostVO socialPostVO,BindingResult result, ModelMap model,
-				@RequestParam("sppic") MultipartFile[] parts )throws IOException {
+	public String insert(HttpServletRequest req, @Valid SocialPostVO socialPostVO, BindingResult result, ModelMap model,
+			@RequestParam("sppic") MultipartFile[] parts) throws IOException {
 		HttpSession newSession = req.getSession(true);
 		UserVO userVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
 		socialPostVO.setUserVO(userVO);
 		socialPostVO.setSpstatus(1);
 		socialPostVO.setSptime(new Timestamp(System.currentTimeMillis()));
-		
-		
-			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
+
 		result = removeFieldError(socialPostVO, result, "sppic");
 
-		if (parts[0].isEmpty()) { // 使用者未選擇要上傳的圖片時
+		if (parts[0].isEmpty()) {
 			model.addAttribute("errorMessage", "員工照片: 請上傳照片");
 		} else {
 			for (MultipartFile multipartFile : parts) {
@@ -125,44 +170,37 @@ public class SocialPostController {
 			}
 		}
 
-			if (result.hasErrors() || parts[0].isEmpty()) {
-				return "front-end/socialpost/socialpost";
-			}
-			
-			/*************************** 2.開始新增資料 *****************************************/
-			socialPostSvc.addSocialPost(socialPostVO);
-			/*************************** 3.新增完成,準備轉交(Send the Success view) **************/
-			List<SocialPostVO> list = socialPostSvc.getAll();
-			model.addAttribute("socialPostListData", list);
-			model.addAttribute("success", "- (新增成功)");
-			
-			
-			return "redirect:/socialpost/student_socialpost";
+		if (result.hasErrors() || parts[0].isEmpty()) {
+			return "front-end/socialpost/socialpost";
 		}
-	
+
+		socialPostSvc.addSocialPost(socialPostVO);
+
+		List<SocialPostVO> list = socialPostSvc.getAll();
+		model.addAttribute("socialPostListData", list);
+		model.addAttribute("success", "- (新增成功)");
+
+		return "redirect:/socialpost/student_socialpost";
+	}
+
 	@PostMapping("getOne_For_Update")
 	public String getOne_For_Update(@RequestParam("spid") String spid, ModelMap model) {
-		
-		/*************************** 2.開始查詢資料 *****************************************/
-		SocialPostVO socialPostVO = socialPostSvc.getOneSocialPost(Integer.valueOf(spid));
-		
-		/*************************** 3.查詢完成,準備轉交(Send the Success view) **************/
-		model.addAttribute("socialPostVO", socialPostVO);
-		
-		return "front-end/socialpost/update_socialpost_input"; // 查詢完成後轉交update_emp_input.html
-	}
-	
 
-	
+		SocialPostVO socialPostVO = socialPostSvc.getOneSocialPost(Integer.valueOf(spid));
+
+		model.addAttribute("socialPostVO", socialPostVO);
+
+		return "front-end/socialpost/update_socialpost_input";
+	}
+
 	@PostMapping("update_social_post")
 	public String update_social_post(@Valid SocialPostVO socialPostVO, BindingResult result, ModelMap model,
 			@RequestParam("sppic") MultipartFile[] parts) throws IOException {
-		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
-		// 去除BindingResult中upFiles欄位的FieldError紀錄 --> 見第172行
+
 		result = removeFieldError(socialPostVO, result, "sppic");
 
-		if (parts[0].isEmpty()) { // 使用者未選擇要上傳的新圖片時
-			// EmpService empSvc = new EmpService();
+		if (parts[0].isEmpty()) {
+
 			byte[] sppic = socialPostSvc.getOneSocialPost(socialPostVO.getSpid()).getSppic();
 			socialPostVO.setSppic(sppic);
 		} else {
@@ -175,59 +213,43 @@ public class SocialPostController {
 			return "redirect:/socialpost/student_socialpost";
 		}
 		SocialPostVO getSocialPostVO = socialPostSvc.getOneSocialPost(socialPostVO.getSpid());
-		
+
 		socialPostVO.setUserVO(getSocialPostVO.getUserVO());
 		socialPostVO.setSptime(getSocialPostVO.getSptime());
 		socialPostVO.setSpstatus(getSocialPostVO.getSpstatus());
-		
-		/*************************** 2.開始修改資料 *****************************************/
-//		System.out.println(socialPostVO.toString());
+
 		socialPostSvc.updateSocialPost(socialPostVO);
-		
-		/*************************** 3.修改完成,準備轉交(Send the Success view) **************/
+
 		model.addAttribute("success", "- (修改成功)");
 		socialPostVO = socialPostSvc.getOneSocialPost(Integer.valueOf(socialPostVO.getSpid()));
 		model.addAttribute("socialPostVO", socialPostVO);
-		
-		
 
 		return "redirect:/socialpost/student_socialpost";
 	}
-	
+
 	@PostMapping("update_for_delete")
 	public String update_for_delete(@Valid SocialPostVO socialPostVO, BindingResult result, ModelMap model,
-			@RequestParam Integer spStatus,@RequestParam Integer spid) throws IOException {
-//		System.out.println("update_for_delete");
-//		System.out.println("socialPostVO:"+socialPostVO);
-//		System.out.println("spid:"+spid);
-		
-		
-//		System.out.println(socialPostSvc.getOneSocialPost(spid));
+			@RequestParam Integer spStatus, @RequestParam Integer spid) throws IOException {
+
 		socialPostVO = socialPostSvc.getOneSocialPost(spid);
 		socialPostVO.setSpstatus(spStatus);
-		System.out.println("socialPostVO:"+socialPostVO);
-		
-		/*************************** 2.開始修改資料 *****************************************/
 		socialPostSvc.updateSocialPost(socialPostVO);
-		
-		/*************************** 3.修改完成,準備轉交(Send the Success view) **************/
+
 		model.addAttribute("success", "- (修改成功)");
 		socialPostVO = socialPostSvc.getOneSocialPost(Integer.valueOf(socialPostVO.getSpid()));
 		model.addAttribute("socialPostVO", socialPostVO);
-		
-		
+
 		return "redirect:/socialpost/student_socialpost";
 	}
-	
+
 	@PostMapping("update")
 	public String update(@Valid SocialPostVO socialPostVO, BindingResult result, ModelMap model,
 			@RequestParam("sppic") MultipartFile[] parts) throws IOException {
-		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
-		// 去除BindingResult中upFiles欄位的FieldError紀錄 --> 見第172行
+
 		result = removeFieldError(socialPostVO, result, "sppic");
 
-		if (parts[0].isEmpty()) { // 使用者未選擇要上傳的新圖片時
-			// EmpService empSvc = new EmpService();
+		if (parts[0].isEmpty()) {
+
 			byte[] sppic = socialPostSvc.getOneSocialPost(socialPostVO.getSpid()).getSppic();
 			socialPostVO.setSppic(sppic);
 		} else {
@@ -239,59 +261,51 @@ public class SocialPostController {
 		if (result.hasErrors()) {
 			return "front-end/socialpost/update_socialpost_input";
 		}
-		/*************************** 2.開始修改資料 *****************************************/
+
 		socialPostSvc.updateSocialPost(socialPostVO);
-		
-		/*************************** 3.修改完成,準備轉交(Send the Success view) **************/
+
 		model.addAttribute("success", "- (修改成功)");
 		socialPostVO = socialPostSvc.getOneSocialPost(Integer.valueOf(socialPostVO.getSpid()));
 		model.addAttribute("socialPostVO", socialPostVO);
 
 		return "front-end/socialpost/list_one_socialpost";
 	}
-	
+
 	@PostMapping("delete")
 	public String delete(@RequestParam("spid") String spid, ModelMap model) {
-		
-		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
-		
-		/*************************** 2.開始刪除資料 *****************************************/
+
 		socialPostSvc.deleteSocialPost(Integer.valueOf(spid));
-		/*************************** 3.刪除完成,準備轉交(Send the Success view) **************/
+
 		List<SocialPostVO> list = socialPostSvc.getAll();
 		model.addAttribute("socialpostListData", list);
 		model.addAttribute("success", "- (刪除成功)");
-		
+
 		return "front-end/socialpost/listAllEmp";
-		
+
 	}
-	
+
 	@ModelAttribute("socialPostListData")
 	protected List<SocialPostVO> referenceListData() {
 		List<SocialPostVO> list = socialPostSvc.getAll();
 		return list;
 	}
-	
-	
+
 	public BindingResult removeFieldError(SocialPostVO socialPostVO, BindingResult result, String removedFieldname) {
 		List<FieldError> errorsListToKeep = result.getFieldErrors().stream()
-				.filter(fieldname -> !fieldname.getField().equals(removedFieldname))
-				.collect(Collectors.toList());
+				.filter(fieldname -> !fieldname.getField().equals(removedFieldname)).collect(Collectors.toList());
 		result = new BeanPropertyBindingResult(socialPostVO, "socialPostVO");
 		for (FieldError fieldError : errorsListToKeep) {
 			result.addError(fieldError);
 		}
 		return result;
 	}
-	
-	
 
-@ModelAttribute("userListData")
-protected List<UserVO> userReferenceListData() {
-	// DeptService deptSvc = new DeptService();
-	List<UserVO> list = userSvc.getAll();
+	@ModelAttribute("userListData")
+	protected List<UserVO> userReferenceListData() {
 
-	return list;
-}
-	
+		List<UserVO> list = userSvc.getAll();
+
+		return list;
+	}
+
 }

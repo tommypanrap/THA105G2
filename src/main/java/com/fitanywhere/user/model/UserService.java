@@ -390,5 +390,13 @@ public class UserService {
 	public String getSavedPasswordInMySQL(Integer uId) {
 		return userJpaRepository.findOnlyPasswordByuId(uId);
 	}
+	
+// =============================================
+// Tommy 新增 為了搜尋比對
+	public List<UserVO> searchUsersByNickname(String searchValue, Integer uId) {
+
+        return userJpaRepository.findByuNicknameNoMyself(searchValue,uId);
+    }
+
 
 }

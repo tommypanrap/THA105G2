@@ -1,5 +1,7 @@
 package com.fitanywhere.user.model;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -89,5 +91,10 @@ public interface UserJpaRepository extends JpaRepository<UserVO, Integer> {
 	// andy 單取出user的大頭照
 	@Query("SELECT u.uHeadshot FROM UserVO u WHERE u.uId = :uId")
 	byte[] getUserHeadshotByUserId(Integer uId);
+	
+// =========================
+	// Tommy 比對 nickname 取出包含搜尋字串的 UserVO 不包含自己
+	@Query("FROM UserVO u WHERE u.uNickname LIKE %:searchValue% AND u.uId != :uId " )
+	List<UserVO> findByuNicknameNoMyself(@Param("searchValue") String searchValue,@Param("uId") Integer uId);
 
 }

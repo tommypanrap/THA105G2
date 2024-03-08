@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:insert="~{/back-end/backend_included_head}"></head>
+<body>
+    <!-- header -->
+    <div class="header_wrapper">
+        <header>
+            <p class="f-b-title">FitAnyWhere後台管理系統</p>
+            <div class="manager">
+                <img src="./images/member.png" alt="">
+                <p>最高管理員</p>
+            </div>
+        </header>
+    </div>
+
+    <div class="wrapper">
+         <div th:replace="~{/back-end/backend_included_sidebar}"></div>
+
+        <!-- 內容 -->
+        <div class="content">
+            <h1>課程訂單管理</h1>
+
+            <div class="input-wrapper">
+                <div class="magnifier-container mr-input">
+                    <input type="text" placeholder="訂單號碼搜尋" class="input-2">
+                    <img th:src="@{/images/magnifier.png}" alt="" class="magnifier">
+                </div>
+
+                <div class="magnifier-container mr-input">
+                    <input type="text" placeholder="搜尋購買人" class="input-2">
+                    <img src="images/magnifier.png" alt="" class="magnifier">
+                </div>
+
+                <select name="" id="" class="mr-input">
+                    <option value="" style="display:none">訂單狀態</option>
+                    <option value="">訂單完成</option>
+                    <option value="">訂單不成立</option>
+                    <option value="" >訂單待付款</option>
+                </select>
+
+                <select name="" id="">
+                    <option value="" style="display:none">訂單金額</option>
+                    <option value="">金額由大至小</option>
+                    <option value="">金額由小至大</option>
+                </select>
+            </div>
+            <ul class="row rhead">
+                <li>課程訂單號碼</li>
+                <li>購買人</li>
+                <li>交易狀態</li>
+                <li>訂單總金額</li>
+                <li>查看</li>
+            </ul>
+
+            <ul class="row">
+                <li>100001</li>
+                <li>大吳</li>
+                <li>訂單完成</li>
+                <li>1200</li>
+                <li class="content-expand"><img src="images/eye2.png" alt=""></li>
+            </ul>
+            <div class="check-content order-detail hidden">
+                <ul class="order-rhead">
+                    <li class="col-15">課程名稱</li>
+                    <li class="col-15">金額</li>
+                    <li class="col-15">贈送狀態</li>
+                    <li class="col-30">贈送備註</li>
+                </ul>
+
+                <ul>
+                    <li class="col-15">30天健身健身</li>
+                    <li class="col-15">600</li>
+                    <li class="col-15">自己使用</li>
+                    <li class="col-30"></li>
+                </ul>
+
+                <ul>
+                    <li class="col-15">15天健身</li>
+                    <li class="col-15">600</li>
+                    <li class="col-15">贈送給小吳</li>
+                    <li class="col-30">小吳，去健身一下，練一練去電學生</li>
+                </ul>
+            </div>
+           
+            <ul class="row">
+                <li>100001</li>
+                <li>大吳</li>
+                <li>訂單完成</li>
+                <li>1200</li>
+                <li class="content-expand"><img src="images/eye2.png" alt=""></li>
+            </ul>
+            <div class="check-content order-detail hidden">
+                <ul class="order-rhead">
+                    <li class="col-15">課程名稱</li>
+                    <li class="col-15">金額</li>
+                    <li class="col-15">贈送狀態</li>
+                    <li class="col-30">贈送備註</li>
+                </ul>
+
+                <ul>
+                    <li class="col-15">30天健身健身</li>
+                    <li class="col-15">600</li>
+                    <li class="col-15">自己使用</li>
+                    <li class="col-30"></li>
+                </ul>
+
+                <ul>
+                    <li class="col-15">15天健身</li>
+                    <li class="col-15">600</li>
+                    <li class="col-15">贈送給小吳</li>
+                    <li class="col-30">小吳，去健身一下，練一練去電學生</li>
+                </ul>
+            </div>
+
+            <ul class="row">
+                <li>100001</li>
+                <li>大吳</li>
+                <li>訂單完成</li>
+                <li>1200</li>
+                <li class="content-expand"><img src="images/eye2.png" alt=""></li>
+            </ul>
+            <div class="check-content order-detail hidden">
+                <ul class="order-rhead">
+                    <li class="col-15">課程名稱</li>
+                    <li class="col-15">金額</li>
+                    <li class="col-15">贈送狀態</li>
+                    <li class="col-30">贈送備註</li>
+                </ul>
+
+                <ul>
+                    <li class="col-15">30天健身健身</li>
+                    <li class="col-15">600</li>
+                    <li class="col-15">自己使用</li>
+                    <li class="col-30"></li>
+                </ul>
+
+                <ul>
+                    <li class="col-15">15天健身</li>
+                    <li class="col-15">600</li>
+                    <li class="col-15">贈送給小吳</li>
+                    <li class="col-30">小吳，去健身一下，練一練去電學生</li>
+                </ul>
+            </div>
+            
+        </div>
+    </div>
+
+
+    <div class="footer_wrapper">
+        <footer>
+            <p class="f-b-title">FitAnyWhere Backstage</p>
+        </footer>
+    </div>
+
+    <script>
+    var expandButtons = document.querySelectorAll('.content-expand');
+    var contentSections = document.querySelectorAll('.check-content');
+
+
+    expandButtons.forEach(function (button, index) {
+        button.addEventListener('click', function () {
+
+            if(contentSections[index].classList.contains('hidden')){
+                
+                contentSections.forEach(function (content) {
+                 content.classList.add('hidden');
+                });
+            
+                contentSections[index].classList.remove('hidden');
+            }else{
+                contentSections[index].classList.add('hidden');
+            }
+
+            
+        });
+    });
+    </script>
+
+</body>
+</html>

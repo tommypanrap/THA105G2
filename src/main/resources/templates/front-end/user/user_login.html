@@ -1075,7 +1075,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="rbt-lost-password text-end">
-                                        <a class="rbt-btn-link" href="#">忘記密碼?</a>
+                                        <a class="rbt-btn-link" th:href="@{/user/user_forget_password/}">忘記密碼?</a>
                                     </div>
                                 </div>
                             </div>
@@ -1091,7 +1091,7 @@
                             </div>
                         </form>
                         <div class="margin"><span class="margin-right-10px">還沒有建立新帳號?</span><a
-                            th:href="@{/user/user_login/}">註冊</a> </div>
+                            th:href="@{/user/user_register/}">註冊</a> </div>
                     </div>
                 </div>
 
@@ -1262,8 +1262,8 @@
                 .then(response => response.text())
                 .then(result => {
                     if (result === '0') {
-                        alert('登入成功');
-                        // 之後再修改為跳轉 window.location.href = "";
+                        // alert('登入成功');
+                        window.location.href = "/"; // 登入成功後跳轉到指定的頁面
                     } else if (result === '1') {
                         alert('密碼錯誤，請重新輸入密碼！');
                         document.querySelector('input[name="u_password"]').value = ''; // 清空密碼欄位

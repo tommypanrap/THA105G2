@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:insert="~{/back-end/backend_included_head}"></head>
+<body>
+    <!-- header -->
+    <div class="header_wrapper">
+        <header>
+            <p class="f-b-title">FitAnyWhere後台管理系統</p>
+            <div class="manager">
+                <img src="./images/member.png" alt="">
+                <p>最高管理員</p>
+            </div>
+        </header>
+    </div>
+
+    <!-- 下面一層容器 -->
+    <div class="wrapper">
+        <!-- sidebar -->
+        <div th:replace="~{/back-end/backend_included_sidebar}"></div>
+
+        <!-- 內容 -->
+        <div class="content">
+            <h1>收件匣</h1>
+
+            <ul class="row rhead">
+                <li>寄信人</li>
+                <li>內容</li>
+                <li>時間</li>
+                <li>狀態</li>
+                <li></li>
+            </ul>
+
+            <ul class="row">
+                <li>abcdef</li>
+                <li>驗證信都收不到</li>
+                <li>2024.1.1</li>
+                <li>已回覆</li>
+                <li class="content-expand">查看</li>
+            </ul>
+            <div class="check-content hidden">
+                <div class="check-content-title">
+                    <div class="send-from"><p>寄信人</p><p>abcdef</p></div>
+                    <div class="send-time"><p>時間</p><p>2024.1.1</p></div>
+                    <div class="reply-state"><p>狀態</p><p>已回覆</p></div>
+                </div>
+                <div class="check-content-content">
+                    <div class="send-content">
+                        <p class="send-content-title">內容</p>
+                        <p>驗證信都收不到驗證信都收不到驗證信都收不到驗證信都收不到驗證信都收不到驗證信都收不到</p>
+                    </div>
+                    <div class="reply-content">
+                        <p>回覆檢舉</p>
+                        <textarea name="" id="" cols="30" rows="10"></textarea>
+                        <div class="button-container">
+                            <button>確認送出</button>
+                            <button>取消</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ul class="row">
+                <li>abcdef</li>
+                <li>驗證信都收不到</li>
+                <li>2024.1.1</li>
+                <li>已回覆</li>
+                <li class="content-expand">查看</li>
+            </ul>
+            <div class="check-content hidden">
+                <div class="check-content-title">
+                    <div class="send-from"><p>寄信人</p><p>abcdef</p></div>
+                    <div class="send-time"><p>時間</p><p>2024.1.1</p></div>
+                    <div class="reply-state"><p>狀態</p><p>已回覆</p></div>
+                </div>
+                <div class="check-content-content">
+                    <div class="send-content">
+                        <p class="send-content-title">內容</p>
+                        <p>驗證信都收不到驗證信都收不到驗證信都收不到驗證信都收不到驗證信都收不到驗證信都收不到</p>
+                    </div>
+                    <div class="reply-content">
+                        <p>回覆檢舉</p>
+                        <textarea name="" id="" cols="30" rows="10"></textarea>
+                        <div class="button-container">
+                            <button>確認送出</button>
+                            <button>取消</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ul class="row">
+                <li>abcdef</li>
+                <li>驗證信都收不到</li>
+                <li>2024.1.1</li>
+                <li>已回覆</li>
+                <li class="content-expand">查看</li>
+            </ul>
+            <div class="check-content hidden">
+                <div class="check-content-title">
+                    <div class="send-from"><p>寄信人</p><p>abcdef</p></div>
+                    <div class="send-time"><p>時間</p><p>2024.1.1</p></div>
+                    <div class="reply-state"><p>狀態</p><p>已回覆</p></div>
+                </div>
+                <div class="check-content-content">
+                    <div class="send-content">
+                        <p class="send-content-title">內容</p>
+                        <p>驗證信都收不到驗證信都收不到驗證信都收不到驗證信都收不到驗證信都收不到驗證信都收不到</p>
+                    </div>
+                    <div class="reply-content">
+                        <p>回覆檢舉</p>
+                        <textarea name="" id="" cols="30" rows="10"></textarea>
+                        <div class="button-container">
+                            <button>確認送出</button>
+                            <button>取消</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+
+    <div class="footer_wrapper">
+        <footer>
+            <p class="f-b-title">FitAnyWhere Backstage</p>
+        </footer>
+    </div>
+
+    <script>
+    var expandButtons = document.querySelectorAll('.content-expand');
+    var contentSections = document.querySelectorAll('.check-content');
+
+
+    expandButtons.forEach(function (button, index) {
+        button.addEventListener('click', function () {
+
+            if(contentSections[index].classList.contains('hidden')){
+                
+                contentSections.forEach(function (content) {
+                 content.classList.add('hidden');
+                });
+            
+                contentSections[index].classList.remove('hidden');
+            }else{
+                contentSections[index].classList.add('hidden');
+            }
+
+            
+        });
+    });
+    </script>
+
+</body>
+</html>

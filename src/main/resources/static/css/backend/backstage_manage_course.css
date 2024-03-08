@@ -1,0 +1,26 @@
+th, td{
+    padding: 0 18px;
+}
+
+th:first-child{
+    min-width: 65px;
+}
+
+td:first-child{
+    text-align: center;
+}
+
+th:nth-child(2), td:nth-child(2){
+    min-width: 65px;
+    text-align: center;
+}
+
+th:nth-child(4), td:nth-child(4){
+    min-width: 65px;
+    text-align: center;
+}
+
+th:nth-child(5), td:nth-child(5){
+    min-width: 65px;
+    text-align: center;
+}

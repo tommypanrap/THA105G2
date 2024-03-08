@@ -90,11 +90,9 @@ public class SocialPostController {
 	@GetMapping("student_socialpost")
 	public String getUserInfo(HttpServletRequest req, ModelMap model) {
 		HttpSession newSession = req.getSession(true);
-		System.out.println("印出session"+newSession);
+		
 	    UserVO userVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
 	    model.addAttribute("userVO", userVO);
-	    
-	    System.out.println("心情"+userVO.getMoodVO());
 	    
 	    SocialPostVO socialPostVO = new SocialPostVO();
 		model.addAttribute("socialPostVO", socialPostVO);
@@ -111,7 +109,7 @@ public class SocialPostController {
 		HttpSession newSession = req.getSession(true);
 		UserVO userVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
 		socialPostVO.setUserVO(userVO);
-		
+		socialPostVO.setSpstatus(1);
 		socialPostVO.setSptime(new Timestamp(System.currentTimeMillis()));
 		
 		
@@ -154,6 +152,7 @@ public class SocialPostController {
 		return "front-end/socialpost/update_socialpost_input"; // 查詢完成後轉交update_emp_input.html
 	}
 	
+
 	
 	@PostMapping("update_social_post")
 	public String update_social_post(@Valid SocialPostVO socialPostVO, BindingResult result, ModelMap model,
@@ -182,14 +181,41 @@ public class SocialPostController {
 		socialPostVO.setSpstatus(getSocialPostVO.getSpstatus());
 		
 		/*************************** 2.開始修改資料 *****************************************/
-		System.out.println(socialPostVO.toString());
+//		System.out.println(socialPostVO.toString());
 		socialPostSvc.updateSocialPost(socialPostVO);
 		
 		/*************************** 3.修改完成,準備轉交(Send the Success view) **************/
 		model.addAttribute("success", "- (修改成功)");
 		socialPostVO = socialPostSvc.getOneSocialPost(Integer.valueOf(socialPostVO.getSpid()));
 		model.addAttribute("socialPostVO", socialPostVO);
+		
+		
 
+		return "redirect:/socialpost/student_socialpost";
+	}
+	
+	@PostMapping("update_for_delete")
+	public String update_for_delete(@Valid SocialPostVO socialPostVO, BindingResult result, ModelMap model,
+			@RequestParam Integer spStatus,@RequestParam Integer spid) throws IOException {
+//		System.out.println("update_for_delete");
+//		System.out.println("socialPostVO:"+socialPostVO);
+//		System.out.println("spid:"+spid);
+		
+		
+//		System.out.println(socialPostSvc.getOneSocialPost(spid));
+		socialPostVO = socialPostSvc.getOneSocialPost(spid);
+		socialPostVO.setSpstatus(spStatus);
+		System.out.println("socialPostVO:"+socialPostVO);
+		
+		/*************************** 2.開始修改資料 *****************************************/
+		socialPostSvc.updateSocialPost(socialPostVO);
+		
+		/*************************** 3.修改完成,準備轉交(Send the Success view) **************/
+		model.addAttribute("success", "- (修改成功)");
+		socialPostVO = socialPostSvc.getOneSocialPost(Integer.valueOf(socialPostVO.getSpid()));
+		model.addAttribute("socialPostVO", socialPostVO);
+		
+		
 		return "redirect:/socialpost/student_socialpost";
 	}
 	

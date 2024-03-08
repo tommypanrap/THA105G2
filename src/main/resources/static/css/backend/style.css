@@ -1,0 +1,232 @@
+/* 把預設的樣式取消 */
+@import url('/css/reset.css');
+
+/* style.css -> 共用的css */
+
+
+
+body{
+    width: 100%;
+    font-size: 16px;
+    /* 先試試看能不能把整個body裡的字都先預設16 */
+}
+
+
+/* header */
+.header_wrapper{
+    background-color: #000000;
+    width: 100%;
+    position: fixed;
+    z-index: 3;
+}
+header{
+    height: 80px;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: center;
+}
+
+header p{
+    line-height: 50px;
+}
+
+.f-b-title{
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header img{
+    max-height: 100%;
+}
+
+.manager{
+    display: flex;
+    align-items: center;
+    height: 60px;
+}
+
+.manager img{
+    max-height: 100%;
+}
+
+.manager p{
+    margin-left: 20px;
+}
+
+
+/* 第一層容器 */
+.wrapper{
+    /* 裡面的字都黑色 */
+    color:black;
+    display: flex;
+    padding-top: 80px;
+}
+
+.wrapper a{
+    /* wrapper裡面a連結的字都黑色 */
+    color:black;
+}
+
+/* footer */
+.footer_wrapper{
+    width: 100%;
+    font-size: 20px;
+    height: 50px;
+    color:#fff;
+}
+footer{
+    text-align: center;
+    background-color: #000000;
+}
+footer p{
+    padding-top: 15px;
+    padding-bottom: 30px;
+    box-sizing: border-box;
+}
+
+
+/* 側邊欄 */
+.side-bar{
+    position: relative;
+    z-index: 2;
+    background-color: #efefef;
+    width: calc(100% - 1100px);
+    height: auto;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding-top: 46px;
+    box-shadow: 5px 0px 16px 3px rgba(58, 58, 58, .2 );
+    background: linear-gradient(270deg, #b966e7 0%, #2f57ef 100%);
+}
+
+.side-bar::after{
+    background: linear-gradient(white 0%, rgba(255, 255, 255, 0.1) 100%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    content: "";
+    z-index: -1;
+}
+
+.side-bar ul{
+    width: 100%;
+}
+
+.side-bar ul>li{
+    margin-top: 30px;
+}
+
+.side-bar ul>li>a{
+    padding: 10px 0;
+}
+
+.side-bar ul>li>ol{
+    padding: 10px 0;
+}
+
+.side-bar ul>li>ol>li:first-child{
+    padding-bottom: 10px;
+}
+
+.side-bar ul li a{
+    box-sizing: border-box;
+}
+
+.side-bar ul>li>a{
+    border-bottom: 1px solid rgb(196, 196, 196);
+    font-size: 24px;
+    font-weight: 700;
+    display: block;
+    width: 100%;
+}
+
+.side-bar a{
+    text-decoration: none;
+}
+
+
+/* content 內容*/
+.content{
+    padding-top: 85px;
+    min-width: 1170px;
+}
+
+h1{
+    margin-left: 97px;
+}
+
+.content-row{
+    margin-left: 97px; 
+    padding: 22px 0;   
+}
+
+input.search{
+    height: 40px;
+    font-size: 18px;
+    padding-left: 20px;
+    border-radius: 5px;
+    width: 594px;   
+}
+
+button{
+    width: 85px;
+    height: 40px;
+    background-color: transparent;
+    border-radius: 20px;
+    font-size: 16px;
+}
+
+select.filter-state{
+    width: 150px;
+    height: 40px;
+    border-radius: 20px;
+    font-size: 18px;
+}
+
+
+/* table */
+table{
+    font-size: 16px;
+    margin-left: 30px;
+    margin-right: 7%;
+    margin-bottom:50px;
+}
+
+th{
+    background-color: #14297e;
+    color:#fff;
+    text-align: center;
+}
+tr{
+    padding: 15px 0 ;
+    height:80px;   
+}
+th, td{
+    padding: 0 25px;
+}
+
+tr:nth-child(2n+2){
+    background-color: #e4e8f8;
+}
+
+tr:nth-child(2n+3){
+    background-color: #f5f6fd;
+}
+
+
+@media only screen and (max-width: 1450px) {
+    .side-bar{
+        min-width: 259px;
+    }
+}
+
+
+
+

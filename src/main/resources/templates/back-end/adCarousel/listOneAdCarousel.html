@@ -1,0 +1,49 @@
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>廣告輪播資料 - listOneAdCarousel.html</title>
+
+<head th:insert="~{/back-end/adCarousel/included-fragment}"></head>
+<style type="text/css">
+	
+    span {
+		display: inline-block;
+		width: 150px;
+		text-align: left;
+		font-weight: bold;
+	}
+</style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
+		 <div align="center"> <h2>廣告輪播資料 - listOneAdCarousel.html</h2>
+		 <h3><a class="navbar-brand" th:href="@{/adCarousel/select_page}"><img th:src="@{/images/back1.gif}">回查詢頁<label th:text="${success}"></label></a></h3></div>
+</nav>
+
+	<div align="center" th:fragment="listOneAdCarousel-div"> <!-- 此div被select_page.html第128行insert用 -->
+		<h3><span>查詢結果 :</span></h3>
+		<span>廣告輪播ID:</span><span th:text="${adcarVO.adcId}"></span><br/>
+		<span>廣告方案類別:</span><span th:text="${adcarVO.adVO.adType}"></span><br/>
+		<span>廣告起始日:</span><span th:text="${adcarVO.adcStartDate}"></span><br/>
+		<span>廣告結束日:</span><span th:text="${adcarVO.adcEndDate}"></span><br/>
+		<span>廣告總價:</span><span th:text="${adcarVO.adcTotalPrice}"></span><br/>
+		<span>廣告交易狀態:</span><span th:text="${adcarVO.adcStatus}"></span><br/>
+		<span>照片:</span><img th:src="@{/adCarousel/DBGifReader} + '?adcId=' + ${adcarVO.adcId}" width="100px">><br/>
+		<span>交易完成時間:</span><span th:text="${adcarVO.adcOrderEnddate}"></span><br/>
+	</div>
+
+
+</body>
+</html>

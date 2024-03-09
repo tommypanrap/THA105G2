@@ -21,6 +21,7 @@ public class UserlistRestController {
 	@Autowired
 	private UserService userService;
 
+	// 有空再把數據處理封裝到Service
 	@PostMapping("/manual_change_uStatus")
 	public ResponseEntity<?> manualChangeUserStatus(@RequestBody Map<String, String> requestBody) {
 		
@@ -29,7 +30,7 @@ public class UserlistRestController {
 		Integer uId = null;
 		Integer selectedValue = null;
 		Integer newStatus = null;
-
+		
 		try {
 			uId = Integer.parseInt(stringId);
 			selectedValue = Integer.parseInt(stringValue);

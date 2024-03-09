@@ -298,6 +298,19 @@ public class UserService {
 			// 更新失敗
 		}
 	}
+	
+	// 負責接收uId和uStatus更新User表格並返回Boolean
+	@Transactional
+	public boolean updateUserStatus(Integer uId, Integer uStatus) {
+		try {
+			userJpaRepository.updateStatusById(uId, uStatus);
+			return true;
+			// 更新成功
+		} catch (Exception e) {
+			return false;
+			// 更新失敗
+		}
+	}
 
 	// 負責接收uId和照片封裝DTO寫入DB並返回Boolean
 	@Transactional

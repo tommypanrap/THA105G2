@@ -109,6 +109,12 @@ public interface UserJpaRepository extends JpaRepository<UserVO, Integer> {
 	@Query("UPDATE UserVO u SET u.moodVO.id = :moodId WHERE u.uId = :uId")
 	int updateMoodById(Integer uId, Integer moodId);
 
+	// 依據uId更新uStatus
+	@Transactional
+	@Modifying
+	@Query("UPDATE UserVO u SET u.uStatus = :uStatus WHERE u.uId = :uId")
+	int updateStatusById(Integer uId, Integer uStatus);
+
 // =========================
 	// andy 單取出user的大頭照
 	@Query("SELECT u.uHeadshot FROM UserVO u WHERE u.uId = :uId")

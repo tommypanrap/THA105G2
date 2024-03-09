@@ -145,9 +145,9 @@
 
 
 									<input type="text" placeholder="在想甚麼呢?"
-										class="member-post-input">
+										class="member-post-input" th:if="${#strings.isEmpty(navUId)}">
 
-									<p class="add-post">新增貼文</p>
+									<p class="add-post" th:if="${#strings.isEmpty(navUId)}">新增貼文</p>
 
 
 
@@ -205,6 +205,7 @@
 								</div>
 							</div>
 							<span th:if="${navUId != null}" th:text="${navUId}" class="navUId">aaa</span>
+							<span th:if="${#strings.isEmpty(navUId)}" >測試字 - 新增貼文</span>
 							<div th:each="socialPost : ${userShowPostVO.socialposts}"
 								th:if="${socialPost.spstatus == 1}">
 								<div class="article-post">

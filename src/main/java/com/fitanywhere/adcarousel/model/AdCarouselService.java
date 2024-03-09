@@ -1,4 +1,4 @@
-package com.fitanywhere.adCarousel.model;
+package com.fitanywhere.adcarousel.model;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class AdCarouselService {
 
 	@Autowired
-	adCarouselRepository repository;
+	AdCarouselRepository repository;
 
 	public void addAdCarousel(AdCarouselVO adCarouselVO) {
 		repository.save(adCarouselVO);

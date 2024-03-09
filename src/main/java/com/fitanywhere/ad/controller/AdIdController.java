@@ -30,7 +30,7 @@ import com.fitanywhere.ad.model.AdVO;
 @Controller
 @Validated
 @RequestMapping("/ad")
-public class adIdController {
+public class AdIdController {
 	
 	@Autowired
 	AdService adSvc;

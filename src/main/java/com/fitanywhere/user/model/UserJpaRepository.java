@@ -7,6 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.fitanywhere.userlist.model.UserlistAllDataDTO;
+
 import org.springframework.data.jpa.repository.Modifying;
 
 //處理登入時依據會員信箱查詢所需資料
@@ -48,6 +51,10 @@ public interface UserJpaRepository extends JpaRepository<UserVO, Integer> {
 	@Query("SELECT new com.fitanywhere.user.model.UserReadDataDTO(" + "u.uId, u.uNickname, u.uName, u.uMail, u.uPhone, "
 			+ "u.uGender, u.uBirth, u.uStatus, u.uRegisterdate) " + "FROM UserVO u WHERE u.uId = :uId")
 	UserReadDataDTO findUserDataDTOById(Integer uId);
+	
+	 // 使用JPQL查詢，排除uHeadshot，並將結果映射到UserlistAllDataDTO
+    @Query("SELECT new com.fitanywhere.userlist.model.UserlistAllDataDTO(u.uId, u.uNickname, u.uMail, u.uStatus, 0) FROM UserVO u")
+    List<UserlistAllDataDTO> findAllUsersWithoutHeadshot();
 
 // =========================
 // 精準讀取某特定欄位	

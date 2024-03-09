@@ -102,9 +102,9 @@ public class AdminRestController {
 			// 成功登入
 			return ResponseEntity.ok().build();
 		case 1:
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); // 401 登入資料錯誤
 		case 2:
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); //500 內部處理錯誤
 		default:
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}

@@ -41,92 +41,33 @@
                     <th>編號</th>
                     <th>暱稱</th>
                     <th>電子信箱</th>
-                    <th>教練狀態</th>
-                    <th>備註</th>
+                    <th>教練狀態</th>                    
                     <th>會員狀態</th>
                     <th></th>
+                    <th>備註</th>
                 </tr>
-                <tr>
-                    <td>00001</td>
-                    <td>Mok</td>
-                    <td>fitanywhere@gmail.com</td>
-                    <td>開通</td>
-                    <td></td>
-                    <td>啟用中</td>
-                    <td><button>修改</button></td>
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.uId}">00001</td>
+                    <td th:text="${user.uNickname}">Mok</td>
+                    <td th:text="${user.uMail}">fitanywhere@gmail.com</td>
+                    <td th:text="${user.cId == 0 ? '普通會員' : '教練'}">身份</td>
+                    <td th:text="${user.uStatus}">啟用中</td>
+                    <td>
+                        <!-- 將修改按鈕替換成下拉選單 -->
+                        <select>
+                            <option value="0">修改</option>
+                            <option value="1">啟用</option>
+                            <option value="2">註銷</option>
+                        </select>
+                    </td>
+                    <td th:switch="${user.uStatus}">
+                        <span th:case="0">標準會員</span>
+                        <span th:case="1">部分停權</span>
+                        <span th:case="2">已自行註銷</span>
+                        <span th:case="3">已站方人工註銷</span>
+                    </td>
                 </tr>
-                <tr>
-                    <td>00002</td>
-                    <td>Mac同學</td>
-                    <td>fitanywhere@gmail.com</td>
-                    <td>開通</td>
-                    <td>此用戶經檢舉後已遭停權</td>
-                    <td>已停權</td>
-                    <td><button>修改</button></td>
-                </tr>
-                <tr>
-                    <td>00003</td>
-                    <td>Eugen</td>
-                    <td>fitanywhere@gmail.com</td>
-                    <td>開通</td>
-                    <td></td>
-                    <td>啟用中</td>
-                    <td><button>修改</button></td>
-                </tr>
-                <tr>
-                    <td>00004</td>
-                    <td>YOYOYO</td>
-                    <td>fitanywhere@gmail.com</td>
-                    <td>開通</td>
-                    <td>此用戶已刪除帳號</td>
-                    <td>已停權</td>
-                    <td><button>修改</button></td>
-                </tr>
-                <tr>
-                    <td>00005</td>
-                    <td>Joy</td>
-                    <td>fitanywhere@gmail.com</td>
-                    <td>開通</td>
-                    <td></td>
-                    <td>啟用中</td>
-                    <td><button>修改</button></td>
-                </tr>
-                <tr>
-                    <td>00006</td>
-                    <td>小新</td>
-                    <td>fitanywhere@gmail.com</td>
-                    <td>開通</td>
-                    <td></td>
-                    <td>啟用中</td>
-                    <td><button>修改</button></td>
-                </tr>
-                <tr>
-                    <td>00007</td>
-                    <td>振宇</td>
-                    <td>fitanywhere@gmail.com</td>
-                    <td>開通</td>
-                    <td></td>
-                    <td>啟用中</td>
-                    <td><button>修改</button></td>
-                </tr>
-                <tr>
-                    <td>00008</td>
-                    <td>Eugen</td>
-                    <td>fitanywhere@gmail.com</td>
-                    <td>開通</td>
-                    <td></td>
-                    <td>啟用中</td>
-                    <td><button>修改</button></td>
-                </tr>
-                <tr>
-                    <td>00009</td>
-                    <td>Tommy</td>
-                    <td>fitanywhere@gmail.com</td>
-                    <td>開通</td>
-                    <td></td>
-                    <td>啟用中</td>
-                    <td><button>修改</button></td>
-                </tr>
+                
             </table>
         </div>
     </div>

@@ -1,44 +1,32 @@
 package com.fitanywhere.user.controller;
 
-import java.awt.PageAttributes.MediaType;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Map;
-import java.util.Enumeration;
 
-import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
-import com.fitanywhere.service.PasswordEncryptionService;
+import com.fitanywhere.coach.model.CoachService;
 import com.fitanywhere.user.model.UserHeadshotOnlyDTO;
 import com.fitanywhere.user.model.UserReadDataDTO;
 import com.fitanywhere.user.model.UserRegisterDataDTO;
 import com.fitanywhere.user.model.UserService;
-import com.fitanywhere.user.model.UserVO;
 import com.fitanywhere.user.model.UserWriteDataDTO;
 
 @RestController
@@ -48,6 +36,9 @@ public class UserRestController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private CoachService coachService;
 
 // ===================================================================
 	// 註冊-檢查信箱是否重複註冊
@@ -222,7 +213,7 @@ public class UserRestController {
 		String uMail = requestBody.get("u_email");
 		boolean isUserExist = userService.isEmailRegistered(uMail);
 		int uStatus = userService.userStatusCheck(uMail);
-		
+
 		if (isUserExist) {
 			switch (uStatus) {
 			// 前端檢查帳號使否允許登入
@@ -234,15 +225,15 @@ public class UserRestController {
 				return 2;
 			case 3:
 				return 3;
-			default:	
+			default:
 				return 999;
 			}
-			
-		}else {
+
+		} else {
 			// 會員不存在
 			return 1;
-		}		
-		
+		}
+
 	}
 
 	// 登入-處理會員的登入，並在登入後重發Session並寫入常用資料
@@ -251,33 +242,47 @@ public class UserRestController {
 		String uMail = loginData.get("u_email");
 		String password = loginData.get("u_password");
 		UserReadDataDTO user = userService.userLogin(uMail, password);
-		int uStatus = user.getuStatus();
-		
-		// 再次檢查會員狀態是否允許登入
-		if (user != null && (uStatus == 0 || uStatus == 1)) {
-			// 登入成功的Session處理
-			request.getSession().invalidate(); // 刪除舊Session
-			HttpSession newSession = request.getSession(true); // 建立新Session
 
-			// 在新Session寫入已登入會員資訊
-			newSession.setAttribute("uId", user.getuId());
-			newSession.setAttribute("uNickname", user.getuNickname());
-			newSession.setAttribute("uStatus", uStatus);
+		// 檢查user是否為null
+		if (user != null) {
+			int uStatus = user.getuStatus(); // 取得uStatus
+			int uId = user.getuId();
+			Integer coachId = coachService.getCoachIdById(uId);
 
-			// 有登入的Session才有"loginStatus" 直接確認Session有沒有"loginStatus"這個項目就能判斷有無登入
-			// "logged_in"值到是可不用比對
-			newSession.setAttribute("loginStatus", "logged_in"); // 登入狀態
-//			newSession.setAttribute("uPerm", 9); // 暫定9代表一般會員
+			// 檢查uStatus是否允許登入
+			if (uStatus == 0 || uStatus == 1) {
+				// 登入成功的Session處理
+				request.getSession().invalidate(); // 刪除舊Session
+				HttpSession newSession = request.getSession(true); // 建立新Session
 
-			newSession.setAttribute("loginDate", new Date()); // 登入時間
-			newSession.setAttribute("lastActiveTime", new Date()); // 最後活動時間
-			newSession.setMaxInactiveInterval(60 * 60); // Session保存期限(秒)
+				// 在新Session寫入已登入會員資訊
+				newSession.setAttribute("uId", uId);
+				newSession.setAttribute("uNickname", user.getuNickname());
+				newSession.setAttribute("uStatus", uStatus);
+								
+				newSession.setAttribute("cId", coachId); // 若為0表時無教練身分; 若有教練身分 寫入教練Id
+				
+				// 有登入的Session才有"loginStatus" 直接確認Session有沒有"loginStatus"這個項目就能判斷有無登入
+				// "logged_in"值到是可不用比對
+				newSession.setAttribute("loginStatus", "logged_in"); // 登入狀態
+//		        newSession.setAttribute("uPerm", 9); // 暫定9代表一般會員
 
-//			System.out.println("uId: " + newSession.getAttribute("uId"));
-//			System.out.println("uNickname: " + newSession.getAttribute("uNickname"));
-//			System.out.println("uStatus: " + newSession.getAttribute("uStatus"));
+				newSession.setAttribute("loginDate", new Date()); // 登入時間
+				newSession.setAttribute("lastActiveTime", new Date()); // 最後活動時間
+				newSession.setMaxInactiveInterval(60 * 60); // Session保存期限(秒)
 
-			return 0; // 登入成功
+				//印出Session中基本資料
+//		        System.out.println("uId: " + newSession.getAttribute("uId"));
+//		        System.out.println("uNickname: " + newSession.getAttribute("uNickname"));
+//		        System.out.println("uStatus: " + newSession.getAttribute("uStatus"));
+				
+				// 印出Session中教練Id
+//				System.out.println("cId: " + newSession.getAttribute("cId")); 
+
+				return 0; // 登入成功
+			} else {
+				return 1; // 登入失敗
+			}
 		} else {
 			return 1; // 登入失敗
 		}
@@ -325,8 +330,6 @@ public class UserRestController {
 		String contextPath = request.getContextPath();
 		response.sendRedirect(contextPath + "/"); // 重定向到首頁
 	}
-	
-	
 
 //	======================================
 	// 測試開發用

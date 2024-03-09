@@ -12,12 +12,7 @@ public class AdminController {
 	@GetMapping("/backend_login")
 	public String backend_login(Model model)  {
         return "back-end/backend_login"; 
-    }
+    }	
 	
-	// 會員一覽&後台首頁
-	@GetMapping("/backend_user")
-	public String backend_user(Model model)  {
-        return "back-end/backend_user"; 
-    }
 
 }

@@ -2,6 +2,8 @@ package com.fitanywhere.user.model;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -52,9 +54,14 @@ public interface UserJpaRepository extends JpaRepository<UserVO, Integer> {
 			+ "u.uGender, u.uBirth, u.uStatus, u.uRegisterdate) " + "FROM UserVO u WHERE u.uId = :uId")
 	UserReadDataDTO findUserDataDTOById(Integer uId);
 	
-	 // 使用JPQL查詢，排除uHeadshot，並將結果映射到UserlistAllDataDTO
-    @Query("SELECT new com.fitanywhere.userlist.model.UserlistAllDataDTO(u.uId, u.uNickname, u.uMail, u.uStatus, 0) FROM UserVO u")
-    List<UserlistAllDataDTO> findAllUsersWithoutHeadshot();
+	 // 排除uHeadshot，並將結果映射到UserlistAllDataDTO (並設定降序查詢)
+    @Query("SELECT new com.fitanywhere.userlist.model.UserlistAllDataDTO(u.uId, u.uNickname, u.uMail, u.uStatus, 0) FROM UserVO u ORDER BY u.uId DESC")
+    Page<UserlistAllDataDTO> findAllUsersWithoutHeadshot(Pageable pageable);
+    
+    // 排除uHeadshot並取回指定的uStatus，並將結果映射到UserlistAllDataDTO (並設定降序查詢)
+    @Query("SELECT new com.fitanywhere.userlist.model.UserlistAllDataDTO(u.uId, u.uNickname, u.uMail, u.uStatus, 0) FROM UserVO u WHERE u.uStatus IN :status ORDER BY u.uId DESC")
+    Page<UserlistAllDataDTO> findAllUsersByStatus(@Param("status") List<Integer> status, Pageable pageable);
+
 
 // =========================
 // 精準讀取某特定欄位	

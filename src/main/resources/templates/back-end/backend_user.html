@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:insert="~{/back-end/backend_included_head}"></head>
+<head th:insert="~{/back-end/backend_included_head}">
+
+</head>
 
 <body>
     <!-- header -->
@@ -26,48 +28,87 @@
             <div class="content-row">
                 <input type="text" class="search" placeholder="搜尋電子信箱">
                 <button class="search-action">搜尋</button>
-                <select name="" id="" value="" class="filter-state">
+                <select name="filterStatus" id="filterStatus" class="filter-state">
                     <option value="none" selected hidden>篩選用戶狀態</option>
-                    <option value="all">全部</option>
-                    <option value="on">啟用中</option>
-                    <option value="off">已停權</option>
+                    <option value="0">全部</option>
+                    <option value="1">啟用中</option>
+                    <option value="2">已停權</option>
                 </select>
             </div>
-            
+
             <table class="backstage_table backstage_user_table">
-                <tr>
-                    <th>編號</th>
-                    <th>暱稱</th>
-                    <th>電子信箱</th>
-                    <th>教練狀態</th>                    
-                    <th>會員狀態</th>
-                    <th></th>
-                    <th>備註</th>
+                <thead>
+                    <tr>
+                        <th>編號</th>
+                        <th>暱稱</th>
+                        <th>電子信箱</th>
+                        <th>教練狀態</th>
+                        <th>會員狀態</th>
+                        <th></th>
+                        <th>備註</th>
+                    </tr>
+                </thead>
+                <!-- 正確使用 userPage.content -->
+                <tbody>
+                    <tr th:each="user : ${userPage.content}">
+                        <td th:text="${user.uId}">00001</td>
+                        <td th:text="${user.uNickname}">Mok</td>
+                        <td th:text="${user.uMail}">fitanywhere@gmail.com</td>
+                        <td th:text="${user.cId == 0 ? '普通會員' : '教練'}">身份</td>
+                        <td th:switch="${user.uStatus}">
+                            <span th:case="0">標準</span>
+                            <span th:case="1">懲處中</span>
+                            <span th:case="2">關閉</span>
+                            <span th:case="3">關閉</span>
+                        </td>
+                        <td>
+                            <!-- 將修改按鈕替換成下拉選單 -->
+                            <select>
+                                <option value="0">修改</option>
+                                <option value="1">啟用</option>
+                                <option value="2">懲處</option>
+                                <option value="3">註銷</option>
+                            </select>
+                        </td>
+                        <td th:switch="${user.uStatus}">
+                            <span th:case="0"></span>
+                            <span th:case="1">部分功能停權</span>
+                            <span th:case="2">會員自行註銷</span>
+                            <span th:case="3">站方人工註銷</span>
+                        </td>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="7">
+                            <div class="pagination"
+                                style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap;">
+
+                                <!-- 下拉式表單選擇頁碼 -->
+                                <form th:action="@{/backend_userlist}" method="get" style="display: inline-block;">
+                                    <select name="page" onchange="this.form.submit()" style="margin: 0 15px;">
+                                        <option th:each="pageNum : ${#numbers.sequence(0, userPage.totalPages - 1)}"
+                                            th:value="${pageNum}" th:selected="${pageNum == userPage.number}"
+                                            th:text="${pageNum + 1}"></option>
+                                    </select>
+                                    <input type="hidden" name="size" th:value="${userPage.size}">
+                                </form>
+
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+
+
+
                 </tr>
-                <tr th:each="user : ${users}">
-                    <td th:text="${user.uId}">00001</td>
-                    <td th:text="${user.uNickname}">Mok</td>
-                    <td th:text="${user.uMail}">fitanywhere@gmail.com</td>
-                    <td th:text="${user.cId == 0 ? '普通會員' : '教練'}">身份</td>
-                    <td th:text="${user.uStatus}">啟用中</td>
-                    <td>
-                        <!-- 將修改按鈕替換成下拉選單 -->
-                        <select>
-                            <option value="0">修改</option>
-                            <option value="1">啟用</option>
-                            <option value="2">註銷</option>
-                        </select>
-                    </td>
-                    <td th:switch="${user.uStatus}">
-                        <span th:case="0">標準會員</span>
-                        <span th:case="1">部分停權</span>
-                        <span th:case="2">已自行註銷</span>
-                        <span th:case="3">已站方人工註銷</span>
-                    </td>
-                </tr>
-                
             </table>
+
+
         </div>
+
+
+
+    </div>
     </div>
 
 
@@ -77,7 +118,16 @@
         </footer>
     </div>
 
-    
+    <script>
+        document.getElementById('filterStatus').addEventListener('change', function () {
+            var selectedStatus = this.value;
+            // 重新載入頁面或發送 AJAX 請求來獲取篩選後的資料
+            window.location.href = '/backend_userlist?page=0&size=10&filterStatus=' + selectedStatus;
+        });
+
+    </script>
+
+
 
 </body>
 

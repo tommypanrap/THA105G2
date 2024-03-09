@@ -1,0 +1,115 @@
+<!-- Start Side Vav -->
+<div class="rbt-cart-side-menu">
+    <div class="inner-wrapper">
+        <div class="inner-top">
+            <div class="content">
+                <div class="title">
+                    <h4 class="title mb--0">購物車</h4>
+                </div>
+                <div class="rbt-btn-close" id="btn_sideNavClose">
+                    <button class="minicart-close-button rbt-round-btn"><i class="feather-x"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!--  購物車內容  -->
+
+
+        <nav class="side-nav w-100">
+            <ul class="rbt-minicart-wrapper" id="cart">
+                <!--        購物車清單        -->
+
+                <!--                    <li class="minicart-item">-->
+                <!--                        <div class="thumbnail">-->
+                <!--                            <a th:href="@{#}">-->
+                <!--                                <img th:src="@{/assets/images/product/7.jpg}" alt="Product Images">-->
+                <!--                            </a>-->
+                <!--                        </div>-->
+                <!--                        <div class="product-content">-->
+                <!--                            <h6 class="title"><a href="single-product.html">Happy Strong</a></h6>-->
+
+                <!--                            <span class="quantity">1 * <span class="price">$30</span></span>-->
+                <!--                        </div>-->
+                <!--                        <div class="close-btn">-->
+                <!--                            <button class="rbt-round-btn"><i class="feather-x"></i></button>-->
+                <!--                        </div>-->
+                <!--                    </li>-->
+
+
+            </ul>
+        </nav>
+
+        <div class="rbt-minicart-footer">
+            <hr class="mb--0">
+            <div class="rbt-cart-subttotal">
+                <p class="subtotal"><strong>小計:</strong></p>
+                <p class="price" id="crTotal"></p>
+            </div>
+            <hr class="mb--0">
+            <div class="rbt-minicart-bottom mt--20">
+                <div class="view-cart-btn">
+                    <a class="rbt-btn btn-border icon-hover w-100 text-center" href="/cart/check">
+                        <span class="btn-text">查看購物車</span>
+                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                    </a>
+                </div>
+                <div class="checkout-btn mt--20">
+                    <a class="rbt-btn btn-gradient icon-hover w-100 text-center" href="/cart/checkout">
+                        <span class="btn-text">結帳</span>
+                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- End Side Vav -->
+<script>
+
+        // 刪除item
+        // document.getElementById('cartItem').addEventListener('click',function (e){
+        $(document).on('click', '#cartItem', (e) => {
+
+            let btn = e.target;
+            let crId = btn.getAttribute('data-cr-id');
+            // 抓取被刪除的課程價格
+            let crPrice_el = btn.closest('li').querySelector('.price');
+            let crPriceMatch = crPrice_el.innerText.match(/\d+/);
+            let crPrice = crPriceMatch ? parseInt(crPriceMatch[0]) : 0;
+
+            // 抓取購物車總金額
+            let crTotalMatch = document.getElementById('crTotal').innerText.match(/\d+/);
+            let crTotal = crTotalMatch ? parseInt(crTotalMatch[0]):0;
+
+            //更新購物車總金額
+            document.getElementById('crTotal').innerText=`NT$${crTotal-crPrice}`;
+
+            // 刪除被刪除的item
+            let btn_parent = btn.closest('li');
+            if (btn_parent){
+                btn_parent.remove();
+            }
+
+            // 發送刪除請求給後端
+            deleteItem(crId);
+        });
+
+
+    function deleteItem(crId) {
+        // 發送刪除請求給後端
+        fetch(`/cart/remove/${crId}`, {
+            method: 'DELETE'
+        }).then(res => {
+            if (!res.ok) {
+                console.error('刪除課程時出現錯誤')
+            } else {
+                console.log("刪除成功")
+            }
+        }).catch(err => {
+            console.log("發生錯誤:", err)
+        });
+    }
+
+
+</script>

@@ -1,11 +1,3 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-
-</head>
-<body>
 <header class="rbt-header rbt-header-10">
     <div class="rbt-sticky-placeholder"></div>
     <!-- End Header Top  -->
@@ -71,7 +63,8 @@
                             </a>
                         </li>
                         <li class="access-icon rbt-mini-cart">
-                            <a class="rbt-cart-sidenav-activation rbt-round-btn" href="#">
+
+                            <a class="rbt-cart-sidenav-activation rbt-round-btn"  onclick="getCartItems()" href="#">
                                 <i class="feather-shopping-cart"></i>
                                 <span class="rbt-cart-count">4</span>
                             </a>
@@ -188,7 +181,7 @@
                                     </div>
                                     <ul class="user-list-wrapper">
                                         <li>
-                                            <a href="#">
+                                            <a href="/socialpost/student_socialpost">
                                                 <i class="feather-home"></i>
                                                 <span>會員中心</span>
                                             </a>
@@ -534,6 +527,55 @@
     <a class="rbt-close_side_menu" href="javascript:void(0);"></a>
 </header>
 
+<script>
 
-</body>
-</html>
+    // 查詢購物車有哪些課程
+    const getCartItems = () => {
+        //const url = window.location.href;
+        fetch('/cart/get')
+            .then((res) => {
+                // 如果不成功 new Error
+                if (!res.ok) {
+                    throw new Error("Network response was not ok.")
+                }
+                // 如果成功
+                // 解析JSON格式的響應數據
+                return res.json()
+            }).then(data => {
+            let sum = 0;
+            //將數據顯示在網頁上
+            const cartEl = document.getElementById('cart');
+            cartEl.innerHTML = '';
+            // 遍歷購物車數據
+            data.forEach(item => {
+                sum += item.crPrice;
+                // const itemEl = document.createElement('div');
+                console.log(item);
+
+                var crId = item.crId;
+                cartEl.innerHTML +=
+                    `<li class="minicart-item">
+                        <div class="thumbnail">
+                            <a th:href="@{#}">
+                                <img src="data:image/jpeg;base64,${item.crCover}" alt="Product Images">
+                            </a>
+                        </div>
+                        <div class="product-content">
+                            <h6 class="title"><a href="single-product.html">${item.crTitle}</a></h6>
+                            <span class="price">NT$${item.crPrice}</span>
+                        </div>
+                        <div class="close-btn">
+                            <button class="rbt-round-btn" data-cr-id="${crId}" id="cartItem">
+                            <i class="feather-x" data-cr-id="${crId}"></i>
+                            </button>
+                        </div>
+                     </li>`;
+
+            });
+            document.getElementById('crTotal').innerText = `NT$${sum != null ? sum : 0}`;
+
+        }).catch(error => {
+            console.error('發生錯誤:', error)
+        });
+    }
+</script>

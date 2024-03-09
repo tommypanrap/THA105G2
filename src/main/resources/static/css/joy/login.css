@@ -1,12 +1,12 @@
-.margin{
+.body-login .margin{
     text-align: center;
     margin-top: 40px;
 }
 
-.margin-right-10px{
+.body-login .margin-right-10px{
     margin-right: 10px;
 }
-.third-login{
+.body-login .third-login{
     color: #5F5F5F;
     text-align: center;
     padding: 30px;
@@ -15,12 +15,12 @@
     margin-bottom: 50px;
  
 }
-.third-login> img{
+.body-login .third-login> img{
     width: 38px;
     height: 38px;
 }
 
-.hr{
+.body-login .hr{
     color: #5F5F5F;
     background: white;
     border: 0;
@@ -29,7 +29,7 @@
     position: relative;
 }
 
-.hr::before{
+.body-login .hr::before{
     content: "或";
     position: absolute;
     padding: 0 10px;
@@ -40,6 +40,6 @@
     left: 50%;
     transform: translateX(-50%);
 }
-.row{
+.body-login .row{
     justify-content: space-around;
   }

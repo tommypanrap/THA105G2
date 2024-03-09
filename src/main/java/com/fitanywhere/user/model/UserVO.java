@@ -20,6 +20,7 @@ import javax.persistence.Table;
 import com.fitanywhere.forumpost.model.ForumPostVO;
 import com.fitanywhere.mood.model.MoodVO;
 import com.fitanywhere.socialpost.model.SocialPostVO;
+import com.fitanywhere.socialpost.model.SocialReplyVO;
 //Tommy implements java.io.Serializable
 @Entity
 @Table(name = "user")
@@ -93,6 +94,18 @@ public class UserVO implements java.io.Serializable{
 	//Tommy
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="userVO")
 	private Set<SocialPostVO> socialposts = new HashSet<SocialPostVO>();
+	
+	//Tommy
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="userVO")
+	private Set<SocialReplyVO> socialReplys = new HashSet<SocialReplyVO>();
+
+	public Set<SocialReplyVO> getSocialReplys() {
+		return socialReplys;
+	}
+
+	public void setSocialReplys(Set<SocialReplyVO> socialReplys) {
+		this.socialReplys = socialReplys;
+	}
 
 	public Set<SocialPostVO> getSocialposts() {
 		return this.socialposts;

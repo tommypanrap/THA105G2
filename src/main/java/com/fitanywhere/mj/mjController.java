@@ -1,7 +1,5 @@
 package com.fitanywhere.mj;
 
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +14,10 @@ public class mjController {
 	public String checkout(ModelMap model){
 		return "front-end/mj/checkout";
 	}
-	@GetMapping("cart")
-	public String cart(ModelMap model) {
-		return "front-end/mj/cart";
-	}
+//	@GetMapping("cart")
+//	public String cart(ModelMap model) {
+//		return "front-end/mj/cart";
+//	}
 	
 	@GetMapping("course_details_2")
 	public String courseDetail(ModelMap model) {

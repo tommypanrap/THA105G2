@@ -73,7 +73,7 @@ public class UserVO implements java.io.Serializable{
 
 	@Column(name = "u_status")
 	private Integer uStatus;
-//	0 = 正常會員; 1 = 帳號關閉; 
+//	0 = 正常會員; 1 = 可登入但部分功能限制的帳號(懲罰中); 2 = 自行永久關閉帳號; 3 = 被檢舉停權帳號;   
 
 	@Column(name = "u_registerdate")
 	private Date uRegisterdate;

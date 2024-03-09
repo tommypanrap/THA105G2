@@ -1225,6 +1225,15 @@
                     if (data === 1) {
                         alert("此信箱並未註冊, 請重新輸入信箱或註冊本站!");
                         emailInput.value = ''; // 清空欄位
+                    }else if (data === 2) {
+                        alert("此帳號已自行註銷!如需啟用請聯絡本站客服人工處理!");
+                        emailInput.value = ''; // 清空欄位
+                    }else if (data === 3) {
+                        alert("此帳號因違反站規而強制註銷!如有問題請聯絡本站客服!");
+                        emailInput.value = ''; // 清空欄位
+                    }else if (data === 999) {
+                        alert("此帳號狀態異常, 請聯絡本站客服人工處理!");
+                        emailInput.value = ''; // 清空欄位
                     }
                 })
                 .catch((error) => {

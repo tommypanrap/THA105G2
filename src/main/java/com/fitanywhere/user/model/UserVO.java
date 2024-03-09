@@ -18,7 +18,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.fitanywhere.adCarousel.model.AdCarouselVO;
+import com.fitanywhere.adcarousel.model.AdCarouselVO;
 import com.fitanywhere.mood.model.MoodVO;
 import com.fitanywhere.socialpost.model.SocialPostVO;
 import com.fitanywhere.socialpost.model.SocialReplyVO;

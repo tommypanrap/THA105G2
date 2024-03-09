@@ -2,6 +2,7 @@ package com.fitanywhere.userlist.controller;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -39,7 +40,20 @@ public class UserlistController {
 		}
 
 		model.addAttribute("userPage", userPage);
-		return "back-end/backend_user";
+		return "back-end/backend_userlist_with_page";
 	}
+
+	// 使用Email查詢特定會員
+	@GetMapping("/backend_userlist_searchByEmail")	
+	public String searchUserByEmail(Model model, @RequestParam String email) {
+	    UserlistAllDataDTO userDTO = userlistService.findSingleUserByEmail(email);
+	    if (userDTO != null) {
+	        model.addAttribute("user", userDTO);
+	    } else {
+	        model.addAttribute("searchError", "沒有找到相關的用戶資料");
+	    }
+	    return "back-end/backend_userlist_without_page";
+	}
+
 
 }

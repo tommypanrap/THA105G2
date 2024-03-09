@@ -1,6 +1,7 @@
 package com.fitanywhere.user.model;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
@@ -53,15 +54,18 @@ public interface UserJpaRepository extends JpaRepository<UserVO, Integer> {
 	@Query("SELECT new com.fitanywhere.user.model.UserReadDataDTO(" + "u.uId, u.uNickname, u.uName, u.uMail, u.uPhone, "
 			+ "u.uGender, u.uBirth, u.uStatus, u.uRegisterdate) " + "FROM UserVO u WHERE u.uId = :uId")
 	UserReadDataDTO findUserDataDTOById(Integer uId);
-	
-	 // 排除uHeadshot，並將結果映射到UserlistAllDataDTO (並設定降序查詢)
-    @Query("SELECT new com.fitanywhere.userlist.model.UserlistAllDataDTO(u.uId, u.uNickname, u.uMail, u.uStatus, 0) FROM UserVO u ORDER BY u.uId DESC")
-    Page<UserlistAllDataDTO> findAllUsersWithoutHeadshot(Pageable pageable);
-    
-    // 排除uHeadshot並取回指定的uStatus，並將結果映射到UserlistAllDataDTO (並設定降序查詢)
-    @Query("SELECT new com.fitanywhere.userlist.model.UserlistAllDataDTO(u.uId, u.uNickname, u.uMail, u.uStatus, 0) FROM UserVO u WHERE u.uStatus IN :status ORDER BY u.uId DESC")
-    Page<UserlistAllDataDTO> findAllUsersByStatus(@Param("status") List<Integer> status, Pageable pageable);
 
+	// 排除uHeadshot，並將結果映射到UserlistAllDataDTO (並設定降序查詢)
+	@Query("SELECT new com.fitanywhere.userlist.model.UserlistAllDataDTO(u.uId, u.uNickname, u.uMail, u.uStatus, 0) FROM UserVO u ORDER BY u.uId DESC")
+	Page<UserlistAllDataDTO> findAllUsersWithoutHeadshot(Pageable pageable);
+
+	// 排除uHeadshot並取回指定的uStatus，並將結果映射到UserlistAllDataDTO (並設定降序查詢)
+	@Query("SELECT new com.fitanywhere.userlist.model.UserlistAllDataDTO(u.uId, u.uNickname, u.uMail, u.uStatus, 0) FROM UserVO u WHERE u.uStatus IN :status ORDER BY u.uId DESC")
+	Page<UserlistAllDataDTO> findAllUsersByStatus(@Param("status") List<Integer> status, Pageable pageable);
+
+	// 排除uHeadshot並取回指定的uMail，並將結果映射到UserlistAllDataDTO
+	@Query("SELECT new com.fitanywhere.userlist.model.UserlistAllDataDTO(u.uId, u.uNickname, u.uMail, u.uStatus, 0) FROM UserVO u WHERE u.uMail = :uMail")
+	Optional<UserlistAllDataDTO> findSingleUserDTOByMail(String uMail);
 
 // =========================
 // 精準讀取某特定欄位	

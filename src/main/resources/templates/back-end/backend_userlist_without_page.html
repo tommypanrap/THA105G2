@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="~{/back-end/backend_included_head}"></head>
+
+</head>
+
+<body>
+    <!-- header -->
+    <div class="header_wrapper">
+        <header>
+            <p class="f-b-title">FitAnyWhere後台管理系統</p>
+            <div class="manager">
+                <img src="./images/member.png" alt="">
+                <p>最高管理員</p>
+            </div>
+        </header>
+    </div>
+
+    <!-- 下面一層容器 -->
+    <div class="wrapper">
+        <!-- sidebar -->
+        <div th:replace="~{/back-end/backend_included_sidebar}"></div>
+
+        <!-- 內容 -->
+        <div class="content">
+            <h1>用戶名單</h1>
+            <div class="content-row" style="display: flex; justify-content: center; align-items: center;">
+                <form action="/backend_userlist_searchByEmail" method="get" style="display: flex; justify-content: center; align-items: center; margin-right: 10px;">
+                    <input type="text" name="email" class="search" style="width: 60%;" placeholder="搜尋電子信箱">
+                    <button type="submit" class="search-action" style="margin-left: 10px;">搜尋</button>
+                </form>
+                <select name="filterStatus" id="filterStatus" class="filter-state" style="margin-left: 20px;">
+                    <option value="none" selected hidden>篩選用戶狀態</option>
+                    <option value="0">全部</option>
+                    <option value="1">啟用中</option>
+                    <option value="2">已停權</option>
+                </select>
+            </div>
+            
+
+            <table class="backstage_table backstage_user_table">
+                <thead>
+                    <tr>
+                        <th>編號</th>
+                        <th>暱稱</th>
+                        <th>電子信箱</th>
+                        <th>教練狀態</th>
+                        <th>會員狀態</th>
+                        <th></th>
+                        <th>備註</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="user : ${user}">
+                        <td th:text="${user.uId}">00001</td>
+                        <td th:text="${user.uNickname}">Mok</td>
+                        <td th:text="${user.uMail}">fitanywhere@gmail.com</td>
+                        <td th:text="${user.cId == 0 ? '普通會員' : '教練'}">身份</td>
+                        <td th:switch="${user.uStatus}">
+                            <span th:case="0">標準</span>
+                            <span th:case="1">懲處中</span>
+                            <span th:case="2">關閉</span>
+                            <span th:case="3">關閉</span>
+                        </td>
+                        <td>
+                            <select>
+                                <option value="0">修改</option>
+                                <option value="1">啟用</option>
+                                <option value="2">懲處</option>
+                                <option value="3">註銷</option>
+                            </select>
+                        </td>
+                        <td th:switch="${user.uStatus}">
+                            <span th:case="0"></span>
+                            <span th:case="1">部分功能停權</span>
+                            <span th:case="2">會員自行註銷</span>
+                            <span th:case="3">站方人工註銷</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="footer_wrapper">
+        <footer>
+            <p class="f-b-title">FitAnyWhere Backstage</p>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById('filterStatus').addEventListener('change', function () {
+            var selectedStatus = this.value;
+            // 重新載入頁面或發送 AJAX 請求來獲取篩選後的資料
+            window.location.href = '/backend_userlist?filterStatus=' + selectedStatus;
+        });
+    </script>
+
+</body>
+
+</html>

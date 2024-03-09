@@ -122,7 +122,19 @@ public class SocialPostController {
 	@GetMapping("nav_student_socialpost")
 	public String nav_student_socialpost(HttpServletRequest req, ModelMap model) {
 		
-	
+		SocialReplyVO socialReplyVO = new SocialReplyVO();
+		model.addAttribute("SocialReplyVO", socialReplyVO);
+
+		HttpSession newSession = req.getSession(true);
+
+		UserVO userVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
+		model.addAttribute("userVO", userVO);
+		
+		SocialPostVO socialPostVO = new SocialPostVO();
+		model.addAttribute("socialPostVO", socialPostVO);
+
+		List<UserVO> matchingUsers = (List<UserVO>) req.getSession().getAttribute("matchingUsers");
+	    model.addAttribute("matchingUsers", matchingUsers);
 		
 		
 		return "front-end/socialpost/student_socialpost";

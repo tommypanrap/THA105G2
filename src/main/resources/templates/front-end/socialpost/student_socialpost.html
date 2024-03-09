@@ -109,10 +109,10 @@
 								<div class="content-social-post">
 									<div class="content-inner">
 										<div class="user-section-title">
-											<span th:text="${userVO.uId}" class="uid-for-send"></span>
+											<span th:text="${userShowPostVO.uId}" class="uid-for-send"></span>
 											<div id="article">
 												<img
-													th:src="@{/socialpost/UserPhotoDBGifReader} + '?uId=' + ${userVO.uId}"
+													th:src="@{/socialpost/UserPhotoDBGifReader} + '?uId=' + ${userShowPostVO.uId}"
 													alt="">
 											</div>
 											<div id="article member-col">
@@ -145,9 +145,9 @@
 
 
 									<input type="text" placeholder="在想甚麼呢?"
-										class="member-post-input">
+										class="member-post-input" th:if="${#strings.isEmpty(navUId)}">
 
-									<p class="add-post">新增貼文</p>
+									<p class="add-post" th:if="${#strings.isEmpty(navUId)}">新增貼文</p>
 
 
 
@@ -204,17 +204,19 @@
 
 								</div>
 							</div>
-							<div th:each="socialPost : ${userVO.socialposts}"
+							<span th:if="${navUId != null}" th:text="${navUId}" class="navUId">aaa</span>
+							<span th:if="${#strings.isEmpty(navUId)}" >測試字 - 新增貼文</span>
+							<div th:each="socialPost : ${userShowPostVO.socialposts}"
 								th:if="${socialPost.spstatus == 1}">
 								<div class="article-post">
 									<div class="title">
 										<div class="title-info-wrapper">
 											<img
-												th:src="@{/socialpost/UserPhotoDBGifReader} + '?uId=' + ${userVO.uId}"
+												th:src="@{/socialpost/UserPhotoDBGifReader} + '?uId=' + ${userShowPostVO.uId}"
 												alt="">
 
 											<div class="title-info">
-												<p th:text="${userVO.uNickname}">振宇健身房</p>
+												<p th:text="${userShowPostVO.uNickname}">振宇健身房</p>
 												<p
 													th:text="${#dates.format(socialPost.sptime, 'yyyy年MM月dd日')}">2023年8月1日</p>
 											</div>
@@ -227,6 +229,7 @@
 									</div>
 
 									<div class="post-content">
+									
 										<p th:text="${socialPost.spid}" class="spid"></p>
 										<p th:text="${socialPost.sptitle}">title</p>
 										<p th:text="${socialPost.spcontent}">content</p>

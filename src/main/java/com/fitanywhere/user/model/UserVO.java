@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
+
+import com.fitanywhere.adCarousel.model.AdCarouselVO;
 import com.fitanywhere.mood.model.MoodVO;
 import com.fitanywhere.socialpost.model.SocialPostVO;
 import com.fitanywhere.socialpost.model.SocialReplyVO;
@@ -75,8 +77,20 @@ public class UserVO implements java.io.Serializable{
 
 	@Column(name = "u_registerdate")
 	private Date uRegisterdate;
+	
+	
+//	xiaoxin
+	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="userVO")
+	private Set<AdCarouselVO> adCarousel = new HashSet<AdCarouselVO>();
 
+	public Set<AdCarouselVO> getAdCarousel() {
+		return this.adCarousel;
+	}
 
+	public void setAdCarousel(Set<AdCarouselVO> adCarousel) {
+		this.adCarousel = adCarousel;
+	}
 
 	//Tommy
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="userVO")

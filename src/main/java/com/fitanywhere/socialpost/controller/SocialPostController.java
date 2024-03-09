@@ -98,18 +98,18 @@ public class SocialPostController {
 
 		HttpSession newSession = req.getSession(true);
 		
-		System.out.println("navUId:"+navUId);
+//		System.out.println("navUId:"+navUId);
 		
 		model.addAttribute("navUId",navUId);
 		
-		System.out.println("第二次:"+navUId);
+//		System.out.println("第二次:"+navUId);
 		if (StringUtils.hasText(navUId)) {
-	        System.out.println("navUId has value.");
+//	        System.out.println("navUId has value.");
 	        
 	        UserVO userShowPostVO = userSvc.getUserDataByID(Integer.valueOf(navUId));
 			model.addAttribute("userShowPostVO", userShowPostVO);
 	    } else {
-	        System.out.println("navUId is empty or null.");
+//	        System.out.println("navUId is empty or null.");
 	        UserVO userShowPostVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
 			model.addAttribute("userShowPostVO", userShowPostVO);
 	    }
@@ -247,7 +247,7 @@ public class SocialPostController {
 	@GetMapping("nav_to_social_member/{uId}")
 	public String nav_to_social_member(@PathVariable String uId, ModelMap model, RedirectAttributes redirectAttributes ) {
 		
-		System.out.println("uId:"+uId);
+//		System.out.println("uId:"+uId);
 		
 		 redirectAttributes.addFlashAttribute("navUId", uId);
 		 model.addAttribute("navUId",uId);

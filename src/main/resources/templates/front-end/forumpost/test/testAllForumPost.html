@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discussion Forum</title>
+    <!-- 添加你的CSS樣式表或其他頁面引用 -->
+</head>
+<body>
+
+    <header>
+        <h1>Discussion Forum</h1>
+    </header>
+
+    <header>
+        <h1>Discussion Forum</h1>
+        <!-- 新增貼文的按鈕 -->
+	<form action="/forumpost/test2" method="post">
+    	<button type="submit">New Forum Post</button>
+	</form>    
+	</header>
+
+    <section>
+        <h2>All Forum Posts</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Title</th>
+                    <th>Content</th>
+                    <th>Time</th>
+                    <th>Views</th>
+                    <th>User</th>
+                    <th>Profile Picture</th>
+                    <th>Post Image</th>
+                    <!-- 添加其他你需要顯示的欄位 -->
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 使用Thymeleaf的遍歷指令迭代顯示每個貼文 -->
+                <tr th:each="forumPost : ${forumPostListData}">
+                    <td th:text="${forumPost.fpCategory}">Category</td>
+                    <td th:text="${forumPost.fpTitle}">Title</td>
+                    <td th:text="${forumPost.fpContent}">Content</td>
+                    <td th:text="${forumPost.fpTime}">Time</td>
+                    <td th:text="${forumPost.fpViews}">Views</td>
+                    <!-- 透過關聯的userVO取得發文的使用者 -->
+                    <td th:text="${forumPost.userVO.uId}">User</td>
+                    <!-- 顯示文章中的圖片，假設fpPic是byte[]型態 -->
+                    <td>
+					<td><img th:src="@{'/forumpost/DBGifReader?fpId=' + ${forumPost.fpId}}" width="100px"></td>
+
+                </tr>
+            </tbody>
+        </table>
+
+    </section>
+
+    <!-- 添加其他區域和頁腳 -->
+
+    <!-- 添加你的JavaScript腳本或其他頁面引用 -->
+
+</body>
+</html>

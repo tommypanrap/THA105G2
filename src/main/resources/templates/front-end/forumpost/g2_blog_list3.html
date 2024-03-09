@@ -105,7 +105,7 @@
 <div align="center">
   <b><font color=red>第<label id="currentPage">1</label>/<label id="pageNumber"></label>頁</font></b>
 
-<b>● 符 合 查 詢 條 件 如 下 所 示 : 共 <font color=red th:text="${forumPostListData.size}"></font> 筆</b></div>
+<b>● 符 合 查 詢 條 件 如 下 所 示 : 共 <font color=red th:text="${forumPostListData?.size}"></font> 筆</b></div>
 	<div style="padding: 5px; width:4000px; height:35px; background-color:#CCCCFF; margin-top:5px; margin-bottom:5px; margin-left:auto; margin-right:auto; border: 1px solid #000000;">
 			<span style="padding: 50px;">貼文編號</span>
 			<span style="padding: 40px;">用戶ID</span>
@@ -125,7 +125,7 @@
 			<tr>
 				<td th:text="${ForumPostVOStat.count}" width="-50px"></td>
 				<td th:text="${ForumPostVO.fpId}"></td>
-				<td th:text="${UserVO.uId}"></td>
+				<td th:text="${ForumPostVO.userVO.uId}"></td>
 				<td th:text="${ForumPostVO.fpCategory}"></td>
 				<td th:text="${ForumPostVO.fpTitle}"></td>
 				<td th:text="${ForumPostVO.fpContent}"></td>

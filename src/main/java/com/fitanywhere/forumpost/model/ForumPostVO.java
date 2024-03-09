@@ -25,7 +25,7 @@ public class ForumPostVO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@ManyToOne
-	@JoinColumn(name = "u_id")
+	@JoinColumn(name = "u_id", referencedColumnName = "u_id")
 	private UserVO userVO;
 	
 	@Id
@@ -49,12 +49,12 @@ public class ForumPostVO implements Serializable {
 	
 	@Column(name = "fp_time")
 //	@CreatedDate
-//	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Timestamp fpTime;
 	
 	@Column(name = "fp_update")
 //	@LastModifiedDate 								
-//	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Timestamp fpUpdate;
 	
 	@Column(name = "fp_pic", columnDefinition = "longblob")

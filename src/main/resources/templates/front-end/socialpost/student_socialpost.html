@@ -152,7 +152,7 @@
 
 
 
-									<div id="lightbox" class="none">
+									<div id="lightbox" class="none lightbox-add-post">
 										<form th:action="@{insert}" method="post"
 											th:object="${socialPostVO}" enctype="multipart/form-data">
 											<article>
@@ -339,6 +339,7 @@
 	<!-- Main JS -->
 	<script th:src="@{/js/main.js}"></script>
 	<script th:src="@{/js/social_post.js}"></script>
+	<script th:src="@{/js/mok/mok_opinion.js}"></script>
 </body>
 
 </html>

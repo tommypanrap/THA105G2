@@ -2,12 +2,12 @@ $(document).ready(function() {
 	//連結按鈕的地方
 	$(".add-post").on("click", function(e) {
 		e.preventDefault();
-		$("#lightbox").removeClass("none");
+		$(".lightbox-add-post").removeClass("none");
 	});
 
 	// 關閉按鈕
 	$("button.btn_model_close").on("click", function() {
-		$("#lightbox").addClass("none");
+		$(".lightbox-add-post").addClass("none");
 		// alert("123");
 	});
 

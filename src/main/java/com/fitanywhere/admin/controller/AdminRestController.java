@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -102,16 +103,16 @@ public class AdminRestController {
 			// 成功登入
 			return ResponseEntity.ok().build();
 		case 1:
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); // 401 登入資料錯誤
 		case 2:
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); //500 內部處理錯誤
 		default:
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
 	}
 
 	// 登出後台
-	@PostMapping("/admin_logout")
+	@GetMapping("/admin_logout")
 	public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
 	    
 		request.getSession().invalidate(); // 使當前Session無效

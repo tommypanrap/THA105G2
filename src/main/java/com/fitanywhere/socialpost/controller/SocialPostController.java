@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fitanywhere.socialpost.model.SocialPostService;
 import com.fitanywhere.socialpost.model.SocialPostVO;
@@ -83,18 +85,41 @@ public class SocialPostController {
 	}
 
 	@GetMapping("student_socialpost")
-	public String getUserInfo(HttpServletRequest req, ModelMap model) {
+	public String getUserInfo(HttpServletRequest req, ModelMap model, @ModelAttribute("navUId") String navUId) {
 		
 		
 //		model.addAttribute("matchingUsers", matchingUsers);
+		
+	
+
 		
 		SocialReplyVO socialReplyVO = new SocialReplyVO();
 		model.addAttribute("SocialReplyVO", socialReplyVO);
 
 		HttpSession newSession = req.getSession(true);
+		
+//		System.out.println("navUId:"+navUId);
+		
+		model.addAttribute("navUId",navUId);
+		
+//		System.out.println("第二次:"+navUId);
+		if (StringUtils.hasText(navUId)) {
+//	        System.out.println("navUId has value.");
+	        
+	        UserVO userShowPostVO = userSvc.getUserDataByID(Integer.valueOf(navUId));
+			model.addAttribute("userShowPostVO", userShowPostVO);
+	    } else {
+//	        System.out.println("navUId is empty or null.");
+	        UserVO userShowPostVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
+			model.addAttribute("userShowPostVO", userShowPostVO);
+	    }
 
 		UserVO userVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
 		model.addAttribute("userVO", userVO);
+		
+
+		
+		
 		
 //		測試資料印出用
 //		for (SocialPostVO socialPost : userVO.getSocialposts()) {
@@ -118,15 +143,93 @@ public class SocialPostController {
 		
 		return "front-end/socialpost/student_socialpost";
 	}
+//	想測試 重新整理 也能繼續保持搜尋結果 fail
+//	@PostMapping("student_socialpost")
+//	public String getUserInfoPost(HttpServletRequest req, ModelMap model, @ModelAttribute("navUId") String navUId,@RequestParam Integer navUIdPost) {
+//		
+//		
+////		model.addAttribute("matchingUsers", matchingUsers);
+//		
+//		System.out.println("navUIdPost:"+navUIdPost);
+//
+//		
+//		SocialReplyVO socialReplyVO = new SocialReplyVO();
+//		model.addAttribute("SocialReplyVO", socialReplyVO);
+//
+//		HttpSession newSession = req.getSession(true);
+//		
+//		System.out.println("navUId:"+navUId);
+//		
+//		model.addAttribute("navUId",navUIdPost);
+//		
+//		System.out.println("POST第二次:"+navUId);
+//		if (navUIdPost!= null) {
+//	        System.out.println("navUIdPost has value.");
+//	        
+//	        UserVO userShowPostVO = userSvc.getUserDataByID(Integer.valueOf(navUIdPost));
+//			model.addAttribute("userShowPostVO", userShowPostVO);
+//	    } else {
+//	        System.out.println("navUIdPost is empty or null.");
+//	        UserVO userShowPostVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
+//			model.addAttribute("userShowPostVO", userShowPostVO);
+//	    }
+//
+//		UserVO userVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
+//		model.addAttribute("userVO", userVO);
+//		
+//
+//		
+//		
+//		
+////		測試資料印出用
+////		for (SocialPostVO socialPost : userVO.getSocialposts()) {
+////			if (socialPost.getSpstatus().equals(1)) {
+////				System.out.println("SocialPost Spid: " + socialPost.getSpid());
+////				System.out.println("SocialPost Title: " + socialPost.getSptitle());
+////				System.out.println("SocialPost Content: " + socialPost.getSpcontent());
+////
+////				for (SocialReplyVO socialReply : socialPost.getSocialReplys()) {
+////					System.out.println("123 SocialReply Content: " + socialReply.getSrContent());
+////				}
+////			}
+////		}
+//
+//		SocialPostVO socialPostVO = new SocialPostVO();
+//		model.addAttribute("socialPostVO", socialPostVO);
+//
+//		List<UserVO> matchingUsers = (List<UserVO>) req.getSession().getAttribute("matchingUsers");
+//	    model.addAttribute("matchingUsers", matchingUsers);
+//		
+//		
+//		return "front-end/socialpost/student_socialpost";
+//	}
 	
-	@GetMapping("nav_student_socialpost")
-	public String nav_student_socialpost(HttpServletRequest req, ModelMap model) {
-		
-	
-		
-		
-		return "front-end/socialpost/student_socialpost";
-	}
+//	@GetMapping("nav_student_socialpost")
+//	public String nav_student_socialpost(HttpServletRequest req, ModelMap model	, @ModelAttribute("uId") String navUId) {
+//		
+//		 System.out.println("Received uId:" + navUId);
+//		
+//		SocialReplyVO socialReplyVO = new SocialReplyVO();
+//		model.addAttribute("SocialReplyVO", socialReplyVO);
+//
+//		HttpSession newSession = req.getSession(true);
+//
+//		UserVO userVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
+//		model.addAttribute("userVO", userVO);
+//		
+//		UserVO userShowPostVO = userSvc.getUserDataByID(Integer.valueOf(navUId));
+//		model.addAttribute("userShowPostVO", userShowPostVO);
+//		
+//		SocialPostVO socialPostVO = new SocialPostVO();
+//		model.addAttribute("socialPostVO", socialPostVO);
+//
+//		List<UserVO> matchingUsers = (List<UserVO>) req.getSession().getAttribute("matchingUsers");
+//	    model.addAttribute("matchingUsers", matchingUsers);
+//		
+//		System.out.println("nav_student_socialpost");
+//	    
+//		return "redirect:/socialpost/student_socialpost";
+//	}
 	
 	@PostMapping("search_social_member")
 	public String search_social_member(@RequestParam String searchValue, @RequestParam Integer uId, ModelMap model, HttpSession session) throws IOException  {
@@ -142,9 +245,12 @@ public class SocialPostController {
 	}
 
 	@GetMapping("nav_to_social_member/{uId}")
-	public String nav_to_social_member(@PathVariable String uId, ModelMap model ) {
+	public String nav_to_social_member(@PathVariable String uId, ModelMap model, RedirectAttributes redirectAttributes ) {
 		
-		System.out.println("uId:"+uId);
+//		System.out.println("uId:"+uId);
+		
+		 redirectAttributes.addFlashAttribute("navUId", uId);
+		 model.addAttribute("navUId",uId);
 		
 		return "redirect:/socialpost/student_socialpost";
 	}

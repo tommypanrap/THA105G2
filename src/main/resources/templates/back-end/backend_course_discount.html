@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="~{/back-end/backend_included_head}"></head>
+
+<body>
+    <!-- header -->
+    <div class="header_wrapper">
+        <header>
+            <p class="f-b-title">FitAnyWhere後台管理系統</p>
+            <div class="manager">
+                <img src="./images/member.png" alt="">
+                <p>最高管理員</p>
+            </div>
+        </header>
+    </div>
+
+    <!-- 下面一層容器 -->
+    <div class="wrapper">
+        <!-- sidebar -->
+                <div th:replace="~{/back-end/backend_included_sidebar}"></div>
+        
+
+        <!-- 內容 -->
+        <div class="content">
+            <h1>買賣課程管理</h1>
+
+            <div class="input-wrapper">
+   
+
+                <div class="magnifier-container mr-input">
+                    <input type="text" placeholder="搜尋課程" class="input-2">
+                    <img src="images/magnifier.png" alt="" class="magnifier">
+                </div>
+
+                <select name="" id="" class="mr-input">
+                    <option value="" style="display:none">優惠券狀態</option>
+                    <option value="">使用中</option>
+                    <option value="">失效</option>
+                </select>
+
+                <select name="" id="">
+                    <option value="" style="display:none">訂單金額</option>
+                    <option value="">金額由大至小</option>
+                    <option value="">金額由小至大</option>
+                </select>
+            </div>
+            <ul class="row rhead">
+                <li>課程ID</li>
+                <li>課程名稱</li>
+                <li>開始日期</li>
+                <li>折扣後金額</li>
+                <li>結束日期</li>
+                <li>優惠卷狀態</li>
+            </ul>
+
+            <ul class="row">
+                <li>C0001</li>
+                <li>XXXXXXXXXXXX</li>
+                <li>2024.01.23</li>
+                <li>1680</li>
+                <li>2024.01.30</li>
+                <li>使用中</li>
+            </ul>
+
+            <ul class="row">
+                <li>C0002</li>
+                <li>XXXXXXXXXXXX</li>
+                <li>2024.01.24</li>
+                <li>2430</li>
+                <li>2024.01.30</li>
+                <li>使用中</li>
+            </ul>
+            
+           
+
+            
+
+            
+           
+            
+        </div>
+    </div>
+
+
+    <div class="footer_wrapper">
+        <footer>
+            <p class="f-b-title">FitAnyWhere Backstage</p>
+        </footer>
+    </div>
+
+    <script>
+    var expandButtons = document.querySelectorAll('.content-expand');
+    var contentSections = document.querySelectorAll('.check-content');
+
+
+    expandButtons.forEach(function (button, index) {
+        button.addEventListener('click', function () {
+
+            if(contentSections[index].classList.contains('hidden')){
+                
+                contentSections.forEach(function (content) {
+                 content.classList.add('hidden');
+                });
+            
+                contentSections[index].classList.remove('hidden');
+            }else{
+                contentSections[index].classList.add('hidden');
+            }
+
+            
+        });
+    });
+    </script>
+
+</body>
+</html>

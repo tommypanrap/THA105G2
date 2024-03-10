@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="~{/back-end/backend_included_head}"></head>
+
+</head>
+
+<body>
+    <!-- header -->
+    <div class="header_wrapper">
+        <header>
+            <p class="f-b-title">FitAnyWhere後台管理系統</p>
+            <div class="manager">
+                <img src="./images/member.png" alt="">
+                <p>最高管理員</p>
+            </div>
+        </header>
+    </div>
+
+    <!-- 下面一層容器 -->
+    <div class="wrapper">
+        <!-- sidebar -->
+        <div th:replace="~{/back-end/backend_included_sidebar}"></div>
+
+        <!-- 內容 -->
+        <div class="content">
+            <h1>用戶名單</h1>
+            <div class="content-row" style="display: flex; justify-content: center; align-items: center;">
+                <form action="/backend_userlist_searchByEmail" method="get"
+                    style="display: flex; justify-content: center; align-items: center; margin-right: 10px;">
+                    <input type="text" name="email" class="search" style="width: 100%;" placeholder="搜尋電子信箱">
+                    <button type="submit" class="search-action" style="margin-left: 10px;">搜尋</button>
+                </form>
+                <select name="filterStatus" id="filterStatus" class="filter-state" style="margin-left: 20px;">
+                    <option value="none" selected hidden>篩選用戶狀態</option>
+                    <option value="0">全部</option>
+                    <option value="1">啟用中</option>
+                    <option value="2">已停權</option>
+                </select>
+            </div>
+
+
+            <table class="backstage_table backstage_user_table">
+                <thead>
+                    <tr>
+                        <th>編號</th>
+                        <th>暱稱</th>
+                        <th>電子信箱</th>
+                        <th>教練狀態</th>
+                        <th>會員狀態</th>
+                        <th>狀態操作</th>
+                        <th>備註</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="user : ${user}">
+                        <td th:text="${user.uId}">00001</td>
+                        <td th:text="${user.uNickname}">Mok</td>
+                        <td th:text="${user.uMail}">fitanywhere@gmail.com</td>
+                        <td th:text="${user.cId == 0 ? '普通會員' : '教練'}">身份</td>
+                        <td th:switch="${user.uStatus}">
+                            <span th:case="0">標準</span>
+                            <span th:case="1">懲處中</span>
+                            <span th:case="2">關閉</span>
+                            <span th:case="3">關閉</span>
+                        </td>
+                        <td>
+                            <select class="status-change">
+                                <option value="0">修改</option>
+                                <option value="1">啟用</option>
+                                <option value="2">懲處</option>
+                                <option value="3">註銷</option>
+                            </select>
+                        </td>
+                        <td th:switch="${user.uStatus}">
+                            <span th:case="0"></span>
+                            <span th:case="1">部分停權</span>
+                            <span th:case="2">自行註銷</span>
+                            <span th:case="3">人工註銷</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="footer_wrapper">
+        <footer>
+            <p class="f-b-title">FitAnyWhere Backstage</p>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById('filterStatus').addEventListener('change', function () {
+            var selectedStatus = this.value;
+            // 重新載入頁面或發送 AJAX 請求來獲取篩選後的資料
+            window.location.href = '/backend_userlist?filterStatus=' + selectedStatus;
+        });
+    </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.status-change').forEach(selectElement => {
+            console.log('綁定事件監聽器至', selectElement);
+            selectElement.addEventListener('change', function() {
+                const selectedValue = this.value;
+                // 若選擇為0，直接返回不執行後續操作
+                if (selectedValue === "0") {
+                    console.log('選擇為修改，忽略不處理');
+                    return; // 提早退出函數
+                }
+                const selectedOptionText = this.options[this.selectedIndex].text;
+                const userId = this.closest('tr').querySelector('td:first-child').textContent.trim();
+                const confirmMessage = `是否將(uId)的會員狀態更改為(${selectedOptionText})?`.replace('(uId)', userId);
+    
+                console.log('選擇變更:', confirmMessage);
+    
+                if (window.confirm(confirmMessage)) {
+                    const data = { uId: userId, value: selectedValue };
+                    console.log('發送數據:', data);
+    
+                    fetch('/backend_userlist_api/manual_change_uStatus', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data),
+                    })
+                    .then(response => {
+                        console.log('響應狀態:', response.status);
+                        if (response.ok) {
+                            console.log('重整頁面');
+                            window.location.reload(); // 成功後重整頁面
+                        } else {
+                            throw new Error('Network response was not ok.');
+                        }
+                    })
+                    .catch(error => console.error('發生錯誤:', error));
+                } else {
+                    console.log('取消操作，重置選項');
+                    this.value = "0"; // 使用者選擇取消，重置選項
+                }
+            });
+        });
+    });
+    </script>
+    
+    
+
+
+</body>
+
+</html>

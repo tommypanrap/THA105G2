@@ -21,6 +21,7 @@ public class CartItemVO {
     //課程價格
     private Integer crPrice;
 
+
     private String base64CrCover;
 
     public CartItemVO(CourseVO courseVO) {
@@ -31,3 +32,5 @@ public class CartItemVO {
         this.base64CrCover = courseVO.getBase64CrCover();
     }
 }
+
+

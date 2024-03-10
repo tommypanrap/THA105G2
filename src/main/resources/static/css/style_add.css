@@ -174,3 +174,6 @@
     background-color: black;
 }
 
+header input[disabled]{
+	display:block;
+}

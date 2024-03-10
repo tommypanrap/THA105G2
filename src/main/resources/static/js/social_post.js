@@ -75,7 +75,7 @@ $(document).ready(function() {
 			let innerHTMLContent = $(".uid-for-send").html();
 			let uid = parseInt(innerHTMLContent, 10);
 
-			console.log("searchValue:" + searchValue);
+//			console.log("searchValue:" + searchValue);
 
 			var data = {
 				searchValue: searchValue,
@@ -107,6 +107,19 @@ $(document).ready(function() {
 		}
 	});
 
+
+	$(".social-reply-input").on("keydown",function(e){
+		if (e.keyCode === 13) {
+//			alert("social-reply-input");
+			
+			let replyValue = String($(this).val());
+			console.log("replyValue:"+replyValue);
+			
+			let spidValue = $(this).siblings(".spid").text();
+        	console.log("spid:", spidValue);
+		}
+			
+	});
 
 
 

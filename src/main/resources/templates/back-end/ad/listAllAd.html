@@ -1,0 +1,163 @@
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>所有員工資料 - listAllAd.html</title>
+<script th:src="@{/js/jquery-1.11.3.min.js}"></script> <!-- 左側jquery為table分頁用 -->
+<head th:insert="~{/back-end/ad/included-fragment}"></head>
+<style type="text/css">
+
+    table {
+      /* width: 1000px; */
+	  background-color: white;
+	  margin-top: 5px;
+	  margin-bottom: 5px;
+    }
+    table, th, td {
+      border: 1px solid #CCCCFF;
+    }
+    th, td {
+      padding: 5px;
+      text-align: center;
+      width: 100px;
+    }
+	.center {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+/* 以下為table分頁用 */
+#pageStyle {
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	border: 1px solid #CCC;
+	line-height: 32px;
+	text-align: center;
+	color: #999;
+	margin-top: 20px;
+	text-decoration: none;
+}
+#pageStyle:hover {
+	background-color: #CCC;
+}
+#pageStyle .active {
+	background-color: #0CF;
+	color: #ffffff;
+}
+</style>
+<script type="text/javascript">
+        //分頁顯示
+        $(function () {
+            var $table = $("table");
+            var currentPage = 0; //當前頁默認值為0  
+            var pageSize = 3; //每一頁顯示的數目  
+            $table.bind('paging', function () {
+                $table.find('tbody tr').hide().slice(currentPage * pageSize, (currentPage + 1) * pageSize).show();
+            });
+            var sumRows = $table.find('tbody tr').length;
+            var sumPages = Math.ceil(sumRows / pageSize); //總頁數  
+            document.getElementById("pageNumber").innerHTML = sumPages; //用於第114行
+            
+            var $pager = $('<div class="page" align="center"></div>');  //新建div，放入a標簽,顯示底部分頁碼  
+            for (var pageIndex = 0; pageIndex < sumPages; pageIndex++) {
+                $('<a href="#" id="pageStyle" onclick="changCss(this)"><span>' + (pageIndex + 1) + '</span></a>').bind("click", { "newPage": pageIndex }, function (event) {
+                    currentPage = event.data["newPage"];
+                    document.getElementById("currentPage").innerHTML = currentPage+1; //用於第114行
+                    $table.trigger("paging");
+                    //觸發分頁函數  
+                }).appendTo($pager);
+                $pager.append(" ");
+            }
+            $pager.insertAfter($table);
+            $table.trigger("paging");
+
+            //默認第一頁的a標簽效果  
+            var $pagess = $('#pageStyle');
+            $pagess[0].style.backgroundColor = "#006B00";
+            $pagess[0].style.color = "#ffffff";
+        });
+
+        //a鏈接點擊變色，再點其他回復原色  
+        function changCss(obj) {
+            var arr = document.getElementsByTagName("a");
+            for (var i = 0; i < arr.length; i++) {
+                if (obj == arr[i]) {       //當前頁樣式  
+                    obj.style.backgroundColor = "#006B00";
+                    obj.style.color = "#ffffff";
+                }
+                else {
+                    arr[i].style.color = "";
+                    arr[i].style.backgroundColor = "";
+                }
+            }
+        }      
+    </script>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
+		 <div align="center"> <h2>所有方案資料 - listAllAd.html</h2>
+		 <h3><a class="navbar-brand" th:href="@{/ad/select_page}"><img th:src="@{/images/back1.gif}">回查詢頁<label th:text="${success}"></label></a></h3></div>
+</nav>
+
+<div align="center">
+  <b><font color=red>第<label id="currentPage">1</label>/<label id="pageNumber"></label>頁</font></b>
+
+<b>● 符 合 查 詢 條 件 如 下 所 示 : 共 <font color=red th:text="${adListData.size}"></font> 筆</b></div>
+	<div style="padding: 5px; width:1115px; height:35px; background-color:#CCCCFF; margin-top:5px; margin-bottom:5px; margin-left:auto; margin-right:auto; border: 1px solid #000000;">
+			<br>
+			<br>
+			<br>
+			<span style="padding: 30px;">方案編號</span>
+			<span style="padding: 15px;">方案名稱</span>
+			<span style="padding: 20px;">方案狀態</span>
+			<span style="padding: 25px;">每日廣告費用</span>
+<!-- 			<span style="padding: 25px;">雇用日期</span> -->
+<!-- 			<span style="padding: 20px;">薪水</span> -->
+<!-- 			<span style="padding: 45px;">獎金</span> -->
+<!-- 			<span style="padding: 20px;">照片</span> -->
+<!-- 			<span style="padding: 50px;">部門</span> -->
+			<span style="padding: 15px;">修改</span>
+			<span style="padding: 0px 0px 0px 50px;">刪除</span>
+		</div>
+	
+	<table class="center">
+		<th:block th:each="adVO : ${adListData}">
+			<tr>
+			<br>
+<!-- 				<td th:text="${empVOStat.count}"></td> -->
+				<td th:text="${adVO.adId}"></td>
+				<td th:text="${adVO.adName}"></td>
+				<td th:text="${adVO.adStatus}"></td>
+				<td th:text="${adVO.adDayPrice}"></td>
+<!-- 				<td th:text="${empVO.sal}"></td> -->
+<!-- 				<td th:text="${empVO.comm}"></td> -->
+<!-- 				<td><img th:src="@{/emp/DBGifReader} + '?empno=' + ${empVO.empno}" width="100px"></td> -->
+<!-- 				<td th:text="${empVO.deptVO.deptno} + '-[' + ${empVO.deptVO.dname} + ']'"></td> -->
+			<td>
+			  <form method="post" th:action="@{/ad/getOne_For_Update}" style="margin-bottom: 0px;">
+			     <input type="submit" value="修改">
+			     <input type="hidden" name="adId" th:value="${adVO.adId}"></form>
+			</td>
+			<td>
+			  <form method="post" th:action="@{/ad/delete}" style="margin-bottom: 0px;">
+			     <input type="submit" value="刪除">
+			     <input type="hidden" name="adId" th:value="${adVO.adId}"></form>
+			</td>
+			</tr>
+		</th:block>
+	</table>
+
+</body>
+</html>

@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fitanywhere.socialpost.model.SocialPostService;
+import com.fitanywhere.socialpost.model.SocialReplyService;
 import com.fitanywhere.socialpost.model.SocialPostVO;
 import com.fitanywhere.socialpost.model.SocialReplyVO;
 import com.fitanywhere.mood.model.MoodVO;
@@ -39,6 +40,9 @@ public class SocialPostController {
 
 	@Autowired
 	SocialPostService socialPostSvc;
+	
+	@Autowired
+	SocialReplyService socialReplySvc;
 
 	@Autowired
 	UserService userSvc;
@@ -240,6 +244,25 @@ public class SocialPostController {
 		System.out.println(matchingUsers);
 		
 		session.setAttribute("matchingUsers", matchingUsers);
+		
+		return "redirect:/socialpost/student_socialpost";
+	}
+	
+	@PostMapping("add_social_reply")
+	public String add_social_reply(@RequestParam String replyValue, @RequestParam String spid, ModelMap model)   {
+		
+		System.out.println("replyValue:"+replyValue);
+		System.out.println("spid:"+spid);
+		
+		SocialPostVO socialPostVOforAddReply = socialPostSvc.getOneSocialPost(Integer.parseInt(spid));
+		SocialReplyVO socialReplyVO = new SocialReplyVO();
+		socialReplyVO.setSocialPostVO(socialPostVOforAddReply);
+		socialReplyVO.setSrTime(new Timestamp(System.currentTimeMillis()));
+		socialReplyVO.setSrUpdate(new Timestamp(System.currentTimeMillis()));
+		socialReplyVO.setSrStatus(1);
+		socialReplyVO.setSrContent(replyValue);
+		
+		socialReplySvc.addSocialReply(socialReplyVO);
 		
 		return "redirect:/socialpost/student_socialpost";
 	}

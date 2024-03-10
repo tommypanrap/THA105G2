@@ -16,3 +16,8 @@ $("#lightbox").on("click", function(){
 $("#lightbox > article").on("click", function(e){
     e.stopPropagtion();
 });
+
+$(".opinion-btn").on("click",function(e){
+    e.preventDefault();
+    $("#lightbox").removeClass("none");
+});

@@ -1,0 +1,237 @@
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>廣告輪播新增 - addAdCarousel.html</title>
+<head th:insert="~{/back-end/adCarousel/included-fragment}"></head>
+<style type="text/css">
+button {
+	padding: 5px;
+}
+
+form {
+	display: table;
+}
+
+form div {
+	display: table-row;
+}
+
+label, input, span, select {
+	display: table-cell;
+	margin: 5px;
+	text-align: left;
+}
+
+input[type=text], input[type=password], select, textarea {
+	width: 200px;
+	margin: 5px;
+}
+
+form div div {
+	display: table-cell;
+}
+
+.center {
+	margin-left: auto;
+	margin-right: auto;
+}
+</style>
+</head>
+<body>
+
+	<nav
+		class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
+		<div align="center">
+			<h2>廣告輪播新增 - addAdCarousel.html</h2>
+			<h3>
+				<a class="navbar-brand" th:href="@{/adCarousel/select_page}"><img
+					th:src="@{/images/back1.gif}">回查詢頁</a>
+			</h3>
+		</div>
+	</nav>
+
+	<div align="center">
+		<h3>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+			<b>所有欄位皆為必填欄位</b>
+		</h3>
+		<form th:action="@{insert}" method="post" th:object="${adcarVO}"
+			enctype="multipart/form-data">
+
+
+
+
+
+
+<!-- 			<div> 自增-->
+<!-- 				<label>廣告輪播ID:</label> <input type="text" th:field="*{adcId}" -->
+<!-- 					onclick="hideContent('adcId.errors');" /><br /> <span -->
+<!-- 					th:if="${#fields.hasErrors('adcId')}" th:errors="*{adcId}" -->
+<!-- 					class="error" id="adcId.errors"></span> -->
+<!-- 			</div> -->
+
+			<div>
+				<label>廣告起始日:</label> <input type="date" th:field="*{adcStartDate}"
+					onclick="hideContent('adStartDate.errors');" /><br /> <span
+					th:if="${#fields.hasErrors('adcStartDate')}"
+					th:errors="*{adcStartDate}" class="error" id="adcStartDate.errors"></span>
+			</div>
+			
+
+			<div>
+				<label>廣告結束日:</label> <input type="date" th:field="*{adcEndDate}"
+					onclick="hideContent('adEndDate.errors');" /><br /> <span
+					th:if="${#fields.hasErrors('adcEndDate')}"
+					th:errors="*{adcEndDate}" class="error" id="adcEndDate.errors"></span>
+			</div>
+
+
+			<div>
+				<label>廣告總價(單價乘以天數):</label> <input type="text" th:field="*{adcTotalPrice}"
+					onclick="hideContent('adcTotalPrice.errors');" /><br /> <span
+					th:if="${#fields.hasErrors('adcTotalPrice')}"
+					th:errors="*{adcTotalPrice}" class="error" id="adcTotalPrice.errors"></span>
+			</div>
+			
+			<div>
+				<label>ad_id(抓session):</label> <input type="text" th:field="*{adVO.adId}"
+					onclick="hideContent('adcTotalPrice.errors');" /><br /> <span
+					th:if="${#fields.hasErrors('adVO.adId')}"
+					th:errors="*{adVO.adId}" class="error" id="adVO.adId.errors"></span>
+			</div>
+			
+			<div>
+				<label>u_id(抓session):</label> <input type="text" th:field="*{userVO.uId}"
+					onclick="hideContent('adcTotalPrice.errors');" /><br /> <span
+					th:if="${#fields.hasErrors('userVO.uId')}"
+					th:errors="*{userVO.uId}" class="error" id="userVO.uId.errors"></span>
+			</div>
+			
+			
+			<div>
+				<label>cr_id(抓session):</label> <input type="text" th:field="*{courseVO.crId}"
+					onclick="hideContent('adcTotalPrice.errors');" /><br /> <span
+					th:if="${#fields.hasErrors('courseVO.crId')}"
+					th:errors="*{courseVO.crId}" class="error" id="courseVO.crId.errors"></span>
+			</div>
+			
+			<div>
+				<label>廣告交易狀態(defult 1):</label> <input type="text" th:field="*{adcStatus}"
+					onclick="hideContent('adcStatus.errors');" /><br /> <span
+					th:if="${#fields.hasErrors('adcStatus')}"
+					th:errors="*{adcStatus}" class="error" id="adcStatus.errors"></span>
+			</div>
+			
+						<div>
+				<label>廣告方案類別:</label> <input type="text" th:field="*{adVO.adType}"
+					onclick="hideContent('adVO.adType.errors');" /><br /> <span
+					th:if="${#fields.hasErrors('adVO.adType')}"
+					th:errors="*{adVO.adType}" class="error" id="adVO.adType.errors"></span>
+			</div>
+			
+			<div>
+			<label>照片:</label>
+			<input type="file" th:field="*{adcUpdatePic}" onclick="previewImage()" multiple="multiple" onchange="hideContent('adcUpdatePic.errors');" />
+<!-- 			<span  th:if="${#fields.hasErrors('upFiles')}" th:errors="*{upFiles}" class="error" id="upFiles.errors"></span> -->
+			<span class="error" th:utext="${errorMessage}" id="adcUpdatePic.errors">${errorMessage}</span>
+<!-- 			<h2 id="errorMessage">${errorMessage}</h2>  -->
+			<div id="blob_holder"></div>
+			</div>
+			
+<!-- 			<div>  讓sql自增-->
+<!-- 				<label>交易完成時間:</label> <input type="text" th:field="*{adcOrderEnddate}" -->
+<!-- 					onclick="hideContent('adcOrderEnddate.errors');" /><br /> <span -->
+<!-- 					th:if="${#fields.hasErrors('adcOrderEnddate')}" -->
+<!-- 					th:errors="*{adcOrderEnddate}" class="error" id="adcOrderEnddate.errors"></span> -->
+<!-- 			</div> -->
+
+			<!-- 			<div> -->
+			<!-- 				<label>廣告ID(關聯ad=>adId):</label> <input type="text" -->
+			<!-- 					th:field="*{adVO.adId}" onclick="hideContent('adVO.adId.errors');" /><br /> -->
+			<!-- 				<span th:if="${#fields.hasErrors('adVO.adId')}" -->
+			<!-- 					th:errors="*{adVO.adId}" class="error" id="adVO.adId.errors"></span> -->
+			<!-- 			</div> -->
+
+
+			<div>
+				<div></div>
+				<div>
+					<button type="submit" id="submit">送出新增</button>
+				</div>
+				<div></div>
+			</div>
+		</form>
+
+	</div>
+
+
+	<!-- JavaScript part -->
+	<script type="text/javascript">
+		//清除提示信息
+		function hideContent(d) {
+			document.getElementById(d).style.display = "none";
+		}
+
+// 		照片上傳-預覽用
+		var filereader_support = typeof FileReader != 'undefined';
+		if (!filereader_support) {
+			alert("No FileReader support");
+		}
+		acceptedTypes = {
+				'image/png' : true,
+				'image/jpeg' : true,
+				'image/gif' : true
+		};
+		function previewImage() {
+			var upfile1 = document.getElementById("adcUpdatePic");
+			upfile1.addEventListener("change", function(event) {
+				var files = event.target.files || event.dataTransfer.files;
+				for (var i = 0; i < files.length; i++) {
+					previewfile(files[i])
+				}
+			}, false);
+		}
+		function previewfile(file) {
+			if (filereader_support === true && acceptedTypes[file.type] === true) {
+				var reader = new FileReader();
+				reader.onload = function(event) {
+					var image = new Image();
+					image.src = event.target.result;
+					image.width = 100;
+					image.height = 75;
+					image.border = 2;
+					if (blob_holder.hasChildNodes()) {
+						blob_holder.removeChild(blob_holder.childNodes[0]);
+					}
+					blob_holder.appendChild(image);
+				};
+				reader.readAsDataURL(file);
+				document.getElementById('submit').disabled = false;
+			} else {
+				blob_holder.innerHTML = "<div  style='text-align: left;'>" + "● filename: " + file.name
+						+ "<br>" + "● ContentTyp: " + file.type
+						+ "<br>" + "● size: " + file.size + "bytes"
+						+ "<br>" + "● 上傳ContentType限制: <b> <font color=red>image/png、image/jpeg、image/gif </font></b></div>";
+				document.getElementById('submit').disabled = true;
+			}
+		}
+	</script>
+
+</body>
+</html>

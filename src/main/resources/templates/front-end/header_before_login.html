@@ -1,0 +1,278 @@
+<header class="rbt-header rbt-header-10">
+    <div class="rbt-sticky-placeholder"></div>
+    <!-- End Header Top  -->
+    <div class="rbt-header-wrapper header-space-betwween " style="padding: 0 20px;">
+        <div class="container-fluid" style="padding: 0px;">
+            <div class="mainbar-row rbt-navigation-center align-items-center">
+                <div class="header-left rbt-header-content">
+                    <div class="header-info">
+                        <div class="logo">
+                            <a href="index.html">
+                                <img th:src="@{/assets/images/logo/logo.png}" alt="Education Logo Images">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rbt-main-navigation d-none d-xl-block">
+                    <nav class="mainmenu-nav">
+                        <ul class="mainmenu">
+                            <li class="has-dropdown has-menu-child-item">
+                                <a href="/">首頁
+<!--                                    <i class="feather-chevron-down"></i>-->
+                                </a>
+
+                            </li>
+                            <li class="has-dropdown has-menu-child-item">
+                                <a href="/course/courses">課程
+<!--                                    <i class="feather-chevron-down"></i>-->
+                                </a>
+<!--                                <ul class="submenu">-->
+<!--                                    <li class="has-dropdown"><a href="#">Instructor Dashboard</a>-->
+
+<!--                                    </li>-->
+<!--                                    <li class="has-dropdown"><a href="#">Student Dashboard</a>-->
+
+<!--                                    </li>-->
+<!--                                </ul>-->
+                            </li>
+                            <li class="has-dropdown has-menu-child-item">
+                                <a href="#">討論區
+<!--                                    <i class="feather-chevron-down"></i>-->
+                                </a>
+
+                            </li>
+                            <li class="has-dropdown has-menu-child-item">
+                                <a href="#">TDEE／FFMI 計算公式
+<!--                                    <i class="feather-chevron-down"></i>-->
+                                </a>
+
+                            </li>
+
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="header-right" style="margin-right: -10px;">
+
+                    <!-- Navbar Icons -->
+                    <ul class="quick-access">
+                        <li class="access-icon">
+                            <a class="search-trigger-active rbt-round-btn" href="#">
+                                <i class="feather-search"></i>
+                            </a>
+                        </li>
+                        <li class="access-icon rbt-mini-cart">
+
+                            <a class="rbt-cart-sidenav-activation rbt-round-btn"  onclick="getCartItems()" href="#">
+                                <i class="feather-shopping-cart"></i>
+                                <span class="rbt-cart-count">4</span>
+                            </a>
+                        </li>
+
+                        <li class="access-icon">
+                            <a class="rbt-round-btn opinion-btn" href="#">
+                                <i class="feather-mail"></i>
+                            </a>
+                        </li>
+                        <li class="access-icon">
+                            <a class=" rbt-round-btn" href="#">
+                                <i class="feather-bell"></i>
+                            </a>
+                        </li>
+
+
+
+                        <li class="account-access rbt-user-wrapper d-none d-xl-block">
+                            <a href="#"><i class="feather-user"></i>會員</a>
+                            <div class="rbt-user-menu-list-wrapper" style="right: 10px; left: auto;">
+                                <div class="inner" style="padding-top: 30px;">
+                                    <div class="rbt-admin-profile">
+                                        <div class="admin-thumbnail">
+                                            <img th:src="@{/assets/images/team/avatar.jpg}" alt="User Images">
+                                        </div>
+                                        <div class="admin-info">
+                                            <span class="name">Nipa Bali</span>
+                                            <a class="rbt-btn-link color-primary" href="#">個人檔案</a>
+                                        </div>
+                                    </div>
+                                    <ul class="user-list-wrapper">
+                                        <li>
+                                            <a href="#">
+                                                <i class="feather-home"></i>
+                                                <span>會員中心</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="feather-bookmark"></i>
+                                                <span>最新消息</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/mj/student_enrolled_courses">
+                                                <i class="feather-shopping-bag"></i>
+                                                <span>我的課程</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/mj/student_wishlist">
+                                                <i class="feather-heart"></i>
+                                                <span>願望清單</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/mj/student_reviews">
+                                                <i class="feather-star"></i>
+                                                <span>我的評論</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/mj/student_my_quiz_attempts">
+                                                <i class="feather-list"></i>
+                                                <span>我的問答</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/order/order_history">
+                                                <i class="feather-clock"></i>
+                                                <span>歷史訂單</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/mj/student_gift_history">
+                                                <i class="feather-message-square"></i>
+                                                <span>收禮紀錄</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                    <hr class="mt--10 mb--10">
+                                    <ul class="user-list-wrapper">
+<!--                                        <li>-->
+<!--                                            <a href="instructor-settings.html">-->
+<!--                                                <i class="feather-settings"></i>-->
+<!--                                                <span>設定</span>-->
+<!--                                            </a>-->
+<!--                                        </li>-->
+                                        <li>
+                                            <a href="/">
+                                                <i class="feather-log-out"></i>
+                                                <span>登出</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="access-icon rbt-user-wrapper d-block d-xl-none">
+                            <a class="rbt-round-btn" href="#"><i class="feather-user"></i></a>
+                            <div class="rbt-user-menu-list-wrapper">
+                                <div class="inner">
+                                    <div class="rbt-admin-profile">
+                                        <div class="admin-thumbnail">
+                                            <img th:src="@{/assets/images/team/avatar.jpg}" alt="User Images">
+                                        </div>
+                                        <div class="admin-info">
+                                            <span class="name">Nipa Bali</span>
+                                            <a class="rbt-btn-link color-primary" href="profile.html">View Profile</a>
+                                        </div>
+                                    </div>
+                                    <ul class="user-list-wrapper">
+                                        <li>
+                                            <a href="/socialpost/student_socialpost">
+                                                <i class="feather-home"></i>
+                                                <span>會員中心</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="feather-bookmark"></i>
+                                                <span>最新消息</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/mj/student_enrolled_courses">
+                                                <i class="feather-shopping-bag"></i>
+                                                <span>我的課程</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/mj/student_wishlist">
+                                                <i class="feather-heart"></i>
+                                                <span>願望清單</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/mj/student_reviews">
+                                                <i class="feather-star"></i>
+                                                <span>我的評論</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/mj/student_my_quiz_attempts">
+                                                <i class="feather-list"></i>
+                                                <span>我的問答</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/order/order_history">
+                                                <i class="feather-clock"></i>
+                                                <span>歷史訂單</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/mj/student_gift_history">
+                                                <i class="feather-message-square"></i>
+                                                <span>收禮紀錄</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                    <hr class="mt--10 mb--10">
+                                    <ul class="user-list-wrapper">
+<!--                                        <li>-->
+<!--                                            <a href="instructor-settings.html">-->
+<!--                                                <i class="feather-settings"></i>-->
+<!--                                                <span>設定</span>-->
+<!--                                            </a>-->
+<!--                                        </li>-->
+                                        <li>
+                                            <a href="/">
+                                                <i class="feather-log-out"></i>
+                                                <span>登出</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                    <!-- Start Mobile-Menu-Bar -->
+                    <div class="mobile-menu-bar d-block d-xl-none">
+                        <div class="hamberger">
+                            <button class="hamberger-button rbt-round-btn">
+                                <i class="feather-menu"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Start Mobile-Menu-Bar -->
+
+                </div>
+            </div>
+        </div>
+        <!-- Start Search Dropdown  -->
+        
+        <!-- End Search Dropdown  -->
+    </div>
+    <!-- Start Side Vav -->
+    
+
+<!--    	<div th:replace="front-end/included_mail.html"></div> -->
+    <!-- End Side Vav -->
+<!--     <a class="rbt-close_side_menu" href="javascript:void(0);"></a> -->
+</header>
+

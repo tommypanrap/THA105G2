@@ -26,7 +26,7 @@ public class FilterConfig {
         FilterRegistrationBean<AdminLoginStatusFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(new AdminLoginStatusFilter());
 //      請在這邊設定需要過濾管理員登入狀態的網址  
-        registrationBean.addUrlPatterns("/backend_user/*", "/其他後端");
+        registrationBean.addUrlPatterns("/backend_user1111/*", "/其他後端");
         return registrationBean;
     }
     

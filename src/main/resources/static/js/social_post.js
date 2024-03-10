@@ -2,12 +2,12 @@ $(document).ready(function() {
 	//連結按鈕的地方
 	$(".add-post").on("click", function(e) {
 		e.preventDefault();
-		$("#lightbox").removeClass("none");
+		$(".lightbox-add-post").removeClass("none");
 	});
 
 	// 關閉按鈕
 	$("button.btn_model_close").on("click", function() {
-		$("#lightbox").addClass("none");
+		$(".lightbox-add-post").addClass("none");
 		// alert("123");
 	});
 
@@ -75,11 +75,11 @@ $(document).ready(function() {
 			let innerHTMLContent = $(".uid-for-send").html();
 			let uid = parseInt(innerHTMLContent, 10);
 
-			console.log("searchValue:" + searchValue);
+//			console.log("searchValue:" + searchValue);
 
 			var data = {
 				searchValue: searchValue,
-				uId : uid
+				uId: uid
 			}
 
 			const formData = new FormData();
@@ -94,7 +94,7 @@ $(document).ready(function() {
 				contentType: false, // 必須為 false，告訴 jQuery 不要設置 contentType
 				processData: false, // 必須為 false，告訴 jQuery 不要處理數據
 				success: function(responseData) {
-//					window.alert("進來ajax");
+					//					window.alert("進來ajax");
 					window.location.href = 'student_socialpost';
 				},
 				error: function(xhr, status, error) {
@@ -108,6 +108,102 @@ $(document).ready(function() {
 	});
 
 
+	$(".social-reply-input").on("keydown",function(e){
+		if (e.keyCode === 13) {
+//			alert("social-reply-input");
+			
+			let replyValue = String($(this).val());
+			console.log("replyValue:"+replyValue);
+			
+			let spidValue = $(this).siblings(".spid").text();
+        	console.log("spid:", spidValue);
+		}
+			
+	});
 
+
+
+
+//
+//	let navUId = $(".navUId").text();
+//	//	let navUIdNumber = parseInt(navUId);
+//
+//
+//	var storedNavUId = navUIdNumber = sessionStorage.getItem('navUId', navUIdNumber);
+//
+//	if (storedNavUId && !isNaN(storedNavUId)) {
+//		navUId = storedNavUId;
+//		console.log("storedNavUId:"+storedNavUId);
+////		var data = {
+////			navUIdPost: navUId
+////		}
+////
+////
+////			;
+////
+////		const formData = new FormData();
+////		for (const key in data) {
+////			formData.append(key, data[key]);
+////		}
+////		$.ajax({
+////			url: '/socialpost/student_socialpost',
+////			type: 'POST',
+////			data: formData,
+////			contentType: false, // 必須為 false，告訴 jQuery 不要設置 contentType
+////			processData: false, // 必須為 false，告訴 jQuery 不要處理數據
+////			success: function(responseData) {
+////				//					window.alert("進來ajax");
+////				//				window.location.href = 'student_socialpost';
+////			},
+////			error: function(xhr, status, error) {
+////				console.error('Error:', error);
+////				console.log('Status:', status);
+////				console.log('Response Text:', xhr.responseText);
+////			}
+////		});
+//
+//	}
+//
+//
+//	if (navUId && !isNaN(navUId)) {
+//		var navUIdNumber = parseInt(navUId);
+//		console.log(navUIdNumber);
+//		sessionStorage.setItem('navUId', navUIdNumber);
+//
+//
+//		var data = {
+//			navUIdPost: navUId
+//		}
+//
+//
+//			;
+//
+//		const formData = new FormData();
+//		for (const key in data) {
+//			formData.append(key, data[key]);
+//		}
+//
+//		$.ajax({
+//			url: '/socialpost/student_socialpost',
+//			type: 'GET',
+//			data: formData,
+//			contentType: false, // 必須為 false，告訴 jQuery 不要設置 contentType
+//			processData: false, // 必須為 false，告訴 jQuery 不要處理數據
+//			success: function(responseData) {
+//				//					window.alert("進來ajax");
+//				//				window.location.href = 'student_socialpost';
+//			},
+//			error: function(xhr, status, error) {
+//				console.error('Error:', error);
+//				console.log('Status:', status);
+//				console.log('Response Text:', xhr.responseText);
+//			}
+//		});
+//
+//
+//
+//	} else {
+//		console.log('navUId is either empty or not a number');
+//	}
 
 });

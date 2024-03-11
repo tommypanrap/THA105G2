@@ -240,16 +240,16 @@
 										<input type="text" class="social-reply-input"
 											placeholder="留言...">
 										<div class="social-reply"
-											th:each="socialReply : ${socialPost.socialReplys}">
+											th:each="socialReply : ${socialPost.socialReplys}" th:if="${socialPost.socialReplys != null and not #lists.isEmpty(socialPost.socialReplys)}">
 											<div class="reply-member">
 												<img th:src="@{/images/member-3.png}" alt="">
 												<div class="reply-name-text">
 													<p class="member-nickname"
-														th:text="${socialReply.userVO.uNickname}">怡蓉老師</p>
+														th:text="${socialReply.userVO?.uNickname}"  th:if="${socialPost.socialReplys != null and not #lists.isEmpty(socialPost.socialReplys)}">>怡蓉老師</p>
 													<p class="reply-time">10分鐘</p>
 												</div>
 											</div>
-											<div class="reply-content" th:text="${socialReply.srContent}">
+											<div class="reply-content" th:text="${socialReply.srContent}"  th:if="${socialPost.socialReplys != null and not #lists.isEmpty(socialPost.socialReplys)}">>
 												<p>同學有人在嘛</p>
 											</div>
 

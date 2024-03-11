@@ -106,20 +106,20 @@ public class CourseVO implements java.io.Serializable {
 	@Column(name = "cr_level")
 	private String crLevel;
 	
-//	xiaoxin
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="courseVO")
-	private Set<AdCarouselVO> adCarousel = new HashSet<AdCarouselVO>();
-	
-	
+////	xiaoxin
+//	@OneToMany(fetch=FetchType.EAGER, mappedBy="courseVO")
+//	private Set<AdCarouselVO> adCarousel = new HashSet<AdCarouselVO>();
+//	
+//	
+//
+//	public Set<AdCarouselVO> getAdCarousel() {
+//		return this.adCarousel;
+//	}
 
-	public Set<AdCarouselVO> getAdCarousel() {
-		return this.adCarousel;
-	}
-
-
-	public void setAdCarousel(Set<AdCarouselVO> adCarousel) {
-		this.adCarousel = adCarousel;
-	}
+//
+//	public void setAdCarousel(Set<AdCarouselVO> adCarousel) {
+//		this.adCarousel = adCarousel;
+//	}
 
 
 	@Transient

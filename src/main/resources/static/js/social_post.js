@@ -113,10 +113,37 @@ $(document).ready(function() {
 //			alert("social-reply-input");
 			
 			let replyValue = String($(this).val());
-			console.log("replyValue:"+replyValue);
+			console.log("replyValue:"+ typeof replyValue);
 			
 			let spidValue = $(this).siblings(".spid").text();
-        	console.log("spid:", spidValue);
+        	console.log("spid:", typeof spidValue);
+        	
+        	var data = {
+				replyValue: replyValue,
+				spid: spidValue
+			}
+			
+			const formData = new FormData();
+			for (const key in data) {
+				formData.append(key, data[key]);
+			}
+			
+			$.ajax({
+				url: '/socialpost/add_social_reply',
+				type: 'POST',
+				data: formData,
+				contentType: false, // 必須為 false，告訴 jQuery 不要設置 contentType
+				processData: false, // 必須為 false，告訴 jQuery 不要處理數據
+				success: function(responseData) {
+					//					window.alert("進來ajax");
+					window.location.href = 'student_socialpost';
+				},
+				error: function(xhr, status, error) {
+					console.error('Error:', error);
+					console.log('Status:', status);
+					console.log('Response Text:', xhr.responseText);
+				}
+			});
 		}
 			
 	});

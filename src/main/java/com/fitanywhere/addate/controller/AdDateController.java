@@ -1,4 +1,4 @@
-package com.fitanywhere.adate.controller;
+package com.fitanywhere.addate.controller;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
@@ -26,8 +26,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fitanywhere.ad.model.AdService;
 import com.fitanywhere.ad.model.AdVO;
-import com.fitanywhere.adate.model.AdDateService;
-import com.fitanywhere.adate.model.AdDateVO;
+import com.fitanywhere.addate.model.AdDateService;
+import com.fitanywhere.addate.model.AdDateVO;
 
 @Controller
 @RequestMapping("/adDate")

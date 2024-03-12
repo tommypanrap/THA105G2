@@ -26,10 +26,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fitanywhere.ad.model.AdService;
 import com.fitanywhere.ad.model.AdVO;
-import com.fitanywhere.adate.model.AdDateService;
-import com.fitanywhere.adate.model.AdDateVO;
 import com.fitanywhere.adcarousel.model.AdCarouselService;
 import com.fitanywhere.adcarousel.model.AdCarouselVO;
+import com.fitanywhere.addate.model.AdDateService;
+import com.fitanywhere.addate.model.AdDateVO;
 
 @Controller
 @RequestMapping("/ad")

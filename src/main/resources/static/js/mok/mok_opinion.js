@@ -9,10 +9,15 @@ $("button.btn_model_close").on("click", function(){
     $("#lightbox").addClass("none");
 });
 
-$("#lightbox").on("click", function(){
-    $("#lightbox").addClass("none");
-})
+//$("#lightbox").on("click", function(){
+//    $("#lightbox").addClass("none");
+//})
 
 $("#lightbox > article").on("click", function(e){
     e.stopPropagtion();
+});
+
+$(".opinion-btn").on("click",function(e){
+    e.preventDefault();
+    $("#lightbox").removeClass("none");
 });

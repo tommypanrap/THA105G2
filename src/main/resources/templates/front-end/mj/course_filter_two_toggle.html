@@ -30,6 +30,7 @@
     <link rel="stylesheet" th:href="@{/assets/css/plugins/magnigy-popup.min.css}">
     <link rel="stylesheet" th:href="@{/assets/css/plugins/plyr.css}">
     <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <!-- ●●js  for jquery datatables 用 -->
     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
@@ -1151,7 +1152,14 @@
                                 <div class="rbt-card-img">
                                     <a href="course-details.html">
 <!--                                        "data:image/jpeg;base64,${item.crCover}-->
-                                        <img th:src="@{/assets/images/course/course-online-01.jpg}" alt="Card image">
+
+                                        <img th:if="${courseData.base64CrCover != null}"
+                                             th:src="'data:image/jpeg;base64,' + ${courseData.base64CrCover}"
+                                             alt="Card image">
+
+                                        <img th:unless="${courseData.base64CrCover != null}"
+                                             th:src="@{/assets/images/client/avatar-02.png}"
+                                             alt="Card image">
 
                                     </a>
                                 </div>
@@ -1186,6 +1194,7 @@
                                     <div class="rbt-author-meta mb--10">
                                         <div class="rbt-avater">
                                             <a th:href="@{'/course_details_2'}">
+<!--                                                <img src="data:image/jpeg;base64,${item.crCover}"-->
                                                 <img th:src="@{/assets/images/client/avatar-02.png}"
                                                      alt="Sophia Jaymes">
                                             </a>
@@ -1507,19 +1516,19 @@
 
 
 <script>
-
     const add2Cart = (courseData) => {
         // const coverBase64 = arrayBufferToBase64(crCover);
-        const cartItem = {
-            crId: courseData.crId,
-            crTitle: courseData.crTitle,
-            crCover: courseData.crCover,
-            crPrice: courseData.crPrice
-        };
+        // const cartItem = {
+        //     crId: courseData.crId,
+        //     crTitle: courseData.crTitle,
+        //     crCover: courseData.crCover,
+        //     crPrice: courseData.crPrice
+        // };
+        let crId = courseData.crId;
         //const url = window.location.href;
         fetch('/cart/add', {
             method: 'POST',
-            body: JSON.stringify(cartItem),
+            body: crId,
             headers: {
                 "content-type": "application/json",
             }
@@ -1535,7 +1544,7 @@
             console.error("發生錯誤:" + error);
         });
 
-        getCartItems();
+        // getCartItems();
     }
 
 

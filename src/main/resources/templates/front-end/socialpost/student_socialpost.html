@@ -152,7 +152,7 @@
 
 
 
-									<div id="lightbox" class="none">
+									<div id="lightbox" class="none lightbox-add-post">
 										<form th:action="@{insert}" method="post"
 											th:object="${socialPostVO}" enctype="multipart/form-data">
 											<article>
@@ -205,9 +205,10 @@
 								</div>
 							</div>
 							<span th:if="${navUId != null}" th:text="${navUId}" class="navUId">aaa</span>
-							<span th:if="${#strings.isEmpty(navUId)}" >測試字 - 新增貼文</span>
+<!-- 							<span th:if="${#strings.isEmpty(navUId)}" >測試字 - 新增貼文</span> -->
 							<div th:each="socialPost : ${userShowPostVO.socialposts}"
 								th:if="${socialPost.spstatus == 1}">
+								
 								<div class="article-post">
 									<div class="title">
 										<div class="title-info-wrapper">
@@ -216,14 +217,14 @@
 												alt="">
 
 											<div class="title-info">
-												<p th:text="${userShowPostVO.uNickname}">振宇健身房</p>
+												<p th:text="${userShowPostVO.uNickname}"></p>
 												<p
-													th:text="${#dates.format(socialPost.sptime, 'yyyy年MM月dd日')}">2023年8月1日</p>
+													th:text="${#dates.format(socialPost.sptime, 'yyyy年MM月dd日')}"></p>
 											</div>
 										</div>
 										<div class="button-container">
-											<img th:src="@{/images/social-edit.png}" alt="" class="edit">
-											<img th:src="@{/images/social-delete.png}" alt=""
+											<img th:src="@{/images/social-edit.png}" alt="" class="edit" th:if="${#strings.isEmpty(navUId)}">
+											<img th:src="@{/images/social-delete.png}" th:if="${#strings.isEmpty(navUId)}" alt=""
 												class="delete-socialpost">
 										</div>
 									</div>
@@ -235,19 +236,20 @@
 										<p th:text="${socialPost.spcontent}">content</p>
 										<img
 											th:src="@{/socialpost/DBGifReader} + '?spid=' + ${socialPost.spid}"
-											alt=""> <input type="text" class="social-reply-input"
+											alt=""> 
+										<input type="text" class="social-reply-input"
 											placeholder="留言...">
 										<div class="social-reply"
-											th:each="socialReply : ${socialPost.socialReplys}">
+											th:each="socialReply : ${socialPost.socialReplys}" th:if="${socialPost.socialReplys != null and not #lists.isEmpty(socialPost.socialReplys)}">
 											<div class="reply-member">
 												<img th:src="@{/images/member-3.png}" alt="">
 												<div class="reply-name-text">
 													<p class="member-nickname"
-														th:text="${socialReply.userVO.uNickname}">怡蓉老師</p>
+														th:text="${socialReply.userVO?.uNickname}"  th:if="${socialPost.socialReplys != null and not #lists.isEmpty(socialPost.socialReplys)}">>怡蓉老師</p>
 													<p class="reply-time">10分鐘</p>
 												</div>
 											</div>
-											<div class="reply-content" th:text="${socialReply.srContent}">
+											<div class="reply-content" th:text="${socialReply.srContent}"  th:if="${socialPost.socialReplys != null and not #lists.isEmpty(socialPost.socialReplys)}">>
 												<p>同學有人在嘛</p>
 											</div>
 
@@ -337,6 +339,7 @@
 	<!-- Main JS -->
 	<script th:src="@{/js/main.js}"></script>
 	<script th:src="@{/js/social_post.js}"></script>
+	<script th:src="@{/js/mok/mok_opinion.js}"></script>
 </body>
 
 </html>

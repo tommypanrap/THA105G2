@@ -71,7 +71,7 @@
                         </li>
 
                         <li class="access-icon">
-                            <a class="rbt-round-btn" href="#">
+                            <a class="rbt-round-btn opinion-btn" href="#">
                                 <i class="feather-mail"></i>
                             </a>
                         </li>
@@ -523,6 +523,7 @@
             </div>
         </div>
     </div>
+
     <!-- End Side Vav -->
     <a class="rbt-close_side_menu" href="javascript:void(0);"></a>
 </header>
@@ -549,15 +550,18 @@
             // 遍歷購物車數據
             data.forEach(item => {
                 sum += item.crPrice;
-                // const itemEl = document.createElement('div');
                 console.log(item);
 
                 var crId = item.crId;
+
+                var cover = item.crCover != null ? `data:image/jpeg;base64,${item.crCover}` : '/assets/images/client/avatar-02.png';
+
                 cartEl.innerHTML +=
                     `<li class="minicart-item">
                         <div class="thumbnail">
                             <a th:href="@{#}">
-                                <img src="data:image/jpeg;base64,${item.crCover}" alt="Product Images">
+                                <img src="${cover}" alt="Product Images">
+
                             </a>
                         </div>
                         <div class="product-content">

@@ -107,9 +107,9 @@ public class CourseVO implements java.io.Serializable {
 	
 	
 
-	public Set<AdCarouselVO> getAdCarousel() {
-		return this.adCarousel;
-	}
+//	public Set<AdCarouselVO> getAdCarousel() {
+//		return this.adCarousel;
+//	}
 
 
 	public void setAdCarousel(Set<AdCarouselVO> adCarousel) {

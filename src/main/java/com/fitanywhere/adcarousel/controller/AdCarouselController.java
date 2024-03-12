@@ -15,8 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fitanywhere.ad.model.AdService;
+import com.fitanywhere.ad.model.AdVO;
 import com.fitanywhere.adcarousel.model.AdCarouselService;
 import com.fitanywhere.adcarousel.model.AdCarouselVO;
+import com.fitanywhere.course.model.CourseService;
+import com.fitanywhere.course.model.CourseVO;
+import com.fitanywhere.user.model.UserService;
+import com.fitanywhere.user.model.UserVO;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -39,12 +44,12 @@ public class AdCarouselController {
     private AdService adSvc;
 
 //	關聯user表格
-//	@Autowired
-//	private UserService userSvc;
+	@Autowired
+	private UserService userSvc;
 	
 //	關聯課程表格
-//	@Autowired
-//	private CourseService courseSvc;
+	@Autowired
+	private CourseService courSvc;
 
 	/*
 	 * This method will serve as addEmp.html handler.
@@ -56,37 +61,67 @@ public class AdCarouselController {
 //		return "back-end/adCarousel/addAdCarousel";
 //	}
 //	
-//	前端畫面
+//	前端畫面，先寫死用戶做測試
 	@GetMapping("addAdCarousel")
 	public String addAdCarousel(ModelMap model) {
+
+		Integer adId = 1;
+		Integer crId = 10002;
+		/***************************2.開始查詢資料*********************************************/
+//		EmpService empSvc = new EmpService();
+		AdVO adVO = adSvc.getOneAd(Integer.valueOf(adId));
+		CourseVO courseVO = courSvc.getOneCourse(Integer.valueOf(crId));
 		AdCarouselVO adcarVO = new AdCarouselVO();
-		model.addAttribute("adcarVO", adcarVO);
-		return "front-end/ad/instructor-advertising";
+		
+		List<AdVO> list = adSvc.getAll();
+		List<CourseVO>	courseList = courSvc.getAll();	
+//		List<AdCarouselVO>	adcarList = AdCarSvc.getAll();	
+		
+
+		model.addAttribute("adListData", list); // for select_page.html 第97 109行用
+		model.addAttribute("courseListData", courseList); 
+		model.addAttribute("adcarVO", adcarVO); 
+//		model.addAttribute("AdCarouselListData", adcarList); 
+		
+		if (adVO == null) {
+			model.addAttribute("errorMessage", "查無資料");
+			return "back-end/ad/select_page";
+		}
+		
+		/***************************3.查詢完成,準備轉交(Send the Success view)*****************/
+		model.addAttribute("adVO", adVO);
+		model.addAttribute("courseVO", courseVO);
+		model.addAttribute("getOne_For_Display", "true"); // 旗標getOne_For_Display見select_page.html的第126行 -->
+		
+		
+//		return "back-end/emp/listOneEmp";  // 查詢完成後轉交listOneEmp.html
+//		return "back-end/ad/select_page"; // 查詢完成後轉交select_page.html由其第128行insert listOneEmp.html內的th:fragment="listOneEmp-div
+		return "front-end/ad/instructor_advertising";
 	}
+
 
 	/*
 	 * This method will be called on addEmp.html form submission, handling POST request It also validates the user input
 	 */
 	@PostMapping("insert")
 	public String insert(@Valid AdCarouselVO adcarVO, BindingResult result, ModelMap model,
-			@RequestParam("adcUpdatePic") MultipartFile[] parts) throws IOException {
-		System.out.println(adcarVO);
+			@RequestParam("adcUpdatePic") MultipartFile file) throws IOException {
 
 		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
 		// 去除BindingResult中upFiles欄位的FieldError紀錄 --> 見第172行
-		result = removeFieldError(adcarVO, result, "adcUpdatePic");
-
-		if (parts[0].isEmpty()) { // 使用者未選擇要上傳的圖片時
-			model.addAttribute("errorMessage", "輪播方案: 請上傳照片");
-		} else {
-			for (MultipartFile multipartFile : parts) {
-				byte[] buf = multipartFile.getBytes();
-				adcarVO.setAdcUpdatePic(buf);
-			}
-		}
-		if (result.hasErrors()) {
-			return "back-end/adCarousel/addAdCarousel";
-		}
+//		result = removeFieldError(adcarVO, result, "adcUpdatePic");
+//
+	    if (file.isEmpty()) { // 使用者未選擇要上傳的圖片時
+	        model.addAttribute("errorMessage", "輪播方案: 請上傳照片");
+	        return "back-end/adCarousel/addAdCarousel";
+	    } else {
+	        byte[] buf = file.getBytes();
+	        adcarVO.setAdcUpdatePic(buf);
+	    }
+	    
+	    if (result.hasErrors()) {
+	        return "back-end/adCarousel/addAdCarousel";
+	    }
 		/*************************** 2.開始新增資料 *****************************************/
 		// EmpService empSvc = new EmpService();
 		AdCarSvc.addAdCarousel(adcarVO);
@@ -94,7 +129,8 @@ public class AdCarouselController {
 		List<AdCarouselVO> list = AdCarSvc.getAll();
 		model.addAttribute("AdCarouselListData", list);
 		model.addAttribute("success", "- (新增成功)");
-		return "redirect:/adCarousel/listAllAdCarousel"; // 新增成功後重導至IndexController_inSpringBoot.java的第50行@GetMapping("/emp/listAllEmp")
+//		return "redirect:/adCarousel/listAllAdCarousel"; // 新增成功後重導至IndexController_inSpringBoot.java的第50行@GetMapping("/emp/listAllEmp")
+		return "front-end/ad/instructor_advertising"; // 新增成功後重導至IndexController_inSpringBoot.java的第50行@GetMapping("/emp/listAllEmp")
 	}
 
 	/*

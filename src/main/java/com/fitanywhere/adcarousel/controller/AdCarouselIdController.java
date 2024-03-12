@@ -57,6 +57,7 @@ public class AdCarouselIdController {
 		AdCarouselVO adcarVO = AdCarSvc.getOneAdcId(Integer.valueOf(adcId));
 		
 		List<AdCarouselVO> list = AdCarSvc.getAll();
+		System.out.println(list);
 		model.addAttribute("AdCarouselListData", list); // for select_page.html 第97 109行用
 		
 		if (adcarVO == null) {

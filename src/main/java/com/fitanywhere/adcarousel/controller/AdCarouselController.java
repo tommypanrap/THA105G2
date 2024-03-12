@@ -22,7 +22,6 @@ import com.fitanywhere.course.model.CourseService;
 import com.fitanywhere.course.model.CourseVO;
 import com.fitanywhere.user.model.UserService;
 import com.fitanywhere.user.model.UserVO;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;

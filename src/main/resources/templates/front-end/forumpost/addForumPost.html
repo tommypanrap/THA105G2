@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>討論區貼文新增 - addForumPost.html</title>
 
-<head th:insert="~{/front-end/forumpost/included-fragment}"></head>
 <style type="text/css">
 	
 	button {
@@ -47,10 +46,12 @@
 		<form th:action="@{insert}" method="post" th:object="${ForumPostVO}" enctype="multipart/form-data">
 			
 			<div>
-			<label>用戶ID:</label>
-			<input type="text" th:field="*{uId}" onclick="hideContent('uId.errors');" /><br/>
-			<span  th:if="${#fields.hasErrors('uId')}" th:errors="*{uId}" class="error" id="uId.errors"></span>
-			</div>
+            <label>用戶ID:</label>
+            <select th:field="*{userVO.uId}">
+            <option th:each="userVO : ${userListData}" th:value="${userVO.uId}" th:text="${userVO.uNickname}" />
+            </select>
+            <span th:if="${#fields.hasErrors('userVO.uId')}" th:errors="*{userVO.uId}" class="error" id="userVO.uId.errors"></span>
+            </div>
 			
 			<div>
 			<label>貼文分類:</label>
@@ -70,7 +71,7 @@
 			<span  th:if="${#fields.hasErrors('fpContent')}" th:errors="*{fpContent}" class="error" id="fpContent.errors"></span>
 			</div>
 			
-			<!-- 			抓取貼文時間 -->
+<!-- 			抓取貼文時間 -->
 			<input type="date" th:field="*{fpTime}" hidden onclick="hideContent('fpTime.errors');" />
 <!-- 			抓取貼文狀態 -->
 			<input type="text" th:field="*{fpStatus}" hidden onclick="hideContent('fpStatus.errors');" />
@@ -78,27 +79,7 @@
 			<input type="date" th:field="*{fpUpdate}" hidden onclick="hideContent('fpUpdate.errors');" />
 <!-- 			抓取觀看數 -->
 			<input type="text" th:field="*{fpViews}" hidden onclick="hideContent('fpStatus.errors');" />
-<!-- 			抓取是否儲存 -->
-			<input type="text" th:field="*{fpFavorite}" hidden onclick="hideContent('fpStatus.errors');" />
-			
-			
-<!-- 			<div> -->
-<!-- 			<label>貼文狀態:</label> -->
-<!-- 			<input type="text" th:field="*{fpStatus}" readonly="readonly" onclick="hideContent('fpStatus.errors');" /><br/> -->
-<!-- 			<span  th:if="${#fields.hasErrors('fpStatus')}" th:errors="*{fpStatus}" class="error" id="fpStatus.errors"></span> -->
-<!-- 			</div> -->
-
-<!-- 			<div> -->
-<!-- 			<label>貼文時間:</label> -->
-<!-- 			<input type="date" th:field="*{fpTime}" readonly="readonly" onclick="hideContent('fpTime.errors');" /><br/> -->
-<!-- 			<span  th:if="${#fields.hasErrors('fpTime')}" th:errors="*{fpTime}" class="error" id="fpTime.errors"></span> -->
-<!-- 			</div> -->
-			
-<!-- 			<div> -->
-<!-- 			<label>貼文更新時間:</label> -->
-<!-- 			<input type="date" th:field="*{fpUpdate}" readonly="readonly" onclick="hideContent('fpUpdate.errors');" /><br/> -->
-<!-- 			<span  th:if="${#fields.hasErrors('fpUpdate')}" th:errors="*{fpUpdate}" class="error" id="fpUpdate.errors"></span> -->
-<!-- 			</div> -->
+<!-- 			抓取是否儲存 -->			
 			
 			<div>
 			<label>貼文圖片:</label>
@@ -108,31 +89,6 @@
 <!-- 			<h2 id="errorMessage">${errorMessage}</h2>  -->
 			<div id="blob_holder"></div>
 			</div>
-			
-<!-- 			<div> -->
-<!-- 			<label>特賣圖片1:</label> -->
-<!-- 			<input type="file" th:field="*{comImage1}" onclick="previewImage()" multiple="multiple" /> -->
-<!--             可以不修改圖片 <span  th:if="${#fields.hasErrors('comImage1')}" th:errors="*{comImage1}" class="error" id="comImage1.errors"></span> -->
-<!-- 			<div id="blob_holder"><img th:src="@{/user/DBGifReader1} + '?userId=' + ${userVO.userId}" width="100px"></div> -->
-<!-- 			</div> -->
-<!-- 			<div> -->
-<!-- 			<label>特賣圖片2:</label> -->
-<!-- 			<input type="file" th:field="*{comImage2}" onclick="previewImage()" multiple="multiple" /> -->
-<!--             可以不修改圖片 <span  th:if="${#fields.hasErrors('comImage2')}" th:errors="*{comImage2}" class="error" id="comImage2.errors"></span> -->
-<!-- 			<div id="blob_holder"><img th:src="@{/user/DBGifReader2} + '?userId=' + ${userVO.userId}" width="100px"></div> -->
-<!-- 			</div> -->
-<!-- 			<div> -->
-<!-- 			<label>特賣圖片3:</label> -->
-<!-- 			<input type="file" th:field="*{comImage3}" onclick="previewImage()" multiple="multiple" /> -->
-<!--             可以不修改圖片 <span  th:if="${#fields.hasErrors('comImage3')}" th:errors="*{comImage3}" class="error" id="comImage3.errors"></span> -->
-<!-- 			<div id="blob_holder"><img th:src="@{/user/DBGifReader3} + '?userId=' + ${userVO.userId}" width="100px"></div> -->
-<!-- 			</div> -->
-<!-- 			<div> -->
-<!-- 			<label>特賣圖片4:</label> -->
-<!-- 			<input type="file" th:field="*{comImage4}" onclick="previewImage()" multiple="multiple" /> -->
-<!--             可以不修改圖片 <span  th:if="${#fields.hasErrors('comImage4')}" th:errors="*{comImage4}" class="error" id="comImage4.errors"></span> -->
-<!-- 			<div id="blob_holder"><img th:src="@{/user/DBGifReader4} + '?userId=' + ${userVO.userId}" width="100px"></div> -->
-<!-- 			</div> -->
 			
 			<div>
 				<div></div>

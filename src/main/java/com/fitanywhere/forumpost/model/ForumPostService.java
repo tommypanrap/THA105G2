@@ -19,29 +19,6 @@ public class ForumPostService {
         public void addForumPost(ForumPostVO forumPostVO) {
             repository.save(forumPostVO);
         }
-//        @Transactional
-//        public void updateForumPost(ForumPostVO updatedForumPost) throws Exception {
-//            Optional<ForumPostVO> existingPostOptional = repository.findById(updatedForumPost.getFpId());
-//            
-//            if (existingPostOptional.isPresent()) {
-//                ForumPostVO existingPost = existingPostOptional.get();
-//                
-//                existingPost.setFpCategory(updatedForumPost.getFpCategory());
-//                existingPost.setFpTitle(updatedForumPost.getFpTitle());
-//                existingPost.setFpContent(updatedForumPost.getFpContent());
-//                existingPost.setFpStatus(updatedForumPost.getFpStatus());
-//                existingPost.setFpTime(updatedForumPost.getFpTime());
-//                existingPost.setFpUpdate(updatedForumPost.getFpUpdate());
-//                existingPost.setFpPic(updatedForumPost.getFpPic());
-//                existingPost.setFpViews(updatedForumPost.getFpViews());
-//                existingPost.setFpFavorite(updatedForumPost.getFpFavorite());
-//                
-//                repository.save(existingPost);
-//            } else {
-//            	throw new Exception("Post with ID " + updatedForumPost.getFpId() + " not found");
-//            }
-//        }
-
 
         public void updateForumPost(ForumPostVO forumPostVO) {
             repository.save(forumPostVO);
@@ -49,7 +26,7 @@ public class ForumPostService {
 
         public void deleteForumPost(Integer fpId) {
             if (repository.existsById(fpId))
-                repository.deleteByFpId(fpId);
+                repository.deleteByFpStatus(fpId);
         }
 
         public ForumPostVO getOneForumPost(Integer fpId) {
@@ -61,5 +38,5 @@ public class ForumPostService {
         public List<ForumPostVO> getAll() {
             return repository.findAll();
         }
-    
+   
 }

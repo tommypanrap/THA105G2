@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>討論區貼文修改 - update_forumPost_input.html</title>
 
-<head th:insert="~{/front-end/forumpost/included-fragment}"></head>
+
 <style type="text/css">
 	
 	button {
@@ -48,15 +48,15 @@
 			
 			<div>
 			<label>貼文ID:</label>
-			<input type="text" th:field="*{fpId}" onclick="hideContent('fpId.errors');" /><br/>
+			<input type="text" th:field="*{fpId}" readonly onclick="hideContent('fpId.errors');" /><br/>
 			<span  th:if="${#fields.hasErrors('fpId')}" th:errors="*{fpId}" class="error" id="fpId.errors"></span>
 			</div>
 						
 			
 			<div>
 			<label>用戶ID:</label>
-			<input type="text" th:field="*{uId}" onclick="hideContent('uId.errors');" /><br/>
-			<span  th:if="${#fields.hasErrors('uId')}" th:errors="*{uId}" class="error" id="uId.errors"></span>
+			<input type="text" th:field="*{UserVO.uId}" readonly onclick="hideContent('uId.errors');" /><br/>
+			<span  th:if="${#fields.hasErrors('UserVO.uId')}" th:errors="*{UserVO.uId}" class="error" id="uId.errors"></span>
 			</div>
 			
 			<div>
@@ -85,10 +85,6 @@
 			<input type="date" th:field="*{fpUpdate}" hidden onclick="hideContent('fpUpdate.errors');" />
 <!-- 			抓取觀看數 -->
 			<input type="text" th:field="*{fpViews}" hidden onclick="hideContent('fpStatus.errors');" />
-<!-- 			抓取是否儲存 -->
-			<input type="text" th:field="*{fpFavorite}" hidden onclick="hideContent('fpStatus.errors');" />
-			
-			
 			
 			
 			<div>

@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>討論區貼文資料 - listOneForumPost.html</title>
 
-<head th:insert="~{/front-end/forumpost/included-fragment}"></head>
 <style type="text/css">
 	
     span {
@@ -23,35 +22,24 @@
 		 <h3><a class="navbar-brand" th:href="@{/forumpost/select_page}"><img th:src="@{/images/back1.gif}">回查詢頁<label th:text="${success}"></label></a></h3></div>
 </nav>
 
-	<div align="center" th:fragment="listOneForumPost-div"> <!-- 此div被select_page.html第128行insert用 -->
+	<div align="center" th:fragment="listOneForumPost-div">
+		<div th:if="${ForumPostVO.fpStatus == 1}">
 		<h3><span>查詢結果 :</span></h3>
 		<span>貼文編號:</span><span th:text="${ForumPostVO.fpId}"></span><br/>
-		<span>會員名稱:</span><span th:text="${ForumPostVO.uId}"></span><br/>
+		<span>會員名稱:</span><span th:text="${ForumPostVO.UserVO.uId}"></span><br/>
 		<span>貼文分類:</span><span th:text="${ForumPostVO.fpCategory}"></span><br/>
 		<span>貼文標題:</span><span th:text="${ForumPostVO.fpTitle}"></span><br/>
 		<span>貼文內容:</span><span th:text="${ForumPostVO.fpContent}"></span><br/>
-		<span>貼文時間:</span><span th:text="${ForumPostVO.fpTime}"></span><br/>
-		<span>貼文更新時間:</span><span th:text="${ForumPostVO.fpUpdate}"></span><br/>
+		<span>貼文時間:</span><span th:text="${#dates.format(ForumPostVO.fpTime, 'yyyy-MM-dd HH:mm')}"></span><br/>
+		<span>貼文更新時間:</span><span th:text="${#dates.format(ForumPostVO.fpUpdate, 'yyyy-MM-dd HH:mm')}"></span><br/>
 		<span>貼文圖片:</span><span> <img th:src="@{/forumpost/DBGifReader} + '?fpId=' + ${ForumPostVO.fpId}" width="100px"></span><br/>
-<!-- 		<span>銀行帳號資訊:</span><span th:text="${userVO.comBank}"></span><br/> -->
-<!-- 		<span>公司註冊日期:</span><span th:text="${userVO.comRegDate}"></span><br/> -->
-<!-- 		<span>公司聯絡人姓名:</span><span th:text="${userVO.comContactPerson}"></span><br/> -->
-<!-- 		<span>公司聯絡人電話:</span><span th:text="${userVO.comContactPhone}"></span><br/> -->
-<!-- 		<span>會員狀態:</span><span th:text="${userVO.comStat}"></span><br/> -->
-<!-- 		<span>評價總星數:</span><span th:text="${userVO.comRatStars}"></span><br/> -->
-<!-- 		<span>評價總筆數:</span><span th:text="${userVO.comRatCount}"></span><br/> -->
-<!-- 		<span>產業類別1:</span><span th:text="${userVO.comIndustry1}"></span><br/> -->
-<!-- 		<span>產業類別2:</span><span th:text="${userVO.comIndustry2}"></span><br/> -->
-<!-- 		<span>產業類別3:</span><span th:text="${userVO.comIndustry3}"></span><br/> -->
-<!-- 		<span>部門:</span><span th:text="${empVO.deptVO.deptno} + '-[' + ${empVO.deptVO.dname} + ']'"></span><br/> -->
-<!-- 		<span>關於我們圖片:</span><span><img th:src="@{/user/DBGifReader} + '?userId=' + ${userVO.userId}" width="100px"></span><br/> -->
-<!-- 		<span>特賣圖片1:</span><span><img th:src="@{/user/DBGifReader1} + '?userId=' + ${userVO.userId}" width="100px"></span><br/> -->
-<!-- 		<span>特賣圖片2:</span><span><img th:src="@{/user/DBGifReader2} + '?userId=' + ${userVO.userId}" width="100px"></span><br/> -->
-<!-- 		<span>特賣圖片3:</span><span><img th:src="@{/user/DBGifReader3} + '?userId=' + ${userVO.userId}" width="100px"></span><br/> -->
-<!-- 		<span>特賣圖片4:</span><span><img th:src="@{/user/DBGifReader4} + '?userId=' + ${userVO.userId}" width="100px"></span><br/> -->
-<!-- 		<span>關於我們文字敘述:</span><span th:text="${userVO.comAboutContent}"></span><br/> -->
 	</div>
-
-
+	
+    <div th:unless="${ForumPostVO.fpStatus == 1}">
+        <!--當fpStat 不為 1 時顯示的內容 -->
+        <h3>此篇文章已刪除</h3>
+        <img width="90px"  height="80px" th:src="@{/images/delete.jpg}">
+    </div>
+	</div>
 </body>
 </html>

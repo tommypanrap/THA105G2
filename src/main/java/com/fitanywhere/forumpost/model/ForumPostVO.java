@@ -10,10 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fitanywhere.user.model.UserVO;
@@ -32,9 +32,7 @@ public class ForumPostVO implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "fp_id")
 	private Integer fpId;
-	
-//	private Integer uId;
-		
+			
 	@Column(name = "fp_category")
 	private String fpCategory;
 	
@@ -45,7 +43,7 @@ public class ForumPostVO implements Serializable {
 	private String fpContent;
 	
 	@Column(name = "fp_status")
-	private Boolean fpStatus;
+	private Integer fpStatus;
 	
 	@Column(name = "fp_time")
 //	@CreatedDate
@@ -62,9 +60,6 @@ public class ForumPostVO implements Serializable {
 	
 	@Column(name = "fp_views")
 	private Integer fpViews;
-
-	@Column(name = "fp_favorite")
-	private Boolean fpFavorite;
 
 	public UserVO getUserVO() {
 		return userVO;
@@ -106,11 +101,11 @@ public class ForumPostVO implements Serializable {
 		this.fpContent = fpContent;
 	}
 
-	public Boolean getFpStatus() {
+	public Integer getFpStatus() {
 		return fpStatus;
 	}
 
-	public void setFpStatus(Boolean fpStatus) {
+	public void setFpStatus(Integer fpStatus) {
 		this.fpStatus = fpStatus;
 	}
 
@@ -146,16 +141,9 @@ public class ForumPostVO implements Serializable {
 		this.fpViews = fpViews;
 	}
 
-	public Boolean getFpFavorite() {
-		return fpFavorite;
-	}
-
-	public void setFpFavorite(Boolean fpFavorite) {
-		this.fpFavorite = fpFavorite;
-	}
 
 	public ForumPostVO(UserVO userVO, Integer fpId, String fpCategory, String fpTitle, String fpContent,
-			Boolean fpStatus, Timestamp fpTime, Timestamp fpUpdate, byte[] fpPic, Integer fpViews, Boolean fpFavorite) {
+			Integer fpStatus, Timestamp fpTime, Timestamp fpUpdate, byte[] fpPic, Integer fpViews) {
 		super();
 		this.userVO = userVO;
 		this.fpId = fpId;
@@ -167,14 +155,20 @@ public class ForumPostVO implements Serializable {
 		this.fpUpdate = fpUpdate;
 		this.fpPic = fpPic;
 		this.fpViews = fpViews;
-		this.fpFavorite = fpFavorite;
 	}
 
 	public ForumPostVO() {
 		super();
 	}
 
-
+    
+    @PrePersist
+    @PreUpdate
+    private void validateUpdate() {
+        if (this.fpStatus == null || this.fpStatus == 1) {
+            this.fpStatus = 1;
+        }
+    }
 	
 	
 }

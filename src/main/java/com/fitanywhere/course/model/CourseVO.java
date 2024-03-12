@@ -1,17 +1,28 @@
 package com.fitanywhere.course.model;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
+import javax.persistence.*;
+
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fitanywhere.adCarousel.model.AdCarouselVO;
 
 /*
  * 註1: classpath必須有javax.persistence-api-x.x.jar 
@@ -94,8 +105,25 @@ public class CourseVO implements java.io.Serializable {
 
 	@Column(name = "cr_level")
 	private String crLevel;
+	
+////	xiaoxin
+//	@OneToMany(fetch=FetchType.EAGER, mappedBy="courseVO")
+//	private Set<AdCarouselVO> adCarousel = new HashSet<AdCarouselVO>();
+//	
+//	
+//
+//	public Set<AdCarouselVO> getAdCarousel() {
+//		return this.adCarousel;
+//	}
+
+//
+//	public void setAdCarousel(Set<AdCarouselVO> adCarousel) {
+//		this.adCarousel = adCarousel;
+//	}
 
 
+	@Transient
+	private String base64CrCover;
 	public CourseVO() { //必需有一個不傳參數建構子(JavaBean基本知識)
 	}
 
@@ -310,11 +338,8 @@ public class CourseVO implements java.io.Serializable {
 	}
 
 
-	
 
-	
-	
-//	@Id //@Id代表這個屬性是這個Entity的唯一識別屬性，並且對映到Table的主鍵 
+//	@Id //@Id代表這個屬性是這個Entity的唯一識別屬性，並且對映到Table的主鍵
 //	@Column(name = "EMPNO")  //@Column指這個屬性是對應到資料庫Table的哪一個欄位   //【非必要，但當欄位名稱與屬性名稱不同時則一定要用】
 //	@GeneratedValue(strategy = GenerationType.IDENTITY) //@GeneratedValue的generator屬性指定要用哪個generator //【strategy的GenerationType, 有四種值: AUTO, IDENTITY, SEQUENCE, TABLE】 
 //	public Integer getEmpno() {
@@ -406,5 +431,14 @@ public class CourseVO implements java.io.Serializable {
 //	public void setUpFiles(byte[] upFiles) {
 //		this.upFiles = upFiles;
 //	}
-	
+
+
+	public String getBase64CrCover() {
+		return base64CrCover;
+	}
+
+	public void setBase64CrCover(String base64CrCover) {
+		this.base64CrCover = base64CrCover;
+	}
+
 }

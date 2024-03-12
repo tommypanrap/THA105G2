@@ -48,6 +48,19 @@ public class CourseController {
 	@GetMapping("courses")
 	public String getCourses(ModelMap model) {
 		List<CourseVO> list = courseSvc.getAll();
+
+		//將圖片轉成base64
+		list.forEach(courseVO ->
+		{
+			byte[] crCover = courseVO.getCrCover();
+			if (crCover!=null){
+			String base64CrCover = Base64.getEncoder().encodeToString(crCover);
+			courseVO.setBase64CrCover(base64CrCover);
+			}
+		});
+
+
+
 		model.addAttribute("courseListData", list);
 		return "front-end/mj/course_filter_two_toggle";
 	}

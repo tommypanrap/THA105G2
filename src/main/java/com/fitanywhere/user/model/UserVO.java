@@ -16,8 +16,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+<<<<<<< HEAD
 
 import com.fitanywhere.forumpost.model.ForumPostVO;
+=======
+import java.io.Serializable;
+import java.util.Date;
+
+import com.fitanywhere.adCarousel.model.AdCarouselVO;
+>>>>>>> branch 'master' of https://github.com/tommypanrap/THA105G2.git
 import com.fitanywhere.mood.model.MoodVO;
 import com.fitanywhere.socialpost.model.SocialPostVO;
 import com.fitanywhere.socialpost.model.SocialReplyVO;
@@ -71,10 +78,16 @@ public class UserVO implements java.io.Serializable{
 
 	@Column(name = "u_status")
 	private Integer uStatus;
-//	0 = 正常會員; 1 = 帳號關閉; 
+//	0 = 正常會員; 1 = 可登入但部分功能限制的帳號(懲罰中); 2 = 自行永久關閉帳號; 3 = 被檢舉停權帳號;   
 
 	@Column(name = "u_registerdate")
 	private Date uRegisterdate;
+	
+	
+//	xiaoxin
+	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="userVO")
+	private Set<AdCarouselVO> adCarousel = new HashSet<AdCarouselVO>();
 
 	
 	//ROY	
@@ -89,7 +102,13 @@ public class UserVO implements java.io.Serializable{
 		this.forumPost = forumPost;
 	}
 
+	public Set<AdCarouselVO> getAdCarousel() {
+		return this.adCarousel;
+	}
 
+	public void setAdCarousel(Set<AdCarouselVO> adCarousel) {
+		this.adCarousel = adCarousel;
+	}
 
 	//Tommy
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="userVO")

@@ -16,15 +16,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
-<<<<<<< HEAD
 
 import com.fitanywhere.forumpost.model.ForumPostVO;
-=======
+
 import java.io.Serializable;
 import java.util.Date;
 
 import com.fitanywhere.adCarousel.model.AdCarouselVO;
->>>>>>> branch 'master' of https://github.com/tommypanrap/THA105G2.git
 import com.fitanywhere.mood.model.MoodVO;
 import com.fitanywhere.socialpost.model.SocialPostVO;
 import com.fitanywhere.socialpost.model.SocialReplyVO;

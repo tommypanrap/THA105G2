@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
@@ -94,6 +95,7 @@ public class UserVO implements java.io.Serializable{
 
 	//Tommy
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="userVO")
+	@OrderBy("spid ASC")
 	private Set<SocialPostVO> socialposts = new HashSet<SocialPostVO>();
 	
 	//Tommy

@@ -106,14 +106,15 @@ public class SocialPostController {
 		
 		model.addAttribute("navUId",navUId);
 		
-//		System.out.println("第二次:"+navUId);
+
 		if (StringUtils.hasText(navUId)) {
-//	        System.out.println("navUId has value.");
+
 	        
 	        UserVO userShowPostVO = userSvc.getUserDataByID(Integer.valueOf(navUId));
 			model.addAttribute("userShowPostVO", userShowPostVO);
 	    } else {
-//	        System.out.println("navUId is empty or null.");
+
+	    	// 如果沒有經過搜尋的話，userShowPostVO的資訊就是透過session取的
 	        UserVO userShowPostVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
 			model.addAttribute("userShowPostVO", userShowPostVO);
 	    }

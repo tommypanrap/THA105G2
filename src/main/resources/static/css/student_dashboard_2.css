@@ -5,6 +5,8 @@ background: #FFF;
 box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.08);
 
 padding-right: 30px;
+
+margin-bottom:20px;
 }
 
 div.content-inner{
@@ -322,4 +324,25 @@ margin-left: 10px;
 
 .search-result-list-one p{
     margin-left: 10px;
+}
+
+.preview-image{
+	max-width:200px;
+	margin-top:10px;
+}
+
+.original-pic{
+	display:none;
+}
+
+.container .member-post{
+	margin-left:0;
+}
+
+p.add-post{
+	padding-top:25px;
+}
+
+.reply-member img{
+	border-radius:100%;
 }

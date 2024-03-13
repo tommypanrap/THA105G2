@@ -242,10 +242,10 @@
 										<div class="social-reply"
 											th:each="socialReply : ${socialPost.socialReplys}" th:if="${socialPost.socialReplys != null and not #lists.isEmpty(socialPost.socialReplys)}">
 											<div class="reply-member">
-												<img th:src="@{/images/member-3.png}" alt="">
+												<img th:if="${socialReply.userVO != null}" th:src="@{/socialpost/UserPhotoDBGifReader} + '?uId=' + ${socialReply.userVO.uId}">
 												<div class="reply-name-text">
-													<p class="member-nickname"
-														th:text="${socialReply.userVO?.uNickname}"  th:if="${socialPost.socialReplys != null and not #lists.isEmpty(socialPost.socialReplys)}">>怡蓉老師</p>
+														<p class="member-nickname"
+															th:text="${socialReply.userVO?.uNickname}"  th:if="${socialPost.socialReplys != null and not #lists.isEmpty(socialPost.socialReplys)}">怡蓉老師</p>
 													<p class="reply-time">10分鐘</p>
 												</div>
 											</div>
@@ -259,12 +259,17 @@
 										<form th:action="@{update_social_post}" method="post"
 											enctype="multipart/form-data">
 											<textarea name="spcontent" id="spcontent_textarea" cols="30"
-												rows="10" th:value="${socialPost.spcontent}"></textarea>
+												rows="10" th:value="${socialPost.spcontent}" th:text="${socialPost.spcontent}"></textarea>
 
-
+											
+											<label for="update-pic" id="preview-label">
+												 <img id="preview-image"  alt="Preview Image" class="preview-image">
+											</label>
+											<img th:src="@{/socialpost/DBGifReader} + '?spid=' + ${socialPost.spid}" class="original-pic">
 											<input type="hidden" name="spid"
-												th:value="${socialPost.spid}"> <input type="file"
-												name="sppic" th:value="${socialPost.sppic}">
+												th:value="${socialPost.spid}" > 
+											<input type="file"
+												name="sppic" th:value="${socialPost.sppic}" id="update-pic">
 											<div class="member-detail-row-button edit-social-post-button">
 
 												<button type="submit"

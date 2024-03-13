@@ -22,6 +22,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fitanywhere.adCarousel.model.AdCarouselVO;
 
 /*
@@ -107,20 +108,20 @@ public class CourseVO implements java.io.Serializable {
 	private String crLevel;
 	
 ////	xiaoxin
-//	@OneToMany(fetch=FetchType.EAGER, mappedBy="courseVO")
-//	private Set<AdCarouselVO> adCarousel = new HashSet<AdCarouselVO>();
-//	
-//	
-//
-//	public Set<AdCarouselVO> getAdCarousel() {
-//		return this.adCarousel;
-//	}
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="courseVO")
+	@JsonIgnore	
+	private Set<AdCarouselVO> adCarousel = new HashSet<AdCarouselVO>();
+	
+	
 
-//
-//	public void setAdCarousel(Set<AdCarouselVO> adCarousel) {
-//		this.adCarousel = adCarousel;
-//	}
+	public Set<AdCarouselVO> getAdCarousel() {
+		return adCarousel;
+	}
 
+
+	public void setAdCarousel(Set<AdCarouselVO> adCarousel) {
+		this.adCarousel = adCarousel;
+	}
 
 	@Transient
 	private String base64CrCover;

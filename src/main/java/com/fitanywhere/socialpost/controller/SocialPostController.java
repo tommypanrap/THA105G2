@@ -260,7 +260,7 @@ public class SocialPostController {
 		
 		socialReplySvc.addSocialReply(socialReplyVO);
 		
-		return "redirect:/socialpost/student_socialpost";
+		return "front-end/socialpost/student_socialpost";
 	}
 
 	@GetMapping("nav_to_social_member/{uId}")

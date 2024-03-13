@@ -123,7 +123,36 @@ $(document).ready(function() {
 
 			let replyValue = String($(this).val());
 			console.log("replyValue:" + typeof replyValue);
-
+			
+			//先用jquery寫進下方的div
+			var newReply = $('<div class="social-reply"></div>').text(replyValue);
+			
+			var replyMember = $('<div class="reply-member"></div>');
+			
+			//拿input的值
+			let replyMemberText = $('<div class="reply-member-text"></div>');
+			
+			//圖片先亂寫
+			var userPhoto = $('<img>').attr('src', '/socialpost/UserPhotoDBGifReader?uId=' + 10001);
+			
+			//先寫死
+            var memberNickname = $('<p class="member-nickname"></p>').text("user001");
+            var replyTime = $('<p class="reply-time"></p>').text("20:00");
+            replyMemberText.append(memberNickname,replyTime);
+            
+            
+            replyMember.append(userPhoto,replyMemberText );
+            
+            
+             
+       var replyContent = $('<div class="reply-content"></div>').text(replyValue);
+        
+        var socialReply = $('<div class="social-reply"></div>').append(replyMember, replyMember, replyContent);
+        $('.post-content').append(socialReply);
+			
+			//清空輸入框
+			$(this).val('');
+			
 			let spidValue = $(this).siblings(".spid").text();
 			console.log("spid:", typeof spidValue);
 

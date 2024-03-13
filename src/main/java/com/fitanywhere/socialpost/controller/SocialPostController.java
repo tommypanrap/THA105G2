@@ -91,25 +91,17 @@ public class SocialPostController {
 	@GetMapping("student_socialpost")
 	public String getUserInfo(HttpServletRequest req, ModelMap model, @ModelAttribute("navUId") String navUId) {
 		
-		
+//應該是廢code	
 //		model.addAttribute("matchingUsers", matchingUsers);
-		
-	
-
-		
-		SocialReplyVO socialReplyVO = new SocialReplyVO();
-		model.addAttribute("SocialReplyVO", socialReplyVO);
+//		SocialReplyVO socialReplyVO = new SocialReplyVO();
+//		model.addAttribute("SocialReplyVO", socialReplyVO);
 
 		HttpSession newSession = req.getSession(true);
-		
-//		System.out.println("navUId:"+navUId);
-		
-		model.addAttribute("navUId",navUId);
-		
+				
 
 		if (StringUtils.hasText(navUId)) {
 
-	        
+			model.addAttribute("navUId",navUId);
 	        UserVO userShowPostVO = userSvc.getUserDataByID(Integer.valueOf(navUId));
 			model.addAttribute("userShowPostVO", userShowPostVO);
 	    } else {
@@ -143,7 +135,10 @@ public class SocialPostController {
 		model.addAttribute("socialPostVO", socialPostVO);
 
 		List<UserVO> matchingUsers = (List<UserVO>) req.getSession().getAttribute("matchingUsers");
-	    model.addAttribute("matchingUsers", matchingUsers);
+		if (matchingUsers != null && !matchingUsers.isEmpty()) {
+			model.addAttribute("matchingUsers", matchingUsers);
+		}
+	    
 		
 		
 		return "front-end/socialpost/student_socialpost";

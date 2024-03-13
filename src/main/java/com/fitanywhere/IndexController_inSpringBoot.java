@@ -31,5 +31,11 @@ public class IndexController_inSpringBoot {
         return "index"; //view
     }
 	
+	
+	@GetMapping("/opinion")
+	public String opinion(Model model)  throws IOException {
+		return "/front-end/socialpost/student_opinion";
+		
+	}
 
 }

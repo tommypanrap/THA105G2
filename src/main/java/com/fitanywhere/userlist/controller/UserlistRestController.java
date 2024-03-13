@@ -16,8 +16,7 @@ import com.fitanywhere.userlist.model.UserlistService;
 @RestController
 @RequestMapping("/backend_userlist_api")
 public class UserlistRestController {
-	@Autowired
-	private UserlistService userlistService;
+	
 	@Autowired
 	private UserService userService;
 

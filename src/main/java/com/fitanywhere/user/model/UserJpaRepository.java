@@ -3,17 +3,16 @@ package com.fitanywhere.user.model;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fitanywhere.userlist.model.UserlistAllDataDTO;
-
-import org.springframework.data.jpa.repository.Modifying;
 
 //處理登入時依據會員信箱查詢所需資料
 @Repository

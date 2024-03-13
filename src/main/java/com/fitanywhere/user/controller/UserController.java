@@ -4,13 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fitanywhere.user.model.UserService;
 import com.fitanywhere.user.model.UserVO;
-//import com.fitanywhere.user.model.UserJpaRepository;
 
 @Controller
 @RequestMapping("/user")

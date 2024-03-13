@@ -6,10 +6,11 @@ import io.lettuce.core.support.ConnectionPoolSupport;
 import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 
+// Eugen
 public class LettuceUtil {
     private static final String REDIS_HOST = "localhost";
     private static final int REDIS_PORT = 6379;
-    private static final int DATABASE_INDEX = 0; // 指定數據庫索引
+    private static final int DATABASE_INDEX = 0; // 指定Redis索引
     private static RedisClient redisClient;
     private static GenericObjectPool<StatefulRedisConnection<String, String>> pool;
 

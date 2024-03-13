@@ -19,9 +19,6 @@ public class UserlistService {
 	private UserJpaRepository userJpaRepository;
 
 	@Autowired
-	private UserService userService;
-
-	@Autowired
 	private CoachService coachService;
 
 	// 取得所有User

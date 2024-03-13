@@ -19,32 +19,32 @@
                         <ul class="mainmenu">
                             <li class="has-dropdown has-menu-child-item">
                                 <a href="/">首頁
-<!--                                    <i class="feather-chevron-down"></i>-->
+                                    <!--                                    <i class="feather-chevron-down"></i>-->
                                 </a>
 
                             </li>
                             <li class="has-dropdown has-menu-child-item">
                                 <a href="/course/courses">課程
-<!--                                    <i class="feather-chevron-down"></i>-->
+                                    <!--                                    <i class="feather-chevron-down"></i>-->
                                 </a>
-<!--                                <ul class="submenu">-->
-<!--                                    <li class="has-dropdown"><a href="#">Instructor Dashboard</a>-->
+                                <!--                                <ul class="submenu">-->
+                                <!--                                    <li class="has-dropdown"><a href="#">Instructor Dashboard</a>-->
 
-<!--                                    </li>-->
-<!--                                    <li class="has-dropdown"><a href="#">Student Dashboard</a>-->
+                                <!--                                    </li>-->
+                                <!--                                    <li class="has-dropdown"><a href="#">Student Dashboard</a>-->
 
-<!--                                    </li>-->
-<!--                                </ul>-->
+                                <!--                                    </li>-->
+                                <!--                                </ul>-->
                             </li>
                             <li class="has-dropdown has-menu-child-item">
                                 <a href="#">討論區
-<!--                                    <i class="feather-chevron-down"></i>-->
+                                    <!--                                    <i class="feather-chevron-down"></i>-->
                                 </a>
 
                             </li>
                             <li class="has-dropdown has-menu-child-item">
                                 <a href="#">TDEE／FFMI 計算公式
-<!--                                    <i class="feather-chevron-down"></i>-->
+                                    <!--                                    <i class="feather-chevron-down"></i>-->
                                 </a>
 
                             </li>
@@ -64,17 +64,18 @@
                         </li>
                         <li class="access-icon rbt-mini-cart">
 
-                            <a class="rbt-cart-sidenav-activation rbt-round-btn"  onclick="getCartItems()" href="#">
+                            <a class="rbt-cart-sidenav-activation rbt-round-btn" onclick="getCartItems()" href="#">
                                 <i class="feather-shopping-cart"></i>
                                 <span class="rbt-cart-count">4</span>
                             </a>
                         </li>
-
+                        <!-- Eugen 意見回饋按鈕 -->
                         <li class="access-icon">
                             <a class="rbt-round-btn opinion-btn" href="#">
                                 <i class="feather-mail"></i>
                             </a>
                         </li>
+
                         <li class="access-icon">
                             <a class=" rbt-round-btn" href="#">
                                 <i class="feather-bell"></i>
@@ -149,12 +150,12 @@
 
                                     <hr class="mt--10 mb--10">
                                     <ul class="user-list-wrapper">
-<!--                                        <li>-->
-<!--                                            <a href="instructor-settings.html">-->
-<!--                                                <i class="feather-settings"></i>-->
-<!--                                                <span>設定</span>-->
-<!--                                            </a>-->
-<!--                                        </li>-->
+                                        <!--                                        <li>-->
+                                        <!--                                            <a href="instructor-settings.html">-->
+                                        <!--                                                <i class="feather-settings"></i>-->
+                                        <!--                                                <span>設定</span>-->
+                                        <!--                                            </a>-->
+                                        <!--                                        </li>-->
                                         <li>
                                             <a href="/">
                                                 <i class="feather-log-out"></i>
@@ -232,12 +233,12 @@
 
                                     <hr class="mt--10 mb--10">
                                     <ul class="user-list-wrapper">
-<!--                                        <li>-->
-<!--                                            <a href="instructor-settings.html">-->
-<!--                                                <i class="feather-settings"></i>-->
-<!--                                                <span>設定</span>-->
-<!--                                            </a>-->
-<!--                                        </li>-->
+                                        <!--                                        <li>-->
+                                        <!--                                            <a href="instructor-settings.html">-->
+                                        <!--                                                <i class="feather-settings"></i>-->
+                                        <!--                                                <span>設定</span>-->
+                                        <!--                                            </a>-->
+                                        <!--                                        </li>-->
                                         <li>
                                             <a href="/">
                                                 <i class="feather-log-out"></i>
@@ -512,7 +513,8 @@
                 </ul>
                 <div class="read-more-btn">
                     <div class="rbt-btn-wrapper mt--20">
-                        <a class="rbt-btn btn-border-gradient radius-round btn-sm hover-transform-none w-100 justify-content-center text-center" href="#">
+                        <a class="rbt-btn btn-border-gradient radius-round btn-sm hover-transform-none w-100 justify-content-center text-center"
+                            href="#">
                             <span>Learn More</span>
                         </a>
                     </div>
@@ -523,7 +525,7 @@
             </div>
         </div>
     </div>
-
+    <div th:replace="front-end/included_mail.html"></div>
     <!-- End Side Vav -->
     <a class="rbt-close_side_menu" href="javascript:void(0);"></a>
 </header>
@@ -543,21 +545,21 @@
                 // 解析JSON格式的響應數據
                 return res.json()
             }).then(data => {
-            let sum = 0;
-            //將數據顯示在網頁上
-            const cartEl = document.getElementById('cart');
-            cartEl.innerHTML = '';
-            // 遍歷購物車數據
-            data.forEach(item => {
-                sum += item.crPrice;
-                console.log(item);
+                let sum = 0;
+                //將數據顯示在網頁上
+                const cartEl = document.getElementById('cart');
+                cartEl.innerHTML = '';
+                // 遍歷購物車數據
+                data.forEach(item => {
+                    sum += item.crPrice;
+                    console.log(item);
 
-                var crId = item.crId;
+                    var crId = item.crId;
 
-                var cover = item.crCover != null ? `data:image/jpeg;base64,${item.crCover}` : '/assets/images/client/avatar-02.png';
+                    var cover = item.crCover != null ? `data:image/jpeg;base64,${item.crCover}` : '/assets/images/client/avatar-02.png';
 
-                cartEl.innerHTML +=
-                    `<li class="minicart-item">
+                    cartEl.innerHTML +=
+                        `<li class="minicart-item">
                         <div class="thumbnail">
                             <a th:href="@{#}">
                                 <img src="${cover}" alt="Product Images">
@@ -575,11 +577,54 @@
                         </div>
                      </li>`;
 
-            });
-            document.getElementById('crTotal').innerText = `NT$${sum != null ? sum : 0}`;
+                });
+                document.getElementById('crTotal').innerText = `NT$${sum != null ? sum : 0}`;
 
-        }).catch(error => {
-            console.error('發生錯誤:', error)
-        });
+            }).catch(error => {
+                console.error('發生錯誤:', error)
+            });
     }
+
+    // Eugen
+    // 處理意見回饋的登入檢查
+    $(".opinion-btn").on("click", function (e) {
+        e.preventDefault(); // 防止默認動作
+
+        // 使用 AJAX 發送請求檢查用戶登入狀態
+        $.ajax({
+            url: "/base_api/check_user_login",
+            method: "POST", 
+            success: function (data, textStatus, xhr) {
+                // HTTP 200: 用戶已登入，顯示彈窗
+                if (xhr.status === 200) {
+                    $("#lightbox").removeClass("none");
+                }
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                // HTTP 401: 用戶未登入，顯示警告
+                if (xhr.status === 401) {
+                    alert("請先登入才能使用意見回饋功能!");
+                } else {
+                    // 其他HTTP錯誤，顯示一般錯誤提示
+                    alert("伺服器異常, 請稍後再試或聯絡站方!");
+                }
+            }
+        });
+    });
+
+    // 關閉按鈕
+    $("button.btn_model_close").on("click", function () {
+        $("#lightbox").addClass("none");
+    });
+
+    // 點擊彈窗外區域不應該關閉彈窗，所以這部分代碼被移除
+
+    // 防止點擊彈窗內容時關閉彈窗
+    $("#lightbox > article").on("click", function (e) {
+        e.stopPropagation();
+    });
+
+
+
+
 </script>

@@ -20,6 +20,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.fitanywhere.adCarousel.model.AdCarouselVO;
+import com.fitanywhere.course.model.CourseVO;
 import com.fitanywhere.mood.model.MoodVO;
 import com.fitanywhere.socialpost.model.SocialPostVO;
 import com.fitanywhere.socialpost.model.SocialReplyVO;
@@ -38,6 +39,18 @@ public class UserVO implements java.io.Serializable{
 	@ManyToOne
 	@JoinColumn(name = "mood_id")
 	private MoodVO moodVO;
+
+	// Mok
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "userVO")
+	private Set<CourseVO> courses = new HashSet<CourseVO>();
+
+	public Set<CourseVO> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(Set<CourseVO> courses) {
+		this.courses = courses;
+	}
 
 	public MoodVO getMoodVO() {
 		return this.moodVO;

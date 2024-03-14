@@ -17,6 +17,7 @@ import javax.persistence.Table;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -107,21 +108,22 @@ public class CourseVO implements java.io.Serializable {
 	private String crLevel;
 	
 ////	xiaoxin
-//	@OneToMany(fetch=FetchType.EAGER, mappedBy="courseVO")
-//	private Set<AdCarouselVO> adCarousel = new HashSet<AdCarouselVO>();
-//	
-//	
-//
-//	public Set<AdCarouselVO> getAdCarousel() {
-//		return this.adCarousel;
-//	}
-
-//
-//	public void setAdCarousel(Set<AdCarouselVO> adCarousel) {
-//		this.adCarousel = adCarousel;
-//	}
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="courseVO")
+	@JsonIgnore
+	private Set<AdCarouselVO> adCarousel = new HashSet<AdCarouselVO>();
 
 
+
+	public Set<AdCarouselVO> getAdCarousel() {
+		return this.adCarousel;
+	}
+
+
+	public void setAdCarousel(Set<AdCarouselVO> adCarousel) {
+		this.adCarousel = adCarousel;
+	}
+
+	//Joy
 	@Transient
 	private String base64CrCover;
 	public CourseVO() { //必需有一個不傳參數建構子(JavaBean基本知識)

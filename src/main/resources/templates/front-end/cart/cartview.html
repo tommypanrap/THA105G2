@@ -53,12 +53,12 @@
                         <span class="btn-icon"><i class="feather-arrow-right"></i></span>
                     </a>
                 </div>
-                <div class="checkout-btn mt--20">
-                    <a class="rbt-btn btn-gradient icon-hover w-100 text-center" href="/cart/checkout">
-                        <span class="btn-text">結帳</span>
-                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                    </a>
-                </div>
+<!--                <div class="checkout-btn mt&#45;&#45;20">-->
+<!--                    <a class="rbt-btn btn-gradient icon-hover w-100 text-center checkOut" href="javascript:void(0);">-->
+<!--                        <span class="btn-text">結帳</span>-->
+<!--                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>-->
+<!--                    </a>-->
+<!--                </div>-->
             </div>
         </div>
 
@@ -67,33 +67,31 @@
 <!-- End Side Vav -->
 <script>
 
-        // 刪除item
-        // document.getElementById('cartItem').addEventListener('click',function (e){
-        $(document).on('click', '#cartItem', (e) => {
+    // 刪除item
+    $(document).on('click', '.removeItem', (e) => {
+        let btn = e.target;
+        console.log(e.target)
+        let crId = $(btn).data('cr-id');
+        console.log(crId)
+        // 抓取被刪除的課程價格
+        let crPriceMatch = $(btn).closest('.removeItem_parent').find('.removeItem_price').text().match(/\d+/);
+        let crPrice = crPriceMatch ? parseInt(crPriceMatch[0]) : 0;
+        // 抓取購物車總金額
+        let crTotalMatch = $('#crTotal').text().match(/\d+/);
+        let crTotal = crTotalMatch ? parseInt(crTotalMatch[0]) : 0;
+        //更新購物車總金額
+        $('#crTotal').text(`NT$${crTotal - crPrice}`);
+        // 刪除被刪除的item
+        $(btn).closest('.removeItem_parent').remove();
 
-            let btn = e.target;
-            let crId = btn.getAttribute('data-cr-id');
-            // 抓取被刪除的課程價格
-            let crPrice_el = btn.closest('li').querySelector('.price');
-            let crPriceMatch = crPrice_el.innerText.match(/\d+/);
-            let crPrice = crPriceMatch ? parseInt(crPriceMatch[0]) : 0;
+        // 發送刪除請求給後端
+        deleteItem(crId);
 
-            // 抓取購物車總金額
-            let crTotalMatch = document.getElementById('crTotal').innerText.match(/\d+/);
-            let crTotal = crTotalMatch ? parseInt(crTotalMatch[0]):0;
+        if (window.location.pathname === '/cart/check') {
+            location.reload();
+        }
 
-            //更新購物車總金額
-            document.getElementById('crTotal').innerText=`NT$${crTotal-crPrice}`;
-
-            // 刪除被刪除的item
-            let btn_parent = btn.closest('li');
-            if (btn_parent){
-                btn_parent.remove();
-            }
-
-            // 發送刪除請求給後端
-            deleteItem(crId);
-        });
+    });
 
 
     function deleteItem(crId) {
@@ -103,13 +101,16 @@
         }).then(res => {
             if (!res.ok) {
                 console.error('刪除課程時出現錯誤')
+
             } else {
                 console.log("刪除成功")
+
             }
         }).catch(err => {
             console.log("發生錯誤:", err)
         });
     }
+
 
 
 </script>

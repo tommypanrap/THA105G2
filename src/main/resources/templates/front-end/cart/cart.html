@@ -802,13 +802,13 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="breadcrumb-inner text-center">
-                    <h2 class="title">購物車</h2>
+                    <h2 class="title">購買明細</h2>
                     <ul class="page-list">
                         <li class="rbt-breadcrumb-item"><a href="index.html">主頁</a></li>
                         <li>
                             <div class="icon-right"><i class="feather-chevron-right"></i></div>
                         </li>
-                        <li class="rbt-breadcrumb-item active">購物車</li>
+                        <li class="rbt-breadcrumb-item active">購買明細</li>
                     </ul>
                 </div>
             </div>
@@ -832,32 +832,37 @@
                                     <th class="pro-title">課程名稱</th>
                                     <th class="pro-price">價格</th>
                                     <!--                                    <th class="pro-subtotal">總計</th>-->
-                                    <th class="pro-remove">刪除</th>
+                                    <!--                                    <th class="pro-remove">刪除</th>-->
                                 </tr>
                                 </thead>
                                 <tbody>
 
                                 <th:block th:each="cartItem: ${cartItemListData}">
 
-                                    <tr>
+                                    <tr class="removeItem_parent">
                                         <td class="pro-thumbnail">
                                             <a href="#">
-                                        <img th:if="${cartItem.base64CrCover != null}"
-                                             th:src="'data:image/jpeg;base64,' + ${cartItem.base64CrCover}"
-                                             alt="Card image">
+                                                <img th:if="${cartItem.base64CrCover != null}"
+                                                     th:src="'data:image/jpeg;base64,' + ${cartItem.base64CrCover}"
+                                                     alt="Card image">
 
-                                        <img th:unless="${cartItem.base64CrCover != null}"
-                                             th:src="@{/assets/images/client/avatar-02.png}"
-                                             alt="Card image">
-                                        </a>
+                                                <img th:unless="${cartItem.base64CrCover != null}"
+                                                     th:src="@{/assets/images/client/avatar-02.png}"
+                                                     alt="Card image">
+                                            </a>
                                         </td>
 
 
-                                        <td class="pro-title"><a href="#" th:text="${cartItem.crTitle}"></a></td>
-                                        <td class="pro-price"><span th:text="'NT$ '+${cartItem.crPrice}"></span></td>
-                                        <!--                                    <td class="pro-subtotal"><span>NT$100.00</span></td>-->
-                                        <td class="pro-remove"><a href="#"><i class="feather-x"></i></a>
+                                        <td class="pro-title">
+                                            <a href="#" th:text="${cartItem.crTitle}" th:data-cr-id="${cartItem.crId}"
+                                               class="courseId">
+
+                                            </a>
                                         </td>
+                                        <td class="pro-price removeItem_price">
+                                            <span th:text="'NT$ '+${cartItem.crPrice}"></span>
+                                        </td>
+
                                     </tr>
                                 </th:block>
 
@@ -885,18 +890,19 @@
                                     <div class="section-title text-start">
                                         <h4 class="title mb--30">訂單摘要</h4>
                                     </div>
-                                    <p>小計 <span th:text="'NT$ '+${TotalPrice}"></span></p>
-                                    <h2><span th:text="'NT$ '+${TotalPrice}"></span></h2>
+                                    <p>小計 <span th:text="'NT$ '+${TotalPrice}" id="cartTotal"></span></p>
+                                    <h2><span th:text="'NT$ '+${TotalPrice}" id="cartTotal2"></span></h2>
                                 </div>
 
                                 <div class="cart-submit-btn-group">
                                     <div class="single-button w-50">
-                                        <button class="rbt-btn btn-gradient rbt-switch-btn rbt-switch-y w-100" id="checkOut">
-                                            <span data-text="結帳">結帳</span>
+                                        <button class="rbt-btn btn-gradient rbt-switch-btn rbt-switch-y w-100 checkOut">
+                                            <span class="checkOut" data-text="結帳">結帳</span>
                                         </button>
                                     </div>
                                     <div class="single-button w-50">
-                                        <button class="rbt-btn rbt-switch-btn rbt-switch-y w-100 btn-border" id="backToCourses">
+                                        <button class="rbt-btn rbt-switch-btn rbt-switch-y w-100 btn-border"
+                                                id="backToCourses">
                                             <span data-text="再去逛逛">再去逛逛</span>
                                         </button>
                                     </div>
@@ -1118,27 +1124,72 @@
 <!-- Main JS -->
 <script th:src="@{/assets/js/main.js}"></script>
 <script>
-    $(document).ready(function (){
+    $(document).ready(function () {
         // 繼續逛街
-        $('#backToCourses').click(function(){
-            $.get('/course/courses',function (data,status){
+        $('#backToCourses').click(function () {
+            $.get('/course/courses', function (data, status) {
                 console.log("GET請求發送")
-                if (status === "success"){
-                window.location.href ='/course/courses';
+                if (status === "success") {
+                    window.location.href = '/course/courses';
                 }
             });
         });
         // 結帳
-        $('#checkOut').click(function (){
-           $.get('/cart/checkout',function (data,status){
-               if(status ==="success"){
-                   window.location.href='/cart/checkout'
-               }
-           })
-        });
+
 
     });
 
+    //結帳
+    $(document).on('click', '.checkOut', function () {
+        let cartRows = $('.courseId');
+        const cartData = {
+            odStatus: 3,
+            details: []
+        };
+        cartRows.each(function (index, element) {
+            let crId = $(element).data('cr-id');
+            console.log(crId)
+
+            cartData.details.push({
+                crId: crId,
+                cdGift: 0,
+                cdGiftStatus: 0
+            });
+        });
+        fetch('/order/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(cartData)
+        }).then(res => {
+            if (!res.ok) {
+                throw new Error(`HTTP error! Status: ${res.status}`);
+            }
+
+            return res.text();
+
+        }).then(data => {
+            if (data === 'success') {
+                fetch('/cart/clear', {
+                    method: 'DELETE'
+                }).then(res => {
+                    if (!res.ok) {
+                        throw new Error(`HTTP error! Status: ${res.status}`);
+                    }
+                    console.log('clear success');
+                })
+                window.location.href = '/order/order_history'
+
+
+            }
+
+        }).catch(err => {
+            console.error(err);
+        })
+
+
+    });
 
 
 </script>

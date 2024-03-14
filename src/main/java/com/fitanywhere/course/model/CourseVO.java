@@ -17,7 +17,9 @@ import javax.persistence.Table;
 
 import javax.persistence.*;
 
-import org.apache.tomcat.util.codec.binary.Base64;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fitanywhere.coursedetail.model.CourseDetailVO;
+import com.fitanywhere.user.model.UserVO;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -41,8 +43,6 @@ public class CourseVO implements java.io.Serializable {
 //	@NotEmpty(message ="jjjjj")
 	private Integer crId;
 
-	@Column(name = "u_id")
-	private Integer uId;
 
 	@Column(name = "cr_class")
 	private String crClass;
@@ -106,20 +106,47 @@ public class CourseVO implements java.io.Serializable {
 	@Column(name = "cr_level")
 	private String crLevel;
 	
-////	xiaoxin
-//	@OneToMany(fetch=FetchType.EAGER, mappedBy="courseVO")
-//	private Set<AdCarouselVO> adCarousel = new HashSet<AdCarouselVO>();
-//	
-//	
-//
-//	public Set<AdCarouselVO> getAdCarousel() {
-//		return this.adCarousel;
-//	}
+//	xiaoxin
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="courseVO")
+	@JsonIgnore
+	private Set<AdCarouselVO> adCarousel = new HashSet<AdCarouselVO>();
 
-//
-//	public void setAdCarousel(Set<AdCarouselVO> adCarousel) {
-//		this.adCarousel = adCarousel;
-//	}
+	// mok
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "courseVO")
+	@OrderBy("cdId asc")
+	@JsonIgnore
+	private Set<CourseDetailVO> courseDetails = new HashSet<CourseDetailVO>();
+	// mok
+	@ManyToOne
+	@JsonIgnore
+	@JoinColumn(name="u_id")
+	private UserVO userVO;
+
+	public Set<CourseDetailVO> getCourseDetails() {
+		return courseDetails;
+	}
+
+	public void setCourseDetails(Set<CourseDetailVO> courseDetails) {
+		this.courseDetails = courseDetails;
+	}
+
+	public UserVO getUserVO() {
+		return userVO;
+	}
+
+	public void setUserVO(UserVO userVO) {
+		this.userVO = userVO;
+	}
+
+
+	public Set<AdCarouselVO> getAdCarousel() {
+		return this.adCarousel;
+	}
+
+
+	public void setAdCarousel(Set<AdCarouselVO> adCarousel) {
+		this.adCarousel = adCarousel;
+	}
 
 
 	@Transient
@@ -135,16 +162,6 @@ public class CourseVO implements java.io.Serializable {
 
 	public void setCrId(Integer crId) {
 		this.crId = crId;
-	}
-
-
-	public Integer getuId() {
-		return this.uId;
-	}
-
-
-	public void setuId(Integer uId) {
-		this.uId = uId;
 	}
 
 

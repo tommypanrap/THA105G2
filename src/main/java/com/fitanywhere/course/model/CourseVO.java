@@ -114,9 +114,11 @@ public class CourseVO implements java.io.Serializable {
 	// mok
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "courseVO")
 	@OrderBy("cdId asc")
+	@JsonIgnore
 	private Set<CourseDetailVO> courseDetails = new HashSet<CourseDetailVO>();
 	// mok
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name="u_id")
 	private UserVO userVO;
 

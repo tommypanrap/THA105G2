@@ -35,22 +35,15 @@ public class OrderIdController {
 	@Autowired
 	OrderService orderSvc;
 
-	// 訂單歷史紀錄(沒有訂單detail)
+	// 訂單歷史紀錄(目前沒有訂單detail)
 	@GetMapping("order_history")
-	public String getUserOrders(ModelMap model,HttpServletRequest request) {
-		HttpSession session = request.getSession(false);
-		
-		if(session !=null) {
+	public String getUserOrders(ModelMap model,HttpSession session) {
 			Integer uId =(Integer) session.getAttribute("uId");
-			if(uId !=null) {
 				List<OrderVO> orderList = orderSvc.getOrders(uId);
 				model.addAttribute("orderListData",orderList);
-				
+
 				return "front-end/order/student_order_history";
 			}
-			
-		}
-		return "front-end/user/user_login";
 	}
 	
 	
@@ -58,47 +51,47 @@ public class OrderIdController {
 	 * This method will be called on select_page.html form submission, handling POST
 	 * request It also validates the user input
 	 */
-	@PostMapping("getOne_For_Display")
-	public String getOne_For_Display(
-			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
-	@RequestParam("odId") String odId, 
-	ModelMap model) {
-		/***************************
-		 * 2.開始查詢資料
-		 *********************************************/
-		OrderVO orderVO = orderSvc.getOneOrder(Integer.valueOf(odId));
-		List<OrderVO> list = orderSvc.getAll();
-		model.addAttribute("orderListData", list); // for select_page.html 第97 109行用
+//	@PostMapping("getOne_For_Display")
+//	public String getOne_For_Display(
+//			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
+//	@RequestParam("odId") String odId,
+//	ModelMap model) {
+//		/***************************
+//		 * 2.開始查詢資料
+//		 *********************************************/
+//		OrderVO orderVO = orderSvc.getOneOrder(Integer.valueOf(odId));
+//		List<OrderVO> list = orderSvc.getAll();
+//		model.addAttribute("orderListData", list); // for select_page.html 第97 109行用
+//
+//		if (orderVO == null) {
+//			model.addAttribute("errorMessage", "查無資料");
+//			return "back-end/order/select_page";
+//		}
+//
+//		/***************************
+//		 * 3.查詢完成,準備轉交(Send the Success view)
+//		 *****************/
+//		model.addAttribute("orderVO", orderVO);
+//		model.addAttribute("getOne_For_Display", "true");
+//
+//		return "back-end/order/select_page";
+//
+//	}
 
-		if (orderVO == null) {
-			model.addAttribute("errorMessage", "查無資料");
-			return "back-end/order/select_page";
-		}
+//	@ExceptionHandler(value = { ConstraintViolationException.class })
+//	public ModelAndView handleError(HttpServletRequest req, ConstraintViolationException e, Model model) {
+//
+//		Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
+//		StringBuilder strBuilder = new StringBuilder();
+//		for (ConstraintViolation<?> violation : violations) {
+//			strBuilder.append(violation.getMessage() + "<br>");
+//		}
+//		List<OrderVO> list = orderSvc.getAll();
+//		model.addAttribute("orderListData", list);
+//
+//		String message = strBuilder.toString();
+//
+//		return new ModelAndView("back-end/order/select_page", "errorMessage", "請修正以下錯誤:<br>" + message);
+//	}
 
-		/***************************
-		 * 3.查詢完成,準備轉交(Send the Success view)
-		 *****************/
-		model.addAttribute("orderVO", orderVO);
-		model.addAttribute("getOne_For_Display", "true");
-
-		return "back-end/order/select_page";
-
-	}
-
-	@ExceptionHandler(value = { ConstraintViolationException.class })
-	public ModelAndView handleError(HttpServletRequest req, ConstraintViolationException e, Model model) {
-
-		Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
-		StringBuilder strBuilder = new StringBuilder();
-		for (ConstraintViolation<?> violation : violations) {
-			strBuilder.append(violation.getMessage() + "<br>");
-		}
-		List<OrderVO> list = orderSvc.getAll();
-		model.addAttribute("orderListData", list);
-
-		String message = strBuilder.toString();
-
-		return new ModelAndView("back-end/order/select_page", "errorMessage", "請修正以下錯誤:<br>" + message);
-	}
-
-}
+//}

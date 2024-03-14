@@ -27,64 +27,16 @@
 					<div class="row g-5">
 						<div class="col-lg-3">
 
+							<div th:replace="front-end/member_sidebar.html"></div>
 
-							<div
-								class="rbt-default-sidebar sticky-top rbt-shadow-box rbt-gradient-border">
-								<div class="thumbnail rbt-avatars size-lg">
-									<img
-										th:src="@{/socialpost/UserPhotoDBGifReader} + '?uId=' + ${userVO.uId}"
-										alt="Instructor" style="position: relative;">
-									<div class="Emoji">
-										<img
-											th:src="@{/socialpost/MoodDBGifReader} + '?uId=' + ${userVO.uId}"
-											alt="mood-Emoji"
-											style="height: 4rem; width: 4rem; position: absolute; right: 0; bottom: 0.5rem">
-
-									</div>
-								</div>
-								<div class="inner">
-									<div class="content-item-content">
-
-										<div class="rbt-default-sidebar-wrapper">
-											<div class="section-title mb--20">
-												<h6 class="rbt-title-style-2"
-													th:text="Welcome + ${userVO.uNickname}">Welcome, Mok</h6>
-											</div>
-											<nav class="mainmenu-nav">
-												<ul class="dashboard-mainmenu rbt-default-sidebar-list">
-													<li><a href="student-dashboard.html"><i
-															class="feather-home"></i><span>用戶目錄</span></a></li>
-													<li><a href="student-news.html"><i
-															class="feather-shopping-bag"></i><span>最新消息</span></a></li>
-													<li><a href="student-profile.html"><i
-															class="feather-user"></i><span>會員資料修改</span></a></li>
-													<li><a href="student-enrolled-courses.html"><i
-															class="feather-book-open"></i><span>我的課程</span></a></li>
-													<li><a href="student-wishlist.html"><i
-															class="feather-bookmark"></i><span>我的收藏</span></a></li>
-													<li><a href="student-reviews.html"><i
-															class="feather-star"></i><span>我的歷史瀏覽紀錄</span></a></li>
-													<li><div class="tutor-btn">
-															<a class="rbt-btn btn-md hover-icon-reverse" href="#">
-																<span class="icon-reverse-wrapper"> <span
-																	class="btn-text">教練模式</span> <span class="btn-icon"><i
-																		class="feather-arrow-right"></i></span> <span
-																	class="btn-icon"><i class="feather-arrow-right"></i></span>
-															</span>
-															</a>
-														</div></li>
-												</ul>
-											</nav>
-										</div>
-									</div>
-								</div>
-							</div>
 
 						</div>
 
 						<div class="col-lg-9">
 							<div class="rbt-dashboard-content ">
-
+								<span th:text="${userShowPostVO.uId}" class="uId"></span>
+								<span th:text="${userShowPostVO.uNickname}" class="uNickname"></span>
+								<span th:text="${userShowPostVO.uHeadshot}" class="uHeadshot"></span>
 								<div class="input-wrapper">
 									<input type="text" placeholder="搜尋其他用戶"
 										class="search-member-social"> <img
@@ -95,14 +47,16 @@
 								<!-- 										th:text="${user.uNickname}"></span></li> -->
 								<!-- 								</ul> -->
 
-								<div class="search-result" th:if="${matchingUsers != null and not #lists.isEmpty(matchingUsers)}">
+								<div class="search-result"
+									th:if="${matchingUsers != null and not #lists.isEmpty(matchingUsers)}">
 									<div class="search-result-list-one"
 										th:each="user : ${matchingUsers}">
 										<img
 											th:src="@{/socialpost/UserPhotoDBGifReader} + '?uId=' + ${user.uId}"
-											alt="">
-										<a th:href="@{'/socialpost/nav_to_social_member/' + ${user.uId}}"><p th:text="${user.uNickname}">王小明</p></a>
-										<span th:text="${user.uId}" class="user-uid"></span>
+											alt=""> <a
+											th:href="@{'/socialpost/nav_to_social_member/' + ${user.uId}}"><p
+												th:text="${user.uNickname}">王小明</p></a> <span
+											th:text="${user.uId}" class="user-uid"></span>
 									</div>
 
 								</div>
@@ -204,11 +158,12 @@
 
 								</div>
 							</div>
-							<span th:if="${navUId != null}" th:text="${navUId}" class="navUId">aaa</span>
-<!-- 							<span th:if="${#strings.isEmpty(navUId)}" >測試字 - 新增貼文</span> -->
+							<span th:if="${navUId != null}" th:text="${navUId}"
+								class="navUId">aaa</span>
+							<!-- 							<span th:if="${#strings.isEmpty(navUId)}" >測試字 - 新增貼文</span> -->
 							<div th:each="socialPost : ${userShowPostVO.socialposts}"
 								th:if="${socialPost.spstatus == 1}">
-								
+
 								<div class="article-post">
 									<div class="title">
 										<div class="title-info-wrapper">
@@ -223,33 +178,39 @@
 											</div>
 										</div>
 										<div class="button-container">
-											<img th:src="@{/images/social-edit.png}" alt="" class="edit" th:if="${#strings.isEmpty(navUId)}">
-											<img th:src="@{/images/social-delete.png}" th:if="${#strings.isEmpty(navUId)}" alt=""
+											<img th:src="@{/images/social-edit.png}" alt="" class="edit"
+												th:if="${#strings.isEmpty(navUId)}"> <img
+												th:src="@{/images/social-delete.png}"
+												th:if="${#strings.isEmpty(navUId)}" alt=""
 												class="delete-socialpost">
 										</div>
 									</div>
 
 									<div class="post-content">
-									
+
 										<p th:text="${socialPost.spid}" class="spid"></p>
 										<p th:text="${socialPost.sptitle}">title</p>
 										<p th:text="${socialPost.spcontent}">content</p>
 										<img
 											th:src="@{/socialpost/DBGifReader} + '?spid=' + ${socialPost.spid}"
-											alt=""> 
-										<input type="text" class="social-reply-input"
+											alt=""> <input type="text" class="social-reply-input"
 											placeholder="留言...">
 										<div class="social-reply"
-											th:each="socialReply : ${socialPost.socialReplys}" th:if="${socialPost.socialReplys != null and not #lists.isEmpty(socialPost.socialReplys)}">
+											th:each="socialReply : ${socialPost.socialReplys}"
+											th:if="${socialPost.socialReplys != null and not #lists.isEmpty(socialPost.socialReplys)}">
 											<div class="reply-member">
-												<img th:src="@{/images/member-3.png}" alt="">
+												<img th:if="${socialReply.userVO != null}"
+													th:src="@{/socialpost/UserPhotoDBGifReader} + '?uId=' + ${socialReply.userVO.uId}">
 												<div class="reply-name-text">
 													<p class="member-nickname"
-														th:text="${socialReply.userVO?.uNickname}"  th:if="${socialPost.socialReplys != null and not #lists.isEmpty(socialPost.socialReplys)}">>怡蓉老師</p>
+														th:text="${socialReply.userVO?.uNickname}"
+														th:if="${socialPost.socialReplys != null and not #lists.isEmpty(socialPost.socialReplys)}">怡蓉老師</p>
 													<p class="reply-time">10分鐘</p>
 												</div>
 											</div>
-											<div class="reply-content" th:text="${socialReply.srContent}"  th:if="${socialPost.socialReplys != null and not #lists.isEmpty(socialPost.socialReplys)}">>
+											<div class="reply-content" th:text="${socialReply.srContent}"
+												th:if="${socialPost.socialReplys != null and not #lists.isEmpty(socialPost.socialReplys)}">
+												>
 												<p>同學有人在嘛</p>
 											</div>
 
@@ -259,12 +220,17 @@
 										<form th:action="@{update_social_post}" method="post"
 											enctype="multipart/form-data">
 											<textarea name="spcontent" id="spcontent_textarea" cols="30"
-												rows="10" th:value="${socialPost.spcontent}"></textarea>
+												rows="10" th:value="${socialPost.spcontent}"
+												th:text="${socialPost.spcontent}"></textarea>
 
 
-											<input type="hidden" name="spid"
+											<label for="update-pic" id="preview-label"> <img
+												id="preview-image" alt="Preview Image" class="preview-image">
+											</label> <img
+												th:src="@{/socialpost/DBGifReader} + '?spid=' + ${socialPost.spid}"
+												class="original-pic"> <input type="hidden" name="spid"
 												th:value="${socialPost.spid}"> <input type="file"
-												name="sppic" th:value="${socialPost.sppic}">
+												name="sppic" th:value="${socialPost.sppic}" id="update-pic">
 											<div class="member-detail-row-button edit-social-post-button">
 
 												<button type="submit"

@@ -31,5 +31,7 @@ public class IndexController_inSpringBoot {
         return "index"; //view
     }
 	
+	
+
 
 }

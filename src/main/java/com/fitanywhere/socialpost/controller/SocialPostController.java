@@ -10,6 +10,8 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -91,29 +94,22 @@ public class SocialPostController {
 	@GetMapping("student_socialpost")
 	public String getUserInfo(HttpServletRequest req, ModelMap model, @ModelAttribute("navUId") String navUId) {
 		
-		
+//應該是廢code	
 //		model.addAttribute("matchingUsers", matchingUsers);
-		
-	
-
-		
-		SocialReplyVO socialReplyVO = new SocialReplyVO();
-		model.addAttribute("SocialReplyVO", socialReplyVO);
+//		SocialReplyVO socialReplyVO = new SocialReplyVO();
+//		model.addAttribute("SocialReplyVO", socialReplyVO);
 
 		HttpSession newSession = req.getSession(true);
-		
-//		System.out.println("navUId:"+navUId);
-		
-		model.addAttribute("navUId",navUId);
-		
-//		System.out.println("第二次:"+navUId);
+				
+
 		if (StringUtils.hasText(navUId)) {
-//	        System.out.println("navUId has value.");
-	        
+
+			model.addAttribute("navUId",navUId);
 	        UserVO userShowPostVO = userSvc.getUserDataByID(Integer.valueOf(navUId));
 			model.addAttribute("userShowPostVO", userShowPostVO);
 	    } else {
-//	        System.out.println("navUId is empty or null.");
+
+	    	// 如果沒有經過搜尋的話，userShowPostVO的資訊就是透過session取的
 	        UserVO userShowPostVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
 			model.addAttribute("userShowPostVO", userShowPostVO);
 	    }
@@ -142,7 +138,10 @@ public class SocialPostController {
 		model.addAttribute("socialPostVO", socialPostVO);
 
 		List<UserVO> matchingUsers = (List<UserVO>) req.getSession().getAttribute("matchingUsers");
-	    model.addAttribute("matchingUsers", matchingUsers);
+		if (matchingUsers != null && !matchingUsers.isEmpty()) {
+			model.addAttribute("matchingUsers", matchingUsers);
+		}
+	    
 		
 		
 		return "front-end/socialpost/student_socialpost";
@@ -248,11 +247,14 @@ public class SocialPostController {
 		return "redirect:/socialpost/student_socialpost";
 	}
 	
-	@PostMapping("add_social_reply")
-	public String add_social_reply(@RequestParam String replyValue, @RequestParam String spid, ModelMap model)   {
+	@PostMapping("/socialposts/{spid}/reply")
+	public ResponseEntity<Void> add_social_reply(@RequestParam String replyValue, @RequestParam String spid, @RequestParam Integer uId, ModelMap model)   {
 		
-		System.out.println("replyValue:"+replyValue);
-		System.out.println("spid:"+spid);
+//		System.out.println("replyValue:"+replyValue);
+//		System.out.println("spid:"+spid);
+		System.out.println(uId);
+		
+		UserVO userVO = userSvc.getUserDataByID(uId);
 		
 		SocialPostVO socialPostVOforAddReply = socialPostSvc.getOneSocialPost(Integer.parseInt(spid));
 		SocialReplyVO socialReplyVO = new SocialReplyVO();
@@ -260,11 +262,15 @@ public class SocialPostController {
 		socialReplyVO.setSrTime(new Timestamp(System.currentTimeMillis()));
 		socialReplyVO.setSrUpdate(new Timestamp(System.currentTimeMillis()));
 		socialReplyVO.setSrStatus(1);
+		socialReplyVO.setUserVO(userVO);
 		socialReplyVO.setSrContent(replyValue);
 		
 		socialReplySvc.addSocialReply(socialReplyVO);
 		
-		return "redirect:/socialpost/student_socialpost";
+		// 創建一個簡單的回應物件或直接返回一個狀態碼
+
+		
+		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 
 	@GetMapping("nav_to_social_member/{uId}")

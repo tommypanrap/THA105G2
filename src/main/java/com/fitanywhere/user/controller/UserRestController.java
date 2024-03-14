@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -259,9 +261,9 @@ public class UserRestController {
 				newSession.setAttribute("uId", uId);
 				newSession.setAttribute("uNickname", user.getuNickname());
 				newSession.setAttribute("uStatus", uStatus);
-								
+
 				newSession.setAttribute("cId", coachId); // 若為0表時無教練身分; 若有教練身分 寫入教練Id
-				
+
 				// 有登入的Session才有"loginStatus" 直接確認Session有沒有"loginStatus"這個項目就能判斷有無登入
 				// "logged_in"值到是可不用比對
 				newSession.setAttribute("loginStatus", "logged_in"); // 登入狀態
@@ -271,11 +273,11 @@ public class UserRestController {
 				newSession.setAttribute("lastActiveTime", new Date()); // 最後活動時間
 				newSession.setMaxInactiveInterval(60 * 60); // Session保存期限(秒)
 
-				//印出Session中基本資料
+				// 印出Session中基本資料
 //		        System.out.println("uId: " + newSession.getAttribute("uId"));
 //		        System.out.println("uNickname: " + newSession.getAttribute("uNickname"));
 //		        System.out.println("uStatus: " + newSession.getAttribute("uStatus"));
-				
+
 				// 印出Session中教練Id
 //				System.out.println("cId: " + newSession.getAttribute("cId")); 
 
@@ -321,15 +323,18 @@ public class UserRestController {
 
 	}
 
-	// 登出後台
-	@PostMapping("/user_logout")
-	public void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	// 會員登出-Post
+	 @PostMapping("/user_logout_post")
+	    public Map<String, Object> logoutByPost(HttpServletRequest request) {
+	        request.getSession().invalidate(); // 刪除當前Session(登出)
 
-		request.getSession().invalidate(); // 使當前Session無效
+	        Map<String, Object> response = new HashMap<>();
+	        response.put("status", "success");
+	        response.put("redirect", "/"); // 重新定向到首頁
+	        return response;
+	    }	
 
-		String contextPath = request.getContextPath();
-		response.sendRedirect(contextPath + "/"); // 重定向到首頁
-	}
+
 
 //	======================================
 	// 測試開發用

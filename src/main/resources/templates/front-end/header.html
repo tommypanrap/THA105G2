@@ -157,8 +157,8 @@
                                         <!--                                            </a>-->
                                         <!--                                        </li>-->
                                         <li>
-                                            <a href="/">
-                                                <i class="feather-log-out"></i>
+                                            <a href="">
+                                                <i class="feather-log-out" name="logout-post-btn"></i>
                                                 <span>登出</span>
                                             </a>
                                         </li>
@@ -241,7 +241,7 @@
                                         <!--                                        </li>-->
                                         <li>
                                             <a href="/">
-                                                <i class="feather-log-out"></i>
+                                                <i class="feather-log-out" name="logout-post-btn"></i>
                                                 <span>登出</span>
                                             </a>
                                         </li>
@@ -585,7 +585,7 @@
             });
     }
 
-    // Eugen
+    // Eugen (需要jQuery)
     // 處理意見回饋的登入檢查
     $(".opinion-btn").on("click", function (e) {
         e.preventDefault(); // 防止默認動作
@@ -593,7 +593,7 @@
         // 使用 AJAX 發送請求檢查用戶登入狀態
         $.ajax({
             url: "/base_api/check_user_login",
-            method: "POST", 
+            method: "POST",
             success: function (data, textStatus, xhr) {
                 // HTTP 200: 用戶已登入，顯示彈窗
                 if (xhr.status === 200) {
@@ -623,6 +623,32 @@
     $("#lightbox > article").on("click", function (e) {
         e.stopPropagation();
     });
+
+    // 處理使用Post的會員登出
+    $(document).ready(function () {
+        // 使用logout-post-btn識別器來找到元素並設置點擊事件監聽器
+        $("i[name='logout-post-btn']").closest('a').click(function (e) {
+            // 防止<a>標籤的默認GET請求
+            e.preventDefault();
+
+            // 使用AJAX發送POST請求到指定的URL
+            $.ajax({
+            type: "POST",
+            url: "/user_api/user_logout_post",
+            dataType: "json",
+            success: function(response) {
+                // 處理成功執行跳轉
+                if(response.status === "success") {
+                    window.location.href = response.redirect;
+                }
+            },
+            error: function() {
+                alert("伺服器異常，請稍後再試!");
+            }
+        });
+        });
+    });
+
 
 
 

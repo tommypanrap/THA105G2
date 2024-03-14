@@ -18,129 +18,50 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fitanywhere.user.model.UserVO;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
-@Table(name= "forum_post")
-//@Where(clause = "fp_status = 1")
+@Table(name = "forum_post")
+@Data
+@NoArgsConstructor
 public class ForumPostVO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@ManyToOne
 	@JoinColumn(name = "u_id", referencedColumnName = "u_id")
 	private UserVO userVO;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "fp_id")
 	private Integer fpId;
-			
+
 	@Column(name = "fp_category")
 	private String fpCategory;
-	
+
 	@Column(name = "fp_title")
 	private String fpTitle;
-	
+
 	@Column(name = "fp_content", columnDefinition = "longtext")
 	private String fpContent;
-	
+
 	@Column(name = "fp_status")
 	private Integer fpStatus;
-	
-	@Column(name = "fp_time")
-//	@CreatedDate
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+
+	@Column(name = "fp_time", updatable = false)
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Timestamp fpTime;
-	
+
 	@Column(name = "fp_update")
-//	@LastModifiedDate 								
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Timestamp fpUpdate;
-	
+
 	@Column(name = "fp_pic", columnDefinition = "longblob")
 	private byte[] fpPic;
-	
+
 	@Column(name = "fp_views")
 	private Integer fpViews;
-
-	public UserVO getUserVO() {
-		return userVO;
-	}
-
-	public void setUserVO(UserVO userVO) {
-		this.userVO = userVO;
-	}
-
-	public Integer getFpId() {
-		return fpId;
-	}
-
-	public void setFpId(Integer fpId) {
-		this.fpId = fpId;
-	}
-
-	public String getFpCategory() {
-		return fpCategory;
-	}
-
-	public void setFpCategory(String fpCategory) {
-		this.fpCategory = fpCategory;
-	}
-
-	public String getFpTitle() {
-		return fpTitle;
-	}
-
-	public void setFpTitle(String fpTitle) {
-		this.fpTitle = fpTitle;
-	}
-
-	public String getFpContent() {
-		return fpContent;
-	}
-
-	public void setFpContent(String fpContent) {
-		this.fpContent = fpContent;
-	}
-
-	public Integer getFpStatus() {
-		return fpStatus;
-	}
-
-	public void setFpStatus(Integer fpStatus) {
-		this.fpStatus = fpStatus;
-	}
-
-	public Timestamp getFpTime() {
-		return fpTime;
-	}
-
-	public void setFpTime(Timestamp fpTime) {
-		this.fpTime = fpTime;
-	}
-
-	public Timestamp getFpUpdate() {
-		return fpUpdate;
-	}
-
-	public void setFpUpdate(Timestamp fpUpdate) {
-		this.fpUpdate = fpUpdate;
-	}
-
-	public byte[] getFpPic() {
-		return fpPic;
-	}
-
-	public void setFpPic(byte[] fpPic) {
-		this.fpPic = fpPic;
-	}
-
-	public Integer getFpViews() {
-		return fpViews;
-	}
-
-	public void setFpViews(Integer fpViews) {
-		this.fpViews = fpViews;
-	}
-
 
 	public ForumPostVO(UserVO userVO, Integer fpId, String fpCategory, String fpTitle, String fpContent,
 			Integer fpStatus, Timestamp fpTime, Timestamp fpUpdate, byte[] fpPic, Integer fpViews) {
@@ -157,18 +78,27 @@ public class ForumPostVO implements Serializable {
 		this.fpViews = fpViews;
 	}
 
-	public ForumPostVO() {
-		super();
+	@PrePersist
+	protected void onCreate() {
+		fpTime = new Timestamp(System.currentTimeMillis());
+		fpUpdate = fpTime;
+		if (this.fpStatus == null || this.fpStatus == 1) {
+			this.fpStatus = 1; // 默認貼文狀態存活
+		}
+		if (this.fpViews == null) {
+			this.fpViews = 0; // 默認觀看數為0
+		}
+		if (this.fpPic == null || this.fpPic.length == 0) {
+			this.fpPic = java.util.Base64.getDecoder().decode(DefaultImage.getDefaultPicBase64()); // 如果USER沒設置圖片則預設一張圖片
+		}
 	}
 
-    
-    @PrePersist
-    @PreUpdate
-    private void validateUpdate() {
-        if (this.fpStatus == null || this.fpStatus == 1) {
-            this.fpStatus = 1;
-        }
-    }
-	
-	
+	@PreUpdate
+	protected void onUpdate() {
+		fpUpdate = new Timestamp(System.currentTimeMillis());
+		if (this.fpStatus == null || this.fpStatus == 1) {
+			this.fpStatus = 1;
+		}
+	}
+
 }

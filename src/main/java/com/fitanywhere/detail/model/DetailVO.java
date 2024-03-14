@@ -1,21 +1,24 @@
 package com.fitanywhere.detail.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fitanywhere.order.model.OrderVO;
 import com.fitanywhere.user.model.UserVO;
+import lombok.*;
+
+import java.io.Serial;
 
 @Entity
 @Table(name = "detail")
-public class DetailVO {
+
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class DetailVO implements java.io.Serializable{
+	@Serial
+	private static final long serialVersionUID = 1L;
+
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,10 +26,15 @@ public class DetailVO {
 	private Integer deId;
 
 	// 被贈送者
-	@ManyToOne
-	@JoinColumn(name = "u_id")
-	private UserVO user;
+//	@ManyToOne
+//	@JoinColumn(name = "u_id")
+//	private UserVO user;
+	//被贈送者
+	@Column(name = "u_id")
+	private Integer uId;
 
+
+	// 課程
 	@Column(name = "cr_id")
 	private Integer crId;
 
@@ -42,25 +50,19 @@ public class DetailVO {
 	@Column(name = "cd_gift_remark")
 	private String cdGiftRemark;
 
-	@Column(name = "od_id")
-	private Integer odId;
+//	@Transient
+//	private Integer odId;
 
-	public DetailVO() {
-		super();
-	}
 
-	public DetailVO(Integer deId, UserVO user, Integer crId, Integer cdPrice, Integer cdGift, Integer cdGiftStatus,
-			String cdGiftRemark, Integer odId) {
-		super();
-		this.deId = deId;
-		this.user = user;
-		this.crId = crId;
-		this.cdPrice = cdPrice;
-		this.cdGift = cdGift;
-		this.cdGiftStatus = cdGiftStatus;
-		this.cdGiftRemark = cdGiftRemark;
-		this.odId = odId;
-	}
+	// 訂單編號
+	@ManyToOne
+	@JoinColumn(name = "od_id")
+	private OrderVO orderVO;
+
+
+
+// ----------------------------------------
+
 
 	public Integer getDeId() {
 		return deId;
@@ -70,12 +72,12 @@ public class DetailVO {
 		this.deId = deId;
 	}
 
-	public UserVO getUser() {
-		return user;
+	public Integer getuId() {
+		return uId;
 	}
 
-	public void setUser(UserVO user) {
-		this.user = user;
+	public void setuId(Integer uId) {
+		this.uId = uId;
 	}
 
 	public Integer getCrId() {
@@ -118,17 +120,19 @@ public class DetailVO {
 		this.cdGiftRemark = cdGiftRemark;
 	}
 
-	public Integer getOdId() {
-		return odId;
+//	public Integer getOdId() {
+//		return odId;
+//	}
+//
+//	public void setOdId(Integer odId) {
+//		this.odId = odId;
+//	}
+
+	public OrderVO getOrderVO() {
+		return orderVO;
 	}
 
-	public void setOdId(Integer odId) {
-		this.odId = odId;
+	public void setOrderVO(OrderVO orderVO) {
+		this.orderVO = orderVO;
 	}
-
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name="de_id", referencedColumnName="od_id")
-//	private OrderVO orderVO;
-//	
-
 }

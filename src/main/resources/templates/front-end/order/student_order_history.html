@@ -974,9 +974,9 @@
 										<thead>
 										<tr>
 											<th>訂單編號</th>
-											<th>課程名稱</th>
+<!--											<th>課程名稱</th>-->
 											<!-- <th>訂單創立時間</th> -->
-											<th>訂單日期</th>
+											<th>訂單創建日期</th>
 											<th>訂單總金額</th>
 											<th>訂單狀態</th>
 											<th>訂單詳情</th>
@@ -987,9 +987,9 @@
 										<th:block th:each="orderVO : ${orderListData}">
 											<tr>
 												<th th:text="${orderVO.odId}"></th>
-												<td >健身健身健身健身健身健身健身健身健身健身健身健身</td>
+<!--												<td >健身健身健身健身健身健身健身健身健身健身健身健身</td>-->
 												<!-- <td th:text="${#dates.format(orderVO.odCreateDate, 'yyyy-MM-dd HH:mm')}"></td> -->
-												<td th:text="${#dates.format(orderVO.odEndDate, 'yyyy-MM-dd')}"></td>
+												<td th:text="${#dates.format(orderVO.odCreateDate, 'yyyy-MM-dd')}"></td>
 												<td th:text="${orderVO.odPrice}"></td>
 												<td th:text="${orderVO.odStatus}"></td>
 

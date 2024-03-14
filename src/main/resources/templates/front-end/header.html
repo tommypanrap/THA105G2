@@ -557,7 +557,7 @@
                 var cover = item.crCover != null ? `data:image/jpeg;base64,${item.crCover}` : '/assets/images/client/avatar-02.png';
 
                 cartEl.innerHTML +=
-                    `<li class="minicart-item">
+                    `<li class="minicart-item removeItem_parent">
                         <div class="thumbnail">
                             <a th:href="@{#}">
                                 <img src="${cover}" alt="Product Images">
@@ -566,11 +566,11 @@
                         </div>
                         <div class="product-content">
                             <h6 class="title"><a href="single-product.html">${item.crTitle}</a></h6>
-                            <span class="price">NT$${item.crPrice}</span>
+                            <span class="price removeItem_price" >NT$${item.crPrice}</span>
                         </div>
                         <div class="close-btn">
-                            <button class="rbt-round-btn" data-cr-id="${crId}" id="cartItem">
-                            <i class="feather-x" data-cr-id="${crId}"></i>
+                            <button class="rbt-round-btn removeItem "  data-cr-id="${crId}" >
+                            <i class="feather-x " data-cr-id="${crId}"></i>
                             </button>
                         </div>
                      </li>`;

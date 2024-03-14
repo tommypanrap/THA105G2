@@ -20,7 +20,6 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fitanywhere.coursedetail.model.CourseDetailVO;
 import com.fitanywhere.user.model.UserVO;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -115,9 +114,11 @@ public class CourseVO implements java.io.Serializable {
 	// mok
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "courseVO")
 	@OrderBy("cdId asc")
+	@JsonIgnore
 	private Set<CourseDetailVO> courseDetails = new HashSet<CourseDetailVO>();
 	// mok
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name="u_id")
 	private UserVO userVO;
 

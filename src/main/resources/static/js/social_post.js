@@ -27,12 +27,12 @@ $(document).ready(function() {
 		let postContentEdit = articlePost.find(".post-content-edit");
 
 		let previewImage = articlePost.find("#preview-image");
-		let originalPic =  articlePost.find(".original-pic");
-		
+		let originalPic = articlePost.find(".original-pic");
+
 		console.log(previewImage);
-		console.log("original-pic:"+originalPic);
-		console.log("original-pic src:"+originalPic.attr('src'));
-		    previewImage.attr('src', originalPic.attr('src'));
+		console.log("original-pic:" + originalPic);
+		console.log("original-pic src:" + originalPic.attr('src'));
+		previewImage.attr('src', originalPic.attr('src'));
 
 
 		postContent.toggleClass("hide");
@@ -76,7 +76,7 @@ $(document).ready(function() {
 
 
 	});
-
+	//搜尋成員
 	$(".search-member-social").on("keydown", function(e) {
 		if (e.keyCode === 13) {
 			let searchValue = String($(this).val());
@@ -116,49 +116,53 @@ $(document).ready(function() {
 		}
 	});
 
-
-	$(".social-reply-input").on("keydown", function(e) {
+	//新增留言
+	$(".social-reply-input").on("keydown",async function(e) {
 		if (e.keyCode === 13) {
 			//			alert("social-reply-input");
 
-			let replyValue = String($(this).val());
-			console.log("replyValue:" + typeof replyValue);
-			
+			let replyValue = $(this).val().trim();
+			if (!replyValue) return;
+
 			//先用jquery寫進下方的div
 			var newReply = $('<div class="social-reply"></div>').text(replyValue);
-			
+
 			var replyMember = $('<div class="reply-member"></div>');
-			
+
 			//拿input的值
 			let replyMemberText = $('<div class="reply-member-text"></div>');
-			
+
+			let userPhotoUrl = await handleFetchUserImage();
 			//圖片先亂寫
-			var userPhoto = $('<img>').attr('src', '/socialpost/UserPhotoDBGifReader?uId=' + 10001);
-			
+			var userPhoto = $('<img>').attr('src', userPhotoUrl);
+
 			//先寫死
-            var memberNickname = $('<p class="member-nickname"></p>').text("user001");
-            var replyTime = $('<p class="reply-time"></p>').text("20:00");
-            replyMemberText.append(memberNickname,replyTime);
-            
-            
-            replyMember.append(userPhoto,replyMemberText );
-            
-            
-             
-       var replyContent = $('<div class="reply-content"></div>').text(replyValue);
-        
-        var socialReply = $('<div class="social-reply"></div>').append(replyMember, replyMember, replyContent);
-        $('.post-content').append(socialReply);
-			
+			var memberNickname = $('<p class="member-nickname"></p>').text("user001");
+			var replyTime = $('<p class="reply-time"></p>').text("20:00");
+			replyMemberText.append(memberNickname, replyTime);
+
+
+			replyMember.append(userPhoto, replyMemberText);
+
+
+
+			var replyContent = $('<div class="reply-content"></div>').text(replyValue);
+
+			var socialReply = $('<div class="social-reply"></div>').append(replyMember, replyMember, replyContent);
+			$('.post-content').append(socialReply);
+
 			//清空輸入框
 			$(this).val('');
-			
+
 			let spidValue = $(this).siblings(".spid").text();
 			console.log("spid:", typeof spidValue);
+			
+			let uIdForAddReply = parseInt($('.uId').text());
 
 			var data = {
 				replyValue: replyValue,
-				spid: spidValue
+				spid: spidValue,
+				uId: uIdForAddReply
 			}
 
 			const formData = new FormData();
@@ -167,12 +171,13 @@ $(document).ready(function() {
 			}
 
 			$.ajax({
-				url: '/socialpost/add_social_reply',
+				url: `/socialposts/${spidValue}/replies`,
 				type: 'POST',
 				data: formData,
 				contentType: false, // 必須為 false，告訴 jQuery 不要設置 contentType
 				processData: false, // 必須為 false，告訴 jQuery 不要處理數據
 				success: function(responseData) {
+					console.log("成功增加留言");
 					//					window.alert("進來ajax");
 					window.location.href = 'student_socialpost';
 				},
@@ -185,9 +190,9 @@ $(document).ready(function() {
 		}
 
 	});
-document.getElementById('update-pic').addEventListener('change',function(e){
-	
-			const preview = document.getElementById('preview-image');
+	document.getElementById('update-pic').addEventListener('change', function(e) {
+
+		const preview = document.getElementById('preview-image');
 		const file = e.target.files[0];
 		const reader = new FileReader();
 
@@ -200,19 +205,48 @@ document.getElementById('update-pic').addEventListener('change',function(e){
 		} else {
 			preview.src = "";
 		}
-	
-	
-	
-	
-})
-	
-	
-	
-		 
-	
 
 
-	
+
+
+	})
+
+async function fetchUserImage() {
+    let uId = parseInt($('.uId').text());
+    let image_Url;
+
+    try {
+        const response = await fetch('/user_api/user_headshot_test', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ u_id: uId }),
+        });
+
+        if (!response.ok) {
+            throw new Error('response error');
+        }
+
+        const blob = await response.blob();
+        image_Url = URL.createObjectURL(blob);
+        console.log("image_Url:" + image_Url);
+    } catch (error) {
+        console.error('找不到user image:', error);
+    }
+
+    return image_Url; 
+}
+
+
+async function handleFetchUserImage() {
+    return await fetchUserImage();
+}
+
+
+//handleFetchUserImage();
+
+
 
 
 	//

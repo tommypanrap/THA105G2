@@ -346,3 +346,7 @@ p.add-post{
 .reply-member img{
 	border-radius:100%;
 }
+
+.reply-member{
+	align-items:center;
+}

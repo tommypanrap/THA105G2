@@ -208,7 +208,7 @@ document.getElementById('update-pic').addEventListener('change',function(e){
 	
 	
 	
-	
+		 
 	
 
 

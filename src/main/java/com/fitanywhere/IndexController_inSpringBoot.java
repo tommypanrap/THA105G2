@@ -32,10 +32,6 @@ public class IndexController_inSpringBoot {
     }
 	
 	
-	@GetMapping("/opinion")
-	public String opinion(Model model)  throws IOException {
-		return "/front-end/socialpost/student_opinion";
-		
-	}
+
 
 }

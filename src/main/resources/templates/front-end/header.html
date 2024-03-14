@@ -7,7 +7,7 @@
                 <div class="header-left rbt-header-content">
                     <div class="header-info">
                         <div class="logo">
-                            <a href="index.html">
+                            <a href="/">
                                 <img th:src="@{/assets/images/logo/logo.png}" alt="Education Logo Images">
                             </a>
                         </div>
@@ -98,7 +98,7 @@
                                     </div>
                                     <ul class="user-list-wrapper">
                                         <li>
-                                            <a href="#">
+                                            <a href="/socialpost/student_socialpost">
                                                 <i class="feather-home"></i>
                                                 <span>會員中心</span>
                                             </a>
@@ -523,7 +523,7 @@
             </div>
         </div>
     </div>
-
+	<div th:replace="front-end/included_mail.html"></div>
     <!-- End Side Vav -->
     <a class="rbt-close_side_menu" href="javascript:void(0);"></a>
 </header>

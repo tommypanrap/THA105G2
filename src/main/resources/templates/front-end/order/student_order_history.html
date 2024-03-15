@@ -50,7 +50,7 @@
             word-wrap: break-word;
         }
 
-        #lightbox {
+        #lightbox2 {
             position: fixed;
             top: 0;
             left: 0;
@@ -61,7 +61,7 @@
             z-index: 10;
         }
 
-        #lightbox-content {
+        #lightbox2-content2 {
             background-color: white;
             width: 90%;
             max-width: 800px;
@@ -78,7 +78,7 @@
 
         }
 
-        #lightbox .fade:not(.show){
+        #lightbox2 .fade:not(.show){
             opacity:1;
         }
 
@@ -1053,8 +1053,8 @@
                                     </table>
                                 </div>
 
-                                <div id="lightbox" style="display: none;">
-                                    <div class="tab-pane fade" id="lightbox-content" role="tabpanel" >
+                                <div id="lightbox2" style="display: none;">
+                                    <div class="tab-pane fade" id="lightbox2-content2" role="tabpanel" >
                                         <div class="rbt-my-account-inner">
                                             <h3>訂單明細</h3>
 
@@ -1087,8 +1087,8 @@
                                         </div>
                                     </div>
 
-                                    <!--                                    <div id="lightbox" style="display: none;">-->
-                                    <!--                                        <table id="lightbox-content">-->
+                                    <!--                                    <div id="lightbox2" style="display: none;">-->
+                                    <!--                                        <table id="lightbox2-content2">-->
                                     <!--                                            <thead>-->
                                     <!--                                            <tr>-->
                                     <!--                                                <th>課程圖片</th>-->
@@ -1219,10 +1219,10 @@
                 return res.json();
             }).then(data => {
             console.log(data)
-            let lightboxContent = '';
+            let lightbox2Content = '';
 
             data.forEach(detail => {
-                lightboxContent += `
+                lightbox2Content += `
                 <tr>
                     <td><img src="" alt=""/></td>
                     <td>${detail.crId}</td>
@@ -1231,10 +1231,10 @@
                 `;
 
             })
-            $('.detailBody').html(lightboxContent);
+            $('.detailBody').html(lightbox2Content);
 
 
-            $('#lightbox').show();
+            $('#lightbox2').show();
             $('body').css('overflow', 'hidden');
         })
 
@@ -1243,9 +1243,9 @@
 
     });
     $(document).mouseup(function (e) {
-        let lightbox = $('#lightbox-content');
-        if (!lightbox.is(e.target) && lightbox.has(e.target).length === 0) {
-            $('#lightbox').hide();
+        let lightbox2 = $('#lightbox2-content2');
+        if (!lightbox2.is(e.target) && lightbox2.has(e.target).length === 0) {
+            $('#lightbox2').hide();
             $('body').css('overflow', 'auto');
         }
 

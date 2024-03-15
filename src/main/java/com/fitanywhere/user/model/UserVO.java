@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -40,11 +41,13 @@ public class UserVO implements java.io.Serializable{
 	
 	// Tommy
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "mood_id")
 	private MoodVO moodVO;
 
 	// Mok
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "userVO")
+	@JsonIgnore
 	private Set<CourseVO> courses = new HashSet<CourseVO>();
 
 	public Set<CourseVO> getCourses() {
@@ -101,6 +104,7 @@ public class UserVO implements java.io.Serializable{
 //	xiaoxin
 	
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="userVO")
+	@JsonIgnore
 	private Set<AdCarouselVO> adCarousel = new HashSet<AdCarouselVO>();
 
 	public Set<AdCarouselVO> getAdCarousel() {
@@ -113,11 +117,13 @@ public class UserVO implements java.io.Serializable{
 
 	//Tommy
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="userVO")
+	@JsonIgnore
 	@OrderBy("spid ASC")
 	private Set<SocialPostVO> socialposts = new HashSet<SocialPostVO>();
 	
 	//Tommy
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="userVO")
+	@JsonIgnore
 	private Set<SocialReplyVO> socialReplys = new HashSet<SocialReplyVO>();
 
 	public Set<SocialReplyVO> getSocialReplys() {

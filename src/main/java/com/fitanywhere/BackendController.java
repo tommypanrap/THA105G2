@@ -51,9 +51,6 @@ public class BackendController {
         return "back-end/backend_course_discount"; 
     }
 	
-	@GetMapping("/backend_social")
-	public String backend_social(Model model)  {
-        return "back-end/backend_social"; 
-    }
+
 	
 }

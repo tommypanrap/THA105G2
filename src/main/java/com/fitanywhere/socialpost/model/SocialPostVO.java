@@ -75,6 +75,7 @@ public class SocialPostVO {
 	private byte[] sppic;
 
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="socialPostVO")
+	@OrderBy("srId DESC")
 	private Set<SocialReplyVO> socialReplys = new HashSet<SocialReplyVO>();
 
 	public SocialPostVO() {

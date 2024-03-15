@@ -34,9 +34,9 @@
 
 						<div class="col-lg-9">
 							<div class="rbt-dashboard-content ">
-								<span th:text="${userShowPostVO.uId}" class="uId"></span>
-								<span th:text="${userShowPostVO.uNickname}" class="uNickname"></span>
-								<span th:text="${userShowPostVO.uHeadshot}" class="uHeadshot"></span>
+								<span th:text="${userVO.uId}" class="uId"></span>
+								<span th:text="${userVO.uNickname}" class="uNickname"></span>
+								<span th:text="${userVO.uHeadshot}" class="uHeadshot"></span>
 								<div class="input-wrapper">
 									<input type="text" placeholder="搜尋其他用戶"
 										class="search-member-social"> <img
@@ -195,25 +195,27 @@
 											th:src="@{/socialpost/DBGifReader} + '?spid=' + ${socialPost.spid}"
 											alt=""> <input type="text" class="social-reply-input"
 											placeholder="留言...">
-										<div class="social-reply"
-											th:each="socialReply : ${socialPost.socialReplys}"
-											th:if="${socialPost.socialReplys != null and not #lists.isEmpty(socialPost.socialReplys)}">
-											<div class="reply-member">
-												<img th:if="${socialReply.userVO != null}"
-													th:src="@{/socialpost/UserPhotoDBGifReader} + '?uId=' + ${socialReply.userVO.uId}">
-												<div class="reply-name-text">
-													<p class="member-nickname"
-														th:text="${socialReply.userVO?.uNickname}"
-														th:if="${socialPost.socialReplys != null and not #lists.isEmpty(socialPost.socialReplys)}">怡蓉老師</p>
-													<p class="reply-time">10分鐘</p>
-												</div>
-											</div>
-											<div class="reply-content" th:text="${socialReply.srContent}"
+										<div class="social-reply-container">
+											<div class="social-reply"
+												th:each="socialReply : ${socialPost.socialReplys}"
 												th:if="${socialPost.socialReplys != null and not #lists.isEmpty(socialPost.socialReplys)}">
-												>
-												<p>同學有人在嘛</p>
+												<div class="reply-member">
+													<img th:if="${socialReply.userVO != null}"
+														th:src="@{/socialpost/UserPhotoDBGifReader} + '?uId=' + ${socialReply.userVO.uId}">
+													<div class="reply-name-text">
+														<p class="member-nickname"
+															th:text="${socialReply.userVO?.uNickname}"
+															th:if="${socialPost.socialReplys != null and not #lists.isEmpty(socialPost.socialReplys)}">怡蓉老師</p>
+														<p class="reply-time" th:text="${#dates.format(socialReply.srTime, 'yyyy-MM-dd HH:mm:ss')}">10分鐘</p>
+													</div>
+												</div>
+												<div class="reply-content" th:text="${socialReply.srContent}"
+													th:if="${socialPost.socialReplys != null and not #lists.isEmpty(socialPost.socialReplys)}">
+													>
+													<p>同學有人在嘛</p>
+												</div>
+	
 											</div>
-
 										</div>
 									</div>
 									<div class="post-content-edit">

@@ -49,16 +49,18 @@ public class SocialPostController {
 
 	@Autowired
 	UserService userSvc;
-
-	@GetMapping("select_page")
-	public String select_page(Model model) {
-		return "front-end/socialpost/select_page";
-	}
-
-	@GetMapping("list_all_socialpost")
-	public String listAllSocialPost(Model model) {
-		return "front-end/socialpost/list_all_socialpost";
-	}
+	
+	//練習 之後會刪掉
+//	@GetMapping("select_page")
+//	public String select_page(Model model) {
+//		return "front-end/socialpost/select_page";
+//	}
+	
+	
+//	@GetMapping("list_all_socialpost")
+//	public String listAllSocialPost(Model model) {
+//		return "front-end/socialpost/list_all_socialpost";
+//	}
 
 	@GetMapping("/socialpost/add_socialpost")
 	public String addSocialPost(Model model) {
@@ -91,14 +93,16 @@ public class SocialPostController {
 		return "front-end/socialpost/show_login_socialpost_test";
 	}
 
-	@GetMapping("student_socialpost")
-	public String getUserInfo(HttpServletRequest req, ModelMap model, @ModelAttribute("navUId") String navUId) {
+	@GetMapping("{userId}")
+	public String getUserInfo(HttpServletRequest req, ModelMap model, @ModelAttribute("navUId") String navUId, @PathVariable("userId") Integer userId) {
 		
 //應該是廢code	
 //		model.addAttribute("matchingUsers", matchingUsers);
 //		SocialReplyVO socialReplyVO = new SocialReplyVO();
 //		model.addAttribute("SocialReplyVO", socialReplyVO);
 
+	    
+	    
 		HttpSession newSession = req.getSession(true);
 				
 
@@ -110,11 +114,13 @@ public class SocialPostController {
 	    } else {
 
 	    	// 如果沒有經過搜尋的話，userShowPostVO的資訊就是透過session取的
-	        UserVO userShowPostVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
+//	        UserVO userShowPostVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
+	        UserVO userShowPostVO = userSvc.getUserDataByID(userId);
 			model.addAttribute("userShowPostVO", userShowPostVO);
 	    }
 
-		UserVO userVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
+//		UserVO userVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
+		UserVO userVO = userSvc.getUserDataByID(userId);
 		model.addAttribute("userVO", userVO);
 		
 
@@ -238,7 +244,7 @@ public class SocialPostController {
 	public String search_social_member(@RequestParam String searchValue, @RequestParam Integer uId, ModelMap model, HttpSession session) throws IOException  {
 		
 //		System.out.println(searchValue);
-		
+		//搜尋不包含自己
 		List<UserVO> matchingUsers = userSvc.searchUsersByNickname(searchValue,uId);
 		System.out.println(matchingUsers);
 		
@@ -247,11 +253,11 @@ public class SocialPostController {
 		return "redirect:/socialpost/student_socialpost";
 	}
 	
-	@PostMapping("/socialposts/{spid}/reply")
+	@PostMapping("/{spid}/replies")
 	public ResponseEntity<Void> add_social_reply(@RequestParam String replyValue, @RequestParam String spid, @RequestParam Integer uId, ModelMap model)   {
 		
-//		System.out.println("replyValue:"+replyValue);
-//		System.out.println("spid:"+spid);
+		System.out.println("replyValue:"+replyValue);
+		System.out.println("spid:"+spid);
 		System.out.println(uId);
 		
 		UserVO userVO = userSvc.getUserDataByID(uId);

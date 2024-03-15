@@ -1,10 +1,12 @@
 package com.fitanywhere.course.model;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.HashSet;
 import java.util.Set;
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
@@ -24,6 +27,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fitanywhere.coursedetail.model.CourseDetailVO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fitanywhere.adCarousel.model.AdCarouselVO;
 
 /*
@@ -31,9 +36,9 @@ import com.fitanywhere.adCarousel.model.AdCarouselVO;
  * 註2: Annotation可以添加在屬性上，也可以添加在getXxx()方法之上
  */
 
-
+@DynamicUpdate
 @Entity  //要加上@Entity才能成為JPA的一個Entity類別
-@Table(name = "course") //代表這個class是對應到資料庫的實體table，目前對應的table是EMP2 
+@Table(name = "course") 
 public class CourseVO implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -42,7 +47,12 @@ public class CourseVO implements java.io.Serializable {
 	@Column(name = "cr_id")
 //	@NotEmpty(message ="jjjjj")
 	private Integer crId;
-
+	
+	// mok
+	@ManyToOne
+	@JsonIgnore
+	@JoinColumn(name="u_id")
+	private UserVO userVO;
 
 	@Column(name = "cr_class")
 	private String crClass;
@@ -106,21 +116,19 @@ public class CourseVO implements java.io.Serializable {
 	@Column(name = "cr_level")
 	private String crLevel;
 	
+
 //	xiaoxin
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="courseVO")
 	@JsonIgnore
 	private Set<AdCarouselVO> adCarousel = new HashSet<AdCarouselVO>();
+
+
 
 	// mok
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "courseVO")
 	@OrderBy("cdId asc")
 	@JsonIgnore
 	private Set<CourseDetailVO> courseDetails = new HashSet<CourseDetailVO>();
-	// mok
-	@ManyToOne
-	@JsonIgnore
-	@JoinColumn(name="u_id")
-	private UserVO userVO;
 
 	public Set<CourseDetailVO> getCourseDetails() {
 		return courseDetails;
@@ -146,7 +154,10 @@ public class CourseVO implements java.io.Serializable {
 
 	public void setAdCarousel(Set<AdCarouselVO> adCarousel) {
 		this.adCarousel = adCarousel;
+
 	}
+
+
 
 
 	@Transient

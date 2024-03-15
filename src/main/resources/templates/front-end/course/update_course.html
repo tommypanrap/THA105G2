@@ -4,14 +4,14 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Instructor Announcements - Online Courses & Education Bootstrap5 Template</title>
+    <title>Create Course - Online Courses & Education Bootstrap5 Template</title>
     <meta name="robots" content="noindex, follow" />
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" th:href="@{/assets/images/favicon.png}">
-    
+
     <!-- CSS
 	============================================ -->
     <link rel="stylesheet" th:href="@{/assets/css/vendor/bootstrap.min.css}">
@@ -30,15 +30,9 @@
     <link rel="stylesheet" th:href="@{/assets/css/plugins/magnigy-popup.min.css}">
     <link rel="stylesheet" th:href="@{/assets/css/plugins/plyr.css}">
     <link rel="stylesheet" th:href="@{/assets/css/style.css}">
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>                                    <!-- ●●js  for jquery datatables 用 -->
-<script	src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>              <!-- ●●js  for jquery datatables 用 -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.jqueryui.min.css" />
-
-
 </head>
 
 <body>
-
     <!-- Start Header Area -->
     <div th:insert="front-end/header.html"></div>
     
@@ -814,288 +808,423 @@
     <!-- End Side Vav -->
     <a class="close_side_menu" href="javascript:void(0);"></a>
 
-    <div class="rbt-page-banner-wrapper">
-        <!-- Start Banner BG Image  -->
-        <div class="rbt-banner-image"></div>
-        <!-- End Banner BG Image  -->
-    </div>
+    <main class="rbt-main-wrapper">
 
-    <!-- Start Card Style -->
-    <div class="rbt-dashboard-area rbt-section-overlayping-top rbt-section-gapBottom">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <!-- Start Dashboard Top  -->
-                    <div class="rbt-dashboard-content-wrapper">
-                        <div class="tutor-bg-photo bg_image bg_image--22 height-350"></div>
-                        <!-- Start Tutor Information  -->
-                        <div class="rbt-tutor-information">
-                            <div class="rbt-tutor-information-left">
-                                <div class="thumbnail rbt-avatars size-lg">
-                                    <img th:src="'data:image/jpeg;base64,' + ${uHeadshot}" alt="Instructor">
-                                </div>
-                                <div class="tutor-content">
-                                <h5 class="title" th:text="${uName}"></h5>
-                                    <div class="rbt-review">
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                        </div>
-                                        <span class="rating-count"> (15 Reviews)</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="rbt-tutor-information-right">
-                                <div class="tutor-btn">
-                                    <a class="rbt-btn btn-md hover-icon-reverse" th:href="@{create_course}">
-                                        <span class="icon-reverse-wrapper">
-                        <span class="btn-text">創建課程</span>
-                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Tutor Information  -->
-                    </div>
-                    <!-- End Dashboard Top  -->
-
-                    <div class="row g-5">
-                        <div class="col-lg-3">
-                            <!-- Start Dashboard Sidebar  -->
-                            <div th:replace="front-end/coachsidebar.html"></div>
-                            <!-- End Dashboard Sidebar  -->
-                        </div>
-
-                        <div class="col-lg-9">
-                            <!-- Start Enrole Course  -->
-                            <div class="rbt-dashboard-content bg-color-white rbt-shadow-box">
-                                <div align="center">
-                                    
-                                    <form th:action="@{update}" method="post" th:object="${annVO}" enctype="multipart/form-data">
-                                        <div class="rbt-course-field-wrapper rbt-default-form">
-                                            <input id="crId" type="hidden" th:field="*{crId}" >
-                                            <input id="anDate" type="hidden" th:field="*{anDate}"  >
-                                            <input id="anEditDate" type="hidden" th:field="*{anEditDate}" >
-                                            <div class="course-field mb--15">
-                                                <label for="field-1" >公告ID</label>
-                                                <div id="anId" th:text="${anId}">
-                                                <!-- <input id="anId" type="text" th:field="*{anId}" style="width: 100px;" readonly> -->
-                                                </div>
-                                            </div>
-                                            <div class="course-field mb--15">
-                                                <label for="field-1" >課程名稱</label>
-                                                <div id="anTitle" th:text="${crTitle}">
-                                                </div>
-                                            </div>
-                                            <div class="course-field mb--15">
-                                                <label for="field-1" >公告標題</label>
-                                                <input id="anTitle" type="text" th:field="*{anTitle}">
-                                                <small class="d-block mt_dec--5"><i class="feather-info">標題20個字以內</i></small>
-                                            </div>
-                                            <div class="course-field mb--15">
-                                                <label for="aboutCourse">公告內容</label>
-                                                <textarea id="anContent" rows="10" th:field="*{anContent}"></textarea>
-                                                <small class="d-block mt_dec--5"><i class="feather-info"></i> 允许使用 HTML 或纯文本，不支持表情符號。</small>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div></div>
-                                            <div><button class="rbt-btn btn-gradient hover-icon-reverse w-100 text-center" type="submit" id="submit">
-                                            <span class="icon-reverse-wrapper">
-                                                    <span class="btn-text">更改公告</span>
-                                                <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                                <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                                </span>
-                                            </button></div>
-                                            <div></div>
-                                        </div>		
-                                    </form>
-                                
-                                </div>
-                            </div>
-                            <!-- End Enrole Course  -->
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Card Style -->
-
-
-
-
-    <div class="rbt-separator-mid">
-        <div class="container">
-            <hr class="rbt-separator m-0">
-        </div>
-    </div>
-    <!-- Start Footer aera -->
-    <footer class="rbt-footer footer-style-1 bg-color-white overflow-hidden">
-        <div class="footer-top">
+        <div class="rbt-create-course-area bg-color-white rbt-section-gap">
             <div class="container">
                 <div class="row g-5">
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                        <div class="footer-widget">
-                            <div class="logo">
-                                <a href="index.html">
-                                    <img src="assets/images/logo/logo.png" alt="Edu-cause">
-                                </a>
-                            </div>
 
-                            <p class="description mt--20">We’re always in search for talented
-                                and motivated people. Don’t be shy introduce yourself!
-                            </p>
+                    <div class="col-lg-8">
+                        <form th:action="@{updatecourse}" method="post" th:object="${courseVO}" enctype="multipart/form-data">
+                        <div class="rbt-accordion-style rbt-accordion-01 rbt-accordion-06 accordion">
+                            <div class="accordion" id="tutionaccordionExamplea1">
+                                <div class="accordion-item card">
+                                    <h2 class="accordion-header card-header" id="accOne">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#accCollapseOne" aria-expanded="true" aria-controls="accCollapseOne">課程資訊
+                                        </button>
+                                    </h2>
+                                    <div id="accCollapseOne" class="accordion-collapse collapse show" aria-labelledby="accOne" data-bs-parent="#tutionaccordionExamplea1">
+                                        <div class="accordion-body card-body">
+                                            <!-- Start Course Field Wrapper  -->
+                                            <div class="rbt-course-field-wrapper rbt-default-form">
+                                                <div class="course-field mb--15">
+                                                    <label for="field-1" >課程名稱</label>
+                                                    <input id="crTitle" type="text" th:field="*{crTitle}">
+                                                    <small class="d-block mt_dec--5"><i class="feather-info"></i></small>
+                                                </div>
+                                                
+                                                <div class="course-field mb--15">
+                                                    <label for="field-1">課程副標題</label>
+                                                    <input id="crSubtitle" type="text" name="crSubtitle" th:field="*{crSubtitle}">
+                                                    <small class="d-block mt_dec--5"><i class="feather-info"></i></small>
+                                                </div>
+                                                
 
-                            <ul class="social-icon social-default justify-content-start">
-                                <li><a href="https://www.facebook.com/">
-                                        <i class="feather-facebook"></i>
-                                    </a>
-                                </li>
-                                <li><a href="https://www.twitter.com">
-                                        <i class="feather-twitter"></i>
-                                    </a>
-                                </li>
-                                <li><a href="https://www.instagram.com/">
-                                        <i class="feather-instagram"></i>
-                                    </a>
-                                </li>
-                                <li><a href="https://www.linkdin.com/">
-                                        <i class="feather-linkedin"></i>
-                                    </a>
-                                </li>
-                            </ul>
+                                                <div class="course-field mb--15">
+                                                    <label for="aboutCourse">課程介紹</label>
+                                                    <textarea id="crIntro" rows="10" th:field="*{crIntro}"></textarea>
+                                                    <small class="d-block mt_dec--5"><i class="feather-info"></i> 允许使用 HTML 或纯文本，不支持表情符號。</small>
+                                                </div>
 
-                            <div class="contact-btn mt--30">
-                                <a class="rbt-btn hover-icon-reverse btn-border-gradient radius-round" href="#">
-                                    <div class="icon-reverse-wrapper">
-                                        <span class="btn-text">Contact With Us</span>
-                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                                <div class="course-field mb--15 edu-bg-gray">
+                                                    <h6>課程設置</h6>
+                                                    <div class="rbt-course-settings-content">
+                                                        <div class="row g-5">
+                                                            <div class="col-lg-4">
+                                                                <div class="advance-tab-button advance-tab-button-1">
+                                                                    <ul class="rbt-default-tab-button nav nav-tabs" id="courseSetting" role="tablist">
+                                                                        <li class="nav-item" role="presentation">
+                                                                            <a href="#" class="active" id="general-tab" data-bs-toggle="tab" data-bs-target="#general" role="tab" aria-controls="general" aria-selected="true">
+                                                                                <span>困難度</span>
+                                                                            </a>
+                                                                        </li>
+                                                                        
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-8">
+                                                                <div class="tab-content">
+                                                                    <div class="tab-pane fade advance-tab-content-1 active show" id="general" role="tabpanel" aria-labelledby="general-tab">
+                                                                        <div class="course-field mb--20">
+                                                                            <div class="rbt-modern-select bg-transparent height-45 mb--10">
+                                                                                <select class="w-100" id="crLevel" th:field="*{crLevel}">
+                                                                                    <option th:value="初學者" th:selected="${courseVO.crLevel eq '初學者'}">初學者</option>
+																			        <option th:value="中階" th:selected="${courseVO.crLevel eq '中階'}">中階</option>
+																			        <option th:value="進階" th:selected="${courseVO.crLevel eq '進階'}">進階</option>
+																			        <option th:value="專家" th:selected="${courseVO.crLevel eq '專家'}">專家</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <small><i class="feather-info"></i>課程難易度設置</small>
+                                                                        </div>
+
+                                                                        
+                                                                    </div>
+
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="course-field mb--15 edu-bg-gray">
+                                                    <h6>課程價錢相關</h6>
+                                                    <div class="rbt-course-settings-content">
+                                                        <div class="row">
+                                                            <div class="col-lg-4">
+                                                                <div class="advance-tab-button advance-tab-button-1">
+                                                                    <ul class="rbt-default-tab-button nav nav-tabs" id="coursePrice" role="tablist">
+                                                                        <li class="nav-item w-100" role="presentation">
+                                                                            <a href="#" class="active" id="paid-tab" data-bs-toggle="tab" data-bs-target="#paid" role="tab" aria-controls="paid" aria-selected="true">
+                                                                                <span>課程價錢</span>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-8">
+                                                                <div class="tab-content">
+
+                                                                    <div class="tab-pane fade advance-tab-content-1 active show" id="paid" role="tabpanel" aria-labelledby="paid-tab">
+
+                                                                        <div class="course-field mb--15">
+                                                                            <label for="regularPrice-1">定價 ($)</label>
+                                                                            <input id="crPrice" type="number" th:field="*{crPrice}">
+                                                                        </div>
+                                                                        <div class="course-field mb--15">
+                                                                            <label for="discountedPrice-1">優惠價格 ($)</label>
+                                                                            <input id="discountedPrice-1" type="number" placeholder="$ 優惠價格">
+                                                                            <small class="d-block mt_dec--5"><i class="feather-info"></i>非必填</small>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="course-field mb--20">
+                                                    <h6>課程類別</h6>
+                                                    <div class="rbt-modern-select bg-transparent height-45 w-100 mb--10">
+                                                        <select class="w-100" data-live-search="true" id="crClass" title="選擇課程分類 ex. 有氧,健身" data-size="6" data-actions-box="true" th:field="*{crClass}">
+                                                            <option th:value="有氧" th:selected="${courseVO.crClass == '有氧'}">有氧</option>
+													        <option th:value="健身" th:selected="${courseVO.crClass == '健身'}">健身</option>
+													        <option th:value="減脂" th:selected="${courseVO.crClass == '減脂'}">減脂</option>
+													        <option th:value="重量訓練" th:selected="${courseVO.crClass == '重量訓練'}">重量訓練</option>
+													        <option th:value="皮拉提斯" th:selected="${courseVO.crClass == '皮拉提斯'}">皮拉提斯</option>
+													        <option th:value="其他" th:selected="${courseVO.crClass == '其他'}">其他</option>                                                            
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="course-field mb--20">
+                                                    <h6>課程封面縮圖</h6>
+                                                    <div class="rbt-create-course-thumbnail upload-area">
+                                                        <div class="upload-area">
+                                                            <div class="brows-file-wrapper" data-black-overlay="9">
+                                                                <!-- actual upload which is hidden -->
+                                                                <input name="createinputfile" id="crCover" type="file" class="inputfile" />
+                                                                <img id="putfile" th:src="@{/assets/images/others/thumbnail-placeholder.svg}" alt="file image">
+                                                                <!-- our custom upload button -->
+                                                                <label class="d-flex" for="createinputfile" title="No File Choosen">
+                                                                    <i class="feather-upload"></i>
+                                                                    <span class="text-center">選擇上傳</span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <small><i class="feather-info"></i> <b>圖片大小:</b> 700x430 pixels, <b>檔案類型:</b> JPG, JPEG, PNG, GIF, WEBP</small>
+                                                </div>
+
+
+                                            </div>
+                                            
+                                            <!-- End Course Field Wrapper  -->
+                                        </div>
                                     </div>
-                                </a>
+                                </div>
+
+                                <!-- <div class="accordion-item card">
+                                    <h2 class="accordion-header card-header" id="accTwo">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accCollapseTwo" aria-expanded="false" aria-controls="accCollapseTwo">
+                                            課程影片
+                                        </button>
+                                    </h2>
+                                    <div id="accCollapseTwo" class="accordion-collapse collapse" aria-labelledby="accTwo" data-bs-parent="#tutionaccordionExamplea1">
+                                        <form th:action="uploadVideo" th:object="${coursedetailVO}" method="post" enctype="multipart/form-data">
+											<input id="cdVideo" name="cdVideo" type="file" >
+											<button type="submit">上傳</button>
+										</form>
+                                        <div class="accordion-body card-body rbt-course-field-wrapper rbt-default-form" >
+	
+                                           <div class="course-field mb--20">
+                                                <div class="rbt-modern-select bg-transparent height-45 mb--10">
+                                                <input type="file" id="cdVideo">
+                                                    <select class="w-100" id="field-5">
+                                                        <option value="" disabled selected>Select Video Sources</option>
+                                                        <option value="youtube">Youtube</option>
+                                                        <option value="vimeo">Vimeo</option>
+                                                        <option value="local">Local</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="course-field mb--15">
+                                                <label for="videoUrl">Add Your Video URL</label>
+                                                <input id="videoUrl" type="text" placeholder="Add Your Video URL here.">
+                                                <small class="d-block mt_dec--5">Example: <a href="https://www.youtube.com/watch?v=yourvideoid">https://www.youtube.com/watch?v=yourvideoid</a></small>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div> -->
+
+                                
+
+
+                                <div class="accordion-item card rbt-course-field-wrapper">
+                                    <h2 class="accordion-header card-header" id="accSix">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accCollapseSix" aria-expanded="false" aria-controls="accCollapseSix">
+                                            課程其他資訊
+                                        </button>
+                                    </h2>
+                                    <div id="accCollapseSix" class="accordion-collapse collapse" aria-labelledby="accSix" data-bs-parent="#tutionaccordionExamplea1">
+                                        <div class="accordion-body card-body rbt-course-field-wrapper rbt-default-form row row-15">
+
+
+                                            
+                                            <div class="col-lg-6">
+                                                <div class="course-field mb--15">
+                                                    <label for="whatLearn">目標學習適合對象</label>
+                                                    <textarea id="crTarget1" rows="5" th:field="*{crTarget1}"></textarea>
+                                                    <small class="d-block mt_dec--5"><i class="feather-info"></i> Enter for per line.</small>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-6">
+                                                <div class="course-field mb--15">
+                                                    <label for="description">目標學習先決條件</label>
+                                                    <textarea id="crPre" rows="5" th:field="*{crPre}"></textarea>
+                                                    <small class="d-block mt_dec--5"><i class="feather-info"></i> Enter for per line.</small>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-lg-12">
+                                                <hr class="mt--10 mb--20">
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="course-field mb--15">
+                                                    <label for="courseTag">學習目標1</label>
+                                                    <textarea id="crPurpose1" rows="2" th:field="*{crPurpose1}"></textarea>
+                                                    <small class="d-block mt_dec--5"><i class="feather-info"></i>為學習者設定達成目標</small>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <hr class="mt--10 mb--20">
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="course-field mb--15">
+                                                    <label for="targeted">學習目標2
+                                                    </label>
+                                                    <textarea id="crPurpose2" rows="2" th:field="*{crPurpose2}"></textarea>
+                                                    <small class="d-block mt_dec--5"><i class="feather-info"></i>為學習者設定達成目標</small>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="course-field mb--15">
+                                                    <label for="targeted">學習目標3
+                                                    </label>
+                                                    <textarea id="crPurpose3" rows="2"th:field="*{crPurpose3}"></textarea>
+                                                    <small class="d-block mt_dec--5"><i class="feather-info"></i>為學習者設定達成目標</small>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="accordion-item card">
+                                    <h2 class="accordion-header card-header" id="accSeven">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accCollapseEight" aria-expanded="false" aria-controls="accCollapseEight">
+                                            給學員的訊息
+                                        </button>
+                                    </h2>
+                                    <div id="accCollapseEight" class="accordion-collapse collapse" aria-labelledby="accSeven" data-bs-parent="#tutionaccordionExamplea1">
+                                        <div class="accordion-body card-body rbt-course-field-wrapper rbt-default-form row row-15">
+                                            <div class="col-lg-12">
+                                                <div class="course-field mb--15">
+                                                    <label for="whatLearn">歡迎訊息</label>
+                                                    <textarea id="crHelloMsg" rows="5" th:field="*{crHelloMsg}"></textarea>
+                                                    <small class="d-block mt_dec--5"><i class="feather-info"></i> Enter for per line.</small>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <hr class="mt--10 mb--20">
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="course-field mb--15">
+                                                    <label for="description">祝賀訊息</label>
+                                                    <textarea id="crCong" rows="5" th:field="*{crCong}"></textarea>
+                                                    <small class="d-block mt_dec--5"><i class="feather-info"></i> Enter for per line.</small>
+                                                </div>
+                                            </div>
+                                            <input id="crId" type="hidden" th:field="*{crId}" >
+                                            <input id="uId" type="hidden" th:field="*{uId}" >
+                                            <input id="crState" type="hidden" th:field="*{crState}" >
+                                            <input id="crCmQuan" type="hidden" th:field="*{crCmQuan}" >
+                                            <input id="crTotStar" type="hidden" th:field="*{crTotStar}" >
+                                            <input id="crCover" type="hidden" th:field="*{crCover}" >
+                                            <input id="crCreateDate" type="hidden"  th:field="*{crCreateDate}" >
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-lg-2 col-md-6 col-sm-6 col-12">
-                        <div class="footer-widget">
-                            <h5 class="ft-title">Useful Links</h5>
-                            <ul class="ft-link">
-                                <li>
-                                    <a href="12-marketplace.html">Marketplace</a>
-                                </li>
-                                <li>
-                                    <a href="04-kindergarten.html">kindergarten</a>
-                                </li>
-                                <li>
-                                    <a href="13-university-classic.html">University</a>
-                                </li>
-                                <li>
-                                    <a href="09-gym-coaching.html">GYM Coaching</a>
-                                </li>
-                                <li>
-                                    <a href="faqs.html">FAQ</a>
-                                </li>
-                                <li>
-                                    <a href="about-us-01.html">About Us</a>
-                                </li>
-                                <li>
-                                    <a href="privacy-policy.html">Privacy policy</a>
-                                </li>
-                            </ul>
+                        <div class="mt--10 row g-5">
+                            <div class="col-lg-8">
+                                <button class="rbt-btn btn-gradient hover-icon-reverse w-100 text-center" href="#" type="submit" id="submit">
+                                    <span class="icon-reverse-wrapper">
+                                        <span class="btn-text">完成創建課程</span>
+                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                    </span>
+                                </button>
+                            </div>
                         </div>
+                        </form>
                     </div>
-
-                    <div class="col-lg-2 col-md-6 col-sm-6 col-12">
-                        <div class="footer-widget">
-                            <h5 class="ft-title">Our Company</h5>
-                            <ul class="ft-link">
-                                <li>
-                                    <a href="contact.html">Contact Us</a>
-                                </li>
-                                <li>
-                                    <a href="become-a-teacher.html">Become Teacher</a>
-                                </li>
-                                <li>
-                                    <a href="blog.html">Blog</a>
-                                </li>
-                                <li>
-                                    <a href="instructor.html">Instructor</a>
-                                </li>
-                                <li>
-                                    <a href="event-list.html">Events</a>
-                                </li>
-                                <li>
-                                    <a href="course-filter-one-toggle.html">Course</a>
-                                </li>
-                                <li>
-                                    <a href="contact.html">Contact</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                        <div class="footer-widget">
-                            <h5 class="ft-title">Get Contact</h5>
-                            <ul class="ft-link">
-                                <li><span>Phone:</span> <a href="#">(406) 555-0120</a></li>
-                                <li><span>E-mail:</span> <a href="mailto:hr@example.com">admin@example.com</a></li>
-                            </ul>
-
-                            <form class="newsletter-form mt--20" action="#">
-                                <h6 class="w-600">Newsletter</h6>
-                                <p class="description">2000+ Our students are subscribe Around the World.<br> Don’t be shy introduce yourself!</p>
-
-                                <div class="form-group right-icon icon-email mb--20">
-                                    <label for="email">Enter Your Email Here</label>
-                                    <input id="email" type="email">
+                    <div class="col-lg-4">
+                        <div class="rbt-create-course-sidebar course-sidebar sticky-top rbt-shadow-box rbt-gradient-border">
+                            <div class="inner">
+                                <div class="section-title mb--30">
+                                    <h4 class="title">創建課程引導</h4>
                                 </div>
-
-                                <div class="form-group mb--0">
-                                    <button class="rbt-btn rbt-switch-btn btn-gradient radius-round btn-sm" type="submit">
-                                        <span data-text="Submit Now">Submit Now</span>
-                                    </button>
+                                <div class="rbt-course-upload-tips">
+                                    <ul class="rbt-list-style-1">
+                                        <li><i class="feather-check"></i>設定課程名稱、價格</li>
+                                        <li><i class="feather-check"></i>課程封面縮圖大小為700x430.</li>
+                                        <li><i class="feather-check"></i>課程其他資訊會顯示在課程頁面上</li>
+                                        <li><i class="feather-check"></i>寫下給學員的訊息</li>
+                                        <li><i class="feather-check"></i>完成創建課程後到下一頁上傳影片吧！</li>
+                                        <a class="rbt-btn bt hover-icon-reverse" th:href="@{coach_dashboard}">
+                                            <span class="icon-reverse-wrapper" >
+                            <span class="btn-text" >返回主頁</span>
+                                            <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                            <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                            </span>
+                                        </a>
+                                    </ul>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+
+        <!-- Start Modal Area  -->
+        <div class="rbt-default-modal modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="rbt-round-btn" data-bs-dismiss="modal" aria-label="Close">
+                            <i class="feather-x"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="inner rbt-default-form">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h5 class="modal-title mb--20" id="exampleModalLabel">Add Topic</h5>
+                                    <div class="course-field mb--20">
+                                        <label for="modal-field-1">Topic Name</label>
+                                        <input id="modal-field-1" type="text">
+                                        <small><i class="feather-info"></i> Topic titles are displayed publicly wherever required. Each topic may contain one or more lessons, quiz and assignments.</small>
+                                    </div>
+                                    <div class="course-field mb--20">
+                                        <label for="modal-field-2">Topic Summary</label>
+                                        <textarea id="modal-field-2"></textarea>
+                                        <small><i class="feather-info"></i> Add a summary of short text to prepare students for the activities for the topic. The text is shown on the course page beside the tooltip beside the topic name.</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="top-circle-shape"></div>
+                    <div class="modal-footer pt--30">
+                        <button type="button" class="rbt-btn btn-border btn-md radius-round-10" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal Area  -->
+
+
         <div class="rbt-separator-mid">
             <div class="container">
                 <hr class="rbt-separator m-0">
             </div>
         </div>
-        <!-- Start Copyright Area  -->
-        <div class="copyright-area copyright-style-1 ptb--20">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12">
-                        <p class="rbt-link-hover text-center text-lg-start">Copyright © 2023 <a href="https://themeforest.net/user/rbt-themes">Rainbow-Themes.</a> All Rights Reserved</p>
-                    </div>
-                    <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12">
-                        <ul class="copyright-link rbt-link-hover justify-content-center justify-content-lg-end mt_sm--10 mt_md--10">
-                            <li><a href="#">Terms of service</a></li>
-                            <li><a href="privacy-policy.html">Privacy policy</a></li>
-                            <li><a href="subscription.html">Subscription</a></li>
-                            <li><a href="login.html">Login & Register</a></li>
-                        </ul>
+        <div class="footer-style-2 ptb--60 bg-color-white">
+            <div class="container-fluid">
+                <div class="row align-items-center justify-content-between">
+                    <div class="col-lg-12">
+                        <div class="inner text-center">
+
+                            <div class="logo">
+                                <a href="index.html">
+                                    <img src="assets/images/logo/logo.png" alt="Logo images">
+                                </a>
+                            </div>
+                            <!-- Social icone Area -->
+                            <ul class="social-icon social-default">
+                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                            </ul>
+                            <!-- End -->
+                            <div class="text mt--20">
+                                <p>© 2023 <a target="_blank" href="https://themeforest.net/user/rbt-themes/portfolio">Rainbow-Themes</a>. All
+                                    Rights Reserved.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- End Copyright Area  -->
-    </footer>
-    <!-- End Footer aera -->
+    </main>
+
     <div class="rbt-progress-parent">
         <svg class="rbt-back-circle svg-inner" width="100%" height="100%" viewBox="-1 -1 102 102">
             <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
@@ -1104,7 +1233,7 @@
 
     <!-- JS
 ============================================ -->
-<!-- Modernizer JS -->
+    <!-- Modernizer JS -->
     <script th:src="@{/assets/js/vendor/modernizr.min.js}"></script>
     <!-- jQuery JS -->
     <script th:src="@{/assets/js/vendor/jquery.js}"></script>
@@ -1134,39 +1263,57 @@
     <script th:src="@{/assets/js/vendor/plyr.js}"></script>
     <!-- Main JS -->
     <script th:src="@{/assets/js/main.js}"></script>
-    <!-- ●● jquery datatables 設定 -->
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    var table = document.getElementById('example');
-    var dataTable = new DataTable(table, {
-			"lengthMenu": [3 ,5, 10, 20, 50, 100],
-			"searching": true,  //搜尋功能, 預設是開啟
-		    "paging": true,     //分頁功能, 預設是開啟
-		    "ordering": true,   //排序功能, 預設是開啟
-		    "language": {
-		        "processing": "處理中...",
-		        "loadingRecords": "載入中...",
-		        "lengthMenu": "顯示 _MENU_ 筆結果",
-		        "zeroRecords": "沒有符合的結果",
-		        "info": "顯示第 _START_ 至 _END_ 筆結果，共<font color=red> _TOTAL_ </font>筆",
-		        "infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
-		        "infoFiltered": "(從 _MAX_ 筆結果中過濾)",
-		        "infoPostFix": "",
-		        "search": "搜尋:",
-		        "paginate": {
-		            "first": "第一頁",
-		            "previous": "上一頁",
-		            "next": "下一頁",
-		            "last": "最後一頁"
-		        },
-		        "aria": {
-		            "sortAscending":  ": 升冪排列",
-		            "sortDescending": ": 降冪排列"
-		        }
-		    }
-		});
-	});
-</script>
+    <!-- JavaScript part -->
+<script type="text/javascript">
+    //清除提示信息
+    function hideContent(d) {
+         document.getElementById(d).style.display = "none";
+    }
+    
+    //照片上傳-預覽用
+    var filereader_support = typeof FileReader != 'undefined';
+    if (!filereader_support) {
+        alert("No FileReader support");
+    }
+    acceptedTypes = {
+            'image/png' : true,
+            'image/jpeg' : true,
+            'image/gif' : true
+    };
+    function previewImage() {
+        var upfile1 = document.getElementById("crCover");
+        upfile1.addEventListener("change", function(event) {
+            var files = event.target.files || event.dataTransfer.files;
+            for (var i = 0; i < files.length; i++) {
+                previewfile(files[i])
+            }
+        }, false);
+    }
+    function previewfile(file) {
+        if (filereader_support === true && acceptedTypes[file.type] === true) {
+            var reader = new FileReader();
+            reader.onload = function(event) {
+                var image = new Image();
+                image.src = event.target.result;
+                image.width = 100;
+                image.height = 75;
+                image.border = 2;
+                if (blob_holder.hasChildNodes()) {
+                    blob_holder.removeChild(blob_holder.childNodes[0]);
+                }
+                blob_holder.appendChild(image);
+            };
+            reader.readAsDataURL(file);
+            document.getElementById('submit').disabled = false;
+        } else {
+            blob_holder.innerHTML = "<div  style='text-align: left;'>" + "● filename: " + file.name
+                    + "<br>" + "● ContentTyp: " + file.type
+                    + "<br>" + "● size: " + file.size + "bytes"
+                    + "<br>" + "● 上傳ContentType限制: <b> <font color=red>image/png、image/jpeg、image/gif </font></b></div>";
+            document.getElementById('submit').disabled = true;
+        }
+    }
+    </script>
 </body>
 
 </html>

@@ -386,6 +386,20 @@ public class UserService {
 		return userVO;
 	}
 
+ // Tommy
+ 	public List<UserVO> getAll() {
+ 		return userJpaRepository.findAll();
+ 	}
+ 	
+ 	public boolean updateUserProfile(UserVO userVO) {
+ 		try {
+ 	        userJpaRepository.save(userVO);
+ 	        return true; // 保存成功，返回 true
+ 	    } catch (Exception e) {
+ 	        e.printStackTrace();
+ 	        return false; // 保存失败，返回 false
+ 	    }
+ 	}
 	// Andy
 	@Transactional(readOnly = true)
 	public UserVO getUser(Integer uId) {
@@ -400,10 +414,6 @@ public class UserService {
 		return uHeadshot;
 	}
 
-	// Tommy
-	public List<UserVO> getAll() {
-		return userJpaRepository.findAll();
-	}
 
 	// test
 	@Transactional

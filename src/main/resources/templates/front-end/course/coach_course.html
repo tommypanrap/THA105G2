@@ -4,14 +4,14 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Instructor Announcements - Online Courses & Education Bootstrap5 Template</title>
+    <title>Instructor Courses - Online Courses & Education Bootstrap5 Template</title>
     <meta name="robots" content="noindex, follow" />
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" th:href="@{/assets/images/favicon.png}">
-    
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png">
+
     <!-- CSS
 	============================================ -->
     <link rel="stylesheet" th:href="@{/assets/css/vendor/bootstrap.min.css}">
@@ -30,18 +30,13 @@
     <link rel="stylesheet" th:href="@{/assets/css/plugins/magnigy-popup.min.css}">
     <link rel="stylesheet" th:href="@{/assets/css/plugins/plyr.css}">
     <link rel="stylesheet" th:href="@{/assets/css/style.css}">
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>                                    <!-- ●●js  for jquery datatables 用 -->
-<script	src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>              <!-- ●●js  for jquery datatables 用 -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.jqueryui.min.css" />
-
-
 </head>
 
 <body>
 
     <!-- Start Header Area -->
     <div th:insert="front-end/header.html"></div>
-    
+    </header>
     <!-- Mobile Menu Section -->
     <div class="popup-mobile-menu">
         <div class="inner-wrapper">
@@ -835,7 +830,7 @@
                                     <img th:src="'data:image/jpeg;base64,' + ${uHeadshot}" alt="Instructor">
                                 </div>
                                 <div class="tutor-content">
-                                <h5 class="title" th:text="${uName}"></h5>
+                                    <h5 class="title" th:text="${uName}"></h5>
                                     <div class="rbt-review">
                                         <div class="rating">
                                             <i class="fas fa-star"></i>
@@ -852,7 +847,7 @@
                                 <div class="tutor-btn">
                                     <a class="rbt-btn btn-md hover-icon-reverse" th:href="@{create_course}">
                                         <span class="icon-reverse-wrapper">
-                        <span class="btn-text">創建課程</span>
+                        				<span class="btn-text">創建課程</span>
                                         <span class="btn-icon"><i class="feather-arrow-right"></i></span>
                                         <span class="btn-icon"><i class="feather-arrow-right"></i></span>
                                         </span>
@@ -874,48 +869,300 @@
                         <div class="col-lg-9">
                             <!-- Start Enrole Course  -->
                             <div class="rbt-dashboard-content bg-color-white rbt-shadow-box">
-                                <div align="center">
+                                <div class="content">
+
+                                    <div class="section-title">
+                                        <h4 class="rbt-title-style-3">課程管理
+                                    <a class="rbt-btn btn-md hover-icon-reverse" th:href="@{create_course}">
+                                        <span class="icon-reverse-wrapper">
+                        				<span class="btn-text">創建課程</span>
+                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                        </span>
+                                    </a>
+                                        </h4>
+                                        
+                                    </div>
                                     
-                                    <form th:action="@{update}" method="post" th:object="${annVO}" enctype="multipart/form-data">
-                                        <div class="rbt-course-field-wrapper rbt-default-form">
-                                            <input id="crId" type="hidden" th:field="*{crId}" >
-                                            <input id="anDate" type="hidden" th:field="*{anDate}"  >
-                                            <input id="anEditDate" type="hidden" th:field="*{anEditDate}" >
-                                            <div class="course-field mb--15">
-                                                <label for="field-1" >公告ID</label>
-                                                <div id="anId" th:text="${anId}">
-                                                <!-- <input id="anId" type="text" th:field="*{anId}" style="width: 100px;" readonly> -->
+
+                                    <div class="advance-tab-button mb--30">
+                                        <ul class="nav nav-tabs tab-button-style-2 justify-content-start" id="myTab-4" role="tablist">
+                                            <li role="presentation">
+                                                <a href="#" class="tab-button active" id="publish-tab-4" data-bs-toggle="tab" data-bs-target="#publish-4" role="tab" aria-controls="publish-4" aria-selected="true">
+                                                    <span class="title">上架中</span>
+                                                </a>
+                                            </li>
+                                            <li role="presentation">
+                                                <a href="#" class="tab-button" id="pending-tab-4" data-bs-toggle="tab" data-bs-target="#pending-4" role="tab" aria-controls="pending-4" aria-selected="false">
+                                                    <span class="title">未審核</span>
+                                                </a>
+                                            </li>
+                                            <li role="presentation">
+                                                <a href="#" class="tab-button" id="draft-tab-4" data-bs-toggle="tab" data-bs-target="#draft-4" role="tab" aria-controls="draft-4" aria-selected="false">
+                                                    <span class="title">已下架</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade active show" id="publish-4" role="tabpanel" aria-labelledby="publish-tab-4">
+                                            <div class="row g-5">
+                                                <!-- Start Single Course  上架中-->
+                                                <div th:each=" course : ${course1}" class="col-lg-4 col-md-6 col-12">
+                                                    <div class="rbt-card variation-01 rbt-hover1">
+                                                        <div class="rbt-card-img">
+                                                        <!-- <video loop style="width: 100%; height: auto;"
+													               controls th:src="@{/cdVideo}">
+													        </video> -->
+                                                            <a href="course-details.html">
+                                                                <img th:src="'data:image/png;base64,' + ${course.base64Image}" alt="Card image">
+                                                            </a>
+                                                        </div>
+                                                        <div class="rbt-card-body">
+                                                            <div class="rbt-card-top">
+                                                                <div class="rbt-review">
+                                                                	<div class="rating">
+                                                                	<!-- 平均星星數 -->
+																		<div>
+																		    <!-- 計算平均星星數到小數點第一位 -->
+																		    <span th:with="avgs = ${course.crTotStar / (course.crCmQuan*1.0)}" th:text="${ #numbers.formatDecimal(avgs,1,'COMMA',1,'POINT')}" ></span>
+																		</div>
+	                                                                    <!-- 滿星的部分 -->
+																	    <div th:each="star : ${#numbers.sequence(1, course.crTotStar/course.crCmQuan)}">
+																	        <i class="fas fa-star"></i>
+																	    </div>
+																	    <!-- 不滿星的部分，灰色星星 -->
+																	    <div th:each="star : ${#numbers.sequence(course.crTotStar/course.crCmQuan + 1, 5)}">
+																	        <i class="fas fa-star" style="color: grey;"></i>
+																	    </div>
+	                                                                    <span class="rating-count" th:text="${course.crCmQuan}"></span>
+	                                                                    <span class="rating-count"> 則評論</span>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                            </div>
+                                                            <h4 class="rbt-card-title"><a href="course-details.html" th:text="${course.crTitle}"></a>
+                                                            </h4>
+                                                            <ul class="rbt-meta">
+                                                                <!-- 放類別名稱 -->
+                                                                <li th:text="${course.crClass}"></li>
+                                                                <li><i class="feather-users"></i>學生人數晚一點寫</li>
+                                                            </ul>
+
+                                                            <div class="rbt-card-bottom">
+                                                                <div class="rbt-price">
+                                                                    <span class="current-price" th:text="${course.crPrice}"></span>
+                                                                    <span class="off-price">待確認</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="course-field mb--15">
-                                                <label for="field-1" >課程名稱</label>
-                                                <div id="anTitle" th:text="${crTitle}">
-                                                </div>
-                                            </div>
-                                            <div class="course-field mb--15">
-                                                <label for="field-1" >公告標題</label>
-                                                <input id="anTitle" type="text" th:field="*{anTitle}">
-                                                <small class="d-block mt_dec--5"><i class="feather-info">標題20個字以內</i></small>
-                                            </div>
-                                            <div class="course-field mb--15">
-                                                <label for="aboutCourse">公告內容</label>
-                                                <textarea id="anContent" rows="10" th:field="*{anContent}"></textarea>
-                                                <small class="d-block mt_dec--5"><i class="feather-info"></i> 允许使用 HTML 或纯文本，不支持表情符號。</small>
                                             </div>
                                         </div>
-                                        <div>
-                                            <div></div>
-                                            <div><button class="rbt-btn btn-gradient hover-icon-reverse w-100 text-center" type="submit" id="submit">
-                                            <span class="icon-reverse-wrapper">
-                                                    <span class="btn-text">更改公告</span>
-                                                <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                                <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                                </span>
-                                            </button></div>
-                                            <div></div>
-                                        </div>		
-                                    </form>
-                                
+                                        <script>
+                                        document.addEventListener("DOMContentLoaded", function() {
+                                            // 获取所有课程卡片元素
+                                            var courseCards = document.querySelectorAll('.rbt-card.variation-01.rbt-hover1');
+
+                                            // 每页显示的课程数量
+                                            var pageSize = 6;
+
+                                            // 计算总页数
+                                            var pageCount = Math.ceil(courseCards.length / pageSize);
+
+                                            // 隐藏所有课程卡片
+                                            courseCards.forEach(function(card) {
+                                                card.style.display = 'none';
+                                            });
+
+                                            // 显示第一页的课程卡片
+                                            showPage(1);
+
+                                            // 显示指定页数的课程卡片
+                                            function showPage(pageNumber) {
+                                                // 计算该页的起始索引和结束索引
+                                                var startIndex = (pageNumber - 1) * pageSize;
+                                                var endIndex = Math.min(startIndex + pageSize, courseCards.length);
+
+                                                // 显示指定范围内的课程卡片
+                                                for (var i = startIndex; i < endIndex; i++) {
+                                                    courseCards[i].style.display = 'block';
+                                                }
+                                            }
+
+                                            // 创建分页按钮
+                                            var pagination = document.createElement('div');
+                                            pagination.classList.add('pagination');
+
+                                            for (var i = 1; i <= pageCount; i++) {
+                                                var button = document.createElement('button');
+                                                button.textContent = i;
+                                                button.addEventListener('click', function() {
+                                                    // 显示点击的页数的课程卡片
+                                                    showPage(parseInt(this.textContent));
+                                                });
+                                                pagination.appendChild(button);
+                                            }
+
+                                            // 添加分页按钮到页面上
+                                            document.body.appendChild(pagination);
+                                        });
+
+                                        </script>
+										
+                                        <div class="tab-pane fade" id="pending-4" role="tabpanel" aria-labelledby="pending-tab-4">
+                                            <div class="row g-5">
+
+                                                <!-- Start Single Course 未審核 -->
+                                                <div th:each=" course : ${course0}" class="col-lg-4 col-md-6 col-12">
+                                                    <div class="rbt-card variation-01 rbt-hover">
+                                                        <div class="rbt-card-img">
+                                                            <a href="course-details.html">
+                                                                <img th:src="'data:image/png;base64,' + ${course.base64Image}" alt="Card image">
+                                                            </a>
+                                                        </div>
+                                                        <div class="rbt-card-body">
+                                                            
+                                                            <h4 class="rbt-card-title"><a href="course-details.html" th:text="${course.crTitle}"></a>
+                                                            </h4>
+                                                            <ul class="rbt-meta">
+                                                                <!-- 放類別名稱 -->
+                                                                <li th:text="${course.crClass}"></li>
+                                                            </ul>
+
+                                                            <div class="rbt-card-bottom">
+                                                                <div class="rbt-price">
+                                                                	<!-- 課程價格 -->
+                                                                    <span class="current-price" th:text="${course.crPrice}"></span>
+                                                                    <span class="off-price">$86</span>
+                                                                </div>
+                                                                <a class="rbt-btn-link left-icon" th:href="@{update_course(crId=${course.crId})}"><i class="feather-edit"></i>修改</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="draft-4" role="tabpanel" aria-labelledby="draft-tab-4">
+                                            <div class="row g-5">
+                                                <!-- Start Single Course  已下架-->
+                                                <div th:each=" course : ${course2}" class="col-lg-4 col-md-6 col-12">
+                                                    <div class="rbt-card variation-01 rbt-hover">
+                                                        <div class="rbt-card-img">
+                                                            <a href="course-details.html">
+                                                                <img th:src="'data:image/png;base64,' + ${course.base64Image}" alt="Card image">
+                                                            </a>
+                                                        </div>
+                                                        <div class="rbt-card-body">
+                                                            </div>
+                                                            <h4 class="rbt-card-title"><a href="course-details.html" th:text="${course.crTitle}"></a>
+                                                            </h4>
+                                                            <div class="rbt-card-bottom">
+                                                                <div class="rbt-price">
+                                                                    <span class="current-price" th:text="${course.crPrice}"></span>
+                                                                    <span class="off-price">$120</span>
+                                                                </div>
+                                                                <a class="rbt-btn-link left-icon" href="#"><i class="feather-edit"></i> Edit</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- End Single Course  -->
+
+                                                <!-- Start Single Course  -->
+                                                <!-- <div class="col-lg-4 col-md-6 col-12">
+                                                    <div class="rbt-card variation-01 rbt-hover">
+                                                        <div class="rbt-card-img">
+                                                            <a href="course-details.html">
+                                                                <img src="assets/images/course/course-online-02.jpg" alt="Card image">
+                                                            </a>
+                                                        </div>
+                                                        <div class="rbt-card-body">
+                                                            <div class="rbt-card-top">
+                                                                <div class="rbt-review">
+                                                                    <div class="rating">
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                    </div>
+                                                                    <span class="rating-count"> (15 Reviews)</span>
+                                                                </div>
+                                                                <div class="rbt-bookmark-btn">
+                                                                    <a class="rbt-round-btn" title="Bookmark" href="#"><i class="feather-bookmark"></i></a>
+                                                                </div>
+                                                            </div>
+                                                            <h4 class="rbt-card-title"><a href="course-details.html">PHP
+                                                                    Beginner + Advanced</a>
+                                                            </h4>
+                                                            <ul class="rbt-meta">
+                                                                <li><i class="feather-book"></i>10 Lessons</li>
+                                                                <li><i class="feather-users"></i>30 Students</li>
+                                                            </ul>
+
+                                                            <div class="rbt-card-bottom">
+                                                                <div class="rbt-price">
+                                                                    <span class="current-price">$20</span>
+                                                                    <span class="off-price">$43</span>
+                                                                </div>
+                                                                <a class="rbt-btn-link left-icon" href="#"><i class="feather-edit"></i> Edit</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> -->
+                                                <!-- End Single Course  -->
+
+                                                <!-- Start Single Course  -->
+                                                <!-- <div class="col-lg-4 col-md-6 col-12">
+                                                    <div class="rbt-card variation-01 rbt-hover">
+                                                        <div class="rbt-card-img">
+                                                            <a href="course-details.html">
+                                                                <img src="assets/images/course/course-online-03.jpg" alt="Card image">
+                                                            </a>
+                                                        </div>
+                                                        <div class="rbt-card-body">
+                                                            <div class="rbt-card-top">
+                                                                <div class="rbt-review">
+                                                                    <div class="rating">
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                        <i class="fas fa-star"></i>
+                                                                    </div>
+                                                                    <span class="rating-count"> (4 Reviews)</span>
+                                                                </div>
+                                                                <div class="rbt-bookmark-btn">
+                                                                    <a class="rbt-round-btn" title="Bookmark" href="#"><i class="feather-bookmark"></i></a>
+                                                                </div>
+                                                            </div>
+                                                            <h4 class="rbt-card-title"><a href="course-details.html">Angular Zero to
+                                                                    Mastery</a>
+                                                            </h4>
+                                                            <ul class="rbt-meta">
+                                                                <li><i class="feather-book"></i>14 Lessons</li>
+                                                                <li><i class="feather-users"></i>26 Students</li>
+                                                            </ul>
+
+                                                            <div class="rbt-card-bottom">
+                                                                <div class="rbt-price">
+                                                                    <span class="current-price">$23</span>
+                                                                    <span class="off-price">$45</span>
+                                                                </div>
+                                                                <a class="rbt-btn-link left-icon" href="#"><i class="feather-edit"></i> Edit</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> -->
+                                                <!-- End Single Course  -->
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                             <!-- End Enrole Course  -->
@@ -1104,7 +1351,7 @@
 
     <!-- JS
 ============================================ -->
-<!-- Modernizer JS -->
+    <!-- Modernizer JS -->
     <script th:src="@{/assets/js/vendor/modernizr.min.js}"></script>
     <!-- jQuery JS -->
     <script th:src="@{/assets/js/vendor/jquery.js}"></script>
@@ -1134,39 +1381,6 @@
     <script th:src="@{/assets/js/vendor/plyr.js}"></script>
     <!-- Main JS -->
     <script th:src="@{/assets/js/main.js}"></script>
-    <!-- ●● jquery datatables 設定 -->
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    var table = document.getElementById('example');
-    var dataTable = new DataTable(table, {
-			"lengthMenu": [3 ,5, 10, 20, 50, 100],
-			"searching": true,  //搜尋功能, 預設是開啟
-		    "paging": true,     //分頁功能, 預設是開啟
-		    "ordering": true,   //排序功能, 預設是開啟
-		    "language": {
-		        "processing": "處理中...",
-		        "loadingRecords": "載入中...",
-		        "lengthMenu": "顯示 _MENU_ 筆結果",
-		        "zeroRecords": "沒有符合的結果",
-		        "info": "顯示第 _START_ 至 _END_ 筆結果，共<font color=red> _TOTAL_ </font>筆",
-		        "infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
-		        "infoFiltered": "(從 _MAX_ 筆結果中過濾)",
-		        "infoPostFix": "",
-		        "search": "搜尋:",
-		        "paginate": {
-		            "first": "第一頁",
-		            "previous": "上一頁",
-		            "next": "下一頁",
-		            "last": "最後一頁"
-		        },
-		        "aria": {
-		            "sortAscending":  ": 升冪排列",
-		            "sortDescending": ": 降冪排列"
-		        }
-		    }
-		});
-	});
-</script>
 </body>
 
 </html>

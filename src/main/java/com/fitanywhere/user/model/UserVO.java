@@ -14,7 +14,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -82,6 +86,7 @@ public class UserVO implements java.io.Serializable{
 	private byte[] uHeadshot;
 
 	@Column(name = "u_birth")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date uBirth;
 
 	@Column(name = "u_status")
@@ -89,6 +94,7 @@ public class UserVO implements java.io.Serializable{
 //	0 = 正常會員; 1 = 可登入但部分功能限制的帳號(懲罰中); 2 = 自行永久關閉帳號; 3 = 被檢舉停權帳號;   
 
 	@Column(name = "u_registerdate")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date uRegisterdate;
 	
 	
@@ -107,6 +113,7 @@ public class UserVO implements java.io.Serializable{
 
 	//Tommy
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="userVO")
+	@OrderBy("spid ASC")
 	private Set<SocialPostVO> socialposts = new HashSet<SocialPostVO>();
 	
 	//Tommy

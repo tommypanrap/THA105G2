@@ -45,11 +45,11 @@ public class mjController {
 		
 		return "front-end/mj/student_my_quiz_attempts";
 	}	
-	@GetMapping("student_order_history")
-	public String courseOrderHistory(ModelMap model) {
-		
-		return "front-end/mj/student_order_history";
-	}	
+//	@GetMapping("student_order_history")
+//	public String courseOrderHistory(ModelMap model) {
+//
+//		return "front-end/mj/student_order_history";
+//	}
 	@GetMapping("student_reviews")
 	public String courseReviews(ModelMap model) {
 		

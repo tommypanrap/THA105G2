@@ -1,26 +1,33 @@
 package com.fitanywhere.course.model;
 
 import java.sql.Timestamp;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fitanywhere.coursedetail.model.CourseDetailVO;
 
 /*
  * 註1: classpath必須有javax.persistence-api-x.x.jar 
  * 註2: Annotation可以添加在屬性上，也可以添加在getXxx()方法之上
  */
 
-
+@DynamicUpdate
 @Entity  //要加上@Entity才能成為JPA的一個Entity類別
-@Table(name = "course") //代表這個class是對應到資料庫的實體table，目前對應的table是EMP2 
+@Table(name = "course") 
 public class CourseVO implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -32,6 +39,19 @@ public class CourseVO implements java.io.Serializable {
 
 	@Column(name = "u_id")
 	private Integer uId;
+	
+//	public List<CourseDetailVO> getCoursedeatilVO() {
+//		return coursedeatilVO;
+//	}
+//
+//
+//	public void setCoursedeatilVO(List<CourseDetailVO> coursedeatilVO) {
+//		this.coursedeatilVO = coursedeatilVO;
+//	}
+
+
+//	@OneToMany(mappedBy = "courseVO", cascade = CascadeType.ALL, fetch = FetchType.EAGER )
+//    private List<CourseDetailVO> coursedeatilVO;
 
 	@Column(name = "cr_class")
 	private String crClass;

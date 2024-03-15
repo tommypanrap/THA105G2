@@ -12,13 +12,12 @@
 
                                         <div class="rbt-default-sidebar-wrapper">
                                             <div class="section-title mb--20">
-                                                <h6 class="rbt-title-style-2">Welcome, Jone Due</h6>
+                                                <h6 class="rbt-title-style-2">Welcome, <span th:text="${uName}"></span></h6>
                                             </div>
                                             <nav class="mainmenu-nav">
                                                 <ul class="dashboard-mainmenu rbt-default-sidebar-list">
                                                     <li><a th:href="@{coach_dashboard}"><i class="feather-home"></i><span>教練主頁</span></a></li>
-                                                    <li><a th:href="@{coach_profile}"><i class="feather-user"></i><span>教練個人資料</span></a></li>
-                                                    <li><a href="G2-instructor-course.html"><i class="feather-monitor"></i><span>課程管理</span></a></li>
+                                                    <li><a th:href="@{coach_course}"><i class="feather-monitor"></i><span>課程管理</span></a></li>
                                                     <li><a th:href="@{course_announcement}"><i class="feather-volume-2"></i><span>課程公告</span></a></li>
                                                     <li><a href="instructor-wishlist.html"><i class="feather-bookmark"></i><span>廣告投放</span></a></li>
                                                     <li><a href="instructor-order-history.html"><i class="feather-shopping-bag"></i><span>金流設定</span></a></li>

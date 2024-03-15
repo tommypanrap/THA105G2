@@ -830,7 +830,7 @@
                                     <img th:src="'data:image/jpeg;base64,' + ${uHeadshot}" alt="Instructor">
                                 </div>
                                 <div class="tutor-content">
-                                <h5 class="title" th:text="${userVO.uName}"></h5>
+                                <h5 class="title" th:text="${uName}"></h5>
                                     <div class="rbt-review">
                                         <div class="rating">
                                             <i class="fas fa-star"></i>
@@ -982,11 +982,14 @@
                                                     </div>
                                                 </div>
                                             </form>
-                                            <script>
-                                            document.getElementById("submitbutton").addEventListener("click",function(){
-                                            	alert("成功更新個人資料");
-                                            });
-                                            </script>
+                                            <div th:if="${isprofileSuccess}">
+										        <script th:inline="javascript">
+										        setTimeout(function() {
+										        	alert('個人資料更改成功！');
+												},1)    
+										         // 如果处理失败，则弹出提示框
+										        </script>
+										    </div>
                                             <!-- End Profile Row  -->
                                         </div>
 
@@ -1014,27 +1017,32 @@
                                                     </div>
                                                 </div>
                                             </form>
-                                            <script>
-                                            document.getElementById("submitcoachbutton").addEventListener("click",function(){
-                                            	alert("成功更新教練資料");
-                                            });
-                                            </script>
+                                            <div th:if="${iscoachSuccess}">
+										        <script th:inline="javascript">
+										        setTimeout(function() {
+										        		alert('教練資料更改成功！'); 
+												},1)    
+												
+										         // 如果处理失败，则弹出提示框
+										        </script>
+										    </div>
                                             <!-- End Profile Row  -->
                                         </div>
 
                                         <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
                                             <!-- Start Profile Row  -->
-                                            <form th:action="@{update}" method="post" th:object="${userVO}" enctype="multipart/form-data" class="rbt-profile-row rbt-default-form row row--15">
+                                            <form th:action="@{update_password}" method="post" th:object="${userVO}" enctype="multipart/form-data" class="rbt-profile-row rbt-default-form row row--15">
+                                                <input id="uId" type="hidden" th:field="*{uId}"  >
                                                 <div class="col-12">
                                                     <div class="rbt-form-group">
                                                         <label for="currentpassword">舊密碼</label>
-                                                        <input id="currentpassword" type="password" placeholder="輸入舊密碼">
+                                                        <input id="oldPassword" name="oldPassword" type="password" placeholder="輸入舊密碼">
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
                                                     <div class="rbt-form-group">
                                                         <label for="newpassword">新密碼</label>
-                                                        <input id="newpassword" type="password" placeholder="輸入新密碼">
+                                                        <input id="newPassword" name="newPassword" type="password" placeholder="輸入新密碼">
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
@@ -1045,10 +1053,27 @@
                                                 </div>
                                                 <div class="col-12 mt--10">
                                                     <div class="rbt-form-group">
-                                                        <a class="rbt-btn btn-gradient" href="#">更換密碼</a>
+                                                        <button id="submitpasswordbutton" type="submit" class="rbt-btn btn-gradient" >更換密碼</button>
                                                     </div>
                                                 </div>
                                             </form>
+                                            <div th:if="${fail}">
+										        <script th:inline="javascript">
+										        setTimeout(function() {
+										        		alert('密碼更改錯誤！'); 
+												},1)
+										         // 如果处理失败，则弹出提示框
+										        </script>
+										    </div>
+                                            <div th:if="${success}">
+										        <script th:inline="javascript">
+										        setTimeout(function() {
+										        		alert('密碼更改成功！'); 
+												},1)
+										         // 如果处理失败，则弹出提示框
+										        </script>
+										    </div>
+										   
                                             <!-- End Profile Row  -->
                                         </div>
 

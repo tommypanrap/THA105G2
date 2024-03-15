@@ -17,8 +17,14 @@ public class CoachService {
 		repository.save(coachVO);
 	}
 
-	public void updateCoach(CoachVO coachVO) {
-		repository.save(coachVO);
+	public boolean updateCoach(CoachVO coachVO) {
+		try {
+			repository.save(coachVO);
+ 	        return true; // 保存成功，返回 true
+ 	    } catch (Exception e) {
+ 	        e.printStackTrace();
+ 	        return false; // 保存失败，返回 false
+ 	    }
 	}
 
 	public void deleteCoach(Integer cId) {

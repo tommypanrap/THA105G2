@@ -897,12 +897,12 @@
                                             <div class="rbt-counterup variation-01 rbt-hover-03 rbt-border-dashed bg-secondary-opacity">
                                                 <div class="inner">
                                                     <div class="rbt-round-icon bg-secondary-opacity">
-                                                        <i class="feather-monitor"></i>
+                                                        <i class="feather-star"></i>
                                                     </div>
                                                     <div class="content">
-                                                        <h3 class="counter without-icon color-secondary"><span class="odometer" data-count="10">00</span>
+                                                        <h3 class="counter without-icon color-secondary"><span class="odometer" th:data-count="${starcount}">00</span>
                                                         </h3>
-                                                        <span class="rbt-title-style-2 d-block" style="font-size: 20px ;">訂閱人數</span>
+                                                        <span class="rbt-title-style-2 d-block" style="font-size: 20px ;">總星星數</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -915,10 +915,10 @@
                                             <div class="rbt-counterup variation-01 rbt-hover-03 rbt-border-dashed bg-violet-opacity">
                                                 <div class="inner">
                                                     <div class="rbt-round-icon bg-violet-opacity">
-                                                        <i class="feather-award"></i>
+                                                        <i class="feather-users"></i>
                                                     </div>
                                                     <div class="content">
-                                                        <h3 class="counter without-icon color-violet"><span class="odometer" data-count="7">00</span>
+                                                        <h3 class="counter without-icon color-violet"><span class="odometer" th:data-count="${studentcount}">00</span>
                                                         </h3>
                                                         <span class="rbt-title-style-2 d-block" style="font-size: 20px ;">學生人數</span>
                                                     </div>
@@ -965,7 +965,7 @@
                                             </div>
 
                                             <div class="load-more-btn text-center">
-                                                <a class="rbt-btn-link" href="instructor-course.html">瀏覽全部課程<i class="feather-arrow-right"></i></a>
+                                                <a class="rbt-btn-link" th:href="@{coach_course}">瀏覽全部課程<i class="feather-arrow-right"></i></a>
                                             </div>
                                         </div>
                                     </div>

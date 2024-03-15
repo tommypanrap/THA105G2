@@ -105,7 +105,6 @@ public class UserService {
 	// 註冊-從Redis讀取暫存的信箱驗證碼
 	public String getVerifiactionCodeInRedis(String uMail) {
 		String key = "MailVerificationCode:" + uMail;
-		String savedVerifiactionCodeInRedis = redisTemplate.opsForValue().get(key);
 
 		try {
 			String result = redisTemplate.opsForValue().get(key);
@@ -199,7 +198,7 @@ public class UserService {
 		return null; // 登錄失敗
 	}
 // =============================================
-	// 修改密碼
+	// 修改密碼-忘記密碼
 
 	// 寄送修改密碼驗證信
 	@Transactional
@@ -253,7 +252,7 @@ public class UserService {
 	// 可供調用的共用Service
 // =============================================
 // 讀取類Service	
-	
+
 	// 透過uId讀取moodId
 	@Transactional(readOnly = true)
 	public Integer getUserMoodById(Integer uId) {
@@ -330,6 +329,32 @@ public class UserService {
 		}
 	}
 
+	// 修改密碼-自行修改密碼
+	@Transactional
+	public boolean updateUserPassword(Integer uId, String oldPassword, String newPassword) {
+
+		try {
+			// 讀取mySQL舊密碼
+			String savedPassword = userJpaRepository.findOnlyPasswordByuId(uId);
+			
+			// 比對輸入的舊密碼是否正確
+			if (PasswordEncryptionService.checkPassword(oldPassword, savedPassword)) {
+				// 加密新密碼				
+				String encryptedNewPassword = encryptNewPassword(newPassword);
+				// 寫入新密碼				
+				userJpaRepository.updatePasswordById(uId, encryptedNewPassword);
+				// 更新密碼成功
+				return true;
+			}
+
+			// 更新密碼失敗
+			return false;
+		} catch (Exception e) {			
+			// 系統異常 更新密碼失敗
+			return false;
+		}
+	}
+
 // =============================================
 // 舊產物區 未來可能移除
 
@@ -346,8 +371,14 @@ public class UserService {
  		return userJpaRepository.findAll();
  	}
  	
- 	public void updateUserProfile(UserVO userVO) {
- 		userJpaRepository.save(userVO);
+ 	public boolean updateUserProfile(UserVO userVO) {
+ 		try {
+ 	        userJpaRepository.save(userVO);
+ 	        return true; // 保存成功，返回 true
+ 	    } catch (Exception e) {
+ 	        e.printStackTrace();
+ 	        return false; // 保存失败，返回 false
+ 	    }
  	}
 	// Andy
 	@Transactional(readOnly = true)
@@ -361,6 +392,13 @@ public class UserService {
 	public byte[] getUserHeadshot(Integer uId) {
 		byte[] uHeadshot = userJpaRepository.getUserHeadshotByUserId(uId);
 		return uHeadshot;
+	}
+
+
+	// test
+	@Transactional
+	public String getSavedPasswordInMySQL(Integer uId) {
+		return userJpaRepository.findOnlyPasswordByuId(uId);
 	}
 
 }

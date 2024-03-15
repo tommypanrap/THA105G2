@@ -827,7 +827,7 @@
                                     <img th:src="'data:image/jpeg;base64,' + ${uHeadshot}" alt="Instructor">
                                 </div>
                                 <div class="tutor-content">
-                                <h5 class="title" th:text="${userVO.uName}"></h5>
+                                <h5 class="title" th:text="${uName}"></h5>
                                     <div class="rbt-review">
                                         <div class="rating">
                                             <i class="fas fa-star"></i>
@@ -886,22 +886,14 @@
                                             <div class="course-field mb--15">
                                                 <label for="field-1" >公告標題</label>
                                                 <input id="anTitle" type="text"  placeholder="課程最新公告">
+                                                <span  th:if="${errors}" th:errors="*{errors}" class="error" id="crId.errors"></span>
                                                 <small class="d-block mt_dec--5"><i class="feather-info">標題20個字以內</i></small>
                                             </div>
-                                            
-                                            
-                                            
-
                                             <div class="course-field mb--15">
                                                 <label for="aboutCourse">公告內容</label>
-                                                <textarea id="anContent" rows="10" ></textarea>
+                                                <textarea id="anContent" rows="10" placeholder="公告內容"></textarea>
                                                 <small class="d-block mt_dec--5"><i class="feather-info"></i> 允许使用 HTML 或纯文本，不支持表情符號。</small>
                                             </div>
-                                            
-
-                                            
-
-
                                         </div>
                                         <!-- End Course Field Wrapper  -->
                                         <div class="col-lg-8">
@@ -934,7 +926,7 @@
         }, 'json'
         )
         .fail(function(error) {
-            console.error('Error:', error);
+        	document.getElementById('anTitleError').innerText = error;
         });
         // 发送异步请求到后端保存数据
         /* fetch('http://localhost:8081/THA105G2/front-end/course/course.do', {

@@ -8,7 +8,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fitanywhere.course.model.CourseVO;
 
 @Entity
 @Table(name = "course_detail")
@@ -19,6 +23,10 @@ public class CourseDetailVO implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="cd_id")
 	private Integer cdId;
+	
+//	@ManyToOne
+//    @JoinColumn(name="cr_id", referencedColumnName="cr_id")
+//    private CourseVO courseVO;
 	
 	@Column(name="cr_id")
 	private Integer crId;
@@ -36,20 +44,39 @@ public class CourseDetailVO implements Serializable {
 		super();
 	}
 
-	public CourseDetailVO(Integer cdId, Integer crId, String cdVideo, String cdSaleVideo, byte[] cdPdf) {
-		super();
-		this.cdId = cdId;
-		this.crId = crId;
-		this.cdVideo = cdVideo;
-		this.cdSaleVideo = cdSaleVideo;
-		this.cdPdf = cdPdf;
+	
+//	public CourseDetailVO(Integer cdId, CourseVO courseVO, String cdVideo, String cdSaleVideo, byte[] cdPdf) {
+//		super();
+//		this.cdId = cdId;
+//		this.courseVO = courseVO;
+//		this.cdVideo = cdVideo;
+//		this.cdSaleVideo = cdSaleVideo;
+//		this.cdPdf = cdPdf;
+//	}
+
+//	@Override
+//	public String toString() {
+//		return "CourseDetailVO [cdId=" + cdId + ", crId=" + courseVO + ", cdVideo=" + cdVideo + ", cdSaleVideo="
+//				+ cdSaleVideo + ", cdPdf=" + Arrays.toString(cdPdf) + "]";
+//	}
+
+//	public CourseVO getCourseVO() {
+//		return courseVO;
+//	}
+//
+//	public void setCourseVO(CourseVO courseVO) {
+//		this.courseVO = courseVO;
+//	}
+
+	public Integer getCrId() {
+		return crId;
 	}
 
-	@Override
-	public String toString() {
-		return "CourseDetailVO [cdId=" + cdId + ", crId=" + crId + ", cdVideo=" + cdVideo + ", cdSaleVideo="
-				+ cdSaleVideo + ", cdPdf=" + Arrays.toString(cdPdf) + "]";
+
+	public void setCrId(Integer crId) {
+		this.crId = crId;
 	}
+
 
 	public Integer getCdId() {
 		return cdId;
@@ -59,13 +86,6 @@ public class CourseDetailVO implements Serializable {
 		this.cdId = cdId;
 	}
 
-	public Integer getCrId() {
-		return crId;
-	}
-
-	public void setCrId(Integer crId) {
-		this.crId = crId;
-	}
 
 	public String getCdVideo() {
 		return cdVideo;

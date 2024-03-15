@@ -292,6 +292,9 @@ public class UserRestController {
 		}
 
 	}
+	
+	
+	
 
 //	======================================
 	// 測試開發用
@@ -375,5 +378,18 @@ public class UserRestController {
 			return ResponseEntity.badRequest().body("找不到指定用戶的心情");
 		}
 	}
+	
+	 
+
+	    @PostMapping("/user_find_saved_password")
+	    public ResponseEntity<?> getSavedPassword(@RequestParam Integer uId) {
+	        try {
+	            String savedPassword = userService.getSavedPasswordInMySQL(uId);
+	            // 注意：直接返回密碼是不安全的。這裡只是為了示範。
+	            return ResponseEntity.ok().body(savedPassword);
+	        } catch (Exception e) {
+	            return ResponseEntity.internalServerError().body("An error occurred");
+	        }
+	    }
 
 }

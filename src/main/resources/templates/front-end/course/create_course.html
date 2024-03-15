@@ -870,7 +870,6 @@
                                                                             
                                                                             <div class="rbt-modern-select bg-transparent height-45 mb--10">
                                                                                 <select class="w-100" id="crLevel">
-                                                                                    
                                                                                     <option>初學者</option>
                                                                                     <option>中階</option>
                                                                                     <option>進階</option>
@@ -954,13 +953,13 @@
                                                         <div class="upload-area">
                                                             <div class="brows-file-wrapper" data-black-overlay="9">
                                                                 <!-- actual upload which is hidden -->
-                                                                <input name="createinputfile" id="crCover" type="file" class="inputfile" />
+                                                                <input name="crCover" id="crCover" type="file" class="inputfile" />
                                                                 <img id="putfile" th:src="@{/assets/images/others/thumbnail-placeholder.svg}" alt="file image">
                                                                 <!-- our custom upload button -->
                                                                 <label class="d-flex" for="createinputfile" title="No File Choosen">
                                                                     <i class="feather-upload"></i>
                                                                     <span class="text-center">選擇上傳</span>
-                                                                </label> -->
+                                                                </label>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -975,17 +974,22 @@
                                     </div>
                                 </div>
 
-                                <div class="accordion-item card">
+                                <!-- <div class="accordion-item card">
                                     <h2 class="accordion-header card-header" id="accTwo">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accCollapseTwo" aria-expanded="false" aria-controls="accCollapseTwo">
                                             課程影片
                                         </button>
                                     </h2>
                                     <div id="accCollapseTwo" class="accordion-collapse collapse" aria-labelledby="accTwo" data-bs-parent="#tutionaccordionExamplea1">
-                                        <div class="accordion-body card-body rbt-course-field-wrapper rbt-default-form">
-
-                                            <div class="course-field mb--20">
+                                        <form th:action="uploadVideo" th:object="${coursedetailVO}" method="post" enctype="multipart/form-data">
+											<input id="cdVideo" name="cdVideo" type="file" >
+											<button type="submit">上傳</button>
+										</form>
+                                        <div class="accordion-body card-body rbt-course-field-wrapper rbt-default-form" >
+	
+                                           <div class="course-field mb--20">
                                                 <div class="rbt-modern-select bg-transparent height-45 mb--10">
+                                                <input type="file" id="cdVideo">
                                                     <select class="w-100" id="field-5">
                                                         <option value="" disabled selected>Select Video Sources</option>
                                                         <option value="youtube">Youtube</option>
@@ -1003,7 +1007,7 @@
 
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 
 
@@ -1132,62 +1136,51 @@
                                 </a>
                             </div>
                             <script>
-                                
-                                document.getElementById("createCourseButton").addEventListener("click", function() {
-        
-        var data = {
-	        uId : 10001 ,
-	        crClass : $('#crClass').val(),
-	        crState : 1,
-	        crTitle : $('#crTitle').val(),
-	        crSubtitle : $('#crSubtitle').val(),
-	        crIntro : $('#crIntro').val(),
-	        crCover : $('#crCover').val(),
-	        crPrice : $('#crPrice').val(),
-	        crCmQuan : 1,
-	        crTotStar : 1,
-	        crPurpose1 : $('#crPurpose1').val(),
-	        crPurpose2 : $('#crPurpose2').val(),
-	        crPurpose3 : $('#crPurpose3').val(),
-	        crPre : $('#crPre').val(),
-	        crTarget1 : $('#crTarget1').val(),
-	        crHelloMsg : $('#crHelloMsg').val(),
-	        crCong : $('#crCong').val(),
-	        crLevel : $('#crLevel').val()
-	        };
-
-        const formData = new FormData();
-        for (const key in data) {
-            formData.append(key, data[key]);
-        }
-        /* $.post('http://localhost:8081/THA105G2/course/insert', data) */
-        $.post('http://localhost:8080/course/insert', data)
-        .done(function(responseData) {
-			window.alert("成功創建課程");
-			window.location.href = 'coach_dashboard'
-        }, 'json'
-        )
-        .fail(function(error) {
-            console.error('Error:', error);
-        });
-        // 发送异步请求到后端保存数据
-        /* fetch('http://localhost:8081/THA105G2/front-end/course/course.do', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded' // Change content type to form data
-                },
-                body: new URLSearchParams(data).toString() // Convert data to URL-encoded form data
-            })
-            .then(response => response.json()) // 处理后端返回的JSON响应
-            .then(responseData => {
-                // 在控制台打印后端返回的数据
-                console.log(responseData);
-
-                // 这里可以根据需要处理后端返回的数据
-            })
-            .catch(error => console.error('Error:', error)); */
-    });
-                                
+                            document.getElementById("createCourseButton").addEventListener("click", function() {
+                            	
+                        		
+                                var data = {
+                        	        uId : 10001 ,
+                        	        crClass : $('#crClass').val(),
+                        	        crState : 1,
+                        	        crTitle : $('#crTitle').val(),
+                        	        crSubtitle : $('#crSubtitle').val(),
+                        	        crIntro : $('#crIntro').val(),
+                        	        crCoverfile : $('#crCover')[0].files[0],
+                        	        crPrice : $('#crPrice').val(),
+                        	        crCmQuan : 1,
+                        	        crTotStar : 1,
+                        	        crPurpose1 : $('#crPurpose1').val(),
+                        	        crPurpose2 : $('#crPurpose2').val(),
+                        	        crPurpose3 : $('#crPurpose3').val(),
+                        	        crPre : $('#crPre').val(),
+                        	        crTarget1 : $('#crTarget1').val(),
+                        	        crHelloMsg : $('#crHelloMsg').val(),
+                        	        crCong : $('#crCong').val(),
+                        	        crLevel : $('#crLevel').val()
+                        	        };
+                                const formData = new FormData();
+                                for (const key in data) {
+                                    formData.append(key, data[key]); // 添加其他数据到FormData
+                                }
+                                $.ajax({
+                                    url: 'http://localhost:8080/course/insert',
+                                    type: 'POST',
+                                    data: formData,
+                                    dataType:'json',
+                                    processData: false,
+                                    contentType: false,
+                                    success: function(response) {
+                                        window.alert("成功創建課程接下來去上傳影片吧！");
+                                        var crId = response.crId;
+                                        sessionStorage.setItem('crId', crId);
+                                        window.location.href = 'create_course_video';
+                                    },
+                                    error: function(error) {
+                                        console.error('Error:', error);
+                                    }
+                                });
+                                });
                             </script>
                         </div>
                     </div>
@@ -1204,6 +1197,7 @@
                                         <li><i class="feather-check"></i>課程封面縮圖大小為700x430.</li>
                                         <li><i class="feather-check"></i>課程其他資訊會顯示在課程頁面上</li>
                                         <li><i class="feather-check"></i>寫下給學員的訊息</li>
+                                        <li><i class="feather-check"></i>完成創建課程後到下一頁上傳影片吧！</li>
                                         <a class="rbt-btn bt hover-icon-reverse" th:href="@{coach_dashboard}">
                                             <span class="icon-reverse-wrapper" >
                             <span class="btn-text" >返回主頁</span>

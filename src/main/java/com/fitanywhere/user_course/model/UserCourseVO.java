@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
@@ -11,28 +14,30 @@ import javax.persistence.Table;
 import com.fitanywhere.course.model.CourseVO;
 import com.fitanywhere.user.model.UserVO;
 
-//@Entity
-//@Table(name = "user_course")
+@Entity
+@Table(name = "user_course")
 public class UserCourseVO implements Serializable{
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "us_cr_id")
+	private Integer usCrId;
 	
-//	@Column(name = "cr_id")
+	@Column(name = "cr_id")
 	private Integer crId;
 	
 //	@MapsId 
 //	@JoinColumn(name = "cr_id", referencedColumnName = "cr_id")
 	private CourseVO course;
 
-//	@Column(name = "u_id")
+	@Column(name = "u_id")
 	private Integer uId;
 	
 //	@MapsId 
 //	@JoinColumn(name = "u_id", referencedColumnName = "u_id")
 	private UserVO user;
 	
-//	@Column(name = "us_cr_id")
-	private Integer usCrId;
 
 	public UserCourseVO() {
 		super();

@@ -80,9 +80,25 @@ public class CourseController {
 	public String test(ModelMap model) {
 		return "front-end/course/test123";
 	}
+
+
+	// 購物車功能-課程資訊新增到 model
 	@GetMapping("courses")
 	public String getCourses(ModelMap model) {
 		List<CourseVO> list = courseSvc.getAll();
+
+		//將圖片轉成base64
+		list.forEach(courseVO ->
+		{
+			byte[] crCover = courseVO.getCrCover();
+			if (crCover!=null){
+			String base64CrCover = Base64.getEncoder().encodeToString(crCover);
+			courseVO.setBase64CrCover(base64CrCover);
+			}
+		});
+
+
+
 		model.addAttribute("courseListData", list);
 		return "front-end/mj/course_filter_two_toggle";
 	}
@@ -158,7 +174,8 @@ public class CourseController {
 		Integer uId = 10001;
 //		Integer crId=1;
 		CourseDetailVO coursedetailVO = new CourseDetailVO();
-		coursedetailVO.setCrId(crId);
+//		coursedetailVO.cousrsetCrId(crId);
+		coursedetailVO.getCourseVO().setCrId(crId);
 		// 在这里处理上传的文件
         if (!file.isEmpty()) {
             try {

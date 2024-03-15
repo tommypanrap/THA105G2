@@ -19,6 +19,15 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+		<!--	Joy Start	-->
+		<!-- lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+
+		<!--	Joy End	-->
+
 		<!--		Eugen Start-->
 		
 
@@ -266,11 +275,13 @@
 			<version>4.2.1</version>
 		</dependency>
 		
+		
 		<dependency>
 		    <groupId>redis.clients</groupId>
 		    <artifactId>jedis</artifactId>
 		    <version>5.0.0</version>
 		</dependency>
+
 
 	</dependencies>
 

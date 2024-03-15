@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service("coachService")
@@ -42,5 +43,18 @@ public class CoachService {
 	public List<CoachVO> getAll() {
 		return repository.findAll();
 	}
+	
+	// Eugen
+	// 依據uId取回cId
+	@Transactional(readOnly = true)
+	public Integer getCoachIdById(Integer uId) {
+		Integer cId = repository.findOnlyCoachIdByuId(uId);
+		if (cId != null) {
+			return cId;
+		} else {
+			return 0;
+		}
+	}
+	
 
 }

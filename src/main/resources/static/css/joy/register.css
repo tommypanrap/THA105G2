@@ -1,12 +1,12 @@
-.register_name_gender {
+.body-register .register_name_gender {
   display: flex;
   justify-content: space-between;
   gap: 20px;
 }
 
-.bootstrap-select>.dropdown-toggle{
+.body-register .bootstrap-select>.dropdown-toggle{
     width: 100px;
 }
-.row{
+.body-register .row{
   justify-content: space-around;
 }

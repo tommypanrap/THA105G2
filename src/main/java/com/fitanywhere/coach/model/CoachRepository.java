@@ -17,4 +17,8 @@ public interface CoachRepository extends JpaRepository<CoachVO, Integer> {
 	@Query("FROM CoachVO WHERE uId = :uId")
 	CoachVO findCoachVOById(int uId);
 
+	// 依照uId取得cId (Eugen)
+	@Query("SELECT c.cId FROM CoachVO c WHERE c.uId = :uId")
+	Integer findOnlyCoachIdByuId(Integer uId);
+
 }

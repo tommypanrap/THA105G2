@@ -14,14 +14,19 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import com.fitanywhere.adCarousel.model.AdCarouselVO;
+import com.fitanywhere.course.model.CourseVO;
 import com.fitanywhere.mood.model.MoodVO;
 import com.fitanywhere.socialpost.model.SocialPostVO;
+import com.fitanywhere.socialpost.model.SocialReplyVO;
 //Tommy implements java.io.Serializable
 @Entity
 @Table(name = "user")
@@ -37,6 +42,18 @@ public class UserVO implements java.io.Serializable{
 	@ManyToOne
 	@JoinColumn(name = "mood_id")
 	private MoodVO moodVO;
+
+	// Mok
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "userVO")
+	private Set<CourseVO> courses = new HashSet<CourseVO>();
+
+	public Set<CourseVO> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(Set<CourseVO> courses) {
+		this.courses = courses;
+	}
 
 	public MoodVO getMoodVO() {
 		return this.moodVO;
@@ -74,17 +91,42 @@ public class UserVO implements java.io.Serializable{
 
 	@Column(name = "u_status")
 	private Integer uStatus;
-//	0 = 正常會員; 1 = 帳號關閉; 
+//	0 = 正常會員; 1 = 可登入但部分功能限制的帳號(懲罰中); 2 = 自行永久關閉帳號; 3 = 被檢舉停權帳號;   
 
 	@Column(name = "u_registerdate")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date uRegisterdate;
+	
+	
+//	xiaoxin
+	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="userVO")
+	private Set<AdCarouselVO> adCarousel = new HashSet<AdCarouselVO>();
 
+	public Set<AdCarouselVO> getAdCarousel() {
+		return this.adCarousel;
+	}
 
+	public void setAdCarousel(Set<AdCarouselVO> adCarousel) {
+		this.adCarousel = adCarousel;
+	}
 
 	//Tommy
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="userVO")
+	@OrderBy("spid ASC")
 	private Set<SocialPostVO> socialposts = new HashSet<SocialPostVO>();
+	
+	//Tommy
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="userVO")
+	private Set<SocialReplyVO> socialReplys = new HashSet<SocialReplyVO>();
+
+	public Set<SocialReplyVO> getSocialReplys() {
+		return socialReplys;
+	}
+
+	public void setSocialReplys(Set<SocialReplyVO> socialReplys) {
+		this.socialReplys = socialReplys;
+	}
 
 	public Set<SocialPostVO> getSocialposts() {
 		return this.socialposts;

@@ -1,6 +1,7 @@
 package com.fitanywhere.socialpost.model;
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,16 +9,24 @@ import javax.persistence.Id;
 
 import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
+
+
+import com.fitanywhere.mood.model.MoodVO;
 import com.fitanywhere.user.model.UserVO;
 
 
@@ -65,10 +74,20 @@ public class SocialPostVO {
 	@Column(name = "sp_pic",columnDefinition = "longblob")
 	private byte[] sppic;
 
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="socialPostVO")
+	private Set<SocialReplyVO> socialReplys = new HashSet<SocialReplyVO>();
 
 	public SocialPostVO() {
 
 
+	}
+
+	public Set<SocialReplyVO> getSocialReplys() {
+		return socialReplys;
+	}
+
+	public void setSocialReplys(Set<SocialReplyVO> socialReplys) {
+		this.socialReplys = socialReplys;
 	}
 
 	public Integer getSpid() {

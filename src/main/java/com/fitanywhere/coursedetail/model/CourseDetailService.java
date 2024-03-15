@@ -27,11 +27,6 @@ public class CourseDetailService {
 		repository.save(coursedetailVO);
 	}
 
-	public void deleteCourse(Integer cdId) {
-		if (repository.existsById(cdId))
-			repository.deleteByCdid(cdId);
-//		    repository.deleteById(empno);
-	}
 
 //	public CourseVO getOneCourse(Integer crId) {
 //		Optional<CourseVO> optional = repository.findById(crId);

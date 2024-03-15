@@ -227,6 +227,14 @@ tr:nth-child(2n+3){
     }
 }
 
+.side-bar a.nav{
+    transition: all .5s;
+}
+
+.side-bar a.nav:hover{
+    color:#3758dd;
+
+}
 
 
 

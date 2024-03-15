@@ -1,7 +1,11 @@
 package com.fitanywhere.coursedetail.model;
 
+import com.fitanywhere.course.model.CourseVO;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Arrays;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,14 +15,21 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+/*
+*在spring boot
+* @Data 等於自動加上Getter/Setter、ToString、EqualsAndHashCode、RequiredArgsConstructor
+* @NoArgsConstructor 加上一個無參建構子 JavaBean基礎知識
+* */
 
 import com.fitanywhere.course.model.CourseVO;
 
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "course_detail")
 public class CourseDetailVO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="cd_id")
@@ -28,8 +39,10 @@ public class CourseDetailVO implements Serializable {
 //    @JoinColumn(name="cr_id", referencedColumnName="cr_id")
 //    private CourseVO courseVO;
 	
-	@Column(name="cr_id")
-	private Integer crId;
+
+	@ManyToOne
+	@JoinColumn(name="cr_id")
+	private CourseVO courseVO;
 	
 	@Column(name="cd_video",columnDefinition = "longtext")
 	private String cdVideo;
@@ -40,9 +53,8 @@ public class CourseDetailVO implements Serializable {
 	@Column(name="cd_pdf",columnDefinition = "longblob")
 	private byte[] cdPdf;
 
-	public CourseDetailVO() {
-		super();
-	}
+	@Column(name="cd_title")
+	private String cdTitle;
 
 	
 //	public CourseDetailVO(Integer cdId, CourseVO courseVO, String cdVideo, String cdSaleVideo, byte[] cdPdf) {
@@ -68,14 +80,6 @@ public class CourseDetailVO implements Serializable {
 //		this.courseVO = courseVO;
 //	}
 
-	public Integer getCrId() {
-		return crId;
-	}
-
-
-	public void setCrId(Integer crId) {
-		this.crId = crId;
-	}
 
 
 	public Integer getCdId() {
@@ -115,4 +119,6 @@ public class CourseDetailVO implements Serializable {
 		return serialVersionUID;
 	}
 	
+	@Column(name="cd_unit")
+	private String cdUnit;
 }

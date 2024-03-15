@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fitanywhere.user.model.UserReadDataDTO;
 import com.fitanywhere.user.model.UserVO;
 
 @Entity
@@ -47,13 +48,13 @@ public class OpinionVO implements java.io.Serializable {
     private Date opReplyTime;
 
     @Column(name = "op_status")
-    private int opStatus;
+    private Integer opStatus;
 
     public OpinionVO() {
         // Default constructor
     }
 	
-    public OpinionVO(UserVO user, String opTitle, String opContent, Date opSendTime, int opStatus) {
+    public OpinionVO(UserVO user, String opTitle, String opContent, Date opSendTime, Integer opStatus) {
         this.user = user;
         this.opTitle = opTitle;
         this.opContent = opContent;
@@ -93,7 +94,7 @@ public class OpinionVO implements java.io.Serializable {
 		return opReplyTime;
 	}
 
-	public int getOpStatus() {
+	public Integer getOpStatus() {
 		return opStatus;
 	}
 
@@ -125,9 +126,12 @@ public class OpinionVO implements java.io.Serializable {
 		this.opReplyTime = opReplyTime;
 	}
 
-	public void setOpStatus(int opStatus) {
+	public void setOpStatus(Integer opStatus) {
 		this.opStatus = opStatus;
-	}
+	}	
+    
+    
+	
 
 
 }

@@ -24,54 +24,78 @@
         <div class="content">
             <h1>收件匣</h1>
 
-            <ul class="row rhead" style="display: flex; justify-content: space-between; width: calc(765px - 40px); padding: 0 20px; gap: 10px;">
+            <ul class="row rhead"
+                style="display: flex; justify-content: space-between; width: calc(765px - 40px); padding: 0 20px; gap: 10px;">
                 <li style="width: 120px; text-align: center;">會員暱稱</li>
                 <li style="width: 340px;">意見標題</li>
                 <li style="width: 100px; text-align: center;">提出時間</li>
                 <li style="width: 70px;text-align: center;">處理狀態</li>
                 <li style="width: 50px;text-align: center;">操作</li>
             </ul>
-            
-            <ul class="row" style="display: flex; justify-content: space-between; width: calc(765px - 40px); padding: 0 20px; gap: 10px;">
-                <li style="width: 120px; text-align: center;">ZZZZZZZZZZZZ</li>
-                <li style="width: 340px;">驗證信都收不到</li>
-                <li style="width: 100px; text-align: center;">2024.1.1</li>
-                <li style="width: 70px;text-align: center;">已回覆</li>
-                <li class="content-expand"  style="width: 50px;text-align: center;">查看</li>
-            </ul>
-            
-            <div class="check-content hidden">
-                <div class="check-content-title">
-                    <div class="send-from">
-                        <p>會員暱稱</p>
-                        <p>ZZZZZZZZZZZZ</p>
-                    </div>
-                    <div class="send-time">
-                        <p>提出時間</p>
-                        <p>2024.1.1</p>
-                    </div>
-                    <div class="reply-state">
-                        <p>狀態</p>
-                        <p>已回覆</p>
-                    </div>
-                </div>
-                <div class="check-content-content">
-                    <div class="send-content">
-                        <p class="send-content-title">內容</p>
-                        <p>驗證信都收不到驗證信都收不到驗證信都收不到驗證信都收不到驗證信都收不到驗證信都收不到</p>
-                    </div>
-                    <div class="reply-content">
-                        <p>回覆檢舉</p>
-                        <textarea name="" id="" cols="30" rows="10"></textarea>
-                        <div class="button-container">
-                            <button>確認送出</button>
-                            <button>取消</button>
+
+            <div th:each="opinion : ${opinionPage.content}">
+                <th:block>
+                    <ul class="row"
+                        style="display: flex; justify-content: space-between; width: calc(765px - 40px); padding: 0 20px; gap: 10px;">
+                        <li style="width: 120px; text-align: center;" th:text="${opinion.uNickname}">ZZZZZZZZZZZZ</li>
+                        <li style="width: 340px;" th:text="${opinion.opTitle}">驗證信都收不到</li>
+                        <li style="width: 100px; text-align: center;"
+                            th:text="${#dates.format(opinion.opSendTime, 'yyyy.MM.dd')}">2024.1.1</li>
+                        <li style="width: 70px;text-align: center;" th:text="${opinion.opStatus == 0 ? '未回覆' : '已回覆'}">
+                            已回覆</li>
+                        <li class="content-expand" style="width: 50px;text-align: center;">查看</li>
+                    </ul>
+
+                    <div class="check-content hidden">
+                        <div class="check-content-title">
+                            <div class="send-from">
+                                <p>會員暱稱</p>
+                                <p th:text="${opinion.uNickname}">ZZZZZZZZZZZZ</p>
+                            </div>
+                            <div class="send-time">
+                                <p>提出時間</p>
+                                <p th:text="${#dates.format(opinion.opSendTime, 'yyyy.MM.dd')}">2024.1.1</p>
+                            </div>
+                            <div class="reply-state">
+                                <p>處理狀態</p>
+                                <p th:text="${opinion.opStatus == 0 ? '未回覆' : '已回覆'}"></p>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                        <div class="check-content-content">
+                            <div class="send-content">
+                                <p class="send-content-title">意見內容：</p>
+                                <p th:text="${opinion.opContent}">這裡將顯示後端讀取到的opContent內容</p>
+                            </div>
+                            <div class="reply-content">
+                                <p>回覆內容：</p>
+                                <form th:action="@{/backend_opinion_api/}" th:method="post">
+                                    <div th:if="${opinion.opStatus == 0}">
+                                        <textarea name="opReplyContent" id="replyContent" cols="30" rows="10"
+                                            placeholder="請輸入回覆內容"></textarea>
+                                        <div class="button-container">
+                                            <button type="submit">確認送出</button>
+                                        </div>
+                                    </div>
+                                    <div th:if="${opinion.opStatus == 1}">
+                                        <p th:text="${opinion.opReplyContent}">這裡將顯示後端讀取到的opReplyContent內容</p>
+                                    </div>
+                                    <input type="hidden" th:name="opinionId" th:value="${opinion.opId}" />
+                                </form>
+                            </div>
+                        </div>                        
+                    </div>                    
+                </th:block>
             </div>
-
-
+            <div class="pagination-container" style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">                
+                <form th:action="@{/backend_opinion}" method="get">
+                    <select name="page" onchange="this.form.submit()">
+                        <option th:each="pageNum : ${#numbers.sequence(0, opinionPage.totalPages - 1)}"
+                                th:value="${pageNum}" th:selected="${pageNum == opinionPage.number}"
+                                th:text="${pageNum + 1}"></option>
+                    </select>
+                    <input type="hidden" name="size" th:value="${opinionPage.size}">
+                </form>
+            </div>
         </div>
     </div>
 

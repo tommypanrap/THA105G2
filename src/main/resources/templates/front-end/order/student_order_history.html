@@ -37,6 +37,7 @@
           th:href="@{/assets/css/plugins/magnigy-popup.min.css}">
     <link rel="stylesheet" th:href="@{/assets/css/plugins/plyr.css}">
     <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+
     <style>
         .check_od_btn {
             height: 40px;
@@ -82,6 +83,11 @@
             opacity:1;
         }
 
+        .dataTables_filter {
+            margin-bottom: 20px;
+            
+        }
+
     </style>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <!-- ●●js  for jquery datatables 用 -->
@@ -94,7 +100,7 @@
 <body>
 
 <!-- Start Header Area -->
-<div th:insert="front-end/header.html"></div>
+<div th:replace="front-end/header.html"></div>
 <!-- Mobile Menu Section -->
 <div class="popup-mobile-menu">
     <div class="inner-wrapper">
@@ -956,53 +962,7 @@
                 <div class="row g-5">
                     <div class="col-lg-3">
                         <!-- Start Dashboard Sidebar  -->
-                        <div
-                                class="rbt-default-sidebar sticky-top rbt-shadow-box rbt-gradient-border">
-                            <div class="inner">
-                                <div class="content-item-content">
-
-                                    <div class="rbt-default-sidebar-wrapper">
-                                        <div class="section-title mb--20">
-                                            <h6 class="rbt-title-style-2">Welcome, Jone Due</h6>
-                                        </div>
-                                        <nav class="mainmenu-nav">
-                                            <ul class="dashboard-mainmenu rbt-default-sidebar-list">
-                                                <li><a href="student-dashboard.html"><i
-                                                        class="feather-home"></i><span>Dashboard</span></a></li>
-                                                <li><a href="student-profile.html"><i
-                                                        class="feather-user"></i><span>My Profile</span></a></li>
-                                                <li><a href="student-enrolled-courses.html"><i
-                                                        class="feather-book-open"></i><span>我的課程</span></a></li>
-                                                <li><a href="student-wishlist.html"><i
-                                                        class="feather-bookmark"></i><span>願望清單</span></a></li>
-                                                <li><a href="student-reviews.html"><i
-                                                        class="feather-star"></i><span>我的評論</span></a></li>
-                                                <li><a href="student-my-quiz-attempts.html"><i
-                                                        class="feather-help-circle"></i><span>我的問答</span></a></li>
-                                                <li><a th:href="@{/order/order_history}"><i
-                                                        class="feather-shopping-bag"></i><span>歷史訂單</span></a></li>
-                                                <li><a href="student-gift-history.html"><i
-                                                        class="feather-shopping-bag"></i><span>收禮紀錄</span></a></li>
-                                            </ul>
-                                        </nav>
-
-                                        <div class="section-title mt--40 mb--20">
-                                            <h6 class="rbt-title-style-2">User</h6>
-                                        </div>
-
-                                        <nav class="mainmenu-nav">
-                                            <ul class="dashboard-mainmenu rbt-default-sidebar-list">
-                                                <li><a href="student-settings.html"><i
-                                                        class="feather-settings"></i><span>設定</span></a></li>
-                                                <li><a href="index.html"><i
-                                                        class="feather-log-out"></i><span>登出</span></a></li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
+                        <div th:replace="front-end/member_sidebar"></div>
                         <!-- End Dashboard Sidebar  -->
                     </div>
 
@@ -1169,6 +1129,8 @@
 <script th:src="@{/assets/js/vendor/plyr.js}"></script>
 <!-- Main JS -->
 <script th:src="@{/assets/js/main.js}"></script>
+
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         var table = document.getElementById('order_history_table');
@@ -1187,7 +1149,8 @@
                 "infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
                 "infoFiltered": "(從 _MAX_ 筆結果中過濾)",
                 "infoPostFix": "",
-                "search": "搜尋:",
+                "search": "",
+                "searchPlaceholder": "請輸入想搜尋的訂單",
                 "paginate": {
                     "first": "第一頁",
                     "previous": "上一頁",
@@ -1200,6 +1163,12 @@
                 }
             }
         });
+        $('#searchInput').on('input',function (){
+            let searchText = $(this).val().trim();
+            console.log('draw')
+            dataTable.search(searchText).draw();
+        });
+
     });
 
 
@@ -1225,7 +1194,7 @@
                 lightbox2Content += `
                 <tr>
                     <td><img src="" alt=""/></td>
-                    <td>${detail.crId}</td>
+                    <td>${detail.crTitle}</td>
                     <td>${detail.cdPrice}</td>
                 </tr>
                 `;

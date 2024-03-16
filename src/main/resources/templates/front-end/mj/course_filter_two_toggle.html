@@ -1194,9 +1194,8 @@
                                     <div class="rbt-author-meta mb--10">
                                         <div class="rbt-avater">
                                             <a th:href="@{'/course_details_2'}">
-<!--                                                <img src="data:image/jpeg;base64,${item.crCover}"-->
-                                                <img th:src="@{/assets/images/client/avatar-02.png}"
-                                                     alt="Sophia Jaymes">
+                                                <img class="userHeadshot" th:data-user-id="${courseData.userVO.uId}"  alt="Sophia Jaymes">
+<!--                                                <img th:src="@{/assets/images/client/avatar-02.png}"-->
                                             </a>
                                         </div>
                                         <div class="rbt-author-info">
@@ -1390,7 +1389,38 @@
 
 
 
+    //userRestController getUserHeadshot
+    $(document).ready(function () {
+        let userIdList = [];
 
+        $('.userHeadshot').each(function () {
+            let data = $(this).data('user-id');
+
+            // fetch 可以直接處理二進制資料(如blob)
+            fetch('/user_api/user_headshot_test', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({u_id: data}),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('response error');
+                    }
+                    return response.blob();
+                })
+                .then(blob => {
+                    let image_Url = URL.createObjectURL(blob);;
+                    let this_e = $(this);
+                    $(this).attr('src', image_Url);
+                })
+                .catch(error => {
+                    console.error('找不到user image:', error);
+                    $(this).attr('src', '/assets/images/client/avatar-02.png');
+                });
+        });
+    });
 
 
     document.addEventListener("DOMContentLoaded", function () {

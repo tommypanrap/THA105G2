@@ -42,17 +42,10 @@ public class OrderController {
     public ResponseEntity<String> createOrder(@RequestBody OrderVO orderVO, HttpSession session) {
         Integer uId = (Integer) session.getAttribute("uId");
         orderVO.setuId(uId);
-        // 確認是否已經登入
-//        ModelAndView modelAndView = new ModelAndView();
-//        if (uId==null){
-//            modelAndView.setViewName("front-end/user/user_login");
-//            return modelAndView;
-//        }
-
 
         // 創建訂單
         orderSvc.addOrder(orderVO);
-        //目前先返回訂單歷史頁面
+        // 目前先返回訂單歷史頁面
         return ResponseEntity.ok("success");
     }
 

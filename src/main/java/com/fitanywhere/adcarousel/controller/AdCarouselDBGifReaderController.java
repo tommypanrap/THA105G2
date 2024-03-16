@@ -1,4 +1,4 @@
-package com.fitanywhere.adCarousel_temp.controller;
+package com.fitanywhere.adcarousel.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;

@@ -1,4 +1,4 @@
-	package com.fitanywhere.adCarousel_temp.controller;
+	package com.fitanywhere.adcarousel.controller;
 
 	import javax.servlet.http.HttpSession;
 	import javax.validation.Valid;

@@ -202,16 +202,16 @@ public class SocialPostController {
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 
-	@GetMapping("nav_to_social_member/{uId}")
-	public String nav_to_social_member(@PathVariable String uId, ModelMap model, RedirectAttributes redirectAttributes ) {
-		
-//		System.out.println("uId:"+uId);
-		
-		 redirectAttributes.addFlashAttribute("navUId", uId);
-		 model.addAttribute("navUId",uId);
-		
-		return "redirect:/socialpost/student_socialpost";
-	}
+//	@GetMapping("nav_to_social_member/{uId}")
+//	public String nav_to_social_member(@PathVariable String uId, ModelMap model, RedirectAttributes redirectAttributes ) {
+//		
+////		System.out.println("uId:"+uId);
+//		
+//		 redirectAttributes.addFlashAttribute("navUId", uId);
+//		 model.addAttribute("navUId",uId);
+//		
+//		return "redirect:/socialpost/student_socialpost";
+//	}
 	
 	
 	// 新增貼文
@@ -245,7 +245,7 @@ public class SocialPostController {
 		model.addAttribute("socialPostListData", list);
 		model.addAttribute("success", "- (新增成功)");
 
-		return "redirect:/socialpost/student_socialpost";
+		return "redirect:/socialpost/";
 	}
 
 
@@ -298,7 +298,7 @@ public class SocialPostController {
 		socialPostVO = socialPostSvc.getOneSocialPost(Integer.valueOf(socialPostVO.getSpid()));
 		model.addAttribute("socialPostVO", socialPostVO);
 
-		return "redirect:/socialpost/student_socialpost";
+		return "redirect:/socialpost/";
 	}
 
 

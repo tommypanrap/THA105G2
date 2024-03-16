@@ -37,14 +37,14 @@ import com.fitanywhere.user.model.UserService;
 
 
 @Controller
-@RequestMapping("/backend")
+//@RequestMapping("/backend")
 public class BackendSocialPostController {
 	
 
 	@Autowired
 	SocialPostService socialPostSvc;
 	
-	@GetMapping("/social")
+	@GetMapping("/backend_social")
 	public String backend_social(Model model)  {
 		
 		List<SocialPostVO> socialPosts = socialPostSvc.getAll();
@@ -55,7 +55,7 @@ public class BackendSocialPostController {
     }
 	
 	
-	@PostMapping("/updateSocialPostStatus")
+	@PostMapping("/backend/updateSocialPostStatus")
 	public ResponseEntity<?> updateSocialPostStatus(@RequestBody SocialPostUpdateStatusDTO updateDTO) {
 	    try {
 	    	socialPostSvc.updatePostStatus(updateDTO.getSpid(), updateDTO.getSpstatus());

@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Instructor Settings - Online Courses & Education Bootstrap5 Template</title>
-    <meta name="robots" content="noindex, follow" />
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Instructor Settings - Online Courses & Education Bootstrap5 Template</title>
+<meta name="robots" content="noindex, follow" />
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -2587,7 +2588,7 @@
                                                 <a href="#" class="tab-button" id="password-tab" data-bs-toggle="tab"
                                                     data-bs-target="#password" role="tab" aria-controls="password"
                                                     aria-selected="false">
-                                                    <span class="title">首頁推薦</span>
+                                                    <span class="title">已投放廣告</span>
                                                 </a>
                                             </li>
                                         </ul>
@@ -2596,170 +2597,188 @@
                                     <div class="tab-content">
                                         <div class="tab-pane fade active show" id="profile" role="tabpanel"
                                             aria-labelledby="profile-tab">
-<!--                                             <form th:action="@{insert}" method="post" th:object="${adcarVO}" enctype="multipart/form-data" class="rbt-profile-row rbt-default-form row row--15"> -->
-                                                <div class="rbt-dashboard-content-wrapper">
-                                                    <div>
-                                                        <p>歡迎您使用我們的廣告投放系統！您可自行上傳圖進行首頁輪播，讓您的課程在網站首頁優先展示。只需選擇起始日期、結束日期、使用方案及上傳想要在頁面展示的圖片，即可輕鬆投放廣告，提升您課程的競爭力！
-                                                            <br>請注意，一旦廣告訂單成立，將無法更改，請在送出前仔細確認。期待為您提供優質的廣告服務！
-                                                        </p>
-                                                    </div>
-                                                    <hr style="color: blueviolet;">
+                                            <!--                                             <form th:action="@{insert}" method="post" th:object="${adcarVO}" enctype="multipart/form-data" class="rbt-profile-row rbt-default-form row row--15"> -->
+                                            <div class="rbt-dashboard-content-wrapper">
+                                                <div>
+                                                    <p>歡迎您使用我們的廣告投放系統！您可自行上傳圖進行首頁輪播，讓您的課程在網站首頁優先展示。只需選擇起始日期、結束日期、使用方案及上傳想要在頁面展示的圖片，即可輕鬆投放廣告，提升您課程的競爭力！
+                                                        <br>請注意，一旦廣告訂單成立，將無法更改，請在送出前仔細確認。期待為您提供優質的廣告服務！
+                                                    </p>
+                                                </div>
+                                                <hr style="color: blueviolet;">
 
-                                                    <!-- 照片上傳的標籤 -->
-                                                    <div class="tutor-bg-photo bg_image bg_image--22 height-245"
-                                                        id="adImagePreviewArea"></div>
-                                                    <!-- Start Tutor Information  -->
-                                                    <div class="rbt-tutor-information">
-                                                        <div class="rbt-tutor-information-right">
-                                                            <div class="tutor-btn">
-                                                                <!-- 隱藏的 file input -->
-                                                                <input type="file" id="hiddenFileInput" name="adcUpdatePic"
-                                                                    style="display:none;" onchange="imageSelected();">
-                                                                <!-- 可見的連結 -->
-                                                                <a class="rbt-btn btn-sm btn-border color-white radius-round-10"
-                                                                    href="javascript:void(0);"
-                                                                    onclick="document.getElementById('hiddenFileInput').click();">上傳課程輪播畫面</a>
-                                                            </div>
+                                                <!-- 照片上傳的標籤 -->
+                                                <div class="tutor-bg-photo bg_image bg_image--22 height-245"
+                                                    id="adImagePreviewArea"></div>
+                                                <!-- Start Tutor Information  -->
+                                                <div class="rbt-tutor-information">
+                                                    <div class="rbt-tutor-information-right">
+                                                        <div class="tutor-btn">
+                                                            <!-- 隱藏的 file input -->
+                                                            <input type="file" id="hiddenFileInput" name="adcUpdatePic"
+                                                                style="display:none;" onchange="imageSelected();"  required>
+                                                            <!-- 可見的連結 -->
+                                                            <a class="rbt-btn btn-sm btn-border color-white radius-round-10"
+                                                                href="javascript:void(0);"
+                                                                onclick="document.getElementById('hiddenFileInput').click();">上傳課程輪播畫面</a>
                                                         </div>
                                                     </div>
-                                                    <!-- End Tutor Information  -->
                                                 </div>
-                                                <!-- Start Profile Row  -->
+                                                <!-- End Tutor Information  -->
+                                            </div>
+                                            <!-- Start Profile Row  -->
 
-                                                <!-- 動態生成課程名稱 -->
-                                                <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                                                    <div class="filter-select rbt-modern-select">
-                                                        <label for="coursenamelist" class="">課程名稱</label>
-                                                        <select id="crId" >
-                                                            <option th:each="courseVO : ${courseListData}"
-                                                                th:value="${courseVO.crId}"
-                                                                th:text="${courseVO.crTitle}">
-                                                            </option>
-                                                        </select>
-                                                    </div>
+                                            <!-- 動態生成課程名稱 -->
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                                <div class="filter-select rbt-modern-select">
+                                                    <label for="coursenamelist" class="">課程名稱</label>
+                                                    <select id="crId">
+                                                        <option th:each="courseVO : ${courseListData}"
+                                                            th:value="${courseVO.crId}" th:text="${courseVO.crTitle}">
+                                                        </option>
+                                                    </select>
                                                 </div>
+                                            </div>
 
-                                                <!-- 動態生成輪播方案 -->
-                                                <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                                                    <div class="filter-select rbt-modern-select">
-                                                        <label for="adplan" class="">選擇方案</label>
-                                                        <select id="adplan" class="w-100">
-                                                            <option th:each="adVO : ${adListData}"
-                                                                th:if="${adVO.adType == 'carousel'}"
-                                                                th:value="${adVO.adId}" th:text="${adVO.adName}">
-                                                            </option>
-                                                        </select>
-                                                    </div>
+                                            <!-- 												假裝先寫死 -->
+                                            <input type="hidden" id="uId" value="10002">
+
+
+                                            <!-- 動態生成輪播方案 -->
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                                <div class="filter-select rbt-modern-select">
+                                                    <label for="adplan" class="">選擇方案</label>
+                                                    <select id="adplan" class="w-100">
+                                                        <option th:each="adVO : ${adListData}"
+                                                            th:if="${adVO.adType == 'carousel'}" th:value="${adVO.adId}"
+                                                            th:text="${adVO.adName}">
+                                                        </option>
+                                                    </select>
                                                 </div>
-                                                <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                                                    <div class="rbt-form-group">
-                                                        <label for="adcStartDate">廣告開始時間</label>
-                                                        <input id="adcStartDate" type="date">
-                                                    </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                                <div class="rbt-form-group">
+                                                    <label for="adcStartDate">廣告開始時間</label>
+                                                    <input id="adcStartDate" type="date">
                                                 </div>
-                                                <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                                                    <div class="rbt-form-group">
-                                                        <label for="adEndDate">廣告結束時間</label>
-                                                        <input id="adEndDate" type="date">
-                                                    </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                                <div class="rbt-form-group">
+                                                    <label for="adcEndDate">廣告結束時間</label>
+                                                    <input id="adcEndDate" type="date">
                                                 </div>
-                                                <p id="adTotalPrice">訂單總價：</p>
-                                                <input type="hidden" id="totalPriceField" name="totalPrice" value="">
-                                                <div class="col-12 mt--20">
-                                                    <div class="rbt-form-group">
-<!--                                                         <a class="rbt-btn btn-gradient" href="#">送出輪播訂單</a> -->
-                                                        <button id="orderbutton" class="rbt-btn btn-gradient" type="submit">送出首頁訂單</button>
-                                                    </div>
+<!--                                                 如果沒有選擇日期跳提示 -->
+                                                <span id="dateError" class="error-message" style="color: red; display: none;">請選擇開始和結束時間。</span>
+                                                
+                                            </div>
+                                            <p id="adTotalPrice">訂單總價：</p>
+                                            <input type="hidden" id="totalPriceField" name="totalPrice" value="">
+                                            <div class="col-12 mt--20">
+                                                <div class="rbt-form-group">
+                                                    <!--                                                         <a class="rbt-btn btn-gradient" href="#">送出輪播訂單</a> -->
+                                                    <button id="orderbutton" class="rbt-btn btn-gradient"
+                                                        type="submit"  onclick="return validateForm();">送出首頁訂單</button>
                                                 </div>
-                                                <span></span>
-<!--                                             </form> -->
+                                            </div>
+                                            <span></span>
+                                            <!--                                             </form> -->
 
-<script>
-                                
-    document.getElementById("orderbutton").addEventListener("click", function() {
-	
-    	var data = {
-    		    uId: 10002,
-    		    adcStartDate: $('#adcStartDate').val(),
-    		    adEndDate: $('#adEndDate').val(),
-    		    crId: $('#crId').val(),
-    		    adplan: $('#adplan').val(),
-    		    totalPriceField: $('#totalPriceField').val(),
-    		    adcStatus: 1,
-    		};
+                                            <script>
 
-    		const formData = new FormData();
-    		for (const key in data) {
-    		    formData.append(key, data[key]);
-    		}
+                                                document.getElementById("orderbutton").addEventListener("click", function () {
 
-    		// 獲取文件並添加到 formData 中
-    		var file = $('#hiddenFileInput')[0].files[0];
-    		if (file) {
-    		    formData.append('hiddenFileInput', file);
-    		}
+                                                    var data = {
+                                                        uId: 10002,
+                                                        adcStartDate: $('#adcStartDate').val(),
+                                                        adcEndDate: $('#adcEndDate').val(),
+                                                        crId: $('#crId').val(),
+                                                        adId: $('#adplan').val(),
+                                                        adcTotalPrice: $('#totalPriceField').val(),
+                                                        adcStatus: 1,
+                                                    };
 
-    		// 使用 jQuery 的 $.ajax 而不是 $.post，因為需要設置更多選項
-    		$.ajax({
-    		    url: 'http://localhost:8080/adCarousel/insert',
-    		    type: 'POST',
-    		    data: formData,
-    		    processData: false, // 告訴 jQuery 不要處理發送的數據
-    		    contentType: false, // 告訴 jQuery 不要設置內容類型標頭
-    		    success: function(response) {
-    		        window.alert("成功創建輪播廣告！");
-    		    },
-    		    error: function(error) {
-    		        console.error('Error:', error);
-    		    }
-    		});
-	
-    	
-    	
-// var data = {
-// uId : 10002 ,
-//  hiddenFileInput : $('#hiddenFileInput').val(),
-// adcStartDate : $('#adcStartDate').val(),
-// adEndDate : $('#adEndDate').val(),
-// crId : $('#crId').val(),
-// adplan : $('#adplan').val(),
-// totalPriceField: $('#totalPriceField').val(),
-// adcStatus : 1,
+                                                    const formData = new FormData();
+                                                    for (const key in data) {
+                                                        formData.append(key, data[key]);
+                                                    }
 
-// };
+                                                    // 獲取文件並添加到 formData 中
+                                                    var file = $('#hiddenFileInput')[0].files[0];
+                                                    if (file) {
+                                                        formData.append('adcUpdatePic', file);
+                                                    }
 
-// const formData = new FormData();
-// for (const key in data) {
-// formData.append(key, data[key]);
-// }
-// /* $.post('http://localhost:8081/THA105G2/course/insert', data) */
-// $.post('http://localhost:8080/adCarousel/insert', data)
-// .done(function(response) {
-// window.alert("成功創建輪播廣告！");
-// }, 'json'
-// )
-// .fail(function(error) {
-// console.error('Error:', error);
-// });
-// 发送异步请求到后端保存数据
-/* fetch('http://localhost:8081/THA105G2/front-end/course/course.do', {
-method: 'POST',
-headers: {
-'Content-Type': 'application/x-www-form-urlencoded' // Change content type to form data
-},
-body: new URLSearchParams(data).toString() // Convert data to URL-encoded form data
-})
-.then(response => response.json()) // 处理后端返回的JSON响应
-.then(responseData => {
-// 在控制台打印后端返回的数据
-console.log(responseData);
+                                                    // 使用 jQuery 的 $.ajax 而不是 $.post，因為需要設置更多選項
+                                                    $.ajax({
+                                                        url: 'http://localhost:8080/adCarousel/insert',
+                                                        type: 'POST',
+                                                        data: formData,
+                                                        processData: false, // 告訴 jQuery 不要處理發送的數據
+                                                        contentType: false, // 告訴 jQuery 不要設置內容類型標頭
+                                                        success: function (response) {
+                                                            window.alert("成功創建輪播廣告！");
+                                                            window.location.href = 'http://localhost:8080/adCarousel/addAdCarousel';
+                                                            //     		       成功創建清空欄位值
+//                                                             $('#adcStartDate').val('');
+//                                                             $('#adcEndDate').val('');
+//                                                             $('#crId').val('');
+//                                                             $('#adplan').val('');
+//                                                             $('#totalPriceField').val('');
+//                                                             $('#hiddenFileInput').val('');
+//                                                             var previewArea = document.getElementById('adImagePreviewArea');
+//                                                             previewArea.style.backgroundImage = 'none';
+//                                                             $('#adTotalPrice').text('訂單總價：');
+                                                        },
+                                                        error: function (error) {
+                                                            console.error('Error:', error);
+                                                        }
+                                                    });
 
-// 这里可以根据需要处理后端返回的数据
-})
-.catch(error => console.error('Error:', error)); */
-});
-    
-</script>
+
+
+                                                    // var data = {
+                                                    // uId : 10002 ,
+                                                    //  hiddenFileInput : $('#hiddenFileInput').val(),
+                                                    // adcStartDate : $('#adcStartDate').val(),
+                                                    // adEndDate : $('#adEndDate').val(),
+                                                    // crId : $('#crId').val(),
+                                                    // adplan : $('#adplan').val(),
+                                                    // totalPriceField: $('#totalPriceField').val(),
+                                                    // adcStatus : 1,
+
+                                                    // };
+
+                                                    // const formData = new FormData();
+                                                    // for (const key in data) {
+                                                    // formData.append(key, data[key]);
+                                                    // }
+                                                    // /* $.post('http://localhost:8081/THA105G2/course/insert', data) */
+                                                    // $.post('http://localhost:8080/adCarousel/insert', data)
+                                                    // .done(function(response) {
+                                                    // window.alert("成功創建輪播廣告！");
+                                                    // }, 'json'
+                                                    // )
+                                                    // .fail(function(error) {
+                                                    // console.error('Error:', error);
+                                                    // });
+                                                    // 发送异步请求到后端保存数据
+                                                    /* fetch('http://localhost:8081/THA105G2/front-end/course/course.do', {
+                                                    method: 'POST',
+                                                    headers: {
+                                                    'Content-Type': 'application/x-www-form-urlencoded' // Change content type to form data
+                                                    },
+                                                    body: new URLSearchParams(data).toString() // Convert data to URL-encoded form data
+                                                    })
+                                                    .then(response => response.json()) // 处理后端返回的JSON响应
+                                                    .then(responseData => {
+                                                    // 在控制台打印后端返回的数据
+                                                    console.log(responseData);
+                                                    
+                                                    // 这里可以根据需要处理后端返回的数据
+                                                    })
+                                                    .catch(error => console.error('Error:', error)); */
+                                                });
+
+                                            </script>
 
                                             <!-- End Profile Row  -->
                                         </div>
@@ -2767,55 +2786,35 @@ console.log(responseData);
                                         <div class="tab-pane fade" id="password" role="tabpanel"
                                             aria-labelledby="password-tab">
                                             <div>
-                                                <p>歡迎您使用我們的廣告投放系統！我們提供兩種主要方案，一是自行上傳圖進行片輪播，第二個選擇是首頁推薦，讓您的課程在網站首頁優先展示。只需選擇起始日期、結束日期及使用方案，即可輕鬆投放廣告，提升您課程的競爭力！
-                                                    <br>請注意，一旦廣告訂單成立，將無法更改，請在送出前仔細確認。期待為您提供優質的廣告服務！
-                                                </p>
+                                                <p>以下為投放廣告課程訂單:</p>
                                             </div>
                                             <hr style="color: blueviolet;">
-                                            <!-- Start Profile Row  -->
-                                            <form action="#" class="rbt-profile-row rbt-default-form row row--15">
-                                                <div class="col-12">
-                                                    <div class="filter-select rbt-modern-select">
-                                                        <label for="coursenamelist" class="">課程名稱</label>
-                                                        <select id="coursenamelist" class="w-100">
-                                                            <option>課程一</option>
-                                                            <option>課程二</option>
-                                                            <option>課程三</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12">
-                                                    <div class="filter-select rbt-modern-select">
-                                                        <label for="adplan" class="">首頁推薦方案</label>
-                                                        <select id="adplan" class="w-100">
-                                                            <option>首頁方案一</option>
-                                                            <option>首頁方案二</option>
-                                                            <option>首頁方案三</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12">
-                                                    <div class="rbt-form-group">
-                                                        <label for="currentpassword">廣告開始時間</label>
-                                                        <input id="startdate" type="date" value="YYYY-MM-DD">
-                                                    </div>
-                                                </div>
-                                                <div class="col-12">
-                                                    <div class="rbt-form-group">
-                                                        <label for="newpassword">廣告結束時間</label>
-                                                        <input id="startdate" type="date" value="YYYY-MM-DD">
-                                                    </div>
-                                                </div>
-                                                <p id="totalPrice">訂單總價：0元</p>
-                                                <div class="col-12 mt--20">
-                                                    <div class="rbt-form-group">
-                                                        <!-- <a class="rbt-btn btn-gradient" href="#">送出首頁訂單</a> -->
-                                                        <button class="rbt-btn btn-gradient" type="submit">送出首頁訂單</button>
-                                                    </div>
-                                                </div>
-                                                <span></span>
-                                            </form>
-                                            <!-- End Profile Row  -->
+                                            <table class="center" id="example">
+                                                <thead>
+                                                    <tr style="background-color: #CCCCFF">
+                                                        <th style="padding: 15px;">投放廣告課程</th>
+                                                        <th style="padding: 25px;">廣告起始日</th>
+                                                        <th style="padding: 25px;">廣告結束日</th>
+                                                        <th style="padding: 20px;">廣告總價</th>
+                                                        <th style="padding: 20px;">照片</th>
+                                                        <th style="padding: 50px;">交易完成時間</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <th:block th:each="adcarVO : ${userAds}">
+                                                    <tr>
+                                                        <td th:text="${adcarVO.courseVO.crTitle}"></td>
+                                                        <td th:text="${adcarVO.adcStartDate}"></td>
+                                                        <td th:text="${adcarVO.adcEndDate}"></td>
+                                                        <td th:text="${adcarVO.adcTotalPrice}"></td>
+                                                        <td><img th:src="@{/adCarousel/DBGifReader} + '?adcId=' + ${adcarVO.adcId}"
+                                                                width="100px"></td>
+                                                        <td th:text="${adcarVO.adcOrderEnddate}"></td>
+
+
+<!--                                                     </tr> -->
+                                                </th:block>
+                                            </table>
                                         </div>
 
                                     </div>

@@ -1,24 +1,24 @@
 //輪播廣告選取照片及預覽
-	function imageSelected() {
-		console.log("111");
-		var input = document.getElementById('hiddenFileInput');
-		if (input.files && input.files[0]) {
-			var reader = new FileReader();
-			reader.onload = function(e) {
-				var previewArea = document.getElementById('adImagePreviewArea');
-				previewArea.style.backgroundImage = 'url(' + e.target.result + ')';
-				previewArea.style.backgroundSize = 'contain';
-				previewArea.style.backgroundPosition = 'center';
-			};
-			reader.readAsDataURL(input.files[0]);
+function imageSelected() {
+
+	var input = document.getElementById('hiddenFileInput');
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			var previewArea = document.getElementById('adImagePreviewArea');
+			previewArea.style.backgroundImage = 'url(' + e.target.result + ')';
+			previewArea.style.backgroundSize = 'contain';
+			previewArea.style.backgroundPosition = 'center';
 		};
+		reader.readAsDataURL(input.files[0]);
 	};
+};
 
 document.addEventListener('DOMContentLoaded', (event) => {
 	// 獲取今天的日期，並設定為廣告開始時間和結束時間的最小值
 	let today = new Date().toISOString().split('T')[0];
 	document.getElementById('adcStartDate').setAttribute('min', today);
-	document.getElementById('adEndDate').setAttribute('min', today);
+	document.getElementById('adcEndDate').setAttribute('min', today);
 
 	// 監聽開始時間的變化，來設定結束時間的最小值
 	document.getElementById('adcStartDate').addEventListener('change', function() {
@@ -27,16 +27,42 @@ document.addEventListener('DOMContentLoaded', (event) => {
 		let minEndDate = startValue >= today ? startValue : today;
 
 		// 將結束時間的最小值設定為開始時間或今天的日期，取決於哪個更晚
-		document.getElementById('adEndDate').setAttribute('min', minEndDate);
+		document.getElementById('adcEndDate').setAttribute('min', minEndDate);
 	});
+//		前端驗證欄位
+	function validateForm() {
+		var fileInput = document.getElementById('hiddenFileInput');
+		var startDateInput = document.getElementById('adcStartDate');
+		var endDateInput = document.getElementById('adcEndDate');
+		var dateError = document.getElementById('dateError');
 
+		// 驗證圖片是否已選擇
+		if (fileInput.files.length === 0) {
+			alert('請選擇圖片！');
+			return false;
+		}
+
+		// 驗證開始日期是否已選擇
+		if (!startDateInput.value) {
+			dateError.style.display = 'block';
+			return false;
+		}
+
+		// 驗證結束日期是否已選擇
+		if (!endDateInput.value) {
+			dateError.style.display = 'block';
+			return false;
+		}
+		// 驗證通過
+		return true;
+	}
 
 	// JavaScript函數來計算廣告時間和價格
 	function calculateAdPrice() {
 		// 從前端獲取開始和結束日期
 		const startDate = document.getElementById('adcStartDate').value;
 		console.log("選開始時間")
-		const endDate = document.getElementById('adEndDate').value;
+		const endDate = document.getElementById('adcEndDate').value;
 		console.log("選結束時間")
 
 		// 確認開始和結束日期都已被選擇
@@ -60,7 +86,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 	// 監聽日期變化
 	document.getElementById('adcStartDate').addEventListener('change', calculateAdPrice);
-	document.getElementById('adEndDate').addEventListener('change', calculateAdPrice);
+	document.getElementById('adcEndDate').addEventListener('change', calculateAdPrice);
 
 	// 初始化時也計算一次價格
 	calculateAdPrice();

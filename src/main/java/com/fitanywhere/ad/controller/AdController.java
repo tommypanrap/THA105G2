@@ -32,7 +32,7 @@ import com.fitanywhere.addate.model.AdDateService;
 import com.fitanywhere.addate.model.AdDateVO;
 
 @Controller
-@RequestMapping("/ad")
+@RequestMapping("/backend_ad")
 public class AdController {
 
 	@Autowired
@@ -44,11 +44,12 @@ public class AdController {
 	@Autowired
 	private AdCarouselService AdCarSvc;
 
+//	跳轉到新增方案頁面
 	@GetMapping("/addAd")
 	public String addAd(ModelMap model) {
 		AdVO adVO = new AdVO();
 		model.addAttribute("adVO", adVO);
-		return "back-end/ad/addAd";
+		return "/back-end/backend_ad";
 	}
 
 	@PostMapping("insert")
@@ -59,7 +60,8 @@ public class AdController {
 		List<AdVO> list = adSvc.getAll();
 		model.addAttribute("adListData", list);
 		model.addAttribute("success", "- (新增成功)");
-		return "redirect:/ad/listAllAd";
+//		return "redirect:/back-end/list";
+		return "back-end/backend_adlistall";
 	}
 
 //    查詢單個id資料以進行更新
@@ -72,7 +74,7 @@ public class AdController {
 
 		/*************************** 3.查詢完成,準備轉交(Send the Success view) **************/
 		model.addAttribute("adVO", adVO);
-		return "back-end/ad/update_ad_input"; // 查詢完成後轉交update_emp_input.html
+		return "/back-end/backend_adupdate"; // 查詢完成後轉交update_emp_input.html
 	}
 
 	@PostMapping("update")
@@ -81,7 +83,7 @@ public class AdController {
 		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
 		result = removeFieldError(adVO, result, "adId");
 		if (result.hasErrors()) {
-			return "back-end/ad/update_ad_input";
+			return "/backend_ad/update_ad_input";
 		}
 
 		/*************************** 2.開始修改資料 *****************************************/
@@ -92,10 +94,10 @@ public class AdController {
 		model.addAttribute("success", "- (修改成功)");
 		adVO = adSvc.getOneAd(Integer.valueOf(adVO.getAdId()));
 		model.addAttribute("adVO", adVO);
-		return "back-end/ad/listOneAd"; // 修改成功後轉交listOneEmp.html
+		return "/back-end/backend_adlistall"; // 修改成功後轉交listOneEmp.html
 	}
 
-//    關聯到另一個表 
+
 	@ModelAttribute("adDateListData")
 	protected List<AdDateVO> referenceadDateListData() {
 		// DeptService deptSvc = new DeptService();
@@ -121,15 +123,29 @@ public class AdController {
 		return result;
 	}
 
-	@GetMapping("select_page")
-	public String select_page(Model model) {
-		return "back-end/ad/select_page";
+//	@GetMapping("select_page")
+//	public String select_page(Model model) {
+//		return "back-end/ad/select_page";
+//	}
+
+//	@GetMapping("listAllAd")
+//	public String listAllAd(Model model) {
+//		return "back-end/ad/listAllAd";
+//	}
+	
+	// 跳轉到所有方案查詢
+	@GetMapping("list")
+	public String listAllAd(Model model) {
+		return "back-end/backend_adlistall";
+	}
+	
+	@GetMapping("updatead")
+	public String updatead(Model model) {
+		AdVO adVO = new AdVO();
+		model.addAttribute("adVO", adVO);
+		return "back-end/backend_updatead";
 	}
 
-	@GetMapping("listAllAd")
-	public String listAllAd(Model model) {
-		return "back-end/ad/listAllAd";
-	}
 
 	@ModelAttribute("adListData") // for select_page.html 第97 109行用 // for listAllEmp.html 第117 133行用
 	protected List<AdVO> referenceListData(Model model) {

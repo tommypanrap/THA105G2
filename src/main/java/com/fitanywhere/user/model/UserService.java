@@ -331,7 +331,7 @@ public class UserService {
 	// 負責接收uId和DATA封裝DTO寫入DB並返回Boolean
 	@Transactional
 	public boolean updateUserData(UserWriteDataDTO userDTO) {
-		Optional<UserVO> userOptional = userJpaRepository.findById(userDTO.getuId());
+		Optional<UserVO> userOptional = Optional.ofNullable(userJpaRepository.findByuIdOptional(userDTO.getuId()));
 		if (userOptional.isPresent()) {
 			UserVO user = userOptional.get();
 
@@ -345,6 +345,7 @@ public class UserService {
 			return true; // 更新成功
 		} else {
 			System.out.println("Service <updateUserData> 處理UserDataDTO更新失敗!");
+			System.out.println("查詢失敗導致userOptional返回Null!");
 			return false; // 更新失敗
 		}
 	}

@@ -19,7 +19,7 @@ public class OpinionController {
 	@Autowired
 	private OpinionService opinionService;
 	
-	@GetMapping("/frontend_opinion")
+	@GetMapping("/opinion/user_opinion_list")
 	public String frontEndOpinion(Model model)  {
         return "front-end/opinion/student_opinion"; 
     }

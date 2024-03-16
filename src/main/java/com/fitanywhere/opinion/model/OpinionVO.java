@@ -13,7 +13,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fitanywhere.user.model.UserReadDataDTO;
 import com.fitanywhere.user.model.UserVO;
 
 @Entity

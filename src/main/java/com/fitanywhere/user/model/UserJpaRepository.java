@@ -41,6 +41,10 @@ public interface UserJpaRepository extends JpaRepository<UserVO, Integer> {
 
 	@Query("FROM UserVO WHERE uId = :uId")
 	UserVO findByuId(Integer uId);
+	
+// Optional	
+	@Query("FROM UserVO WHERE uId = :uId")
+	UserVO findByuIdOptional(Integer uId);	
 
 // =========================
 // 使用DTO封裝 適合從別的Controller呼叫對應的UserService取得	
@@ -96,20 +100,17 @@ public interface UserJpaRepository extends JpaRepository<UserVO, Integer> {
 // =========================
 	// 精準寫入某特定欄位
 
-	// 依據uId更新uPassword
-	@Transactional
+	// 依據uId更新uPassword	
 	@Modifying
 	@Query("UPDATE UserVO u SET u.uPassword = :encryptedPassword WHERE u.uId = :uId")
 	int updatePasswordById(Integer uId, String encryptedPassword);
 
-	// 依據uId更新moodId
-	@Transactional
+	// 依據uId更新moodId	
 	@Modifying
 	@Query("UPDATE UserVO u SET u.moodVO.id = :moodId WHERE u.uId = :uId")
 	int updateMoodById(Integer uId, Integer moodId);
 
-	// 依據uId更新uStatus
-	@Transactional
+	// 依據uId更新uStatus	
 	@Modifying
 	@Query("UPDATE UserVO u SET u.uStatus = :uStatus WHERE u.uId = :uId")
 	int updateStatusById(Integer uId, Integer uStatus);

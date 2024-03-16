@@ -59,9 +59,11 @@ public class AnnVO implements java.io.Serializable {
 	@Column(name = "an_edit_date")
 	private Timestamp anEditDate;
 	
+	@NotEmpty(message="公告標題: 請勿空白")
 	@Column(name = "an_title")
 	private String anTitle;
 	
+	@NotEmpty(message="公告內容: 請勿空白")
 	@Column(name = "an_content" , columnDefinition = "longtext")
 	private String anContent;
 
@@ -90,8 +92,11 @@ public class AnnVO implements java.io.Serializable {
 	}
 
 
+	
+
+
 	public Timestamp getAnDate() {
-		return this.anDate;
+		return anDate;
 	}
 
 
@@ -106,11 +111,8 @@ public class AnnVO implements java.io.Serializable {
 
 
 	public void setAnEditDate(Timestamp anEditDate) {
-		long currentTimeMillis = System.currentTimeMillis();
-
-		Timestamp currentTimestamp = new Timestamp(currentTimeMillis);
-
-		this.anEditDate = currentTimestamp;
+		
+		this.anEditDate = anEditDate;
 	}
 
 

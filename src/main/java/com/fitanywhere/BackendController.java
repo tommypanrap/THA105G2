@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fitanywhere.ad.model.AdVO;
 import com.fitanywhere.course.model.CourseService;
 import com.fitanywhere.course.model.CourseVO;
 
@@ -25,16 +26,18 @@ public class BackendController {
         return "back-end/backend_course"; 
     }
 	
-	@GetMapping("/backend_ad")
-	public String backend_ad(Model model)  {
-        return "back-end/backend_ad"; 
-	}
-	
-	@GetMapping("/backend_ad_list")
-	public String backend_ad_list(Model model)  {
-        return "back-end/backend_ad_list"; 
-    }
-	
+//	@GetMapping("/backend_ad")
+//	public String backend_ad(Model model)  {
+//		AdVO adVO = new AdVO();
+//		model.addAttribute("adVO", adVO);
+//        return "back-end/backend_ad"; 
+//	}
+//	
+//	@GetMapping("/backend_ad_list")
+//	public String backend_ad_list(Model model)  {
+//        return "back-end/backend_ad_list"; 
+//    }
+//	
 	@GetMapping("/backend_course_order")
 	public String backend_course_order(Model model)  {
         return "back-end/backend_course_order"; 

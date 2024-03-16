@@ -1,4 +1,4 @@
-package com.fitanywhere.adDDate.controller;
+package com.fitanywhere.addate.controller;
 
 import java.util.List;
 import java.util.Set;

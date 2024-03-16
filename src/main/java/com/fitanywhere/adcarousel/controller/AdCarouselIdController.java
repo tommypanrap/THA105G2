@@ -1,4 +1,4 @@
-package com.fitanywhere.adCCarousel.controller;
+package com.fitanywhere.adcarousel.controller;
 
 import javax.servlet.http.HttpServletRequest;
 

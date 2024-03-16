@@ -5,11 +5,8 @@ import java.util.List;
 import java.util.HashSet;
 import java.util.Set;
 
-<<<<<<< HEAD
-=======
-
 import javax.persistence.CascadeType;
->>>>>>> refs/heads/master
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,11 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-<<<<<<< HEAD
-=======
 import org.hibernate.annotations.DynamicUpdate;
 
->>>>>>> refs/heads/master
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -42,14 +36,9 @@ import com.fitanywhere.adcarousel.model.AdCarouselVO;
  * 註2: Annotation可以添加在屬性上，也可以添加在getXxx()方法之上
  */
 
-<<<<<<< HEAD
-@Entity // 要加上@Entity才能成為JPA的一個Entity類別
-@Table(name = "course") // 代表這個class是對應到資料庫的實體table，目前對應的table是EMP2
-=======
 @DynamicUpdate
-@Entity  //要加上@Entity才能成為JPA的一個Entity類別
-@Table(name = "course") 
->>>>>>> refs/heads/master
+@Entity // 要加上@Entity才能成為JPA的一個Entity類別
+@Table(name = "course")
 public class CourseVO implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -58,11 +47,11 @@ public class CourseVO implements java.io.Serializable {
 	@Column(name = "cr_id")
 //	@NotEmpty(message ="jjjjj")
 	private Integer crId;
-	
+
 	// mok
 	@ManyToOne
 	@JsonIgnore
-	@JoinColumn(name="u_id")
+	@JoinColumn(name = "u_id")
 	private UserVO userVO;
 
 	@Column(name = "cr_class")
@@ -125,23 +114,12 @@ public class CourseVO implements java.io.Serializable {
 
 	@Column(name = "cr_level")
 	private String crLevel;
-<<<<<<< HEAD
 
-=======
-	
-
->>>>>>> refs/heads/master
 //	xiaoxin
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="courseVO")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "courseVO")
 	@JsonIgnore
 	private Set<AdCarouselVO> adCarousel = new HashSet<AdCarouselVO>();
-<<<<<<< HEAD
 
-=======
-
-
-
->>>>>>> refs/heads/master
 	// mok
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "courseVO")
 	@OrderBy("cdId asc")
@@ -164,32 +142,17 @@ public class CourseVO implements java.io.Serializable {
 		this.userVO = userVO;
 	}
 
-
-<<<<<<< HEAD
-	public Set<AdCarouselVO> getAdCarousel() {
-		return this.adCarousel;
-	}
-=======
 //	public Set<AdCarouselVO> getAdCarousel() {
 //		return this.adCarousel;
 //	}
 
->>>>>>> refs/heads/master
-
 	public void setAdCarousel(Set<AdCarouselVO> adCarousel) {
 		this.adCarousel = adCarousel;
-<<<<<<< HEAD
-=======
 
->>>>>>> refs/heads/master
 	}
 
-<<<<<<< HEAD
-=======
-
-
 	// Joy
->>>>>>> refs/heads/master
+
 	@Transient
 	private String base64CrCover;
 

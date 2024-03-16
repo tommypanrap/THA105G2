@@ -16,11 +16,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-<<<<<<< HEAD
-=======
-import com.fitanywhere.service.PasswordEncryptionService;
-import com.fitanywhere.course.model.CourseVO;
->>>>>>> refs/heads/master
 import com.fitanywhere.service.MailService;
 import com.fitanywhere.service.PasswordEncryptionService;
 
@@ -196,8 +191,7 @@ public class UserService {
 	public int userStatusCheck(String uMail) {
 		return userJpaRepository.findOnlyStatusByuMail(uMail);
 	}
-	
-	
+
 	// 登入-核對登入密碼是否正確
 	@Transactional(readOnly = true)
 	public UserReadDataDTO userLogin(String uMail, String inputPassword) {
@@ -303,7 +297,7 @@ public class UserService {
 			// 更新失敗
 		}
 	}
-	
+
 	// 負責接收uId和uStatus更新User表格並返回Boolean
 	@Transactional
 	public boolean updateUserStatus(Integer uId, Integer uStatus) {
@@ -362,12 +356,12 @@ public class UserService {
 		try {
 			// 讀取mySQL舊密碼
 			String savedPassword = userJpaRepository.findOnlyPasswordByuId(uId);
-			
+
 			// 比對輸入的舊密碼是否正確
 			if (PasswordEncryptionService.checkPassword(oldPassword, savedPassword)) {
-				// 加密新密碼				
+				// 加密新密碼
 				String encryptedNewPassword = encryptNewPassword(newPassword);
-				// 寫入新密碼				
+				// 寫入新密碼
 				userJpaRepository.updatePasswordById(uId, encryptedNewPassword);
 				// 更新密碼成功
 				return true;
@@ -375,7 +369,7 @@ public class UserService {
 
 			// 更新密碼失敗
 			return false;
-		} catch (Exception e) {			
+		} catch (Exception e) {
 			// 系統異常 更新密碼失敗
 			return false;
 		}
@@ -392,20 +386,21 @@ public class UserService {
 		return userVO;
 	}
 
- // Tommy
- 	public List<UserVO> getAll() {
- 		return userJpaRepository.findAll();
- 	}
- 	
- 	public boolean updateUserProfile(UserVO userVO) {
- 		try {
- 	        userJpaRepository.save(userVO);
- 	        return true; // 保存成功，返回 true
- 	    } catch (Exception e) {
- 	        e.printStackTrace();
- 	        return false; // 保存失败，返回 false
- 	    }
- 	}
+	// Tommy
+	public List<UserVO> getAll() {
+		return userJpaRepository.findAll();
+	}
+
+	public boolean updateUserProfile(UserVO userVO) {
+		try {
+			userJpaRepository.save(userVO);
+			return true; // 保存成功，返回 true
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false; // 保存失败，返回 false
+		}
+	}
+
 	// Andy
 	@Transactional(readOnly = true)
 	public UserVO getUser(Integer uId) {
@@ -420,19 +415,19 @@ public class UserService {
 		return uHeadshot;
 	}
 
-
 	// test
 	@Transactional
 	public String getSavedPasswordInMySQL(Integer uId) {
 		return userJpaRepository.findOnlyPasswordByuId(uId);
 	}
-	
+
 // =============================================
 // Tommy 新增 為了搜尋比對
 	public List<UserVO> searchUsersByNickname(String searchValue, Integer uId) {
 
-        return userJpaRepository.findByuNicknameNoMyself(searchValue,uId);
-    }
+		return userJpaRepository.findByuNicknameNoMyself(searchValue, uId);
+	}
+
 //	xiao xin
 	public List<UserVO> getUserByUId(Integer uId) {
 		return userJpaRepository.getUserByUId(uId);

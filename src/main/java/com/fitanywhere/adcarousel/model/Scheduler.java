@@ -1,4 +1,4 @@
-package com.fitanywhere.adCCarousel.model;
+package com.fitanywhere.adcarousel.model;
 
 import java.time.LocalDateTime;
 

@@ -1,4 +1,4 @@
-package com.fitanywhere.adDDate.controller;
+package com.fitanywhere.addate.controller;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;

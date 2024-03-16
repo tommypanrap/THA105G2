@@ -10,13 +10,9 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+
 import com.fitanywhere.userlist.model.UserlistAllDataDTO;
-<<<<<<< HEAD
-=======
-import com.fitanywhere.course.model.CourseVO;
-import org.springframework.data.jpa.repository.Modifying;
->>>>>>> refs/heads/master
+
 
 //處理登入時依據會員信箱查詢所需資料
 @Repository

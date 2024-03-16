@@ -1,6 +1,6 @@
 // https://docs.spring.io/spring-data/jpa/docs/current/reference/html/
 
-package com.fitanywhere.adCCarousel.model;
+package com.fitanywhere.adcarousel.model;
 
 import java.time.LocalDateTime;
 import java.util.List;

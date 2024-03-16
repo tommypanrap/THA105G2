@@ -1,148 +1,92 @@
 package com.fitanywhere.course.controller;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.validation.Valid;
-
+import com.fitanywhere.coach.model.CoachService;
+import com.fitanywhere.coach.model.CoachVO;
+import com.fitanywhere.course.model.CourseService;
+import com.fitanywhere.course.model.CourseVO;
+import com.fitanywhere.coursedetail.model.CourseDetailServiceImpl;
+import com.fitanywhere.coursedetail.model.CourseDetailVO;
+import com.fitanywhere.user.model.UserService;
+import com.fitanywhere.user.model.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BeanPropertyBindingResult;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.fitanywhere.course.model.CourseService;
-import com.fitanywhere.course.model.CourseVO;
-//import com.fitanywhere.user.model.UserService;
+import javax.servlet.http.HttpSession;
+import java.util.Base64;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/student_course")
+@RequestMapping("/course")
 public class StudentCourseController {
 
 	@Autowired
 	CourseService courseSvc;
-//	@Autowired
-//	UserService userSvc;
+	@Autowired
+	UserService userSvc;
+	@Autowired
+	CourseDetailServiceImpl courseDetailSvc;
+	@Autowired
+	CoachService coachSvc;
 
-	@GetMapping("add_course")
-	public String addCourse(ModelMap model) {
-		CourseVO courseVO = new CourseVO();
-		model.addAttribute("courseVO", courseVO);
-		return "back-end/student_course/add_course";
-	}
+	// single course
+	@GetMapping(value = "/single_course/{crId}")
+	public String singleCourse(@PathVariable Integer crId, ModelMap model, HttpSession session) {
+		CourseVO courseVO = courseSvc.getOneCourse(crId);
 
-	@PostMapping("insert")
-	public String insert(
-			@Valid CourseVO courseVO, BindingResult result, ModelMap model,
-			@RequestParam("crCover") MultipartFile[] parts) throws IOException {
+		// Base64抓單圖片 改為fetch抓
+//		courseVO.setBase64CrCover(Base64.getEncoder().encodeToString(courseVO.getCrCover()));
+		UserVO userVO = userSvc.getUserDataByID(courseVO.getUserVO().getuId());
+		CoachVO coachVO = coachSvc.getOneCoach(courseVO.getUserVO().getuId());
 
-		// 1.接收請求參數 - 輸入格式的錯誤處理
-		// 去除BindingResult中 crCover 欄位的 FieldError 紀錄
-		result = removeFieldError(courseVO, result, "crCover");
+		// 獲取課程下的第一個影片ID作為預設影片URL
+		Integer cdId = courseVO.getCourseDetails().stream()
+				.findFirst()
+				.map(CourseDetailVO::getCdId)
+				.orElseThrow(() -> new IllegalStateException("找不到Id" + crId));
+		String videoUrl = "/course/single_course/video/" + cdId + "/1";
 
-		if (parts[0].isEmpty()) {
-			model.addAttribute("errorMessage", "課程照片:請上傳照片");
-		} else {
-			for (MultipartFile multipartFile : parts) {
-				byte[] buf = multipartFile.getBytes();
-				courseVO.setCrCover(buf);
-			}
-		}
-		if (result.hasErrors() || parts[0].isEmpty()) {
-			return "back-end/student_course/add_course";	
-		}
-		// 2.開始新增資料
-		courseSvc.addCourse(courseVO);
-		// 3.新增完成,準備轉交(Send the Success view)
-		List<CourseVO> list = courseSvc.getAll();
-		model.addAttribute("courseListData", list);
-		model.addAttribute("success", "-(新增成功)");
-		return "redirect:/student_course/list_all_course";
-	}
+		// 獲取特定課程ID下的所有影片列表
+		List<CourseDetailVO> videos = courseDetailSvc.findVideosByCourseId(crId);
+		// 計算單元數量
+		Integer unitCount = courseDetailSvc.getunitCount(crId);
 
-	// called on listAllEmp.html form submission
-	@PostMapping("getOne_For_Update")
-	public String getOne_For_Update(@RequestParam("crId") String crId, ModelMap model) {
-		// 2.開始查詢資料
-		CourseVO courseVO = courseSvc.getOneCourse(Integer.valueOf(crId));
-		// 3.查詢完成,準備轉交(Send the Success view)
-		model.addAttribute("courseVO", courseVO);
-		// 查詢完成後轉交update_emp_input.html
-		return "back-end/student_course/update_course_input";
-	}
-	
-	@PostMapping("update")
-	public String update(
-			@Valid CourseVO courseVO, BindingResult result, ModelMap model,
-			@RequestParam("crCover") MultipartFile[] parts
-			) throws IOException{
-		
-		// 1.接收請求參數
-		result = removeFieldError(courseVO, result, "crCover");
-		
-		if(parts[0].isEmpty()) {
-			byte[] crCover = courseSvc.getOneCourse(courseVO.getCrId()).getCrCover();
-			courseVO.setCrCover(crCover);
-		}else {
-			for(MultipartFile multipartFile : parts) {
-				byte[] crCover = multipartFile.getBytes();
-				courseVO.setCrCover(crCover);
-			}
-		}
-		if(result.hasErrors()) {
-		return "back-end/student_course/update_course_input";
-		}
-		
-		// 2.開始修改資料
-		courseSvc.updateCourse(courseVO);
-		// 3.修改完成,準備轉交
-		model.addAttribute("success", " - (修改成功)");
-		courseVO = courseSvc.getOneCourse(Integer.valueOf(courseVO.getCrId()));
-		model.addAttribute("courseVO", courseVO);
-		return "back-end/student_course/list_one_course";
-	}
-	
-	/*
-	 * 第一種作法 Method used to populate the List Data in view. 如 : 
-	 * <form:select path="deptno" id="deptno" items="${deptListData}" itemValue="deptno" itemLabel="dname" />
-	 */
-//	@ModelAttribute("deptListData")
-//	protected List<DeptVO> referenceListData() {
-//		// DeptService deptSvc = new DeptService();
-//		List<DeptVO> list = deptSvc.getAll();
-//		return list;
-//	}
-// 
-
-	// 去除BindingResult中某個欄位的FieldError紀錄
-	public BindingResult removeFieldError(CourseVO courseVO, BindingResult result, String removedFieldname) {
-		List<FieldError> errorsListToKeep = result.getFieldErrors().stream()
-				.filter(fieldname -> !fieldname.getField().equals(removedFieldname))
+		// th:each
+		List<CourseVO> allCourses = courseSvc.getAll();
+		Collections.shuffle(allCourses);
+		List<CourseVO> randomList = allCourses.stream()
+				.limit(3)
 				.collect(Collectors.toList());
-		result = new BeanPropertyBindingResult(courseVO, "courseVO");
-		for (FieldError fieldError : errorsListToKeep) {
-			result.addError(fieldError);
-		}
-		return result;
-	}
-	
-	/*
-	 * This method will be called on select_page.html form submission, handling POST request
-	 */
-	// 複合查詢
-//	@PostMapping("listEmps_ByCompositeQuery")
-//	public String listAllEmp(HttpServletRequest req, Model model) {
-//		Map<String, String[]> map = req.getParameterMap();
-//		List<EmpVO> list = empSvc.getAll(map);
-//		model.addAttribute("empListData", list); // for listAllEmp.html 第85行用
-//		return "back-end/emp/listAllEmp";
-//	}
 
+		// 抓uid相關資訊
+		Integer getUId = userVO.getuId();
+		List<CourseVO> userCourses = courseSvc.getCourseByUId(getUId);
+		List<CourseVO> relatedCourse = userCourses.stream()
+				.limit(3)
+				.collect(Collectors.toList());
+
+
+		model.addAttribute("courseVO", courseVO);
+		model.addAttribute("userVO", userVO);
+		model.addAttribute("videoUrl", videoUrl);
+		model.addAttribute("videosList", videos);
+		model.addAttribute("coursesList", randomList);
+		model.addAttribute("relatedCourse", relatedCourse);
+		model.addAttribute("unitCount", unitCount);
+		model.addAttribute("coachVO", coachVO);
+		return "front-end/mj/course_details_2";
+	}
+
+	@GetMapping(value = "/own_course_list/{crId}")
+	public String ownCourseList(@PathVariable Integer crId, ModelMap model, HttpSession session) {
+
+
+		return "front-end/mj/student_enrolled_courses";
+	}
 }

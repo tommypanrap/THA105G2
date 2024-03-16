@@ -31,11 +31,11 @@ public class UserService {
 	public void sendVerificationMail(String registerEmail, String uNickname, String verificationCode) {
 		try {
 			String subject = "FitAnyWhere帳號註冊驗證信";
-			LocalDateTime validUntil = LocalDateTime.now().plusMinutes(10);
+			LocalDateTime validUntil = LocalDateTime.now().plusMinutes(15);
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
 			String content = String.format("<html>" + "<body>"
-					+ "<p>親愛的 <strong style=\\\"color: blue\\\">%s</strong> 先生/小姐您好:<br></p>"
+					+ "<p>親愛的 <strong style=\\\"color: blue\\\">%s</strong> 會員您好:<br></p>"
 					+ "<p>感謝您註冊本站\"FitAnyWhere\"的一般會員資格。<br></p>"
 					+ "<p>請在驗證碼輸入欄輸入以下六位數字：<br><strong style=\"color: red; font-size: 20px;\">%s</strong><br></p>"
 					+ "<p>請在下列時間限制前完成驗證：<br><strong style=\"color: red; font-size: 16px;\">%s</strong><br>(驗證碼有效期限)</p>"
@@ -57,11 +57,11 @@ public class UserService {
 
 			String uNickname = userJpaRepository.findOnlyNicknameByuMail(registerEmail);
 			String subject = "FitAnyWhere會員密碼變更驗證信";
-			LocalDateTime validUntil = LocalDateTime.now().plusMinutes(10);
+			LocalDateTime validUntil = LocalDateTime.now().plusMinutes(15);
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
 			String content = String.format("<html>" + "<body>"
-					+ "<p>親愛的 <strong style=\\\"color: blue\\\">%s</strong> 先生/小姐您好:<br></p>"
+					+ "<p>親愛的 <strong style=\\\"color: blue\\\">%s</strong> 會員您好:<br></p>"
 					+ "<p>本站\"FitAnyWhere\"已收到您變更帳戶密碼的申請。</p>" + "<p>若您未提出申請或已不需要變更密碼則可以忽視本信內容。<br></p>"
 					+ "<p>請在驗證碼輸入欄輸入以下六位數字：<br><strong style=\"color: red; font-size: 20px;\">%s</strong><br></p>"
 					+ "<p>請在下列時間限制前完成驗證：<br><strong style=\"color: red; font-size: 16px;\">%s</strong><br>(驗證碼有效期限)</p>"
@@ -89,7 +89,7 @@ public class UserService {
 		// 將驗證碼與電子郵件地址關聯後存入Redis，並設置存活時間為12分鐘
 		// 使用"MailVerificationCode:"作為key的一部分來確保唯一性
 		String key = "MailVerificationCode:" + email;
-		redisTemplate.opsForValue().set(key, verificationCode, 12, TimeUnit.MINUTES);
+		redisTemplate.opsForValue().set(key, verificationCode, 20, TimeUnit.MINUTES);
 
 		return verificationCode;
 	}
@@ -187,6 +187,13 @@ public class UserService {
 	}
 
 // =============================================
+	// 登入-檢查帳號是否可登入
+	@Transactional(readOnly = true)
+	public int userStatusCheck(String uMail) {
+		return userJpaRepository.findOnlyStatusByuMail(uMail);
+	}
+	
+	
 	// 登入-核對登入密碼是否正確
 	@Transactional(readOnly = true)
 	public UserReadDataDTO userLogin(String uMail, String inputPassword) {
@@ -292,6 +299,19 @@ public class UserService {
 			// 更新失敗
 		}
 	}
+	
+	// 負責接收uId和uStatus更新User表格並返回Boolean
+	@Transactional
+	public boolean updateUserStatus(Integer uId, Integer uStatus) {
+		try {
+			userJpaRepository.updateStatusById(uId, uStatus);
+			return true;
+			// 更新成功
+		} catch (Exception e) {
+			return false;
+			// 更新失敗
+		}
+	}
 
 	// 負責接收uId和照片封裝DTO寫入DB並返回Boolean
 	@Transactional
@@ -367,6 +387,20 @@ public class UserService {
 		return userVO;
 	}
 
+ // Tommy
+ 	public List<UserVO> getAll() {
+ 		return userJpaRepository.findAll();
+ 	}
+ 	
+ 	public boolean updateUserProfile(UserVO userVO) {
+ 		try {
+ 	        userJpaRepository.save(userVO);
+ 	        return true; // 保存成功，返回 true
+ 	    } catch (Exception e) {
+ 	        e.printStackTrace();
+ 	        return false; // 保存失败，返回 false
+ 	    }
+ 	}
 	// Andy
 	@Transactional(readOnly = true)
 	public UserVO getUser(Integer uId) {
@@ -381,10 +415,6 @@ public class UserService {
 		return uHeadshot;
 	}
 
-	// Tommy
-	public List<UserVO> getAll() {
-		return userJpaRepository.findAll();
-	}
 
 	// test
 	@Transactional

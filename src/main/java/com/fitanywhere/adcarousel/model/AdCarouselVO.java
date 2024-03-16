@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fitanywhere.ad.model.AdVO;
 import com.fitanywhere.course.model.CourseVO;
 import com.fitanywhere.user.model.UserVO;
@@ -119,12 +120,12 @@ public class AdCarouselVO {
 		this.courseVO = courseVO;
 	}
 
-	@Override
-	public String toString() {
-		return "AdCarouselOrderVO [adcId=" + adcId + ", adcStartDate=" + adcStartDate + ", adcEndDate=" + adcEndDate
-				+ ", adcTotalPrice=" + adcTotalPrice + ", adcUpdatePic=" + Arrays.toString(adcUpdatePic)
-				+ ", adcStatus=" + adcStatus + ", adcOrderEnddate=" + adcOrderEnddate + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "AdCarouselOrderVO [adcId=" + adcId + ", adcStartDate=" + adcStartDate + ", adcEndDate=" + adcEndDate
+//				+ ", adcTotalPrice=" + adcTotalPrice + ", adcUpdatePic=" + Arrays.toString(adcUpdatePic)
+//				+ ", adcStatus=" + adcStatus + ", adcOrderEnddate=" + adcOrderEnddate + "]";
+//	}
 
 	public Integer getAdcId() {
 		return adcId;

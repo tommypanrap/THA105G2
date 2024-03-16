@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Cart - Online Courses & Education Bootstrap5 Template</title>
-    <meta name="robots" content="noindex, follow" />
+    <meta name="robots" content="noindex, follow"/>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -30,8 +30,14 @@
     <link rel="stylesheet" th:href="@{/assets/css/plugins/magnigy-popup.min.css}">
     <link rel="stylesheet" th:href="@{/assets/css/plugins/plyr.css}">
     <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <!-- ●●js  for jquery datatables 用 -->
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    <!-- ●●js  for jquery datatables 用 -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.jqueryui.min.css"/>
+
     <style>
-        .jc-center{
+        .jc-center {
             justify-content: center;
         }
     </style>
@@ -80,10 +86,13 @@
                                     <div class="demo-single">
                                         <div class="inner">
                                             <div class="thumbnail">
-                                                <a href="01-main-demo.html"><img th:src="@{/assets/images/splash/demo/h1.jpg}" alt="Demo Images"></a>
+                                                <a href="01-main-demo.html"><img
+                                                        th:src="@{/assets/images/splash/demo/h1.jpg}" alt="Demo Images"></a>
                                             </div>
                                             <div class="content">
-                                                <h4 class="title"><a href="01-main-demo.html">Home Demo <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
+                                                <h4 class="title"><a href="01-main-demo.html">Home Demo <span
+                                                        class="btn-icon"><i class="feather-arrow-right"></i></span></a>
+                                                </h4>
                                             </div>
                                         </div>
                                     </div>
@@ -95,10 +104,14 @@
                                     <div class="demo-single">
                                         <div class="inner">
                                             <div class="thumbnail">
-                                                <a href="12-marketplace.html"><img th:src="@{/assets/images/splash/demo/h12.jpg}" alt="Demo Images"></a>
+                                                <a href="12-marketplace.html"><img
+                                                        th:src="@{/assets/images/splash/demo/h12.jpg}"
+                                                        alt="Demo Images"></a>
                                             </div>
                                             <div class="content">
-                                                <h4 class="title"><a href="12-marketplace.html">Marketplace <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
+                                                <h4 class="title"><a href="12-marketplace.html">Marketplace <span
+                                                        class="btn-icon"><i class="feather-arrow-right"></i></span></a>
+                                                </h4>
                                             </div>
                                         </div>
                                     </div>
@@ -109,10 +122,13 @@
                                     <div class="demo-single">
                                         <div class="inner">
                                             <div class="thumbnail">
-                                                <a href="04-kindergarten.html"><img th:src="@{/assets/images/splash/demo/h4.jpg}" alt="Demo Images"></a>
+                                                <a href="04-kindergarten.html"><img
+                                                        th:src="@{/assets/images/splash/demo/h4.jpg}" alt="Demo Images"></a>
                                             </div>
                                             <div class="content">
-                                                <h4 class="title"><a href="04-kindergarten.html">kindergarten <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
+                                                <h4 class="title"><a href="04-kindergarten.html">kindergarten <span
+                                                        class="btn-icon"><i class="feather-arrow-right"></i></span></a>
+                                                </h4>
                                             </div>
                                         </div>
                                     </div>
@@ -123,40 +139,14 @@
                                     <div class="demo-single">
                                         <div class="inner">
                                             <div class="thumbnail">
-                                                <a href="13-university-classic.html"><img th:src="@{/assets/images/splash/demo/h13.jpg}" alt="Demo Images"></a>
+                                                <a href="13-university-classic.html"><img
+                                                        th:src="@{/assets/images/splash/demo/h13.jpg}"
+                                                        alt="Demo Images"></a>
                                             </div>
                                             <div class="content">
-                                                <h4 class="title"><a href="13-university-classic.html">University Classic <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Demo  -->
-
-                                <!-- Start Single Demo  -->
-                                <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
-                                    <div class="demo-single">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="14-home-elegant.html"><img th:src="@{/assets/images/splash/demo/h14.jpg}" alt="Demo Images"></a>
-                                            </div>
-                                            <div class="content">
-                                                <h4 class="title"><a href="14-home-elegant.html">Home Elegant <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Demo  -->
-
-                                <!-- Start Single Demo  -->
-                                <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
-                                    <div class="demo-single">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="09-gym-coaching.html"><img th:src="@{/assets/images/splash/demo/h9.jpg}" alt="Demo Images"></a>
-                                            </div>
-                                            <div class="content">
-                                                <h4 class="title"><a href="09-gym-coaching.html">Gym Coaching <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
+                                                <h4 class="title"><a href="13-university-classic.html">University
+                                                    Classic <span class="btn-icon"><i
+                                                            class="feather-arrow-right"></i></span></a></h4>
                                             </div>
                                         </div>
                                     </div>
@@ -168,10 +158,14 @@
                                     <div class="demo-single">
                                         <div class="inner">
                                             <div class="thumbnail">
-                                                <a href="03-online-school.html"><img th:src="@{/assets/images/splash/demo/h3.jpg}" alt="Demo Images"></a>
+                                                <a href="14-home-elegant.html"><img
+                                                        th:src="@{/assets/images/splash/demo/h14.jpg}"
+                                                        alt="Demo Images"></a>
                                             </div>
                                             <div class="content">
-                                                <h4 class="title"><a href="03-online-school.html">Online School <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
+                                                <h4 class="title"><a href="14-home-elegant.html">Home Elegant <span
+                                                        class="btn-icon"><i class="feather-arrow-right"></i></span></a>
+                                                </h4>
                                             </div>
                                         </div>
                                     </div>
@@ -183,10 +177,13 @@
                                     <div class="demo-single">
                                         <div class="inner">
                                             <div class="thumbnail">
-                                                <a href="06-university-status.html"><img th:src="@{/assets/images/splash/demo/h6.jpg}" alt="Demo Images"></a>
+                                                <a href="09-gym-coaching.html"><img
+                                                        th:src="@{/assets/images/splash/demo/h9.jpg}" alt="Demo Images"></a>
                                             </div>
                                             <div class="content">
-                                                <h4 class="title"><a href="06-university-status.html">University Status <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
+                                                <h4 class="title"><a href="09-gym-coaching.html">Gym Coaching <span
+                                                        class="btn-icon"><i class="feather-arrow-right"></i></span></a>
+                                                </h4>
                                             </div>
                                         </div>
                                     </div>
@@ -198,10 +195,13 @@
                                     <div class="demo-single">
                                         <div class="inner">
                                             <div class="thumbnail">
-                                                <a href="15-home-technology.html"><img th:src="@{/assets/images/splash/demo/h15.jpg}" alt="Demo Images"></a>
+                                                <a href="03-online-school.html"><img
+                                                        th:src="@{/assets/images/splash/demo/h3.jpg}" alt="Demo Images"></a>
                                             </div>
                                             <div class="content">
-                                                <h4 class="title"><a href="15-home-technology.html">Home Technology <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
+                                                <h4 class="title"><a href="03-online-school.html">Online School <span
+                                                        class="btn-icon"><i class="feather-arrow-right"></i></span></a>
+                                                </h4>
                                             </div>
                                         </div>
                                     </div>
@@ -213,10 +213,13 @@
                                     <div class="demo-single">
                                         <div class="inner">
                                             <div class="thumbnail">
-                                                <a href="07-instructor-portfolio.html"><img th:src="@{/assets/images/splash/demo/h7.jpg}" alt="Demo Images"></a>
+                                                <a href="06-university-status.html"><img
+                                                        th:src="@{/assets/images/splash/demo/h6.jpg}" alt="Demo Images"></a>
                                             </div>
                                             <div class="content">
-                                                <h4 class="title"><a href="07-instructor-portfolio.html">Instructor Portfolio <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
+                                                <h4 class="title"><a href="06-university-status.html">University Status
+                                                    <span class="btn-icon"><i
+                                                            class="feather-arrow-right"></i></span></a></h4>
                                             </div>
                                         </div>
                                     </div>
@@ -228,10 +231,14 @@
                                     <div class="demo-single">
                                         <div class="inner">
                                             <div class="thumbnail">
-                                                <a href="08-language-academy.html"><img th:src="@{/assets/images/splash/demo/h8.jpg}" alt="Demo Images"></a>
+                                                <a href="15-home-technology.html"><img
+                                                        th:src="@{/assets/images/splash/demo/h15.jpg}"
+                                                        alt="Demo Images"></a>
                                             </div>
                                             <div class="content">
-                                                <h4 class="title"><a href="08-language-academy.html">Language Academy <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
+                                                <h4 class="title"><a href="15-home-technology.html">Home Technology
+                                                    <span class="btn-icon"><i
+                                                            class="feather-arrow-right"></i></span></a></h4>
                                             </div>
                                         </div>
                                     </div>
@@ -243,10 +250,13 @@
                                     <div class="demo-single">
                                         <div class="inner">
                                             <div class="thumbnail">
-                                                <a href="11-single-course.html"><img th:src="@{/assets/images/splash/demo/h11.jpg}" alt="Demo Images"></a>
+                                                <a href="07-instructor-portfolio.html"><img
+                                                        th:src="@{/assets/images/splash/demo/h7.jpg}" alt="Demo Images"></a>
                                             </div>
                                             <div class="content">
-                                                <h4 class="title"><a href="11-single-course.html">Single Course <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
+                                                <h4 class="title"><a href="07-instructor-portfolio.html">Instructor
+                                                    Portfolio <span class="btn-icon"><i class="feather-arrow-right"></i></span></a>
+                                                </h4>
                                             </div>
                                         </div>
                                     </div>
@@ -258,10 +268,13 @@
                                     <div class="demo-single">
                                         <div class="inner">
                                             <div class="thumbnail">
-                                                <a href="10-online-course.html"><img th:src="@{/assets/images/splash/demo/h10.jpg}" alt="Demo Images"></a>
+                                                <a href="08-language-academy.html"><img
+                                                        th:src="@{/assets/images/splash/demo/h8.jpg}" alt="Demo Images"></a>
                                             </div>
                                             <div class="content">
-                                                <h4 class="title"><a href="10-online-course.html">Online Course <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
+                                                <h4 class="title"><a href="08-language-academy.html">Language Academy
+                                                    <span class="btn-icon"><i
+                                                            class="feather-arrow-right"></i></span></a></h4>
                                             </div>
                                         </div>
                                     </div>
@@ -273,10 +286,14 @@
                                     <div class="demo-single">
                                         <div class="inner">
                                             <div class="thumbnail">
-                                                <a href="05-classic-lms.html"><img th:src="@{/assets/images/splash/demo/h5.jpg}" alt="Demo Images"></a>
+                                                <a href="11-single-course.html"><img
+                                                        th:src="@{/assets/images/splash/demo/h11.jpg}"
+                                                        alt="Demo Images"></a>
                                             </div>
                                             <div class="content">
-                                                <h4 class="title"><a href="05-classic-lms.html">Classic Lms <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
+                                                <h4 class="title"><a href="11-single-course.html">Single Course <span
+                                                        class="btn-icon"><i class="feather-arrow-right"></i></span></a>
+                                                </h4>
                                             </div>
                                         </div>
                                     </div>
@@ -288,10 +305,50 @@
                                     <div class="demo-single">
                                         <div class="inner">
                                             <div class="thumbnail">
-                                                <a href="02-course-school.html"><img th:src="@{/assets/images/splash/demo/h2.jpg}" alt="Demo Images"></a>
+                                                <a href="10-online-course.html"><img
+                                                        th:src="@{/assets/images/splash/demo/h10.jpg}"
+                                                        alt="Demo Images"></a>
                                             </div>
                                             <div class="content">
-                                                <h4 class="title"><a href="02-course-school.html">Course School <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
+                                                <h4 class="title"><a href="10-online-course.html">Online Course <span
+                                                        class="btn-icon"><i class="feather-arrow-right"></i></span></a>
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Single Demo  -->
+
+                                <!-- Start Single Demo  -->
+                                <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
+                                    <div class="demo-single">
+                                        <div class="inner">
+                                            <div class="thumbnail">
+                                                <a href="05-classic-lms.html"><img
+                                                        th:src="@{/assets/images/splash/demo/h5.jpg}" alt="Demo Images"></a>
+                                            </div>
+                                            <div class="content">
+                                                <h4 class="title"><a href="05-classic-lms.html">Classic Lms <span
+                                                        class="btn-icon"><i class="feather-arrow-right"></i></span></a>
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Single Demo  -->
+
+                                <!-- Start Single Demo  -->
+                                <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
+                                    <div class="demo-single">
+                                        <div class="inner">
+                                            <div class="thumbnail">
+                                                <a href="02-course-school.html"><img
+                                                        th:src="@{/assets/images/splash/demo/h2.jpg}" alt="Demo Images"></a>
+                                            </div>
+                                            <div class="content">
+                                                <h4 class="title"><a href="02-course-school.html">Course School <span
+                                                        class="btn-icon"><i class="feather-arrow-right"></i></span></a>
+                                                </h4>
                                             </div>
                                         </div>
                                     </div>
@@ -303,10 +360,13 @@
                                     <div class="demo-single">
                                         <div class="inner">
                                             <div class="thumbnail">
-                                                <a href="#"><img th:src="@{/assets/images/splash/demo/coming-soon-1.png}" alt="Demo Images"></a>
+                                                <a href="#"><img
+                                                        th:src="@{/assets/images/splash/demo/coming-soon-1.png}"
+                                                        alt="Demo Images"></a>
                                             </div>
                                             <div class="content">
-                                                <h4 class="title"><a href="#">Coming Soon <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
+                                                <h4 class="title"><a href="#">Coming Soon <span class="btn-icon"><i
+                                                        class="feather-arrow-right"></i></span></a></h4>
                                             </div>
                                         </div>
                                     </div>
@@ -318,10 +378,13 @@
                                     <div class="demo-single">
                                         <div class="inner">
                                             <div class="thumbnail">
-                                                <a href="#"><img th:src="@{/assets/images/splash/demo/coming-soon-2.png}" alt="Demo Images"></a>
+                                                <a href="#"><img
+                                                        th:src="@{/assets/images/splash/demo/coming-soon-2.png}"
+                                                        alt="Demo Images"></a>
                                             </div>
                                             <div class="content">
-                                                <h4 class="title"><a href="#">Coming Soon 2 <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
+                                                <h4 class="title"><a href="#">Coming Soon 2 <span class="btn-icon"><i
+                                                        class="feather-arrow-right"></i></span></a></h4>
                                             </div>
                                         </div>
                                     </div>
@@ -333,10 +396,13 @@
                                     <div class="demo-single">
                                         <div class="inner">
                                             <div class="thumbnail">
-                                                <a href="#"><img th:src="@{/assets/images/splash/demo/coming-soon-3.png}" alt="Demo Images"></a>
+                                                <a href="#"><img
+                                                        th:src="@{/assets/images/splash/demo/coming-soon-3.png}"
+                                                        alt="Demo Images"></a>
                                             </div>
                                             <div class="content">
-                                                <h4 class="title"><a href="#">Coming Soon 3 <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
+                                                <h4 class="title"><a href="#">Coming Soon 3 <span class="btn-icon"><i
+                                                        class="feather-arrow-right"></i></span></a></h4>
                                             </div>
                                         </div>
                                     </div>
@@ -345,9 +411,13 @@
                             </div>
 
                             <div class="load-demo-btn text-center">
-                                <a class="rbt-btn-link color-white" href="#">Scroll to view more <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z" />
-                                </svg></a>
+                                <a class="rbt-btn-link color-white" href="#">Scroll to view more
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-arrow-down-up" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                              d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"/>
+                                    </svg>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -364,7 +434,8 @@
                                     <div class="mega-top-banner">
                                         <div class="content">
                                             <h4 class="title">Developer hub</h4>
-                                            <p class="description">Start building fast, with code samples, key resources and more.</p>
+                                            <p class="description">Start building fast, with code samples, key resources
+                                                and more.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -390,8 +461,10 @@
                                         <li><a href="course-with-sidebar.html">Course With Sidebar</a></li>
                                         <li><a href="course-details.html">Course Details</a></li>
                                         <li><a href="course-details-2.html">Course Details Two</a></li>
-                                        <li><a href="lesson.html">Course Lesson <span class="rbt-badge-card">New</span></a></li>
-                                        <li><a href="create-course.html">Create Course <span class="rbt-badge-card">New</span></a></li>
+                                        <li><a href="lesson.html">Course Lesson <span class="rbt-badge-card">New</span></a>
+                                        </li>
+                                        <li><a href="create-course.html">Create Course <span
+                                                class="rbt-badge-card">New</span></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -439,7 +512,7 @@
                                 <li><a href="student-wishlist.html">Wishlist</a></li>
                                 <li><a href="student-reviews.html">Reviews</a></li>
                                 <li><a href="student-my-quiz-attempts.html">My Quiz Attempts</a></li>
-                                <li><a  th:href="@{/order/order_history}">Order History</a></li>
+                                <li><a th:href="@{/order/order_history}">Order History</a></li>
                                 <li><a href="student-settings.html">Settings</a></li>
                             </ul>
                         </li>
@@ -483,7 +556,8 @@
                                 <div class="col-lg-12 col-xl-3 col-xxl-3 single-mega-item">
                                     <h3 class="rbt-short-title">Shop Pages</h3>
                                     <ul class="mega-menu-item">
-                                        <li><a href="shop.html">Shop <span class="rbt-badge-card">Sale Anything</span></a></li>
+                                        <li><a href="shop.html">Shop <span
+                                                class="rbt-badge-card">Sale Anything</span></a></li>
                                         <li><a href="single-product.html">Single Product</a></li>
                                         <li><a href="cart.html">Cart Page</a></li>
                                         <li><a href="checkout.html">Checkout</a></li>
@@ -498,7 +572,8 @@
                                         <!-- Start Single Category  -->
                                         <div class="nav-category-item">
                                             <div class="thumbnail">
-                                                <div class="image"><img th:src="@{/assets/images/course/category-2.png}" alt="Course images"></div>
+                                                <div class="image"><img th:src="@{/assets/images/course/category-2.png}"
+                                                                        alt="Course images"></div>
                                                 <a href="course-filter-one-toggle.html">
                                                     <span>Online Education</span>
                                                     <i class="feather-chevron-right"></i>
@@ -510,7 +585,8 @@
                                         <!-- Start Single Category  -->
                                         <div class="nav-category-item">
                                             <div class="thumbnail">
-                                                <div class="image"><img th:src="@{/assets/images/course/category-1.png}" alt="Course images"></div>
+                                                <div class="image"><img th:src="@{/assets/images/course/category-1.png}"
+                                                                        alt="Course images"></div>
                                                 <a href="course-filter-one-toggle.html">
                                                     <span>Language Club</span>
                                                     <i class="feather-chevron-right"></i>
@@ -522,7 +598,8 @@
                                         <!-- Start Single Category  -->
                                         <div class="nav-category-item">
                                             <div class="thumbnail">
-                                                <div class="image"><img th:src="@{/assets/images/course/category-4.png}" alt="Course images"></div>
+                                                <div class="image"><img th:src="@{/assets/images/course/category-4.png}"
+                                                                        alt="Course images"></div>
                                                 <a href="course-filter-one-toggle.html">
                                                     <span>University Status</span>
                                                     <i class="feather-chevron-right"></i>
@@ -545,7 +622,8 @@
                                         <!-- Start Single Category  -->
                                         <div class="nav-category-item">
                                             <div class="thumbnail">
-                                                <div class="image"><img th:src="@{/assets/images/course/category-9.png}" alt="Course images"></div>
+                                                <div class="image"><img th:src="@{/assets/images/course/category-9.png}"
+                                                                        alt="Course images"></div>
                                                 <a href="course-filter-one-toggle.html">
                                                     <span>Academy</span>
                                                     <i class="feather-chevron-right"></i>
@@ -570,7 +648,8 @@
                             <div class="row row--15 single-dropdown-menu-presentation">
                                 <div class="col-lg-4 col-xxl-4 single-mega-item">
                                     <ul class="mega-menu-item">
-                                        <li><a href="style-guide.html">Style Guide <span class="rbt-badge-card">Hot</span></a></li>
+                                        <li><a href="style-guide.html">Style Guide <span
+                                                class="rbt-badge-card">Hot</span></a></li>
                                         <li><a href="accordion.html">Accordion</a></li>
                                         <li><a href="advancetab.html">Advance Tab</a></li>
                                         <li><a href="brand.html">Brand</a></li>
@@ -612,7 +691,8 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="btn-wrapper">
-                                        <a class="rbt-btn btn-gradient hover-icon-reverse square btn-xl w-100 text-center mt--30 hover-transform-none" href="#">
+                                        <a class="rbt-btn btn-gradient hover-icon-reverse square btn-xl w-100 text-center mt--30 hover-transform-none"
+                                           href="#">
                                                 <span class="icon-reverse-wrapper">
                                         <span class="btn-text">Visit Histudy Template</span>
                                                 <span class="btn-icon"><i class="feather-arrow-right"></i></span>
@@ -652,16 +732,21 @@
                                         <li><a href="post-format-quote.html">Post Format Quote</a></li>
                                         <li><a href="post-format-audio.html">Post Format Audio</a></li>
                                         <li><a href="post-format-video.html">Post Format Video</a></li>
-                                        <li><a href="#">Media Under Title <span class="rbt-badge-card">Coming</span></a></li>
-                                        <li><a href="#">Sticky Sidebar <span class="rbt-badge-card">Coming</span></a></li>
+                                        <li><a href="#">Media Under Title <span class="rbt-badge-card">Coming</span></a>
+                                        </li>
+                                        <li><a href="#">Sticky Sidebar <span class="rbt-badge-card">Coming</span></a>
+                                        </li>
                                         <li><a href="#">Auto Masonry <span class="rbt-badge-card">Coming</span></a></li>
-                                        <li><a href="#">Meta Overlaid <span class="rbt-badge-card">Coming</span></a></li>
+                                        <li><a href="#">Meta Overlaid <span class="rbt-badge-card">Coming</span></a>
+                                        </li>
                                     </ul>
                                 </div>
 
                                 <div class="col-lg-12 col-xl-4 col-xxl-4 single-mega-item">
                                     <div class="rbt-ads-wrapper">
-                                        <a class="d-block" href="#"><img th:src="@{/assets/images/service/mobile-cat.jpg}" alt="Education Images"></a>
+                                        <a class="d-block" href="#"><img
+                                                th:src="@{/assets/images/service/mobile-cat.jpg}"
+                                                alt="Education Images"></a>
                                     </div>
                                 </div>
                             </div>
@@ -674,7 +759,8 @@
 
         <div class="mobile-menu-bottom">
             <div class="rbt-btn-wrapper mb--20">
-                <a class="rbt-btn btn-border-gradient radius-round btn-sm hover-transform-none w-100 justify-content-center text-center" href="#">
+                <a class="rbt-btn btn-border-gradient radius-round btn-sm hover-transform-none w-100 justify-content-center text-center"
+                   href="#">
                     <span>Enroll Now</span>
                 </a>
             </div>
@@ -716,13 +802,13 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="breadcrumb-inner text-center">
-                    <h2 class="title">購物車</h2>
+                    <h2 class="title">購買明細</h2>
                     <ul class="page-list">
                         <li class="rbt-breadcrumb-item"><a href="index.html">主頁</a></li>
                         <li>
                             <div class="icon-right"><i class="feather-chevron-right"></i></div>
                         </li>
-                        <li class="rbt-breadcrumb-item active">購物車</li>
+                        <li class="rbt-breadcrumb-item active">購買明細</li>
                     </ul>
                 </div>
             </div>
@@ -745,22 +831,49 @@
                                     <th class="pro-thumbnail">圖片</th>
                                     <th class="pro-title">課程名稱</th>
                                     <th class="pro-price">價格</th>
-                                    <th class="pro-subtotal">總計</th>
-                                    <th class="pro-remove">刪除</th>
+                                    <!--                                    <th class="pro-subtotal">總計</th>-->
+                                    <!--                                    <th class="pro-remove">刪除</th>-->
                                 </tr>
                                 </thead>
                                 <tbody>
 
+                                <th:block th:each="cartItem: ${cartItemListData}">
+
+                                    <tr class="removeItem_parent">
+                                        <td class="pro-thumbnail">
+                                            <a href="#">
+                                                <img th:if="${cartItem.base64CrCover != null}"
+                                                     th:src="'data:image/jpeg;base64,' + ${cartItem.base64CrCover}"
+                                                     alt="Card image">
+
+                                                <img th:unless="${cartItem.base64CrCover != null}"
+                                                     th:src="@{/assets/images/client/avatar-02.png}"
+                                                     alt="Card image">
+                                            </a>
+                                        </td>
 
 
-                                <tr>
-                                    <td class="pro-thumbnail"><a href="#"><img th:src="@{/assets/images/product/1.jpg}" alt="Product"></a></td>
-                                    <td class="pro-title"><a href="#">Miracle Morning</a></td>
-                                    <td class="pro-price"><span>NT$48.00</span></td>
-                                    <td class="pro-subtotal"><span>NT$100.00</span></td>
-                                    <td class="pro-remove"><a href="#"><i class="feather-x"></i></a>
-                                    </td>
-                                </tr>
+                                        <td class="pro-title">
+                                            <a href="#" th:text="${cartItem.crTitle}" th:data-cr-id="${cartItem.crId}"
+                                               class="courseId">
+
+                                            </a>
+                                        </td>
+                                        <td class="pro-price removeItem_price">
+                                            <span th:text="'NT$ '+${cartItem.crPrice}"></span>
+                                        </td>
+
+                                    </tr>
+                                </th:block>
+
+                                <!--                                <tr>-->
+                                <!--                                    <td class="pro-thumbnail"><a href="#"><img th:src="@{/assets/images/product/1.jpg}"-->
+                                <!--                                                                               alt="Product"></a></td>-->
+                                <!--                                    <td class="pro-title"><a href="#">Miracle Morning</a></td>-->
+                                <!--                                    <td class="pro-price"><span>NT$48.00</span></td>-->
+                                <!--                                    <td class="pro-remove"><a href="#"><i class="feather-x"></i></a>-->
+                                <!--                                    </td>-->
+                                <!--                                </tr>-->
 
                                 </tbody>
                             </table>
@@ -769,6 +882,7 @@
 
                     <div class="row g-5 jc-center">
 
+                        <!--  訂單摘要  -->
                         <!-- Cart Summary -->
                         <div class="col-lg-5 offset-lg-1 col-12">
                             <div class="cart-summary">
@@ -776,19 +890,20 @@
                                     <div class="section-title text-start">
                                         <h4 class="title mb--30">訂單摘要</h4>
                                     </div>
-                                    <p>2件小計 <span>NT$1250.00</span></p>
-                                    <h2> <span>NT$1250.00</span></h2>
+                                    <p>小計 <span th:text="'NT$ '+${TotalPrice}" id="cartTotal"></span></p>
+                                    <h2><span th:text="'NT$ '+${TotalPrice}" id="cartTotal2"></span></h2>
                                 </div>
 
                                 <div class="cart-submit-btn-group">
                                     <div class="single-button w-50">
-                                        <button class="rbt-btn btn-gradient rbt-switch-btn rbt-switch-y w-100">
-                                            <span data-text="Checkout">結帳</span>
+                                        <button class="rbt-btn btn-gradient rbt-switch-btn rbt-switch-y w-100 checkOut">
+                                            <span class="checkOut" data-text="結帳">結帳</span>
                                         </button>
                                     </div>
                                     <div class="single-button w-50">
-                                        <button class="rbt-btn rbt-switch-btn rbt-switch-y w-100 btn-border">
-                                            <span data-text="Update Cart">再去逛逛</span>
+                                        <button class="rbt-btn rbt-switch-btn rbt-switch-y w-100 btn-border"
+                                                id="backToCourses">
+                                            <span data-text="再去逛逛">再去逛逛</span>
                                         </button>
                                     </div>
 
@@ -924,7 +1039,8 @@
 
                         <form class="newsletter-form mt--20" action="#">
                             <h6 class="w-600">Newsletter</h6>
-                            <p class="description">2000+ Our students are subscribe Around the World.<br> Don’t be shy introduce yourself!</p>
+                            <p class="description">2000+ Our students are subscribe Around the World.<br> Don’t be shy
+                                introduce yourself!</p>
 
                             <div class="form-group right-icon icon-email mb--20">
                                 <label for="email">Enter Your Email Here</label>
@@ -952,7 +1068,8 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12">
-                    <p class="rbt-link-hover text-center text-lg-start">Copyright © 2023 <a href="https://themeforest.net/user/rbt-themes">Rainbow-Themes.</a> All Rights Reserved</p>
+                    <p class="rbt-link-hover text-center text-lg-start">Copyright © 2023 <a
+                            href="https://themeforest.net/user/rbt-themes">Rainbow-Themes.</a> All Rights Reserved</p>
                 </div>
                 <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12">
                     <ul class="copyright-link rbt-link-hover justify-content-center justify-content-lg-end mt_sm--10 mt_md--10">
@@ -970,7 +1087,7 @@
 <!-- End Footer aera -->
 <div class="rbt-progress-parent">
     <svg class="rbt-back-circle svg-inner" width="100%" height="100%" viewBox="-1 -1 102 102">
-        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
     </svg>
 </div>
 
@@ -1006,6 +1123,77 @@
 <script th:src="@{/assets/js/vendor/plyr.js}"></script>
 <!-- Main JS -->
 <script th:src="@{/assets/js/main.js}"></script>
+<script>
+    $(document).ready(function () {
+        // 繼續逛街
+        $('#backToCourses').click(function () {
+            $.get('/course/courses', function (data, status) {
+                console.log("GET請求發送")
+                if (status === "success") {
+                    window.location.href = '/course/courses';
+                }
+            });
+        });
+        // 結帳
+
+
+    });
+
+    //結帳
+    $(document).on('click', '.checkOut', function () {
+        let cartRows = $('.courseId');
+        const cartData = {
+            odStatus: 3,
+            details: []
+        };
+        cartRows.each(function (index, element) {
+            let crId = $(element).data('cr-id');
+            console.log(crId)
+
+            cartData.details.push({
+                crId: crId,
+                cdGift: 0,
+                cdGiftStatus: 0
+            });
+        });
+        fetch('/order/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(cartData)
+        }).then(res => {
+            if (!res.ok) {
+                throw new Error(`HTTP error! Status: ${res.status}`);
+            }
+
+            return res.text();
+
+        }).then(data => {
+            if (data === 'success') {
+                fetch('/cart/clear', {
+                    method: 'DELETE'
+                }).then(res => {
+                    if (!res.ok) {
+                        throw new Error(`HTTP error! Status: ${res.status}`);
+                    }
+                    console.log('clear success');
+                })
+                window.location.href = '/order/order_history'
+
+
+            }
+
+        }).catch(err => {
+            console.error(err);
+        })
+
+
+    });
+
+
+</script>
+
 </body>
 
 </html>

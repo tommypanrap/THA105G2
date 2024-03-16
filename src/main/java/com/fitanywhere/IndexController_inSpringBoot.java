@@ -39,7 +39,7 @@ public class IndexController_inSpringBoot {
         
     }
 	
-//	è«‹æ±‚é€²ä¾†åˆ·æ–°å»£å‘Šåˆ¤æ–·æ˜¯å¦ç¬¦åˆè¦æ±‚
+//	½Ğ¨D¶i¨Ó¨ê·s¼s§i§PÂ_¬O§_²Å¦X­n¨D
 	@ModelAttribute("ads")
 	public List<AdCarouselVO> populateAds() {
 		return AdCarSvc.getBaseHomePageAd();

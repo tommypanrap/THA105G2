@@ -47,17 +47,16 @@ public class SocialPostService {
 	
 	public SocialPostVO getOneSocialPost(Integer spid) {
 		Optional<SocialPostVO> optional = repository.findById(spid);
-//		return optional.get();
+
 		return optional.orElse(null);  // public T orElse(T other) : 如果值存在就回傳其值，否則回傳other的值
 	}
+	
 	
 	public List<SocialPostVO> getAll() {
 		return repository.findAll();
 	}
 	
-//	public List<EmpVO> getAll(Map<String, String[]> map) {
-//		return HibernateUtil_CompositeQuery_Emp3.getAllC(map,sessionFactory.openSession());
-//	}
+
 	
 	
 }

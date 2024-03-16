@@ -8,6 +8,8 @@ import org.springframework.validation.FieldError;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -43,21 +45,14 @@ public class AnnController {
 	 * This method will be called on addEmp.html form submission, handling POST request It also validates the user input
 	 */
 	@PostMapping("insert")
-	public String insert(@Valid AnnVO annVO, BindingResult result, ModelMap model) throws IOException {
+	public ResponseEntity<String> insert(@Valid AnnVO annVO, BindingResult result, ModelMap model) throws IOException {
 		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
 		// 去除BindingResult中upFiles欄位的FieldError紀錄 --> 見第172行
-		result = removeFieldError(annVO, result, "anId");
+//		result = removeFieldError(annVO, result, "anId");
 
-//		if (parts[0].isEmpty()) { // 使用者未選擇要上傳的圖片時
-//			model.addAttribute("errorMessage", "員工照片: 請上傳照片");
-//		} else {
-//			for (MultipartFile multipartFile : parts) {
-//				byte[] buf = multipartFile.getBytes();
-//				empVO.setUpFiles(buf);
-//			}
-//		}|| parts[0].isEmpty()
 		if (result.hasErrors() ) {
-			return "front-end/course/course_announce";
+			model.addAttribute("errors", result.getAllErrors());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("錯誤訊息");
 		}
 		/*************************** 2.開始新增資料 *****************************************/
 		// EmpService empSvc = new EmpService();
@@ -67,11 +62,12 @@ public class AnnController {
 		annVO.setAnDate(currentTimestamp);
 		annVO.setAnEditDate(currentTimestamp);
 		annSvc.addAnn(annVO);
+		String response = new String();
 		/*************************** 3.新增完成,準備轉交(Send the Success view) **************/
 		List<AnnVO> list = annSvc.getAll();
 		model.addAttribute("annListData", list);
 		model.addAttribute("success", "- (新增成功)");
-		return "front-end/course/course_announcement"; // 新增成功後重導至IndexController_inSpringBoot.java的第50行@GetMapping("/emp/listAllEmp")
+		return ResponseEntity.ok(response); // 新增成功後重導至IndexController_inSpringBoot.java的第50行@GetMapping("/emp/listAllEmp")
 	}
 	
 	

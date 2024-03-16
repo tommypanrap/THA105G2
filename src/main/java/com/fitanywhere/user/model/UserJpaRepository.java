@@ -1,15 +1,17 @@
 package com.fitanywhere.user.model;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
+import com.fitanywhere.userlist.model.UserlistAllDataDTO;
 import com.fitanywhere.course.model.CourseVO;
-
 import org.springframework.data.jpa.repository.Modifying;
 
 //處理登入時依據會員信箱查詢所需資料
@@ -52,6 +54,18 @@ public interface UserJpaRepository extends JpaRepository<UserVO, Integer> {
 			+ "u.uGender, u.uBirth, u.uStatus, u.uRegisterdate) " + "FROM UserVO u WHERE u.uId = :uId")
 	UserReadDataDTO findUserDataDTOById(Integer uId);
 
+	// 排除uHeadshot，並將結果映射到UserlistAllDataDTO (並設定降序查詢)
+	@Query("SELECT new com.fitanywhere.userlist.model.UserlistAllDataDTO(u.uId, u.uNickname, u.uMail, u.uStatus, 0) FROM UserVO u ORDER BY u.uId DESC")
+	Page<UserlistAllDataDTO> findAllUsersWithoutHeadshot(Pageable pageable);
+
+	// 排除uHeadshot並取回指定的uStatus，並將結果映射到UserlistAllDataDTO (並設定降序查詢)
+	@Query("SELECT new com.fitanywhere.userlist.model.UserlistAllDataDTO(u.uId, u.uNickname, u.uMail, u.uStatus, 0) FROM UserVO u WHERE u.uStatus IN :status ORDER BY u.uId DESC")
+	Page<UserlistAllDataDTO> findAllUsersByStatus(@Param("status") List<Integer> status, Pageable pageable);
+
+	// 排除uHeadshot並取回指定的uMail，並將結果映射到UserlistAllDataDTO
+	@Query("SELECT new com.fitanywhere.userlist.model.UserlistAllDataDTO(u.uId, u.uNickname, u.uMail, u.uStatus, 0) FROM UserVO u WHERE u.uMail = :uMail")
+	Optional<UserlistAllDataDTO> findSingleUserDTOByMail(String uMail);
+
 // =========================
 // 精準讀取某特定欄位	
 
@@ -66,6 +80,10 @@ public interface UserJpaRepository extends JpaRepository<UserVO, Integer> {
 	// 依照uMail取得uNickname
 	@Query("SELECT u.uNickname FROM UserVO u WHERE u.uMail = :uMail")
 	String findOnlyNicknameByuMail(String uMail);
+
+	// 依照uMail取得uStatus
+	@Query("SELECT u.uStatus FROM UserVO u WHERE u.uMail = :uMail")
+	Integer findOnlyStatusByuMail(String uMail);
 
 	// 依照uId取得moodId
 	@Query("SELECT u.moodVO.moodId FROM UserVO u WHERE u.uId = :uId")
@@ -90,15 +108,21 @@ public interface UserJpaRepository extends JpaRepository<UserVO, Integer> {
 	@Query("UPDATE UserVO u SET u.moodVO.id = :moodId WHERE u.uId = :uId")
 	int updateMoodById(Integer uId, Integer moodId);
 
+	// 依據uId更新uStatus
+	@Transactional
+	@Modifying
+	@Query("UPDATE UserVO u SET u.uStatus = :uStatus WHERE u.uId = :uId")
+	int updateStatusById(Integer uId, Integer uStatus);
+
 // =========================
 	// andy 單取出user的大頭照
 	@Query("SELECT u.uHeadshot FROM UserVO u WHERE u.uId = :uId")
 	byte[] getUserHeadshotByUserId(Integer uId);
-	
+
 // =========================
 	// Tommy 比對 nickname 取出包含搜尋字串的 UserVO 不包含自己
-	@Query("FROM UserVO u WHERE u.uNickname LIKE %:searchValue% AND u.uId != :uId " )
-	List<UserVO> findByuNicknameNoMyself(@Param("searchValue") String searchValue,@Param("uId") Integer uId);
+	@Query("FROM UserVO u WHERE u.uNickname LIKE %:searchValue% AND u.uId != :uId ")
+	List<UserVO> findByuNicknameNoMyself(@Param("searchValue") String searchValue, @Param("uId") Integer uId);
 	
 //	xiao xin
 	@Query(value = "SELECT * FROM user WHERE u_id = ?1", nativeQuery = true)

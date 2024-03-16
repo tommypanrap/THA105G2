@@ -822,15 +822,17 @@
 	</div>
 
 
-	<!-- 廣告輪播 課程 -->
-	<!-- 要把jquery的物件可能要塞回來 -->
-	<!-- 縮小到一定尺寸 RWD就壞掉了 -->
-	<div
-		class="rbt-splash-testimonial-area bg-color-white overflow-hidden position-relative">
-		<div class=" pt--90">
-			<div class="scroll-animation-wrapper no-overlay mt--50">
-				<div class="scroll-animation scroll-right-left">
-
+近期熱門課程 -->
+        <!-- 近期熱門課程 標題-->
+        <div class="wrapper">
+            <div class="post">
+                <h1>近期熱門課程
+                </h1>
+                <p>每週真誠推薦</p>
+            </div>
+            <a class="coach_index" th:href="@{course/coach_dashboard}" style="text-align:center;justify-content: center" >教練主頁入口</a>
+            <a class="test_index" th:href="@{course/test}" style="text-align:center;justify-content: center" >測試</a>
+        </div>
 					<div th:each="ad : ${ads}"
 						class="single-column-20 bg-theme-gradient-odd"
 						style="background-size: contain;">
@@ -1149,12 +1151,7 @@
 			</div>
 		</div>
 
-		<!--             <div class="col-lg-4 col-md-6 col-12" data-sal-delay="200" data-sal="slide-up" data-sal-duration="800"> -->
-		<!--                 <div class="rbt-default-card style-three rbt-hover"> -->
-		<!--                     <div class="inner"> -->
-		<!--                         <div class="content pt--0 pb--10"> -->
-		<!--                             <h2 class="title"><a href="single-product.html">帶你輕鬆穿上馬甲線</a></h2> -->
-
+<footer th:replace="front-end/footer.html"></footer>
 		<!--                             <span class="team-form"> -->
 		<!--                                 <span class="location">By 莫舒涵</span> -->
 		<!--                             </span> -->

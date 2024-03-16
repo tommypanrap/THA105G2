@@ -57,6 +57,14 @@ public class CourseDetailServiceImpl {
         return repository.findVideosByCourseId(crId);
     }
 
+    public Integer getunitCount(Integer crId){
+        try {
+            return repository.getunitCount(crId);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 
 }

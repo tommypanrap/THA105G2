@@ -418,6 +418,8 @@ public class UserRestController {
 			return ResponseEntity.badRequest().body("找不到指定用戶的心情");
 		}
 	}
+	
+	 
 
 	@PostMapping("/user_update_password_test")
 	public ResponseEntity<?> updateUserPassword(@RequestParam Integer uId, @RequestParam String oldPassword,

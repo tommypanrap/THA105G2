@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>廣告日期資料修改</title>
+<head th:insert="~{/back-end/backend_included_head}"></head>
+<style type="text/css">
+button {
+	padding: 5px;
+}
+
+form {
+	display: table;
+}
+
+form div {
+	display: table-row;
+}
+
+label, input, span, select {
+	display: table-cell;
+	margin: 5px;
+	text-align: left;
+}
+
+input[type=text], input[type=password], select, textarea {
+	width: 200px;
+	margin: 5px;
+}
+
+form div div {
+	display: table-cell;
+}
+
+.center {
+	margin-left: auto;
+	margin-right: auto;
+}
+</style>
+</head>
+
+<body>
+	<!-- header -->
+	<div class="header_wrapper">
+		<header>
+			<p class="f-b-title">FitAnyWhere後台管理系統</p>
+			<div class="manager">
+				<img src="./images/member.png" alt="">
+				<p>最高管理員</p>
+			</div>
+		</header>
+	</div>
+	<div class="wrapper">
+		<!-- sidebar -->
+		<div th:replace="~{/back-end/backend_included_sidebar}"></div>
+
+		<div class="content" style="width: 100%;">
+			<nav
+				class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
+				<div align="center">
+					<h2>廣告輪播資料修改</h2>
+			</nav>
+
+			<div align="center">
+				<br> <br>
+
+				<h3>
+					<b>所有欄位皆為必填欄位</b>
+				</h3>
+				<form th:action="@{updateadcarousel}" method="post"
+					th:object="${adcarVO}" enctype="multipart/form-data">
+<!-- 					<div> -->
+<!-- 						<label>廣告輪播ID:</label>  -->
+<!-- 					</div> -->
+						<input type="hidden" th:field="*{adcId}"/><br />
+
+					<div>
+						<label>廣告開始日期:</label> <input type="date"
+							th:field="*{adcStartDate}"
+							onclick="hideContent('adcStartDate.errors');" /><br /> <span
+							th:if="${#fields.hasErrors('adcStartDate')}"
+							th:errors="*{adcStartDate}" class="error"
+							id="adcStartDate.errors"></span>
+					</div>
+
+					<div>
+						<label>廣告結束日期:</label> <input type="date" th:field="*{adcEndDate}"
+							onclick="hideContent('adcEndDate.errors');" /><br /> <span
+							th:if="${#fields.hasErrors('adcEndDate')}"
+							th:errors="*{adcEndDate}" class="error" id="adcEndDate.errors"></span>
+					</div>
+
+
+<!-- 					<div> -->
+<!-- 						<label>adId:</label>  -->
+<!-- 					</div> -->
+						<input type="hidden" th:field="*{adVO.adId}"/><br />
+
+					<div>
+						<label>教練名稱:</label> <input type="text" th:value="*{userVO.uName}"
+							style="border: 0px; font-weight: bold;" readonly /><br />
+					</div>
+					<input type="hidden" th:field="*{userVO.uId}"> 		
+
+					<div>
+						<label>課程名稱:</label> 
+						<input type="text" th:value="*{courseVO.crTitle}" style="border: 0px; font-weight: bold;" readonly/>
+					</div>
+						<input type="hidden" th:field="*{courseVO.crId}"> 		 
+
+					<div>
+						<label>adcTotalPrice:</label> <input type="text"
+							th:field="*{adcTotalPrice}"
+							style="border: 0px; font-weight: bold;" readonly /><br />
+					</div>
+
+					<div>
+						<label>adcStatus:</label> <input type="radio"
+							th:field="*{adcStatus}" th:value="1"
+							th:checked="${adcarVO.adcStatus == 1}" /> 上架 <input type="radio"
+							th:field="*{adcStatus}" th:value="0"
+							th:checked="${adcarVO.adcStatus == 0}" /> 下架
+					</div>
+
+					<div>
+						<label>照片:</label> <input type="file" th:field="*{adcUpdatePic}" id="adcUpdatePic"
+							onclick="previewImage()"
+							onchange="hideContent('adcUpdatePic.errors');" />
+						<span  th:if="${#fields.hasErrors('adcUpdatePic')}" th:errors="*{adcUpdatePic}" class="error" id="adcUpdatePic.errors"></span>
+						<span class="error" th:utext="${errorMessage}" id="adcUpdatePic.errors">${errorMessage}</span>
+						<div id="blob_holder"></div>
+					</div>
+
+					<div>
+						<div></div>
+						<div>
+							<button type="submit" id="submit">送出修改</button>
+						</div>
+						<div></div>
+					</div>
+				</form>
+				<h3>
+					<a th:href="@{/backEnd/adCarousel/backend_ad_carousellist}">返回檢視已存在廣告訂單</a>
+				</h3>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+	<!-- JavaScript part -->
+<script type="text/javascript">
+//清除提示信息
+function hideContent(d) {
+     document.getElementById(d).style.display = "none";
+}
+
+//照片上傳-預覽用
+var filereader_support = typeof FileReader != 'undefined';
+if (!filereader_support) {
+	alert("No FileReader support");
+}
+acceptedTypes = {
+		'image/png' : true,
+		'image/jpeg' : true,
+		'image/gif' : true
+};
+function previewImage() {
+	var upfile1 = document.getElementById("adcUpdatePic");
+	upfile1.addEventListener("change", function(event) {
+		var files = event.target.files || event.dataTransfer.files;
+		for (var i = 0; i < files.length; i++) {
+			previewfile(files[i])
+		}
+	}, false);
+}
+function previewfile(file) {
+	if (filereader_support === true && acceptedTypes[file.type] === true) {
+		var reader = new FileReader();
+		reader.onload = function(event) {
+			var image = new Image();
+			image.src = event.target.result;
+			image.width = 100;
+			image.height = 75;
+			image.border = 2;
+			if (blob_holder.hasChildNodes()) {
+				blob_holder.removeChild(blob_holder.childNodes[0]);
+			}
+			blob_holder.appendChild(image);
+		};
+		reader.readAsDataURL(file);
+		document.getElementById('submit').disabled = false;
+	} else {
+		blob_holder.innerHTML = "<div  style='text-align: left;'>" + "● filename: " + file.name
+				+ "<br>" + "● ContentTyp: " + file.type
+				+ "<br>" + "● size: " + file.size + "bytes"
+				+ "<br>" + "● 上傳ContentType限制: <b> <font color=red>image/png、image/jpeg、image/gif </font></b></div>";
+		document.getElementById('submit').disabled = true;
+	}
+}
+</script>
+
+</body>
+<div class="footer_wrapper">
+	<footer>
+		<p class="f-b-title">FitAnyWhere Backstage</p>
+	</footer>
+</div>
+</html>

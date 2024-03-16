@@ -100,7 +100,7 @@
                                     </div>
                                     <ul class="user-list-wrapper">
                                         <li>
-                                            <a href="/socialpost/student_socialpost">
+                                            <a href="/socialpost/">
                                                 <i class="feather-home"></i>
                                                 <span>會員中心</span>
                                             </a>
@@ -532,7 +532,31 @@
     <!-- End Side Vav -->
     <a class="rbt-close_side_menu" href="javascript:void(0);"></a>
 </header>
+<script>
+//連結按鈕的地方
+$(".button_model").on("click",function(e){
+    e.preventDefault();
+    $("#lightbox").removeClass("none");
+});
 
+// 關閉按鈕
+$("button.btn_model_close").on("click", function(){
+    $("#lightbox").addClass("none");
+});
+
+//$("#lightbox").on("click", function(){
+//    $("#lightbox").addClass("none");
+//})
+
+$("#lightbox > article").on("click", function(e){
+    e.stopPropagtion();
+});
+
+$(".opinion-btn").on("click",function(e){
+    e.preventDefault();
+    $("#lightbox").removeClass("none");
+});
+</script>
 <script>
 
     // 查詢購物車有哪些課程

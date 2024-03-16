@@ -10,7 +10,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import com.fitanywhere.news.model.NewsVO;
 
 @Service
 public class NewsService {
@@ -19,5 +19,9 @@ public class NewsService {
 	
 	@Autowired
     private SessionFactory sessionFactory;
+	
+   public List<NewsVO> getAllNews() {
+        return repository.findAll();
+    }
 
 }

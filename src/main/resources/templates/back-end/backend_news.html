@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head th:insert="~{/back-end/backend_included_head}"></head>
 
@@ -36,7 +36,7 @@
 
                 <table class="backstage_table backstage_table_news">
                     <td><button class="button_model">新增</button></td>
-                    <tr>
+                    <tr >
                         <th>消息編號</th>
                         <th>消息名稱</th>
                         <th>分類</th>
@@ -44,38 +44,15 @@
                         <th>發送狀態</th>
                         <th>操作</th>
                     </tr>
-                    <tr>
-                        <td>N0001</td>
-                        <td>新年特價優惠</td>
-                        <td>節慶活動優惠</td>
-                        <td>2024.02.08</td>
+                    <tr th:each="news : ${newsListData}">
+                        <td th:text="${news.newsId}">N0001</td>
+                        <td th:text="${news.news}">新年特價優惠</td>
+                        <td th:text="${news.newsContent}">節慶活動優惠</td>
+                        <td th:text="${news.newsDate}">2024.02.08</td>
                         <td>編輯中</td>
                         <td><button class="button_model">修改</button></td>
                     </tr>
-                    <tr>
-                        <td>N0002</td>
-                        <td>一月最新課程</td>
-                        <td>最新課程內容</td>
-                        <td>2024.01.01</td>
-                        <td>已發送</td>
-                        <td><button>修改</button></td>
-                    </tr>
-                    <tr>
-                        <td>N0003</td>
-                        <td>新年特價優惠</td>
-                        <td>節慶活動優惠</td>
-                        <td>2024.01.31</td>
-                        <td>已取消</td>
-                        <td><button>修改</button></td>
-                    </tr>
-                    <tr>
-                        <td>N0004</td>
-                        <td>一月最新課程</td>
-                        <td>最新課程內容</td>
-                        <td>2024.01.12</td>
-                        <td>已發送</td>
-                        <td><button>修改</button></td>
-                    </tr>
+                    
 
                 </table>
 

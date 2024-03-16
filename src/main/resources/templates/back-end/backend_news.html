@@ -35,7 +35,7 @@
                 </div>
 
                 <table class="backstage_table backstage_table_news">
-                    <td><button>新增</button></td>
+                    <td><button class="button_model">新增</button></td>
                     <tr>
                         <th>消息編號</th>
                         <th>消息名稱</th>
@@ -50,7 +50,7 @@
                         <td>節慶活動優惠</td>
                         <td>2024.02.08</td>
                         <td>編輯中</td>
-                        <td><button>修改</button></td>
+                        <td><button class="button_model">修改</button></td>
                     </tr>
                     <tr>
                         <td>N0002</td>
@@ -89,13 +89,60 @@
     </div>
 
 
+    <div id="lightbox" class="none"> 
+        <form action="">
+        <article>
+            <div class="article-inner-wrapper">
+                <h1>頁面管理</h1>
+                <p class="title-1">官方最新消息貼文發送</p>
+                
+
+                <div class="news-send-content">
+                    <div class="news-title">
+                        <p>最新消息標題</p>
+                        <input type="text">
+                    </div>
+                    
+
+
+                    <textarea name="" id="" cols="30" rows="10" placeholder="填入發送內容"></textarea>
+                </div>
+                <div class="lightbox-button">
+                    <button type="button"  class="confirm">確認送出</button>
+                    <button type="button" class="btn_model_close">取消</button>
+                </div>
+            </div>
+        </article>
+        </form>
+    </div>
     <!-- footer -->
     <div class="footer_wrapper">
         <footer>
             <p class="f-b-title">FitAnyWhere Backstage</p>
         </footer>
     </div>
+<script>
+// $(".button_model").on("click",function(e){
+//     e.preventDefault();
+//     $("#lightbox").removeClass("none");
+// });
 
+// // 關閉按鈕
+// $("button.btn_model_close").on("click", function(){
+//     $("#lightbox").addClass("none");
+// });
+
+document.querySelector(".button_model").addEventListener("click", function(e){
+    e.preventDefault();
+    document.querySelector("#lightbox").classList.remove("none");
+});
+
+// 關閉按鈕
+document.querySelector("button.btn_model_close").addEventListener("click", function(){
+    document.querySelector("#lightbox").classList.add("none");
+});
+
+</script>
 </body>
 
 </html>

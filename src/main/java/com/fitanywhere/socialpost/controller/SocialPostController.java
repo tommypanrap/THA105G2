@@ -95,38 +95,57 @@ public class SocialPostController {
 		return "front-end/socialpost/show_login_socialpost_test";
 	}
 
+	@GetMapping("")
+	public String social_post_member(HttpServletRequest req, ModelMap model) {
+		
+		HttpSession newSession = req.getSession(true);
+		
+		int sessionUId =  Integer.valueOf(newSession.getAttribute("uId").toString());
+		System.out.println("sessionUId:"+sessionUId);
+		
+		model.addAttribute("sessionUId", sessionUId);
+
+		UserVO userVO = userSvc.getUserDataByID(sessionUId);
+		model.addAttribute("userVO", userVO);
+		
+
+		SocialPostVO socialPostVO = new SocialPostVO();
+		model.addAttribute("socialPostVO", socialPostVO);
+		
+		return "front-end/socialpost/student_socialpost";
+	}
+	
+	
+	// 主要的mapping 後面帶上 userId
 	@GetMapping("{userId}")
-	public String getUserInfo(HttpServletRequest req, ModelMap model, @ModelAttribute("navUId") String navUId, @PathVariable("userId") Integer userId) {
+	public String social_post_member_id(HttpServletRequest req, ModelMap model, @PathVariable("userId") Integer userId) {
+
+		HttpSession newSession = req.getSession(true);
+				
+//		UserVO userVO2 = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
+		int sessionUId =  Integer.valueOf(newSession.getAttribute("uId").toString());
+		System.out.println("sessionUId:"+sessionUId);
+		
+		model.addAttribute("sessionUId", sessionUId);
+
+		UserVO userVO = userSvc.getUserDataByID(userId);
+		model.addAttribute("userVO", userVO);
+		
+
+		SocialPostVO socialPostVO = new SocialPostVO();
+		model.addAttribute("socialPostVO", socialPostVO);
+
+
+		
+		
+		return "front-end/socialpost/student_socialpost";
+		
+		
 		
 //應該是廢code	
 //		model.addAttribute("matchingUsers", matchingUsers);
 //		SocialReplyVO socialReplyVO = new SocialReplyVO();
 //		model.addAttribute("SocialReplyVO", socialReplyVO);
-
-	    
-	    
-		HttpSession newSession = req.getSession(true);
-				
-
-		if (StringUtils.hasText(navUId)) {
-
-			model.addAttribute("navUId",navUId);
-	        UserVO userShowPostVO = userSvc.getUserDataByID(Integer.valueOf(navUId));
-			model.addAttribute("userShowPostVO", userShowPostVO);
-	    } else {
-
-	    	// 如果沒有經過搜尋的話，userShowPostVO的資訊就是透過session取的
-//	        UserVO userShowPostVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
-	        UserVO userShowPostVO = userSvc.getUserDataByID(userId);
-			model.addAttribute("userShowPostVO", userShowPostVO);
-	    }
-
-//		UserVO userVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
-		UserVO userVO = userSvc.getUserDataByID(userId);
-		model.addAttribute("userVO", userVO);
-		
-
-		
 		
 		
 //		測試資料印出用
@@ -141,152 +160,30 @@ public class SocialPostController {
 //				}
 //			}
 //		}
-
-		SocialPostVO socialPostVO = new SocialPostVO();
-		model.addAttribute("socialPostVO", socialPostVO);
-
-		List<UserVO> matchingUsers = (List<UserVO>) req.getSession().getAttribute("matchingUsers");
-		if (matchingUsers != null && !matchingUsers.isEmpty()) {
-			model.addAttribute("matchingUsers", matchingUsers);
-		}
+		
+		// 廢 code
+//		List<UserVO> matchingUsers = (List<UserVO>) req.getSession().getAttribute("matchingUsers");
+//		if (matchingUsers != null && !matchingUsers.isEmpty()) {
+//			model.addAttribute("matchingUsers", matchingUsers);
+//		}
 	    
 		
-		
-		return "front-end/socialpost/student_socialpost";
 	}
-//	想測試 重新整理 也能繼續保持搜尋結果 fail
-//	@PostMapping("student_socialpost")
-//	public String getUserInfoPost(HttpServletRequest req, ModelMap model, @ModelAttribute("navUId") String navUId,@RequestParam Integer navUIdPost) {
-//		
-//		
-////		model.addAttribute("matchingUsers", matchingUsers);
-//		
-//		System.out.println("navUIdPost:"+navUIdPost);
-//
-//		
-//		SocialReplyVO socialReplyVO = new SocialReplyVO();
-//		model.addAttribute("SocialReplyVO", socialReplyVO);
-//
-//		HttpSession newSession = req.getSession(true);
-//		
-//		System.out.println("navUId:"+navUId);
-//		
-//		model.addAttribute("navUId",navUIdPost);
-//		
-//		System.out.println("POST第二次:"+navUId);
-//		if (navUIdPost!= null) {
-//	        System.out.println("navUIdPost has value.");
-//	        
-//	        UserVO userShowPostVO = userSvc.getUserDataByID(Integer.valueOf(navUIdPost));
-//			model.addAttribute("userShowPostVO", userShowPostVO);
-//	    } else {
-//	        System.out.println("navUIdPost is empty or null.");
-//	        UserVO userShowPostVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
-//			model.addAttribute("userShowPostVO", userShowPostVO);
-//	    }
-//
-//		UserVO userVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
-//		model.addAttribute("userVO", userVO);
-//		
-//
-//		
-//		
-//		
-////		測試資料印出用
-////		for (SocialPostVO socialPost : userVO.getSocialposts()) {
-////			if (socialPost.getSpstatus().equals(1)) {
-////				System.out.println("SocialPost Spid: " + socialPost.getSpid());
-////				System.out.println("SocialPost Title: " + socialPost.getSptitle());
-////				System.out.println("SocialPost Content: " + socialPost.getSpcontent());
-////
-////				for (SocialReplyVO socialReply : socialPost.getSocialReplys()) {
-////					System.out.println("123 SocialReply Content: " + socialReply.getSrContent());
-////				}
-////			}
-////		}
-//
-//		SocialPostVO socialPostVO = new SocialPostVO();
-//		model.addAttribute("socialPostVO", socialPostVO);
-//
-//		List<UserVO> matchingUsers = (List<UserVO>) req.getSession().getAttribute("matchingUsers");
-//	    model.addAttribute("matchingUsers", matchingUsers);
-//		
-//		
-//		return "front-end/socialpost/student_socialpost";
-//	}
 	
-//	@GetMapping("nav_student_socialpost")
-//	public String nav_student_socialpost(HttpServletRequest req, ModelMap model	, @ModelAttribute("uId") String navUId) {
-//		
-//		 System.out.println("Received uId:" + navUId);
-//		
-//		SocialReplyVO socialReplyVO = new SocialReplyVO();
-//		model.addAttribute("SocialReplyVO", socialReplyVO);
-//
-//		HttpSession newSession = req.getSession(true);
-//
-//		UserVO userVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
-//		model.addAttribute("userVO", userVO);
-//		
-//		UserVO userShowPostVO = userSvc.getUserDataByID(Integer.valueOf(navUId));
-//		model.addAttribute("userShowPostVO", userShowPostVO);
-//		
-//		SocialPostVO socialPostVO = new SocialPostVO();
-//		model.addAttribute("socialPostVO", socialPostVO);
-//
-//		List<UserVO> matchingUsers = (List<UserVO>) req.getSession().getAttribute("matchingUsers");
-//	    model.addAttribute("matchingUsers", matchingUsers);
-//		
-//		System.out.println("nav_student_socialpost");
-//	    
-//		return "redirect:/socialpost/student_socialpost";
-//	}
 	
-//	@PostMapping("search_social_member")
-//	public String search_social_member(@RequestParam String searchValue, @RequestParam Integer uId, ModelMap model, HttpSession session) throws IOException  {
-//		
-////		System.out.println(searchValue);
-//		//搜尋不包含自己
-//		List<UserVO> matchingUsers = userSvc.searchUsersByNickname(searchValue,uId);
-//		System.out.println(matchingUsers);
-//		
-////		Map<Integer, byte[]> userHeadshots = new HashMap<>();
-//		 List<Map<String, Object>> usersInfo = new ArrayList<>();
-//		
-//		for (UserVO user : matchingUsers) {
-//			
-//			UserHeadshotOnlyDTO headshotDTO = userSvc.getUserHeadshotDTOById(user.getuId());
-//			
-//			Map<String, Object> userInfo = new HashMap<>();
-//			userInfo.put("nickname", user.getuNickname());
-//			
-//			if (headshotDTO != null && headshotDTO.getuHeadshot() != null) {
-//				byte[] photoBytes = headshotDTO.getuHeadshot();
-//
-//				userInfo.put("headshot", photoBytes);
-//
-//			} else {
-//				userInfo.put("headshot", null);
-//			}
-//			
-//			usersInfo.add(userInfo);
-//		}
-//		session.setAttribute("matchingUsers", matchingUsers);
-//		
-//       Map<String, Object> response = new HashMap<>();
-//        response.put("users", usersInfo);
-//		
-//		return "redirect:/socialpost/student_socialpost";
-//	}
+	
+	
+
 	
 	@PostMapping("/{spid}/replies")
-	public ResponseEntity<Void> add_social_reply(@RequestParam String replyValue, @RequestParam String spid, @RequestParam Integer uId, ModelMap model)   {
+	public ResponseEntity<Void> add_social_reply(HttpServletRequest req,@RequestParam String replyValue, @RequestParam String spid, @RequestParam Integer uId, ModelMap model)   {
 		
-		System.out.println("replyValue:"+replyValue);
-		System.out.println("spid:"+spid);
-		System.out.println(uId);
 		
-		UserVO userVO = userSvc.getUserDataByID(uId);
+		HttpSession newSession = req.getSession(true);
+
+
+		
+		UserVO userVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
 		
 		SocialPostVO socialPostVOforAddReply = socialPostSvc.getOneSocialPost(Integer.parseInt(spid));
 		SocialReplyVO socialReplyVO = new SocialReplyVO();
@@ -299,7 +196,7 @@ public class SocialPostController {
 		
 		socialReplySvc.addSocialReply(socialReplyVO);
 		
-		// 創建一個簡單的回應物件或直接返回一個狀態碼
+
 
 		
 		return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -317,6 +214,7 @@ public class SocialPostController {
 	}
 	
 	
+	// 新增貼文
 	@PostMapping("insert")
 	public String insert(HttpServletRequest req, @Valid SocialPostVO socialPostVO, BindingResult result, ModelMap model,
 			@RequestParam("sppic") MultipartFile[] parts) throws IOException {
@@ -350,18 +248,11 @@ public class SocialPostController {
 		return "redirect:/socialpost/student_socialpost";
 	}
 
-	@PostMapping("getOne_For_Update")
-	public String getOne_For_Update(@RequestParam("spid") String spid, ModelMap model) {
 
-		SocialPostVO socialPostVO = socialPostSvc.getOneSocialPost(Integer.valueOf(spid));
 
-		model.addAttribute("socialPostVO", socialPostVO);
-
-		return "front-end/socialpost/update_socialpost_input";
-	}
-
-	@PostMapping("update_social_post")
-	public String update_social_post(@Valid SocialPostVO socialPostVO, BindingResult result, ModelMap model,
+	// 更新貼文
+	@PostMapping("update_social_post/{uId}")
+	public String update_social_post(@PathVariable("uId") Integer uId, @Valid SocialPostVO socialPostVO, BindingResult result, ModelMap model,
 			@RequestParam("sppic") MultipartFile[] parts) throws IOException {
 
 		result = removeFieldError(socialPostVO, result, "sppic");
@@ -377,7 +268,7 @@ public class SocialPostController {
 			}
 		}
 		if (result.hasErrors()) {
-			return "redirect:/socialpost/student_socialpost";
+			return "redirect:/socialpost/" + uId;
 		}
 		SocialPostVO getSocialPostVO = socialPostSvc.getOneSocialPost(socialPostVO.getSpid());
 
@@ -391,9 +282,10 @@ public class SocialPostController {
 		socialPostVO = socialPostSvc.getOneSocialPost(Integer.valueOf(socialPostVO.getSpid()));
 		model.addAttribute("socialPostVO", socialPostVO);
 
-		return "redirect:/socialpost/student_socialpost";
+		return "redirect:/socialpost/" + uId;
 	}
 
+	// 更新狀態 以表示刪除
 	@PostMapping("update_for_delete")
 	public String update_for_delete(@Valid SocialPostVO socialPostVO, BindingResult result, ModelMap model,
 			@RequestParam Integer spStatus, @RequestParam Integer spid) throws IOException {
@@ -409,34 +301,6 @@ public class SocialPostController {
 		return "redirect:/socialpost/student_socialpost";
 	}
 
-	@PostMapping("update")
-	public String update(@Valid SocialPostVO socialPostVO, BindingResult result, ModelMap model,
-			@RequestParam("sppic") MultipartFile[] parts) throws IOException {
-
-		result = removeFieldError(socialPostVO, result, "sppic");
-
-		if (parts[0].isEmpty()) {
-
-			byte[] sppic = socialPostSvc.getOneSocialPost(socialPostVO.getSpid()).getSppic();
-			socialPostVO.setSppic(sppic);
-		} else {
-			for (MultipartFile multipartFile : parts) {
-				byte[] sppic = multipartFile.getBytes();
-				socialPostVO.setSppic(sppic);
-			}
-		}
-		if (result.hasErrors()) {
-			return "front-end/socialpost/update_socialpost_input";
-		}
-
-		socialPostSvc.updateSocialPost(socialPostVO);
-
-		model.addAttribute("success", "- (修改成功)");
-		socialPostVO = socialPostSvc.getOneSocialPost(Integer.valueOf(socialPostVO.getSpid()));
-		model.addAttribute("socialPostVO", socialPostVO);
-
-		return "front-end/socialpost/list_one_socialpost";
-	}
 
 	@PostMapping("delete")
 	public String delete(@RequestParam("spid") String spid, ModelMap model) {

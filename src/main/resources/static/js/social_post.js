@@ -103,6 +103,7 @@ $(document).ready(function() {
 					//					window.location.href = 'student_socialpost';
 					//					location.reload();
 					let resultsContainer = $('#resultsContainer'); // 假設有一個放結果的容器
+					resultsContainer.addClass("show");
 					resultsContainer.empty(); // 清空之前的結果
 
 					// 遍歷返回的用戶數據並更新HTML
@@ -111,7 +112,7 @@ $(document).ready(function() {
                         <div class="search-result-list-one">
                             
                             <img src="data:image/jpeg;base64,${user.headshot}" alt="User Headshot" />
-                            <a><p>${user.nickname}</p></a>
+                            <a href="/socialpost/${user.uId}"><p>${user.nickname}</p></a>
                         </div>
                     `;
 						resultsContainer.append(userElement); // 將每個用戶的信息添加到容器中
@@ -144,7 +145,6 @@ $(document).ready(function() {
 			let replyMemberText = $('<div class="reply-member-text"></div>');
 
 			let userPhotoUrl = await handleFetchUserImage();
-			//圖片先亂寫
 			var userPhoto = $('<img>').attr('src', userPhotoUrl);
 
 
@@ -237,7 +237,7 @@ $(document).ready(function() {
 	})
 
 	async function fetchUserImage() {
-		let uId = parseInt($('.uId').text());
+		let uId = parseInt($('.sessionUId').text());
 		let image_Url;
 
 		try {

@@ -95,9 +95,8 @@ public class CourseService {
             CourseStatus2DTO.add(dto);
         }
         return CourseStatus2DTO;
-	}public List<CourseVO> getCourseByUId(Integer uId) {
-		return repository.getCourseByUId(uId);
 	}
+
 	// 透過crId取cr cover
 	@Transactional(readOnly = true)
 	public CourseCrCoverDTO getCourseCrCoverById(Integer crId){

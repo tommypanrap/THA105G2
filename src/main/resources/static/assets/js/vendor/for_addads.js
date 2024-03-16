@@ -90,6 +90,85 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 	// 初始化時也計算一次價格
 	calculateAdPrice();
+	
+	
+	// 在提交按鈕的事件處理器中添加錯誤驗證邏輯
+document.getElementById("orderbutton").addEventListener("click", function (event) {
+    event.preventDefault(); // 防止表單默認提交行為
+
+    var isValid = true;
+    var adcStartDate = document.getElementById('adcStartDate').value;
+    var adcStartDateError = document.getElementById('adcStartDateError');
+    var adcEndDate = document.getElementById('adcEndDate').value;
+    var adcEndDateError = document.getElementById('adcEndDateError');
+    var fileInput = document.getElementById('hiddenFileInput');
+    var fileError = document.getElementById('adcUpdatePic-error');
+
+    // 清除之前的錯誤訊息
+    adcStartDateError.style.display = 'none';
+    adcEndDateError.style.display = 'none';
+    fileError.style.display = 'none';
+
+    // 驗證開始日期
+    if (!adcStartDate) {
+        adcStartDateError.textContent = '請選擇日期';
+        adcStartDateError.style.display = 'block';
+        isValid = false;
+    }
+
+    // 驗證結束日期
+    if (!adcEndDate) {
+        adcEndDateError.textContent = '請選擇日期';
+        adcEndDateError.style.display = 'block';
+        isValid = false;
+    }
+
+    // 驗證圖片上傳
+    if (!fileInput.files.length) {
+        fileError.textContent = '請上傳圖片';
+        fileError.style.display = 'block';
+        isValid = false;
+    }
+
+    // 如果所有欄位驗證通過，執行 AJAX 請求
+    if (isValid) {
+        var data = {
+            uId: $('#uId').val(),
+            adcStartDate: $('#adcStartDate').val(),
+            adcEndDate: $('#adcEndDate').val(),
+            crId: $('#crId').val(),
+            adId: $('#adplan').val(),
+            adcTotalPrice: $('#totalPriceField').val(),
+            adcStatus: 1,
+        };
+
+        var formData = new FormData();
+        for (const key in data) {
+            formData.append(key, data[key]);
+        }
+
+        // 獲取文件並添加到 formData 中
+        var file = fileInput.files[0];
+        formData.append('adcUpdatePic', file);
+
+        // 執行 AJAX 請求
+        $.ajax({
+            url: 'http://localhost:8080/adCarousel/insert',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                window.alert("成功創建輪播廣告！");
+                window.location.href = 'http://localhost:8080/adCarousel/addAdCarousel';
+            },
+            error: function (error) {
+                console.error('Error:', error);
+            }
+        });
+    }
+});
+
 
 });
 

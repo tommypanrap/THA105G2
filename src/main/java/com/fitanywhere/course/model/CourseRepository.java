@@ -43,9 +43,7 @@ public interface CourseRepository extends JpaRepository<CourseVO, Integer> {
 	CourseCrCoverDTO findCourseCrCoverById(@Param("crId") Integer crId);
 
 	// uId找課程
-	@Query(value = "SELECT cr_id FROM course WHERE u_id = ?1", nativeQuery = true)
-	List<CourseVO> getCourseByUId(Integer uId);
-}	@Query(value = "SELECT * FROM course WHERE u_id = ?1", nativeQuery = true)
+	@Query(value = "SELECT * FROM course WHERE u_id = ?1", nativeQuery = true)
 	List<CourseVO> getCourseByUId(Integer uId); 
 	
     }

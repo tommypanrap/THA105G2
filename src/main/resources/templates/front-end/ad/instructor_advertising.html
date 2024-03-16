@@ -2616,6 +2616,9 @@
                                                             <!-- 隱藏的 file input -->
                                                             <input type="file" id="hiddenFileInput" name="adcUpdatePic"
                                                                 style="display:none;" onchange="imageSelected();"  required>
+                                                                <div id="adcUpdatePic-error" class="error-message" style=" color: red;
+    																													   font-size: 0.8rem;
+    																													   display: none; font-size:inherit"></div>
                                                             <!-- 可見的連結 -->
                                                             <a class="rbt-btn btn-sm btn-border color-white radius-round-10"
                                                                 href="javascript:void(0);"
@@ -2659,16 +2662,20 @@
                                                 <div class="rbt-form-group">
                                                     <label for="adcStartDate">廣告開始時間</label>
                                                     <input id="adcStartDate" type="date">
+                                                    <span class="error-message" id="adcStartDateError" style=" color: red;
+    																										   font-size: 0.8rem;
+    																										   display: none; font-size:inherit"></span>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                                 <div class="rbt-form-group">
                                                     <label for="adcEndDate">廣告結束時間</label>
                                                     <input id="adcEndDate" type="date">
+                                                    <span class="error-message" id="adcEndDateError" style=" color: red;
+    																										 font-size: 0.8rem;
+    																										 display: none; font-size:inherit"></span>
                                                 </div>
-<!--                                                 如果沒有選擇日期跳提示 -->
-                                                <span id="dateError" class="error-message" style="color: red; display: none;">請選擇開始和結束時間。</span>
-                                                
+                                               
                                             </div>
                                             <p id="adTotalPrice">訂單總價：</p>
                                             <input type="hidden" id="totalPriceField" name="totalPrice" value="">
@@ -2684,54 +2691,44 @@
 
                                             <script>
 
-                                                document.getElementById("orderbutton").addEventListener("click", function () {
+//                                                 document.getElementById("orderbutton").addEventListener("click", function () {
 
-                                                    var data = {
-                                                        uId: 10002,
-                                                        adcStartDate: $('#adcStartDate').val(),
-                                                        adcEndDate: $('#adcEndDate').val(),
-                                                        crId: $('#crId').val(),
-                                                        adId: $('#adplan').val(),
-                                                        adcTotalPrice: $('#totalPriceField').val(),
-                                                        adcStatus: 1,
-                                                    };
+//                                                     var data = {
+//                                                         uId: 10002,
+//                                                         adcStartDate: $('#adcStartDate').val(),
+//                                                         adcEndDate: $('#adcEndDate').val(),
+//                                                         crId: $('#crId').val(),
+//                                                         adId: $('#adplan').val(),
+//                                                         adcTotalPrice: $('#totalPriceField').val(),
+//                                                         adcStatus: 1,
+//                                                     };
 
-                                                    const formData = new FormData();
-                                                    for (const key in data) {
-                                                        formData.append(key, data[key]);
-                                                    }
+//                                                     const formData = new FormData();
+//                                                     for (const key in data) {
+//                                                         formData.append(key, data[key]);
+//                                                     }
 
-                                                    // 獲取文件並添加到 formData 中
-                                                    var file = $('#hiddenFileInput')[0].files[0];
-                                                    if (file) {
-                                                        formData.append('adcUpdatePic', file);
-                                                    }
+//                                                     // 獲取文件並添加到 formData 中
+//                                                     var file = $('#hiddenFileInput')[0].files[0];
+//                                                     if (file) {
+//                                                         formData.append('adcUpdatePic', file);
+//                                                     }
 
-                                                    // 使用 jQuery 的 $.ajax 而不是 $.post，因為需要設置更多選項
-                                                    $.ajax({
-                                                        url: 'http://localhost:8080/adCarousel/insert',
-                                                        type: 'POST',
-                                                        data: formData,
-                                                        processData: false, // 告訴 jQuery 不要處理發送的數據
-                                                        contentType: false, // 告訴 jQuery 不要設置內容類型標頭
-                                                        success: function (response) {
-                                                            window.alert("成功創建輪播廣告！");
-                                                            window.location.href = 'http://localhost:8080/adCarousel/addAdCarousel';
-                                                            //     		       成功創建清空欄位值
-//                                                             $('#adcStartDate').val('');
-//                                                             $('#adcEndDate').val('');
-//                                                             $('#crId').val('');
-//                                                             $('#adplan').val('');
-//                                                             $('#totalPriceField').val('');
-//                                                             $('#hiddenFileInput').val('');
-//                                                             var previewArea = document.getElementById('adImagePreviewArea');
-//                                                             previewArea.style.backgroundImage = 'none';
-//                                                             $('#adTotalPrice').text('訂單總價：');
-                                                        },
-                                                        error: function (error) {
-                                                            console.error('Error:', error);
-                                                        }
-                                                    });
+//                                                     // 使用 jQuery 的 $.ajax 而不是 $.post，因為需要設置更多選項
+//                                                     $.ajax({
+//                                                         url: 'http://localhost:8080/adCarousel/insert',
+//                                                         type: 'POST',
+//                                                         data: formData,
+//                                                         processData: false, // 告訴 jQuery 不要處理發送的數據
+//                                                         contentType: false, // 告訴 jQuery 不要設置內容類型標頭
+//                                                         success: function (response) {
+//                                                             window.alert("成功創建輪播廣告！");
+//                                                             window.location.href = 'http://localhost:8080/adCarousel/addAdCarousel';
+//                                                         },
+//                                                         error: function (error) {
+//                                                             console.error('Error:', error);
+//                                                         }
+//                                                     });
 
 
 
@@ -2776,7 +2773,7 @@
                                                     // 这里可以根据需要处理后端返回的数据
                                                     })
                                                     .catch(error => console.error('Error:', error)); */
-                                                });
+//                                                 });
 
                                             </script>
 

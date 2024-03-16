@@ -159,7 +159,7 @@ public class CourseVO implements java.io.Serializable {
 
 
 
-
+	// Joy
 	@Transient
 	private String base64CrCover;
 	public CourseVO() { //必需有一個不傳參數建構子(JavaBean基本知識)

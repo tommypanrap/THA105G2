@@ -117,6 +117,7 @@ public class UserVO implements java.io.Serializable{
 
 	//Tommy
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="userVO")
+	@JsonIgnore
 	@OrderBy("spid ASC")
 	@JsonIgnore
 	private Set<SocialPostVO> socialposts = new HashSet<SocialPostVO>();

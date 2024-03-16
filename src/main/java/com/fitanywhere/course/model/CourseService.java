@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service("courseService")
@@ -94,6 +95,18 @@ public class CourseService {
             CourseStatus2DTO.add(dto);
         }
         return CourseStatus2DTO;
+	}
+
+	// 透過crId取cr cover
+	@Transactional(readOnly = true)
+	public CourseCrCoverDTO getCourseCrCoverById(Integer crId){
+		return  repository.findCourseCrCoverById(crId);
+	}
+
+	// 用uId抓相關課程
+	@Transactional(readOnly = true)
+	public List<CourseVO> getCourseByUId(Integer uId){
+		return repository.getCourseByUId(uId);
 	}
 
 }

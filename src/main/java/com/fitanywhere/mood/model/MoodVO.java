@@ -20,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fitanywhere.socialpost.model.SocialPostVO;
 import com.fitanywhere.user.model.UserVO;
 
@@ -36,6 +37,7 @@ public class MoodVO {
 	private byte[] moodePhoto;
 	
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="moodVO")
+	@JsonIgnore
 	private Set<UserVO> userVO = new HashSet<UserVO>();
 
 	public Integer getMoodId() {

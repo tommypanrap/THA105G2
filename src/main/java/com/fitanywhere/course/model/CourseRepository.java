@@ -39,5 +39,13 @@ public interface CourseRepository extends JpaRepository<CourseVO, Integer> {
 	
 	@Query(value="SELECT cr_class, cr_title, cr_cover, cr_price FROM course WHERE u_Id = :uId AND cr_state = 2", nativeQuery = true)
 	List<Object[]> getCourseByStatus2(Integer uId);
-	
+
+	// 讀取指定crId的crCover
+	@Query("SELECT new com.fitanywhere.course.model.CourseCrCoverDTO(c.crId, c.crCover) FROM CourseVO c WHERE c.crId = :crId")
+	CourseCrCoverDTO findCourseCrCoverById(@Param("crId") Integer crId);
+
+	// uId找課程
+	@Query(value = "SELECT cr_id FROM course WHERE u_id = ?1", nativeQuery = true)
+	List<CourseVO> getCourseByUId(Integer uId);
+
     }

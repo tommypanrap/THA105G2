@@ -91,21 +91,31 @@ $(document).ready(function() {
 				uId: uid
 			}
 
-			const formData = new FormData();
-			for (const key in data) {
-				formData.append(key, data[key]);
-			}
+
 
 			$.ajax({
 				url: '/socialpost/search_social_member',
 				type: 'POST',
-				data: formData,
-				contentType: false, // 必須為 false，告訴 jQuery 不要設置 contentType
-				processData: false, // 必須為 false，告訴 jQuery 不要處理數據
+				data: JSON.stringify(data),
+				contentType: 'application/json',
 				success: function(responseData) {
 					//					window.alert("進來ajax");
-//					window.location.href = 'student_socialpost';
-//					location.reload();
+					//					window.location.href = 'student_socialpost';
+					//					location.reload();
+					let resultsContainer = $('#resultsContainer'); // 假設有一個放結果的容器
+					resultsContainer.empty(); // 清空之前的結果
+
+					// 遍歷返回的用戶數據並更新HTML
+					responseData.users.forEach(function(user) {
+						let userElement = `
+                        <div class="search-result-list-one">
+                            
+                            <img src="data:image/jpeg;base64,${user.headshot}" alt="User Headshot" />
+                            <a><p>${user.nickname}</p></a>
+                        </div>
+                    `;
+						resultsContainer.append(userElement); // 將每個用戶的信息添加到容器中
+					});
 				},
 				error: function(xhr, status, error) {
 					console.error('Error:', error);

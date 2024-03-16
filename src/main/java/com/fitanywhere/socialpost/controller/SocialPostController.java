@@ -2,7 +2,10 @@ package com.fitanywhere.socialpost.controller;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,15 +28,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fitanywhere.socialpost.model.SocialPostService;
-import com.fitanywhere.socialpost.model.SocialReplyService;
 import com.fitanywhere.socialpost.model.SocialPostVO;
+import com.fitanywhere.socialpost.model.SocialReplyService;
 import com.fitanywhere.socialpost.model.SocialReplyVO;
-import com.fitanywhere.mood.model.MoodVO;
+import com.fitanywhere.user.model.UserHeadshotOnlyDTO;
 import com.fitanywhere.user.model.UserService;
 import com.fitanywhere.user.model.UserVO;
 
@@ -240,18 +242,42 @@ public class SocialPostController {
 //		return "redirect:/socialpost/student_socialpost";
 //	}
 	
-	@PostMapping("search_social_member")
-	public String search_social_member(@RequestParam String searchValue, @RequestParam Integer uId, ModelMap model, HttpSession session) throws IOException  {
-		
-//		System.out.println(searchValue);
-		//搜尋不包含自己
-		List<UserVO> matchingUsers = userSvc.searchUsersByNickname(searchValue,uId);
-		System.out.println(matchingUsers);
-		
-		session.setAttribute("matchingUsers", matchingUsers);
-		
-		return "redirect:/socialpost/student_socialpost";
-	}
+//	@PostMapping("search_social_member")
+//	public String search_social_member(@RequestParam String searchValue, @RequestParam Integer uId, ModelMap model, HttpSession session) throws IOException  {
+//		
+////		System.out.println(searchValue);
+//		//搜尋不包含自己
+//		List<UserVO> matchingUsers = userSvc.searchUsersByNickname(searchValue,uId);
+//		System.out.println(matchingUsers);
+//		
+////		Map<Integer, byte[]> userHeadshots = new HashMap<>();
+//		 List<Map<String, Object>> usersInfo = new ArrayList<>();
+//		
+//		for (UserVO user : matchingUsers) {
+//			
+//			UserHeadshotOnlyDTO headshotDTO = userSvc.getUserHeadshotDTOById(user.getuId());
+//			
+//			Map<String, Object> userInfo = new HashMap<>();
+//			userInfo.put("nickname", user.getuNickname());
+//			
+//			if (headshotDTO != null && headshotDTO.getuHeadshot() != null) {
+//				byte[] photoBytes = headshotDTO.getuHeadshot();
+//
+//				userInfo.put("headshot", photoBytes);
+//
+//			} else {
+//				userInfo.put("headshot", null);
+//			}
+//			
+//			usersInfo.add(userInfo);
+//		}
+//		session.setAttribute("matchingUsers", matchingUsers);
+//		
+//       Map<String, Object> response = new HashMap<>();
+//        response.put("users", usersInfo);
+//		
+//		return "redirect:/socialpost/student_socialpost";
+//	}
 	
 	@PostMapping("/{spid}/replies")
 	public ResponseEntity<Void> add_social_reply(@RequestParam String replyValue, @RequestParam String spid, @RequestParam Integer uId, ModelMap model)   {

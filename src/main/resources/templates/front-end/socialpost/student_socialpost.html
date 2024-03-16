@@ -46,7 +46,9 @@
 								<!-- 									<li th:each="user : ${matchingUsers}"><span -->
 								<!-- 										th:text="${user.uNickname}"></span></li> -->
 								<!-- 								</ul> -->
-
+<!-- 								暫時加的 -->
+								<div class="search-result" id="resultsContainer"></div>
+								
 								<div class="search-result"
 									th:if="${matchingUsers != null and not #lists.isEmpty(matchingUsers)}">
 									<div class="search-result-list-one"

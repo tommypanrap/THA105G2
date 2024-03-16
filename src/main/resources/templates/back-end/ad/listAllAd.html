@@ -56,53 +56,37 @@
 	color: #ffffff;
 }
 </style>
-<script type="text/javascript">
-        //分頁顯示
-        $(function () {
-            var $table = $("table");
-            var currentPage = 0; //當前頁默認值為0  
-            var pageSize = 3; //每一頁顯示的數目  
-            $table.bind('paging', function () {
-                $table.find('tbody tr').hide().slice(currentPage * pageSize, (currentPage + 1) * pageSize).show();
-            });
-            var sumRows = $table.find('tbody tr').length;
-            var sumPages = Math.ceil(sumRows / pageSize); //總頁數  
-            document.getElementById("pageNumber").innerHTML = sumPages; //用於第114行
-            
-            var $pager = $('<div class="page" align="center"></div>');  //新建div，放入a標簽,顯示底部分頁碼  
-            for (var pageIndex = 0; pageIndex < sumPages; pageIndex++) {
-                $('<a href="#" id="pageStyle" onclick="changCss(this)"><span>' + (pageIndex + 1) + '</span></a>').bind("click", { "newPage": pageIndex }, function (event) {
-                    currentPage = event.data["newPage"];
-                    document.getElementById("currentPage").innerHTML = currentPage+1; //用於第114行
-                    $table.trigger("paging");
-                    //觸發分頁函數  
-                }).appendTo($pager);
-                $pager.append(" ");
-            }
-            $pager.insertAfter($table);
-            $table.trigger("paging");
-
-            //默認第一頁的a標簽效果  
-            var $pagess = $('#pageStyle');
-            $pagess[0].style.backgroundColor = "#006B00";
-            $pagess[0].style.color = "#ffffff";
-        });
-
-        //a鏈接點擊變色，再點其他回復原色  
-        function changCss(obj) {
-            var arr = document.getElementsByTagName("a");
-            for (var i = 0; i < arr.length; i++) {
-                if (obj == arr[i]) {       //當前頁樣式  
-                    obj.style.backgroundColor = "#006B00";
-                    obj.style.color = "#ffffff";
-                }
-                else {
-                    arr[i].style.color = "";
-                    arr[i].style.backgroundColor = "";
-                }
-            }
-        }      
-    </script>
+<script>
+	$(document).ready(function() {
+		$('#example').DataTable({
+			"lengthMenu": [3 ,5, 10, 20, 50, 100],
+			"searching": true,  //搜尋功能, 預設是開啟
+		    "paging": true,     //分頁功能, 預設是開啟
+		    "ordering": true,   //排序功能, 預設是開啟
+		    "language": {
+		        "processing": "處理中...",
+		        "loadingRecords": "載入中...",
+		        "lengthMenu": "顯示 _MENU_ 筆結果",
+		        "zeroRecords": "沒有符合的結果",
+		        "info": "顯示第 _START_ 至 _END_ 筆結果，共<font color=red> _TOTAL_ </font>筆",
+		        "infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
+		        "infoFiltered": "(從 _MAX_ 筆結果中過濾)",
+		        "infoPostFix": "",
+		        "search": "搜尋:",
+		        "paginate": {
+		            "first": "第一頁",
+		            "previous": "上一頁",
+		            "next": "下一頁",
+		            "last": "最後一頁"
+		        },
+		        "aria": {
+		            "sortAscending":  ": 升冪排列",
+		            "sortDescending": ": 降冪排列"
+		        }
+		    }
+		});
+	});
+</script>
 </head>
 <body>
 
@@ -123,11 +107,7 @@
 			<span style="padding: 15px;">方案名稱</span>
 			<span style="padding: 20px;">方案狀態</span>
 			<span style="padding: 25px;">每日廣告費用</span>
-<!-- 			<span style="padding: 25px;">雇用日期</span> -->
-<!-- 			<span style="padding: 20px;">薪水</span> -->
-<!-- 			<span style="padding: 45px;">獎金</span> -->
-<!-- 			<span style="padding: 20px;">照片</span> -->
-<!-- 			<span style="padding: 50px;">部門</span> -->
+			<span style="padding: 25px;">廣告類別</span>
 			<span style="padding: 15px;">修改</span>
 			<span style="padding: 0px 0px 0px 50px;">刪除</span>
 		</div>
@@ -141,10 +121,7 @@
 				<td th:text="${adVO.adName}"></td>
 				<td th:text="${adVO.adStatus}"></td>
 				<td th:text="${adVO.adDayPrice}"></td>
-<!-- 				<td th:text="${empVO.sal}"></td> -->
-<!-- 				<td th:text="${empVO.comm}"></td> -->
-<!-- 				<td><img th:src="@{/emp/DBGifReader} + '?empno=' + ${empVO.empno}" width="100px"></td> -->
-<!-- 				<td th:text="${empVO.deptVO.deptno} + '-[' + ${empVO.deptVO.dname} + ']'"></td> -->
+				<td th:text="${adVO.adType}"></td>
 			<td>
 			  <form method="post" th:action="@{/ad/getOne_For_Update}" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">

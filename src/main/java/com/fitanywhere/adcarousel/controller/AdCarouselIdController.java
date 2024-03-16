@@ -1,4 +1,4 @@
-package com.fitanywhere.adCarousel.controller;
+package com.fitanywhere.adcarousel.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fitanywhere.adCarousel.model.AdCarouselService;
-import com.fitanywhere.adCarousel.model.AdCarouselVO;
+import com.fitanywhere.adcarousel.model.AdCarouselService;
+import com.fitanywhere.adcarousel.model.AdCarouselVO;
 
 import java.util.*;
 
@@ -57,6 +57,7 @@ public class AdCarouselIdController {
 		AdCarouselVO adcarVO = AdCarSvc.getOneAdcId(Integer.valueOf(adcId));
 		
 		List<AdCarouselVO> list = AdCarSvc.getAll();
+		System.out.println(list);
 		model.addAttribute("AdCarouselListData", list); // for select_page.html 第97 109行用
 		
 		if (adcarVO == null) {

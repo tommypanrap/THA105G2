@@ -1,8 +1,7 @@
-package com.fitanywhere.adCarousel.model;
+package com.fitanywhere.adcarousel.model;
 
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
@@ -15,10 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Future;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fitanywhere.ad.model.AdVO;
@@ -41,17 +36,17 @@ public class AdCarouselVO {
 	private Integer adcId;
 	
 	@Column(name = "adc_start_date")
-	@NotNull(message="結束日期: 請勿空白")	
-	@Future(message="日期必須是在今日(不含)之後")
+//	@NotNull(message="結束日期: 請勿空白")	
+//	@Future(message="日期必須是在今日(不含)之後")
 	private Date adcStartDate;
 	
 	@Column(name = "adc_end_date")
-	@NotNull(message="結束日期: 請勿空白")	
-	@Future(message="日期必須是在今日(不含)之後")
+//	@NotNull(message="結束日期: 請勿空白")	
+//	@Future(message="日期必須是在今日(不含)之後")
 	private Date adcEndDate;
 	
 	@Column(name = "adc_total_price")
-	@NotNull(message="總價: 請勿空白")
+//	@NotNull(message="總價: 請勿空白")
 	private Integer adcTotalPrice;
 	
 	@Column(name = "adc_update_pic" ,columnDefinition = "longblob")
@@ -59,7 +54,7 @@ public class AdCarouselVO {
 	private byte[] adcUpdatePic;
 	
 	@Column(name = "adc_status")
-	@NotNull(message="狀態: 請勿空白")
+//	@NotNull(message="狀態: 請勿空白")
 	private Integer adcStatus;
 	
 	@Column(name = "adc_order_enddate")
@@ -67,17 +62,17 @@ public class AdCarouselVO {
 	
 	@ManyToOne
 	@JoinColumn(name = "ad_id", referencedColumnName = "ad_id")
-	@NotNull(message="方案id: 請勿空白")
+//	@NotNull(message="方案id: 請勿空白")
 	private AdVO adVO;
 	
 	@ManyToOne(fetch = FetchType.LAZY)	
 	@JoinColumn(name = "u_id", referencedColumnName = "u_id")
-	@NotNull(message="教練id: 請勿空白")
+//	@NotNull(message="教練id: 請勿空白")
 	private UserVO userVO;
 	
 	@ManyToOne
 	@JoinColumn(name = "cr_id", referencedColumnName = "cr_id")
-	@NotNull(message="課程id: 請勿空白")
+//	@NotNull(message="課程id: 請勿空白")
 	private CourseVO courseVO;
 	
 

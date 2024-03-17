@@ -877,13 +877,6 @@
                                 </div>
                             </div>
 
-                            <div class="rbt-short-item">
-                                <div class="view-more-btn text-start text-sm-end">
-                                    <button class="discover-filter-button discover-filter-activation rbt-btn btn-white btn-md radius-round">
-                                        篩選<i class="feather-filter"></i></button>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>
@@ -1150,7 +1143,7 @@
                         <div class="course-grid-3">
                             <div class="rbt-card variation-01 rbt-hover">
                                 <div class="rbt-card-img">
-                                    <a href="course-details.html">
+                                    <a th:href="@{'/course/single_course/' + ${courseData.crId}}">
                                         <img th:src="@{/assets/images/client/avatar-02.png}"
                                              th:data-src="'/course/img?crId='+ ${courseData.crId}"
                                              style="max-height: 295px" class="defaultCrCover" alt="Card image">
@@ -1175,14 +1168,9 @@
                                         </div>
                                     </div>
 
-                                    <h4 class="rbt-card-title"><a href="course-details.html"
+                                    <h4 class="rbt-card-title"><a th:href="@{'/course/single_course/' + ${courseData.crId}}"
                                                                   th:text="${courseData.crTitle}"></a>
                                     </h4>
-
-                                    <ul class="rbt-meta">
-                                        <li><i class="feather-book"></i>12 Lessons</li>
-                                        <li><i class="feather-users"></i>50 Students</li>
-                                    </ul>
 
                                     <p class="rbt-card-text" th:text="${courseData.crSubtitle}"></p>
                                     <div class="rbt-author-meta mb--10">
@@ -1324,13 +1312,18 @@
                 "content-type": "application/json",
             }
         }).then((res) => {
-            if (res.ok) {
-                return res.json()
+            if (res.status === 401) {
+                // 未登入回到登入頁面
+                alert('請先登入！')
+                window.location.href = '/user/force_user_login';
             } else {
-                throw new Error("Network response was not ok.")
+                return res.text();
             }
         }).then((data) => {
-            console.log(data);
+            if (data === '您已擁有該課程！') {
+                alert(data);
+            } else if (data === '成功添加至購物車！')
+                console.log(data);
         }).catch((error) => {
             console.error("發生錯誤:" + error);
         });

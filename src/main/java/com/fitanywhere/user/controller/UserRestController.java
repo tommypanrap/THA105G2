@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.fitanywhere.order.model.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -39,6 +40,11 @@ public class UserRestController {
 
 	@Autowired
 	private CoachService coachService;
+
+
+	// Joy
+	@Autowired
+	private CartService cartService;
 
 // ===================================================================
 	// 註冊-檢查信箱是否重複註冊
@@ -259,7 +265,8 @@ public class UserRestController {
 				newSession.setAttribute("uId", uId);
 				newSession.setAttribute("uNickname", user.getuNickname());
 				newSession.setAttribute("uStatus", uStatus);
-								
+
+
 				newSession.setAttribute("cId", coachId); // 若為0表時無教練身分; 若有教練身分 寫入教練Id
 				
 				// 有登入的Session才有"loginStatus" 直接確認Session有沒有"loginStatus"這個項目就能判斷有無登入
@@ -270,6 +277,9 @@ public class UserRestController {
 				newSession.setAttribute("loginDate", new Date()); // 登入時間
 				newSession.setAttribute("lastActiveTime", new Date()); // 最後活動時間
 				newSession.setMaxInactiveInterval(60 * 60); // Session保存期限(秒)
+
+				// Joy - 將使用者已擁有課程存入Redis
+				cartService.storeOwnedCoursesInRedis(uId);
 
 				//印出Session中基本資料
 //		        System.out.println("uId: " + newSession.getAttribute("uId"));

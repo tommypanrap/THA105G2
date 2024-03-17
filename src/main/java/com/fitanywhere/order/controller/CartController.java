@@ -2,6 +2,7 @@ package com.fitanywhere.order.controller;
 
 import com.fitanywhere.order.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -22,15 +23,27 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
+    @Autowired
+    private OrderService orderService;
+
+
     // 將課程新增到購物車中
     @PostMapping("add")
-    public List<CartItemVO> addCart(@RequestBody Integer crId, HttpSession session, HttpServletRequest request) {
+    public ResponseEntity<?> addCart(@RequestBody Integer crId, HttpSession session, HttpServletRequest request) {
         Integer uIdInt = (Integer) session.getAttribute("uId");
-        String uId = uIdInt != null ? uIdInt.toString() : request.getRemoteAddr();
-        session.setAttribute("clientIP", uId);
+        if (uIdInt == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("請先登入！");
+        }
+        String uId = uIdInt.toString();
+        boolean isOwned = cartService.isCourseOwned(uIdInt, crId);
 
-        cartService.addItem(uId, crId);
-        return cartService.getCartItems(uId);
+        if (isOwned) {
+           return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("您已擁有該課程！");
+        }else {
+            cartService.addItem(uId, crId);
+        }
+
+        return ResponseEntity.ok("成功添加至購物車！");
     }
 
 
@@ -38,15 +51,11 @@ public class CartController {
     @GetMapping("get")
     public List<CartItemVO> getItems(ModelMap model, HttpSession session) {
         Integer uIdInt = (Integer) session.getAttribute("uId");
-        String uId = uIdInt != null ? uIdInt.toString() : (String) session.getAttribute("clientIP");
-
+        if (uIdInt == null) {
+            return null;
+        }
+        String uId = uIdInt.toString();
         List<CartItemVO> list = cartService.getCartItems(uId);
-
-
-
-
-
-
         model.addAttribute("cartItemListData", list);
         return list;
     }
@@ -55,7 +64,11 @@ public class CartController {
     @DeleteMapping("remove/{crId}")
     public List<CartItemVO> deleteItem(@PathVariable Integer crId, HttpSession session) {
         Integer uIdInt = (Integer) session.getAttribute("uId");
-        String uId = uIdInt != null ? uIdInt.toString() : (String) session.getAttribute("clientIP");
+        if (uIdInt == null) {
+            return null;
+        }
+
+        String uId = uIdInt.toString();
 
         cartService.removeItem(uId, crId);
 
@@ -67,6 +80,7 @@ public class CartController {
     @DeleteMapping("clear")
     public String clearItems(HttpSession session) {
         Integer uIdInt = (Integer) session.getAttribute("uId");
+
         String uId = uIdInt != null ? uIdInt.toString() : (String) session.getAttribute("clientIP");
 
         cartService.clearCart(uId);
@@ -80,17 +94,22 @@ public class CartController {
     @GetMapping("check")
     public ModelAndView checkCart(ModelMap model, HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
+        Integer uIdInt = (Integer) session.getAttribute("uId");
+        if (uIdInt == null) {
+            modelAndView.setViewName("/user/force_user_login");
+            return modelAndView;
+        }
+
         modelAndView.setViewName("front-end/cart/cart");
 
-        Integer uIdInt = (Integer) session.getAttribute("uId");
-        String uId = uIdInt != null ? uIdInt.toString() : (String) session.getAttribute("clientIP");
+        String uId = uIdInt.toString();
 
         List<CartItemVO> list = cartService.getCartItems(uId);
 
         list.forEach(CartItemVO ->
         {
             byte[] crCover = CartItemVO.getCrCover();
-            if (crCover!=null){
+            if (crCover != null) {
                 String base64CrCover = Base64.getEncoder().encodeToString(crCover);
                 CartItemVO.setBase64CrCover(base64CrCover);
             }

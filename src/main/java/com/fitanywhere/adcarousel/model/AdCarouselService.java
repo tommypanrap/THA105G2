@@ -1,4 +1,4 @@
-package com.fitanywhere.adcarshipousel.model;
+package com.fitanywhere.adcarousel.model;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;

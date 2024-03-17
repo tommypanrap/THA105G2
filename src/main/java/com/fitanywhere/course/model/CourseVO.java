@@ -21,7 +21,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fitanywhere.adcarshipousel.model.AdCarouselVO;
+import com.fitanywhere.adcarousel.model.AdCarouselVO;
 import com.fitanywhere.coursedetail.model.CourseDetailVO;
 import com.fitanywhere.user.model.UserVO;
 import org.springframework.data.annotation.CreatedDate;

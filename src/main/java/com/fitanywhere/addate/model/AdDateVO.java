@@ -1,4 +1,4 @@
-package com.fitanywhere.addatefree.model;
+package com.fitanywhere.addate.model;
 
 import java.sql.Date;
 import java.util.Objects;
@@ -12,7 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fitanywhere.adfgh.model.AdVO;
+import com.fitanywhere.ad.model.AdVO;
 
 
 

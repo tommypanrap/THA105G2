@@ -1,4 +1,4 @@
-package com.fitanywhere.addatefree.controller;
+package com.fitanywhere.addate.controller;
 
 import java.util.List;
 import java.util.Set;
@@ -22,9 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fitanywhere.addatefree.model.AdDateService;
-import com.fitanywhere.addatefree.model.AdDateVO;
-import com.fitanywhere.adfgh.model.AdService;
+import com.fitanywhere.ad.model.AdService;
+import com.fitanywhere.addate.model.AdDateService;
+import com.fitanywhere.addate.model.AdDateVO;
 
 
 

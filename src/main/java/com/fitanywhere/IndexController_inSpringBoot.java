@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.fitanywhere.adcarshipousel.model.AdCarouselService;
-import com.fitanywhere.adcarshipousel.model.AdCarouselVO;
+import com.fitanywhere.adcarousel.model.AdCarouselService;
+import com.fitanywhere.adcarousel.model.AdCarouselVO;
 import com.fitanywhere.course.model.CourseService;
 import com.fitanywhere.course.model.CourseVO;
 

@@ -1,9 +1,9 @@
 // https://docs.spring.io/spring-data/jpa/docs/current/reference/html/
 
-package com.fitanywhere.adfgh.model;
+package com.fitanywhere.addate.model;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AdRepository extends JpaRepository<AdVO, Integer> {
+public interface AdDateRepository extends JpaRepository<AdDateVO, Integer> {
     
 }

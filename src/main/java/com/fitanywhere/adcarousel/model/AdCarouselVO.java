@@ -1,4 +1,4 @@
-package com.fitanywhere.adcarshipousel.model;
+package com.fitanywhere.adcarousel.model;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -17,7 +17,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.FutureOrPresent;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fitanywhere.adfgh.model.AdVO;
+import com.fitanywhere.ad.model.AdVO;
 import com.fitanywhere.course.model.CourseVO;
 import com.fitanywhere.user.model.UserVO;
 

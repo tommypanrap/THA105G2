@@ -1,4 +1,4 @@
-	package com.fitanywhere.adcarshipousel.controller;
+	package com.fitanywhere.adcarousel.controller;
 
 	import javax.servlet.http.HttpSession;
 	import javax.validation.Valid;
@@ -15,10 +15,10 @@
 	import org.springframework.web.bind.annotation.RequestParam;
 	import org.springframework.web.multipart.MultipartFile;
 
-import com.fitanywhere.adcarshipousel.model.AdCarouselService;
-import com.fitanywhere.adcarshipousel.model.AdCarouselVO;
-import com.fitanywhere.adfgh.model.AdService;
-import com.fitanywhere.adfgh.model.AdVO;
+import com.fitanywhere.ad.model.AdService;
+import com.fitanywhere.ad.model.AdVO;
+import com.fitanywhere.adcarousel.model.AdCarouselService;
+import com.fitanywhere.adcarousel.model.AdCarouselVO;
 import com.fitanywhere.course.model.CourseService;
 	import com.fitanywhere.course.model.CourseVO;
 	import com.fitanywhere.user.model.UserService;

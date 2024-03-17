@@ -1,11 +1,11 @@
-package com.fitanywhere.adcarshipousel.model;
+package com.fitanywhere.adcarousel.model;
 
 import java.time.LocalDateTime;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.fitanywhere.adcarshipousel.model.AdCarouselRepository;
+import com.fitanywhere.adcarousel.model.AdCarouselRepository;
 
 @Component
 public class Scheduler {

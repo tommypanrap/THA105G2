@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.fitanywhere.user.model.UserService;
@@ -40,7 +41,8 @@ public class ForumPostService {
         }
 
         public List<ForumPostVO> getAll() {
-            return repository.findAll();
+        	Sort sortByUpdateTime = Sort.by(Sort.Direction.DESC, "fpUpdate");
+            return repository.findAll(sortByUpdateTime);
         }
         
         public boolean existsByFpTitle(String fpTitle) {

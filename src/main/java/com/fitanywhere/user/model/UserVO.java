@@ -17,7 +17,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
+<<<<<<< HEAD
 import com.fitanywhere.adCarousel.model.AdCarouselVO;
+=======
+import com.fitanywhere.forumpost.model.ForumPostVO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.format.annotation.DateTimeFormat;
+import java.io.Serializable;
+import java.util.Date;
+
+import com.fitanywhere.adcarousel.model.AdCarouselVO;
+>>>>>>> refs/heads/master
 import com.fitanywhere.course.model.CourseVO;
 import com.fitanywhere.forumpost.model.ForumPostVO;
 import com.fitanywhere.forumreply.model.ForumReplyVO;
@@ -36,11 +46,13 @@ public class UserVO implements java.io.Serializable{
 	
 	// Tommy
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "mood_id")
 	private MoodVO moodVO;
 
 	// Mok
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "userVO")
+	@JsonIgnore
 	private Set<CourseVO> courses = new HashSet<CourseVO>();
 
 	public Set<CourseVO> getCourses() {
@@ -82,6 +94,7 @@ public class UserVO implements java.io.Serializable{
 	private byte[] uHeadshot;
 
 	@Column(name = "u_birth")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date uBirth;
 
 	@Column(name = "u_status")
@@ -89,12 +102,14 @@ public class UserVO implements java.io.Serializable{
 //	0 = 正常會員; 1 = 可登入但部分功能限制的帳號(懲罰中); 2 = 自行永久關閉帳號; 3 = 被檢舉停權帳號;   
 
 	@Column(name = "u_registerdate")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date uRegisterdate;
 	
 	
 //	xiaoxin
 	
 	@OneToMany(fetch=FetchType.EAGER, mappedBy="userVO")
+	@JsonIgnore
 	private Set<AdCarouselVO> adCarousel = new HashSet<AdCarouselVO>();
 
 	
@@ -132,10 +147,13 @@ public class UserVO implements java.io.Serializable{
 
 	//Tommy
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="userVO")
+	@JsonIgnore
+	@OrderBy("spid ASC")
 	private Set<SocialPostVO> socialposts = new HashSet<SocialPostVO>();
 	
 	//Tommy
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="userVO")
+	@JsonIgnore
 	private Set<SocialReplyVO> socialReplys = new HashSet<SocialReplyVO>();
 
 	public Set<SocialReplyVO> getSocialReplys() {

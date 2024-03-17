@@ -1,5 +1,6 @@
 package com.fitanywhere.coursedetail.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fitanywhere.course.model.CourseVO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,10 +9,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /*
-*在spring boot
-* @Data 等於自動加上Getter/Setter、ToString、EqualsAndHashCode、RequiredArgsConstructor
-* @NoArgsConstructor 加上一個無參建構子 JavaBean基礎知識
-* */
+ *在spring boot
+ * @Data 等於自動加上Getter/Setter、ToString、EqualsAndHashCode、RequiredArgsConstructor
+ * @NoArgsConstructor 加上一個無參建構子 JavaBean基礎知識
+ * */
 
 @Data
 @NoArgsConstructor
@@ -26,15 +27,16 @@ public class CourseDetailVO implements Serializable {
 	private Integer cdId;
 
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name="cr_id")
 	private CourseVO courseVO;
-	
+
 	@Column(name="cd_video",columnDefinition = "longtext")
 	private String cdVideo;
-	
+
 	@Column(name="cd_sale_video",columnDefinition = "longtext")
 	private String cdSaleVideo;
-	
+
 	@Column(name="cd_pdf",columnDefinition = "longblob")
 	private byte[] cdPdf;
 

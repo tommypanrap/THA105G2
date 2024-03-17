@@ -1,4 +1,4 @@
-package com.fitanywhere.com.fitanywhere.adcarousel.controller;
+package com.fitanywhere.adcarousel.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

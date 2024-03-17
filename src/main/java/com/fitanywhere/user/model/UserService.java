@@ -18,12 +18,9 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-<<<<<<< HEAD
 import com.fitanywhere.forumpost.model.ForumPostVO;
-=======
 import com.fitanywhere.service.PasswordEncryptionService;
 import com.fitanywhere.course.model.CourseVO;
->>>>>>> branch 'master' of https://github.com/tommypanrap/THA105G2.git
 import com.fitanywhere.service.MailService;
 import com.fitanywhere.service.PasswordEncryptionService;
 

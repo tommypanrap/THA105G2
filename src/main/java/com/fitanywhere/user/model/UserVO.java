@@ -17,13 +17,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
-<<<<<<< HEAD
 import com.fitanywhere.forumpost.model.ForumPostVO;
-=======
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
->>>>>>> branch 'master' of https://github.com/tommypanrap/THA105G2.git
-
 import java.io.Serializable;
 import java.util.Date;
 

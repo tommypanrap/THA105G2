@@ -87,6 +87,13 @@
             margin-bottom: 20px;
 
         }
+        #headshot {
+            min-height: 120px;
+        }
+        .bg_image--23 {
+            background-image: url("../images/bg/yoda.jpg");
+        }
+    </style>
 
     </style>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -934,19 +941,18 @@
                     <div class="rbt-tutor-information">
                         <div class="rbt-tutor-information-left">
                             <div class="thumbnail rbt-avatars size-lg">
-                                <img th:src="@{/assets/images/team/avatar-2.jpg}" alt="Instructor">
+                                <img class="userHeadshot" th:data-user-id="${session.uId}" id="headshot" alt="User Headshot">
                             </div>
                             <div class="tutor-content">
-                                <h5 class="title">Emily Hannah</h5>
+                                <h5 class="title" th:text="${session.uNickname}"></h5>
                                 <ul class="rbt-meta rbt-meta-white mt--5">
-                                    <li><i class="feather-book"></i>5 Courses Enroled</li>
-                                    <li><i class="feather-award"></i>4 Certificate</li>
+                                    <li th:text="'已累積了 '+${orderCount}+ ' 筆訂單'"><i class="feather-book"></i></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="rbt-tutor-information-right">
                             <div class="tutor-btn">
-                                <a class="rbt-btn btn-md hover-icon-reverse" href="#"> <span
+                                <a class="rbt-btn btn-md hover-icon-reverse" href="/course/coach_dashboard"> <span
                                         class="icon-reverse-wrapper"> <span class="btn-text">教練模式</span>
 											<span class="btn-icon"><i class="feather-arrow-right"></i></span>
 											<span class="btn-icon"><i class="feather-arrow-right"></i></span>
@@ -1145,9 +1151,8 @@
 
 
     $('.check_od_btn').click(function (e) {
-        console.log('click button')
+        // 取消預設動作
         e.preventDefault();
-
         let odId_el = $(this).closest('tr').find('.odId');
         let odId = parseInt($(odId_el).text());
 
@@ -1160,24 +1165,40 @@
                 return res.json();
             }).then(details => {
             let fetchPromises = details.map(detail => {
+                // 讀取圖片
                 return fetch('/cr_cover/course_image', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({cr_id: detail.crId}),
-                })
-                    .then(response => {
+                }).then(response => {
+                        if (response.status === 404){
+                            return `
+                        <tr>
+                            <td><img src="/assets/images/client/avatar-02.png" alt="Course Cover" style="max-height: 50px"/></td>
+                            <td>${detail.crTitle}</td>
+                            <td>${detail.cdPrice}</td>
+                        </tr>
+                    `;
+                        }
                         if (!response.ok) {
+
                             throw new Error('Failed to fetch course image');
                         }
                         return response.blob();
                     })
                     .then(blob => {
+                        // 如果 404 直接使用預設圖
+                        if (typeof blob === 'string') {
+                            // 如果是字串代表找不到圖片
+                            return blob;
+                        }
+                        // 如果有圖片則轉為URL
                         let image_cover = URL.createObjectURL(blob);
                         return `
                         <tr>
-                            <td><img src="${image_cover}" alt="" style="max-height: 50px"/></td>
+                            <td><img src="${image_cover}" alt="Course Cover" style="max-height: 50px"/></td>
                             <td>${detail.crTitle}</td>
                             <td>${detail.cdPrice}</td>
                         </tr>
@@ -1211,6 +1232,39 @@
 
     });
 
+    //userRestController getUserHeadshot
+    $(document).ready(function () {
+        let userIdList = [];
+
+        $('.userHeadshot').each(function () {
+            let data = $(this).data('user-id');
+
+            // fetch 可以直接處理二進制資料(如blob)
+            fetch('/user_api/user_headshot_test', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({u_id: data}),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('response error');
+                    }
+                    return response.blob();
+                })
+                .then(blob => {
+                    let image_Url = URL.createObjectURL(blob);
+                    ;
+                    let this_e = $(this);
+                    $(this).attr('src', image_Url);
+                })
+                .catch(error => {
+                    console.error('找不到user image:', error);
+                    $(this).attr('src', '/assets/images/client/avatar-02.png');
+                });
+        });
+    });
 </script>
 </body>
 

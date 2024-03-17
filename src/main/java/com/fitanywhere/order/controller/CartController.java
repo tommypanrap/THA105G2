@@ -38,11 +38,10 @@ public class CartController {
         boolean isOwned = cartService.isCourseOwned(uIdInt, crId);
 
         if (isOwned) {
-           return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("您已擁有該課程！");
-        }else {
-            cartService.addItem(uId, crId);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("您已擁有該課程！");
         }
 
+        cartService.addItem(uId, crId);
         return ResponseEntity.ok("成功添加至購物車！");
     }
 
@@ -95,10 +94,6 @@ public class CartController {
     public ModelAndView checkCart(ModelMap model, HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
         Integer uIdInt = (Integer) session.getAttribute("uId");
-        if (uIdInt == null) {
-            modelAndView.setViewName("/user/force_user_login");
-            return modelAndView;
-        }
 
         modelAndView.setViewName("front-end/cart/cart");
 
@@ -123,7 +118,7 @@ public class CartController {
         return modelAndView;
     }
 
-    //結帳頁面
+    //結帳頁面(刪)
     @GetMapping("checkout")
     public ModelAndView checkoutCart(ModelMap model, HttpSession session) {
         Integer uIdInt = (Integer) session.getAttribute("uId");

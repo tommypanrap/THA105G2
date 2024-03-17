@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>所有討論區貼文 - listAllForumPost.html</title>
+<title>所有討論區貼文回文 - listAllForumPost.html</title>
 <script th:src="@{/js/jquery-1.11.3.min.js}"></script> <!-- 左側jquery為table分頁用 -->
-<head th:insert="~{/front-end/forumpost/included-fragment}"></head>
+
 <style type="text/css">
 
     table {
@@ -98,14 +98,14 @@
 <body>
 
 <nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
-		 <div align="center"> <h2>所有討論區貼文 - listAllForumPost.html</h2>
+		 <div align="center"> <h2>所有討論區貼文回文 - listAllForumPost.html</h2>
 		 <h3><a class="navbar-brand" th:href="@{/forumpost/select_page}"><img th:src="@{/images/back1.gif}">回查詢頁<label th:text="${success}"></label></a></h3></div>
 </nav>
 
 <div align="center">
   <b><font color=red>第<label id="currentPage">1</label>/<label id="pageNumber"></label>頁</font></b>
 
-<b>● 符 合 查 詢 條 件 如 下 所 示 : 共 <font color=red th:text="${forumPostListData?.size}"></font> 筆</b></div>
+<b>● 符 合 查 詢 條 件 如 下 所 示 : 共 <font color=red th:text="${forumReplyPostListData.size}"></font> 筆</b></div>
 	<div style="padding: 5px; width:4000px; height:35px; background-color:#CCCCFF; margin-top:5px; margin-bottom:5px; margin-left:auto; margin-right:auto; border: 1px solid #000000;">
 			<span style="padding: 50px;">貼文編號</span>
 			<span style="padding: 40px;">用戶ID</span>
@@ -122,26 +122,17 @@
 	
 	<table class="center">
 		<th:block th:each="ForumPostVO : ${forumPostListData}">
-			<tr>
+				<tr th:if="${ForumPostVO.fpStatus == 1}">				
 				<td th:text="${ForumPostVOStat.count}" width="-50px"></td>
 				<td th:text="${ForumPostVO.fpId}"></td>
-				<td th:text="${ForumPostVO.userVO.uId}"></td>
+				<td th:text="${ForumPostVO.UserVO.uId}"></td>
 				<td th:text="${ForumPostVO.fpCategory}"></td>
 				<td th:text="${ForumPostVO.fpTitle}"></td>
 				<td th:text="${ForumPostVO.fpContent}"></td>
-				<td th:text="${ForumPostVO.fpTime}"></td>
-				<td th:text="${ForumPostVO.fpUpdate}"></td>
-<!-- 				<td th:text="${userVO.comImage1}"></td> -->
-<!-- 				<td th:text="${userVO.comImage2}"></td> -->
-<!-- 				<td th:text="${userVO.comImage3}"></td> -->
-<!-- 				<td th:text="${userVO.comImage4}"></td> -->
-<!-- 				<td th:text="${userVO.comAboutImage}"></td> -->
+				<td th:text="${#dates.format(ForumPostVO.fpTime, 'yyyy-MM-dd HH:mm')}"></td>
+				<td th:text="${#dates.format(ForumPostVO.fpUpdate, 'yyyy-MM-dd HH:mm')}"></td>
 				<td><img th:src="@{/forumpost/DBGifReader} + '?fpId=' + ${ForumPostVO.fpId}" width="100px"></td>
-<!-- 				<td><img th:src="@{/user/DBGifReader1} + '?userId=' + ${userVO.userId}" width="100px"></td> -->
-<!-- 				<td><img th:src="@{/user/DBGifReader2} + '?userId=' + ${userVO.userId}" width="100px"></td> -->
-<!-- 				<td><img th:src="@{/user/DBGifReader3} + '?userId=' + ${userVO.userId}" width="100px"></td> -->
-<!-- 				<td><img th:src="@{/user/DBGifReader4} + '?userId=' + ${userVO.userId}" width="100px"></td> -->
-<!-- 				<td th:text="${empVO.deptVO.deptno} + '-[' + ${empVO.deptVO.dname} + ']'"></td> -->
+
 			<td>
 			  <form method="post" th:action="@{/forumpost/getOne_For_Update}" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">

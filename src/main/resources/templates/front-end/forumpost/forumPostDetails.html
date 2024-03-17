@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{/front-end/included-head}"></head>
+
 
 <head>
     <meta charset="utf-8">
@@ -12,125 +15,12 @@
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png">
 
-    <!-- CSS
-	============================================ -->
-    <link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/vendor/slick.css">
-    <link rel="stylesheet" href="assets/css/vendor/slick-theme.css">
-    <link rel="stylesheet" href="assets/css/plugins/sal.css">
-    <link rel="stylesheet" href="assets/css/plugins/feather.css">
-    <link rel="stylesheet" href="assets/css/plugins/fontawesome.min.css">
-    <link rel="stylesheet" href="assets/css/plugins/euclid-circulara.css">
-    <link rel="stylesheet" href="assets/css/plugins/swiper.css">
-    <link rel="stylesheet" href="assets/css/plugins/magnify.css">
-    <link rel="stylesheet" href="assets/css/plugins/odometer.css">
-    <link rel="stylesheet" href="assets/css/plugins/animation.css">
-    <link rel="stylesheet" href="assets/css/plugins/bootstrap-select.min.css">
-    <link rel="stylesheet" href="assets/css/plugins/jquery-ui.css">
-    <link rel="stylesheet" href="assets/css/plugins/magnigy-popup.min.css">
-    <link rel="stylesheet" href="assets/css/plugins/plyr.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/eugen/eugen_g2_blog_list.css">
+   
 </head>
 
 <body class="rbt-header-sticky">
-    <!-- Start Header Area  頁首 桌機-->
-    <header class="rbt-header rbt-header-10">
-        <div class="rbt-sticky-placeholder"></div>
-        <div class="rbt-header-wrapper header-space-betwween header-transparent header-sticky">
-            <div class="container-fluid">
-                <div class="mainbar-row rbt-navigation-start align-items-center">
-                    <div class="header-left rbt-header-content">
-                        <div class="header-info">
-                            <div class="logo">
-                                <a href="index.html">
-                                    <img src="assets/images/logo/fitanywherelogo.png" alt="Education Logo Images">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="rbt-main-navigation d-none d-xl-block">
-                        <nav class="mainmenu-nav">
-                            <ul class="mainmenu">
-                                <li class="with-megamenu has-menu-child-item position-static mainmenu-sub">
-                                    <a href="#">TDEE / FFMI計算公式
-                                        <!-- <i class="feather-chevron-down"></i> -->
-                                    </a>
+	<header th:insert="~{/front-end/included-header}"></header>
 
-                                </li>
-
-                                <li class="with-megamenu has-menu-child-item mainmenu-sub">
-                                    <a href="./g2-blog-list.html">討論區
-                                        <!-- <i class="feather-chevron-down"></i> -->
-                                    </a>
-                                    <!-- Start Mega Menu  -->
-                                    
-                                    <!-- End Mega Menu  -->
-                                </li>
-
-                                <li class="has-dropdown has-menu-child-item mainmenu-sub">
-                                    <a href="./student-dashboard.html">會員中心
-                                        <!-- <i class="feather-chevron-down"></i> -->
-                                    </a>
-                                    <!-- <ul class="submenu">
-                                        <li class="has-dropdown"><a href="#">Instructor Dashboard</a>
-                 
-                                        </li>
-                                        <li class="has-dropdown"><a href="#">Student Dashboard</a>
-
-                                        </li>
-                                    </ul> -->
-                                </li>
-
-                                <li class="with-megamenu has-menu-child-item position-static mainmenu-sub">
-                                    <a href="./g2-02-course-school.html">線上課程<i class="feather-chevron-down"></i></a>
-                                   
-                                    
-                                    
-                                </li>
-
-                                <!-- <li class="with-megamenu has-menu-child-item position-static">
-                                    <a href="#">Elements <i class="feather-chevron-down"></i></a>
-                                    
-                                    
-                                    
-                                </li> -->
-                                <li><a href=""><img src="./assets/images/bell.png" alt=""></a></li>
-                                <li><a href="./g2-cart.html"><img src="./assets/images/cart.png" alt=""></a></li>
-                                <li><a href=""><img src="./assets/images/mail.png" alt=""></a></li>    
-                                <li class="with-megamenu has-menu-child-item position-static mainmenu-sub">
-                                    <a href="./g2-register.html">登入 / 註冊 
-                                        <!-- <i class="feather-chevron-down"></i> -->
-                                    </a>
-                                    
-                                    
-                                    
-                                </li>
-                                                             
-                            </ul>
-                        </nav>
-                    </div>
-                    <div class="header-right">
-                        <div class="rbt-btn-wrapper d-none d-xl-block">
-                            <!-- <a class="rbt-btn rbt-marquee-btn marquee-auto btn-border-gradient radius-round btn-sm hover-transform-none" href="https://themeforest.net/checkout/from_item/42846507?license=regular">
-                                <span data-text="Purchase Now">Purchase Now</span>
-                            </a> -->
-                        </div>
-                        <!-- Start Mobile-Menu-Bar -->
-                        <div class="mobile-menu-bar d-block d-xl-none">
-                            <div class="hamberger">
-                                <button class="hamberger-button rbt-round-btn">
-                                    <i class="feather-menu"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <!-- Start Mobile-Menu-Bar -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-    <!-- End Header Area  -->
     <!-- Mobile Menu Section -->
     <div class="popup-mobile-menu">
         <div class="inner-wrapper">
@@ -1036,54 +926,41 @@
             </div>
 
 
-            <div class="breadcrumb-content-top text-center">
-                <ul class="meta-list justify-content-center mb--10">
-                    <li class="list-item">
-                        <div class="author-thumbnail">
-                            <!-- 作者大頭照縮圖 -->
-                            <img src="assets/images/testimonial/client-06.png" alt="blog-image">
-                        </div>
-                        <div class="author-info">
-                            <a href="#"><strong>大吳</strong></a> 在 <a href="#"><strong>健身</strong></a>
-                        </div>
-                    </li>
-                    <li class="list-item">
-                        <i class="feather-clock"></i>
-                        <span>2024-2-28</span>
-                    </li>
-                </ul>
-                <h1 class="title">三十天徒手健身</h1>
-                <p>腹肌養成底家</p>
+ <div class="breadcrumb-content-top text-center">
+    <ul class="meta-list justify-content-center mb--10">
+        <li class="list-item">
+            <div class="author-thumbnail">
+                <!-- 顯示發文者頭像 -->
+<!--                 <img th:src="@{${userService.getUserHeadshot(forumPostVO.userVO.uId)}}" alt="blog-image"> -->
             </div>
+            <div class="author-info">
+                <a href="#"><strong th:text="${forumPostVO.userVO.uName}">作者</strong></a>  <a href="#"><strong th:text="${forumPostVO.fpCategory}">分類</strong></a>
+            </div>
+        </li>
+        <li class="list-item">
+            <i class="feather-clock"></i>
+            <!-- 顯示文章發布時間 -->
+            <span th:text="${#dates.format(forumPostVO.fpTime, 'yyyy-MM-dd')}">發布時間</span>
+        </li>
+    </ul>
+    <!-- 顯示文章標題 -->
+    <h1 class="title" th:text="${forumPostVO.fpTitle}">文章標題</h1>
+</div>
+
+<div class="rbt-blog-details-area rbt-section-gapBottom breadcrumb-style-max-width">
+    <div class="blog-content-wrapper rbt-article-content-wrapper">
+        <div class="content">
+            <div class="post-thumbnail mb--30 position-relative wp-block-image alignwide">
+                <figure>
+                    <!-- 顯示文章圖片 -->
+                    <img th:src="@{/forumpost/DBGifReader(fpId=${forumPostVO.fpId})}" alt="Blog Images">
+                </figure>
+            </div>
+            <!-- 顯示文章內容 -->
+            <p th:text="${forumPostVO.fpContent}">文章内容</p>
         </div>
-
-        <div class="rbt-blog-details-area rbt-section-gapBottom breadcrumb-style-max-width">
-            <div class="blog-content-wrapper rbt-article-content-wrapper">
-                <div class="content">
-                    <div class="post-thumbnail mb--30 position-relative wp-block-image alignwide">
-                        <figure>
-                            <!-- 文章封面照 -->
-                            <img src="assets/images/blog/blog-single-03.png" alt="Blog Images">
-                            <!-- <figcaption>照片說明</figcaption> -->
-                        </figure>
-                    </div>
-                    <!-- 以下文本 -->
-                    <p>
-                        大吳我真是太厲害了！看著學生們這麼快速地掌握0205範例，真的是感到自豪。我還沒正式教，他們就已經瞭解得非常透徹。這就是大吳的教學魅力，不是嗎？我的教學方式簡直就是讓他們如魚得水。同學們都讚嘆不已，對我的敬仰之情油然而生。我就知道，大吳的教學就是一流的，無人能及。未來，我期待看到更多更出色的成果，因為大吳的教導絕對是無與倫比的！</p>
-
-                        <p>
-                            
-雖然大吳我超厲害，但這次好像有點偏題了，不好意思，讓我把焦點拉回來。我可不只是個程式大師，還能教你們如何徒手健身。除了頭腦靈活，身體也要保持最佳狀態才行。大吳我教的不僅僅是程式語言，還包括保持身心健康的訣竅。讓我們一同換個角度，展開一場與程式碼不同的冒險，這次的冒險是關於強健的身軀！
-                        </p>
- 
-
-
-             
-
-                
-
-
-
+    </div>
+</div>
 
 
                     <!-- 作者簡介區 -->

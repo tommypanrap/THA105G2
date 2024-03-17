@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,6 +46,22 @@ public class ForumPostController {
 	    model.addAttribute("ForumPostVO", forumPostVO);
 	    return "front-end/forumpost/addForumPost";
 	}
+	
+	@GetMapping("/details/{fpId}")
+	public String getForumPostDetails(@PathVariable("fpId") int fpId, Model model) {
+	    ForumPostVO forumPostVO = forumPostSvc.getOneForumPost(Integer.valueOf(fpId));
+	    
+		if (forumPostVO != null) {
+			// 增加貼文觀看次數
+			forumPostVO.setFpViews(forumPostVO.getFpViews() + 1);
+			// 更新觀看次數
+	        forumPostSvc.updateViews(forumPostVO.getFpId(), forumPostVO.getFpViews());
+		}
+	    
+	    model.addAttribute("forumPostVO", forumPostVO);
+	    
+	    return "front-end/forumpost/forumPostDetails";
+	}
 
 	@PostMapping("insert")
 	public String insert(@Valid ForumPostVO forumPostVO, BindingResult result, ModelMap model,
@@ -71,7 +88,7 @@ public class ForumPostController {
         List<ForumPostVO> list = forumPostSvc.getAll();
         model.addAttribute("forumPostListData", list);
         model.addAttribute("success", "- (新增成功)");
-        return "redirect:/forumpost/listAllForumPost"; // 新增成功後重導至IndexController_inSpringBoot.java的第50行@GetMapping("/user/listAllUser")
+        return "redirect:/forumpost/listAllForumPost";
     }
 
 	@PostMapping("getOne_For_Update")
@@ -81,7 +98,7 @@ public class ForumPostController {
 
 		/*************************** 3.查詢完成,準備轉交(Send the Success view) **************/
 		model.addAttribute("ForumPostVO", forumPostVO);
-		return "front-end/forumpost/update_forumpost_input"; // 查詢完成後轉交update_user_input.html
+		return "front-end/forumpost/update_forumpost_input"; 
 	}
 	
 	@PostMapping("update")
@@ -129,10 +146,10 @@ public class ForumPostController {
 	    }
 
 	    // 2. 獲取要刪除的貼文
-	    ForumPostVO forumPost = forumPostSvc.getOneForumPost(Integer.valueOf(fpId));
+	    ForumPostVO forumPostVO = forumPostSvc.getOneForumPost(Integer.valueOf(fpId));
 
 	    // 3. 檢查用戶身份是否有權刪除貼文
-	    if (!currentUser.equals(forumPost.getUserVO())) {
+	    if (!currentUser.equals(forumPostVO.getUserVO())) {
 	        // 如果用戶不是貼文作者，則拒絕刪除操作
 	        model.addAttribute("error", "只有貼文作者才能刪除貼文");
 	        return "front-end/error"; // 返回一個錯誤頁面或重新導
@@ -146,11 +163,11 @@ public class ForumPostController {
 	}
 
 	
-//	====測試
-	
     @GetMapping("listAllForumPost")
 	public String listAllForumPost(Model model) {
-		return "front-end/forumpost/listAllForumPost";
+    	 List<ForumPostVO> forumPosts = forumPostSvc.getAll();
+         model.addAttribute("forumPosts", forumPosts);
+		return "front-end/forumpost/g2_blog_list1";
 	}
     
 	@GetMapping("select_page")

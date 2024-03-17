@@ -17,13 +17,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
-import com.fitanywhere.forumpost.model.ForumPostVO;
-
-import java.io.Serializable;
-import java.util.Date;
-
 import com.fitanywhere.adCarousel.model.AdCarouselVO;
 import com.fitanywhere.course.model.CourseVO;
+import com.fitanywhere.forumpost.model.ForumPostVO;
+import com.fitanywhere.forumreply.model.ForumReplyVO;
 import com.fitanywhere.mood.model.MoodVO;
 import com.fitanywhere.socialpost.model.SocialPostVO;
 import com.fitanywhere.socialpost.model.SocialReplyVO;
@@ -108,9 +105,21 @@ public class UserVO implements java.io.Serializable{
 	public Set<ForumPostVO> getForumPost() {
 		return forumPost;
 	}
+	
+	//ROY	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy="userVO")
+	@OrderBy("u_id asc") //asc = 根據指定的欄位排序
+	private Set<ForumReplyVO> forumReply = new HashSet<ForumReplyVO>();
+	public Set<ForumReplyVO> getForumReply() {
+		return forumReply;
+	}
 
 	public void setForumPost(Set<ForumPostVO> forumPost) {
 		this.forumPost = forumPost;
+	}
+	
+	public void setForumReply(Set<ForumReplyVO> forumReply) {
+		this.forumReply = forumReply;
 	}
 
 	public Set<AdCarouselVO> getAdCarousel() {

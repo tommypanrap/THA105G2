@@ -2,20 +2,28 @@ package com.fitanywhere.forumpost.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Base64;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fitanywhere.forumreply.model.ForumReplyVO;
 import com.fitanywhere.user.model.UserVO;
 
 import lombok.Data;
@@ -27,10 +35,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ForumPostVO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "u_id", referencedColumnName = "u_id")
 	private UserVO userVO;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "userVO")
+	@OrderBy("u_id asc") // asc = 根據指定的欄位排序
+	private Set<ForumReplyVO> forumReply = new HashSet<ForumReplyVO>();
+
+	public Set<ForumReplyVO> getForumReply() {
+		return forumReply;
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -83,10 +99,10 @@ public class ForumPostVO implements Serializable {
 		fpTime = new Timestamp(System.currentTimeMillis());
 		fpUpdate = fpTime;
 		if (this.fpStatus == null || this.fpStatus == 1) {
-			this.fpStatus = 1; // 默認貼文狀態存活
+			this.fpStatus = 1; // 預設貼文狀態存活
 		}
 		if (this.fpViews == null) {
-			this.fpViews = 0; // 默認觀看數為0
+			this.fpViews = 0; // 預設觀看數為0
 		}
 		if (this.fpPic == null || this.fpPic.length == 0) {
 			this.fpPic = java.util.Base64.getDecoder().decode(DefaultImage.getDefaultPicBase64()); // 如果USER沒設置圖片則預設一張圖片
@@ -100,5 +116,13 @@ public class ForumPostVO implements Serializable {
 			this.fpStatus = 1;
 		}
 	}
+	
+	public byte[] convertBase64ToPic(String base64Pic) {
+        if (base64Pic != null && !base64Pic.isEmpty()) {
+            return Base64.getDecoder().decode(base64Pic);
+        } else {
+            return null;
+        }
+    }
 
 }

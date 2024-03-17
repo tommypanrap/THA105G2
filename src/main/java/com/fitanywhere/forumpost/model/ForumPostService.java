@@ -36,7 +36,7 @@ public class ForumPostService {
         public ForumPostVO getOneForumPost(Integer fpId) {
             Optional<ForumPostVO> optional = repository.findById(fpId);
 //            return optional.get();
-            return optional.orElse(null);  // public T orElse(T other) : 如果值存在就回傳其值，否則回傳other的值
+            return optional.orElse(null);  
         }
 
         public List<ForumPostVO> getAll() {
@@ -48,9 +48,9 @@ public class ForumPostService {
         }
         
         public Timestamp getOriginalFpTime(Integer fpId) {
-            ForumPostVO forumPostVO = repository.findById(fpId).orElse(null); // 假设您的实体类名为ForumPost，根据ID查询数据库中的记录
+            ForumPostVO forumPostVO = repository.findById(fpId).orElse(null); // 根據fpId查詢資料庫
             if (forumPostVO != null) {
-                return forumPostVO.getFpTime(); // 获取原始的fpTime值
+                return forumPostVO.getFpTime(); // 取得原本的發文時間
             }
             return null;
         }
@@ -58,7 +58,7 @@ public class ForumPostService {
         public Integer getOriginalFpViews(Integer fpId) {
             ForumPostVO forumPostVO = repository.findById(fpId).orElse(null);
             if (forumPostVO != null) {
-                return forumPostVO.getFpViews(); // 獲取原始的fpViews
+                return forumPostVO.getFpViews(); // 取得原本的觀看數
             }
             return null;
         }
@@ -66,9 +66,13 @@ public class ForumPostService {
         public byte[] getOriginalFpPic(Integer fpId) {
             ForumPostVO forumPost = repository.findById(fpId).orElse(null);
             if (forumPost != null) {
-                return forumPost.getFpPic(); // 獲取原本的fpPic
+                return forumPost.getFpPic(); // 取得原本的發文圖片
             }
             return null;
+        }
+
+        public void updateViews(int fpId, int fpViews) {
+            repository.updateViews(fpId, fpViews);
         }
 
    

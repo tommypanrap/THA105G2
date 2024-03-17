@@ -31,6 +31,10 @@ public interface ForumPostRepository extends JpaRepository<ForumPostVO, Integer>
 	List<ForumPostVO> findByKeyword(@Param("keyword") String keyword);
 
 	boolean existsByFpTitle(String fpTitle);
-
+	
+	@Modifying
+	@Transactional
+	@Query("UPDATE ForumPostVO f SET f.fpViews = :fpViews WHERE f.fpId = :fpId")
+	void updateViews(@Param("fpId") int fpId, @Param("fpViews") int fpViews);
 
 }

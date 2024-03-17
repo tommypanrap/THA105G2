@@ -1,4 +1,4 @@
-package com.fitanywhere.forumpost.model;
+package com.fitanywhere.forumreply.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -16,6 +16,7 @@ import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fitanywhere.forumpost.model.ForumPostVO;
 import com.fitanywhere.user.model.UserVO;
 
 import lombok.Data;

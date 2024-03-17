@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
 import com.fitanywhere.service.PasswordEncryptionService;
+import com.fitanywhere.course.model.CourseVO;
 import com.fitanywhere.service.MailService;
 
 @Service
@@ -427,6 +428,9 @@ public class UserService {
 
         return userJpaRepository.findByuNicknameNoMyself(searchValue,uId);
     }
-
+//	xiao xin
+	public List<UserVO> getUserByUId(Integer uId) {
+		return userJpaRepository.getUserByUId(uId);
+	}
 
 }

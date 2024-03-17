@@ -25,8 +25,11 @@
 			</ol></li>
 		<li><a href="">廣告管理</a>
 			<ol class="dropdown">
-				<li><a href="/backend_ad" class="nav">廣告方案</a></li>
-				<li><a href="/backend_ad_list" class="nav">廣告訂單</a></li>
+				<li><a th:href="@{/backend_ad/addAd}" class="nav">新增廣告方案</a></li>
+				
+				<li><a th:href="@{/backend_ad/list}" class="nav">全部廣告方案</a></li>
+				
+				<li><a th:href="@{/backEnd/adCarousel/backend_ad_carousellist}" class="nav">全部廣告訂單</a></li>
 			</ol></li>
 		<li><a href=""></a>
 			<ol>

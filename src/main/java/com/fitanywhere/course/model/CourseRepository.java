@@ -4,9 +4,7 @@ package com.fitanywhere.course.model;
 
 import java.util.List;
 
-import javax.persistence.NamedNativeQuery;
-
-import org.springframework.data.jpa.repository.JpaRepository;
+import javax.persistence.NamedNativeQuery;import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -24,7 +22,7 @@ public interface CourseRepository extends JpaRepository<CourseVO, Integer> {
 	@Query("SELECT COUNT(*) FROM CourseVO WHERE u_Id = :uId")
     Integer getCourseCount(Integer uId);
 	
-	@Query(value="SELECT SUM(cr_tot_star) AS total_star FROM (SELECT SUM(cr_tot_star) AS cr_tot_star FROM course WHERE u_id = :uId GROUP BY cr_id) AS subquery", nativeQuery = true)
+@Query(value="SELECT SUM(cr_tot_star) AS total_star FROM (SELECT SUM(cr_tot_star) AS cr_tot_star FROM course WHERE u_id = :uId GROUP BY cr_id) AS subquery", nativeQuery = true)
 	Integer getTotalStarCount(Integer uId);
 	
 	@Modifying
@@ -45,7 +43,7 @@ public interface CourseRepository extends JpaRepository<CourseVO, Integer> {
 	CourseCrCoverDTO findCourseCrCoverById(@Param("crId") Integer crId);
 
 	// uId找課程
-	@Query(value = "SELECT cr_id FROM course WHERE u_id = ?1", nativeQuery = true)
-	List<CourseVO> getCourseByUId(Integer uId);
-
+	@Query(value = "SELECT * FROM course WHERE u_id = ?1", nativeQuery = true)
+	List<CourseVO> getCourseByUId(Integer uId); 
+	
     }

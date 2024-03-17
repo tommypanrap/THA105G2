@@ -29,7 +29,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fitanywhere.coursedetail.model.CourseDetailVO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fitanywhere.adCarousel.model.AdCarouselVO;
+import com.fitanywhere.adcarousel.model.AdCarouselVO;
 
 /*
  * 註1: classpath必須有javax.persistence-api-x.x.jar 
@@ -147,9 +147,9 @@ public class CourseVO implements java.io.Serializable {
 	}
 
 
-	public Set<AdCarouselVO> getAdCarousel() {
-		return this.adCarousel;
-	}
+//	public Set<AdCarouselVO> getAdCarousel() {
+//		return this.adCarousel;
+//	}
 
 
 	public void setAdCarousel(Set<AdCarouselVO> adCarousel) {

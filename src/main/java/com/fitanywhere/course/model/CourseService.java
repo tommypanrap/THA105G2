@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -107,6 +110,16 @@ public class CourseService {
 	@Transactional(readOnly = true)
 	public List<CourseVO> getCourseByUId(Integer uId){
 		return repository.getCourseByUId(uId);
+	}
+	
+	// Tommy
+	public List<CourseVO> getSixCourses() {
+		
+		Pageable firstPageWithSixCourses = PageRequest.of(0, 6);
+		Page<CourseVO> courses = repository.findSixCourses(firstPageWithSixCourses);
+		List<CourseVO> courseListSix = courses.getContent();
+		
+		return courseListSix;
 	}
 
 }

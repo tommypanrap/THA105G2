@@ -269,7 +269,25 @@ $(document).ready(function() {
 	}
 
 
-	//handleFetchUserImage();
+	//建立貼文點擊
+	$(".confirm").on("click",function(e){
+		if($(".post-draft").val().trim() ===""){
+			alert("你還沒填文章內容");
+			return false;
+			
+		}else if($("#createinputfile")[0].files.length === 0){
+			alert("發文要附圖");
+			return false;
+		}else{
+			$("#addPostForm").submit();	
+		}
+		
+	})
+
+
+
+
+
 
 
 

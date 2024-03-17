@@ -30,16 +30,27 @@ public class IndexController_inSpringBoot {
 	
 	
 	@GetMapping("/")
-    public String index(@Valid CourseVO courseVO,Model model)  throws IOException {
-		System.out.println(courseSvc.getAll());
-		List<CourseVO> list = courseSvc.getAll();
+    public String index(Model model)   {
+//		System.out.println(courseSvc.getAll());
+		List<CourseVO> list = courseSvc.getSixCourses();
+		
+		list.forEach(courseVO ->
+		{
+			byte[] crCover = courseVO.getCrCover();
+			if (crCover!=null){
+			String base64CrCover = Base64.getEncoder().encodeToString(crCover);
+			courseVO.setBase64CrCover(base64CrCover);
+			}
+		});
+		
+		
 		model.addAttribute("courseListData", list);
-		System.out.println("list:"+list);
+
         return "index"; //view
         
     }
 	
-//	½Ð¨D¶i¨Ó¨ê·s¼s§i§PÂ_¬O§_²Å¦X­n¨D
+//	ï¿½Ð¨Dï¿½iï¿½Ó¨ï¿½sï¿½sï¿½iï¿½Pï¿½_ï¿½Oï¿½_ï¿½Å¦Xï¿½nï¿½D
 	@ModelAttribute("ads")
 	public List<AdCarouselVO> populateAds() {
 		return AdCarSvc.getBaseHomePageAd();

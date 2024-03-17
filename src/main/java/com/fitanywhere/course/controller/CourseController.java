@@ -85,7 +85,7 @@ public class CourseController {
 	// 購物車功能-課程資訊新增到 model
 	@GetMapping("courses")
 	public String getCourses(ModelMap model) {
-		List<CourseVO> list = courseSvc.getAll();
+		List<CourseVO> list = courseSvc.getSixCourses();
 
 		//將圖片轉成base64
 		list.forEach(courseVO ->

@@ -51,6 +51,12 @@ public class OpinionService {
 		        return false;  // 寫入失敗
 		    }
 	}	
+	
+	// 前台分頁讀取
+		@Transactional(readOnly = true)
+		public Page<OpinionAllDataDTO> getAllOpinionsWithSelectedUser(Pageable pageable, Integer uId) {
+			return opinionJpaRepository.findAllOpinionsWithSelectedUser(pageable, uId);
+		}
 
 	// 後台分頁讀取
 	@Transactional(readOnly = true)

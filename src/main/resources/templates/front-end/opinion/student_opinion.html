@@ -2,143 +2,172 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<meta charset="utf-8">
-<meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Student Reviews - Online Courses & Education Bootstrap5
-	Template</title>
-<meta name="robots" content="noindex, follow" />
-<meta name="description" content="">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Student Reviews - Online Courses & Education Bootstrap5
+		Template</title>
+	<meta name="robots" content="noindex, follow" />
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<!-- Favicon -->
-<link rel="shortcut icon" type="image/x-icon"
-	th:href="@{/assets/images/favicon.png}">
+	<!-- Favicon -->
+	<link rel="shortcut icon" type="image/x-icon" th:href="@{/assets/images/favicon.png}">
 
-<!-- CSS
+	<!-- CSS
         ============================================ -->
-<link rel="stylesheet" th:href="@{/assets/css/vendor/bootstrap.min.css}">
-<link rel="stylesheet" th:href="@{/assets/css/vendor/slick.css}">
-<link rel="stylesheet" th:href="@{/assets/css/vendor/slick-theme.css}">
-<link rel="stylesheet" th:href="@{/assets/css/plugins/sal.css}">
-<link rel="stylesheet" th:href="@{/assets/css/plugins/feather.css}">
-<link rel="stylesheet"
-	th:href="@{/assets/css/plugins/fontawesome.min.css}">
-<link rel="stylesheet"
-	th:href="@{/assets/css/plugins/euclid-circulara.css}">
-<link rel="stylesheet" th:href="@{/assets/css/plugins/swiper.css}">
-<link rel="stylesheet" th:href="@{/assets/css/plugins/magnify.css}">
-<link rel="stylesheet" th:href="@{/assets/css/plugins/odometer.css}">
-<link rel="stylesheet" th:href="@{/assets/css/plugins/animation.css}">
-<link rel="stylesheet"
-	th:href="@{/assets/css/plugins/bootstrap-select.min.css}">
-<link rel="stylesheet" th:href="@{/assets/css/plugins/jquery-ui.css}">
-<link rel="stylesheet"
-	th:href="@{/assets/css/plugins/magnigy-popup.min.css}">
-<link rel="stylesheet" th:href="@{/assets/css/plugins/plyr.css}">
-<link rel="stylesheet" th:href="@{/assets/css/style.css}">
-<link rel="stylesheet" th:href="@{/css/mok/mok_opinion.css}">
-<style>
+	<link rel="stylesheet" th:href="@{/assets/css/vendor/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/vendor/slick.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/vendor/slick-theme.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/plugins/sal.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/plugins/feather.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/plugins/fontawesome.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/plugins/euclid-circulara.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/plugins/swiper.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/plugins/magnify.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/plugins/odometer.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/plugins/animation.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/plugins/bootstrap-select.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/plugins/jquery-ui.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/plugins/magnigy-popup.min.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/plugins/plyr.css}">
+	<link rel="stylesheet" th:href="@{/assets/css/style.css}">
+	<link rel="stylesheet" th:href="@{/css/mok/mok_opinion.css}">
+	<style>
+		body,
+		div,
+		dl,
+		dt,
+		dd,
+		ul,
+		ol,
+		li,
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6,
+		pre,
+		form,
+		fieldset,
+		input,
+		textarea,
+		p,
+		blockquote,
+		th,
+		td {
+			margin: 0;
+			padding: 0;
+		}
 
+		table {
+			border-collapse: collapse;
+			border-spacing: 0;
+		}
 
+		fieldset,
+		img {
+			border: 0;
+		}
 
+		address,
+		caption,
+		cite,
+		code,
+		dfn,
+		em,
+		strong,
+		th,
+		var {
+			font-style: normal;
+			font-weight: normal;
+		}
 
-body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
-    margin: 0;
-    padding: 0;
-}
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-fieldset, img {
-    border: 0;
-}
-address, caption, cite, code, dfn, em, strong, th, var {
-    font-style: normal;
-    font-weight: normal;
-}
+		ol,
+		ul {
+			list-style: none;
+		}
 
-ol, ul {
-    list-style: none;
-}
-caption, th {
-    text-align: left;
-}
-/*h1, h2, h3, h4, h5, h6 {
+		caption,
+		th {
+			text-align: left;
+		}
+
+		/*h1, h2, h3, h4, h5, h6 {
 	font-size:100%;
 	font-weight:normal;
 }*/
-q:before, q:after {
-    content: '';
-}
-abbr, acronym {
-    border: 0;
-}
+		q:before,
+		q:after {
+			content: '';
+		}
 
-.row{
-display:flex;
-}
+		abbr,
+		acronym {
+			border: 0;
+		}
 
-.opinion-table li{
-	width:auto;
-}
+		.row {
+			display: flex;
+		}
 
-.opinion-table .row>li{
-	width:20%;
-}
+		.opinion-table li {
+			width: auto;
+		}
 
-.check-content{
-display:flex;
-}
+		.opinion-table .row>li {
+			width: 20%;
+		}
 
-.check-content{
-background-color: #fcf8ff;
-padding:30px;
-border-radius:2px;
-}
+		.check-content {
+			display: flex;
+		}
 
-.check-content-title{
-	margin-right:30px;
-}
+		.check-content {
+			background-color: #fcf8ff;
+			padding: 30px;
+			border-radius: 2px;
+		}
 
-.rhead{
-background-color: #8aa0f5;
-border-radius:2px;
-}
+		.check-content-title {
+			margin-right: 30px;
+		}
 
-.rhead li{
-color:white;
-font-weight:bold;
-}
+		.rhead {
+			background-color: #8aa0f5;
+			border-radius: 2px;
+		}
 
-.hidden{
-display:none;
-}
+		.rhead li {
+			color: white;
+			font-weight: bold;
+		}
 
-.content-expand{
-cursor:pointer;
-}
+		.hidden {
+			display: none;
+		}
 
-.content-expand:hover{
-color:#b299e9;
-}
+		.content-expand {
+			cursor: pointer;
+		}
 
-.send-time{
-margin-bottom:15px;
-}
+		.content-expand:hover {
+			color: #b299e9;
+		}
 
-.send-content{
-margin-bottom:15px;
-}
-</style>
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<!-- ●●js  for jquery datatables 用 -->
-<script
-	src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
-<!-- ●●js  for jquery datatables 用 -->
-<link rel="stylesheet"
-	href="https://cdn.datatables.net/1.13.5/css/dataTables.jqueryui.min.css" />
+		.send-time {
+			margin-bottom: 15px;
+		}
+
+		.send-content {
+			margin-bottom: 15px;
+		}
+	</style>
+	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<!-- ●●js  for jquery datatables 用 -->
+	<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+	<!-- ●●js  for jquery datatables 用 -->
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.jqueryui.min.css" />
 
 </head>
 
@@ -152,9 +181,7 @@ margin-bottom:15px;
 			<div class="inner-top">
 				<div class="content">
 					<div class="logo">
-						<a href="index.html"> <img
-							th:src="@{/assets/images/logo/logo.png}"
-							alt="Education Logo Images">
+						<a href="index.html"> <img th:src="@{/assets/images/logo/logo.png}" alt="Education Logo Images">
 						</a>
 					</div>
 					<div class="rbt-btn-close">
@@ -165,10 +192,8 @@ margin-bottom:15px;
 				</div>
 				<p class="description">Histudy is a education website template.
 					You can customize all.</p>
-				<ul
-					class="navbar-top-left rbt-information-list justify-content-start">
-					<li><a href="mailto:hello@example.com"><i
-							class="feather-mail"></i>example@gmail.com</a></li>
+				<ul class="navbar-top-left rbt-information-list justify-content-start">
+					<li><a href="mailto:hello@example.com"><i class="feather-mail"></i>example@gmail.com</a></li>
 					<li><a href="#"><i class="feather-phone"></i>(302)
 							555-0107</a></li>
 				</ul>
@@ -180,8 +205,7 @@ margin-bottom:15px;
 						<a href="#">Home <i class="feather-chevron-down"></i></a> <!-- Start Mega Menu  -->
 						<div class="rbt-megamenu menu-skin-dark">
 							<div class="wrapper">
-								<div
-									class="row row--15 home-plesentation-wrapper single-dropdown-menu-presentation">
+								<div class="row row--15 home-plesentation-wrapper single-dropdown-menu-presentation">
 
 									<!-- Start Single Demo  -->
 									<div
@@ -190,13 +214,13 @@ margin-bottom:15px;
 											<div class="inner">
 												<div class="thumbnail">
 													<a href="01-main-demo.html"><img
-														th:src="@{/assets/images/splash/demo/h1.jpg}"
-														alt="Demo Images"></a>
+															th:src="@{/assets/images/splash/demo/h1.jpg}"
+															alt="Demo Images"></a>
 												</div>
 												<div class="content">
 													<h4 class="title">
-														<a href="01-main-demo.html">Home Demo <span
-															class="btn-icon"><i class="feather-arrow-right"></i></span></a>
+														<a href="01-main-demo.html">Home Demo <span class="btn-icon"><i
+																	class="feather-arrow-right"></i></span></a>
 													</h4>
 												</div>
 											</div>
@@ -211,13 +235,14 @@ margin-bottom:15px;
 											<div class="inner">
 												<div class="thumbnail">
 													<a href="12-marketplace.html"><img
-														th:src="@{/assets/images/splash/demo/h12.jpg}"
-														alt="Demo Images"></a>
+															th:src="@{/assets/images/splash/demo/h12.jpg}"
+															alt="Demo Images"></a>
 												</div>
 												<div class="content">
 													<h4 class="title">
 														<a href="12-marketplace.html">Marketplace <span
-															class="btn-icon"><i class="feather-arrow-right"></i></span></a>
+																class="btn-icon"><i
+																	class="feather-arrow-right"></i></span></a>
 													</h4>
 												</div>
 											</div>
@@ -231,13 +256,14 @@ margin-bottom:15px;
 											<div class="inner">
 												<div class="thumbnail">
 													<a href="04-kindergarten.html"><img
-														th:src="@{/assets/images/splash/demo/h4.jpg}"
-														alt="Demo Images"></a>
+															th:src="@{/assets/images/splash/demo/h4.jpg}"
+															alt="Demo Images"></a>
 												</div>
 												<div class="content">
 													<h4 class="title">
 														<a href="04-kindergarten.html">kindergarten <span
-															class="btn-icon"><i class="feather-arrow-right"></i></span></a>
+																class="btn-icon"><i
+																	class="feather-arrow-right"></i></span></a>
 													</h4>
 												</div>
 											</div>
@@ -251,14 +277,14 @@ margin-bottom:15px;
 											<div class="inner">
 												<div class="thumbnail">
 													<a href="13-university-classic.html"><img
-														th:src="@{/assets/images/splash/demo/h13.jpg}"
-														alt="Demo Images"></a>
+															th:src="@{/assets/images/splash/demo/h13.jpg}"
+															alt="Demo Images"></a>
 												</div>
 												<div class="content">
 													<h4 class="title">
 														<a href="13-university-classic.html">University
 															Classic <span class="btn-icon"><i
-																class="feather-arrow-right"></i></span>
+																	class="feather-arrow-right"></i></span>
 														</a>
 													</h4>
 												</div>
@@ -274,13 +300,14 @@ margin-bottom:15px;
 											<div class="inner">
 												<div class="thumbnail">
 													<a href="14-home-elegant.html"><img
-														th:src="@{/assets/images/splash/demo/h14.jpg}"
-														alt="Demo Images"></a>
+															th:src="@{/assets/images/splash/demo/h14.jpg}"
+															alt="Demo Images"></a>
 												</div>
 												<div class="content">
 													<h4 class="title">
 														<a href="14-home-elegant.html">Home Elegant <span
-															class="btn-icon"><i class="feather-arrow-right"></i></span></a>
+																class="btn-icon"><i
+																	class="feather-arrow-right"></i></span></a>
 													</h4>
 												</div>
 											</div>
@@ -295,13 +322,14 @@ margin-bottom:15px;
 											<div class="inner">
 												<div class="thumbnail">
 													<a href="09-gym-coaching.html"><img
-														th:src="@{/assets/images/splash/demo/h9.jpg}"
-														alt="Demo Images"></a>
+															th:src="@{/assets/images/splash/demo/h9.jpg}"
+															alt="Demo Images"></a>
 												</div>
 												<div class="content">
 													<h4 class="title">
 														<a href="09-gym-coaching.html">Gym Coaching <span
-															class="btn-icon"><i class="feather-arrow-right"></i></span></a>
+																class="btn-icon"><i
+																	class="feather-arrow-right"></i></span></a>
 													</h4>
 												</div>
 											</div>
@@ -316,13 +344,14 @@ margin-bottom:15px;
 											<div class="inner">
 												<div class="thumbnail">
 													<a href="03-online-school.html"><img
-														th:src="@{/assets/images/splash/demo/h3.jpg}"
-														alt="Demo Images"></a>
+															th:src="@{/assets/images/splash/demo/h3.jpg}"
+															alt="Demo Images"></a>
 												</div>
 												<div class="content">
 													<h4 class="title">
 														<a href="03-online-school.html">Online School <span
-															class="btn-icon"><i class="feather-arrow-right"></i></span></a>
+																class="btn-icon"><i
+																	class="feather-arrow-right"></i></span></a>
 													</h4>
 												</div>
 											</div>
@@ -337,14 +366,14 @@ margin-bottom:15px;
 											<div class="inner">
 												<div class="thumbnail">
 													<a href="06-university-status.html"><img
-														th:src="@{/assets/images/splash/demo/h6.jpg}"
-														alt="Demo Images"></a>
+															th:src="@{/assets/images/splash/demo/h6.jpg}"
+															alt="Demo Images"></a>
 												</div>
 												<div class="content">
 													<h4 class="title">
 														<a href="06-university-status.html">University Status
 															<span class="btn-icon"><i
-																class="feather-arrow-right"></i></span>
+																	class="feather-arrow-right"></i></span>
 														</a>
 													</h4>
 												</div>
@@ -360,13 +389,14 @@ margin-bottom:15px;
 											<div class="inner">
 												<div class="thumbnail">
 													<a href="15-home-technology.html"><img
-														th:src="@{/assets/images/splash/demo/h15.jpg}"
-														alt="Demo Images"></a>
+															th:src="@{/assets/images/splash/demo/h15.jpg}"
+															alt="Demo Images"></a>
 												</div>
 												<div class="content">
 													<h4 class="title">
 														<a href="15-home-technology.html">Home Technology <span
-															class="btn-icon"><i class="feather-arrow-right"></i></span></a>
+																class="btn-icon"><i
+																	class="feather-arrow-right"></i></span></a>
 													</h4>
 												</div>
 											</div>
@@ -381,14 +411,14 @@ margin-bottom:15px;
 											<div class="inner">
 												<div class="thumbnail">
 													<a href="07-instructor-portfolio.html"><img
-														th:src="@{/assets/images/splash/demo/h7.jpg}"
-														alt="Demo Images"></a>
+															th:src="@{/assets/images/splash/demo/h7.jpg}"
+															alt="Demo Images"></a>
 												</div>
 												<div class="content">
 													<h4 class="title">
 														<a href="07-instructor-portfolio.html">Instructor
 															Portfolio <span class="btn-icon"><i
-																class="feather-arrow-right"></i></span>
+																	class="feather-arrow-right"></i></span>
 														</a>
 													</h4>
 												</div>
@@ -404,13 +434,14 @@ margin-bottom:15px;
 											<div class="inner">
 												<div class="thumbnail">
 													<a href="08-language-academy.html"><img
-														th:src="@{/assets/images/splash/demo/h8.jpg}"
-														alt="Demo Images"></a>
+															th:src="@{/assets/images/splash/demo/h8.jpg}"
+															alt="Demo Images"></a>
 												</div>
 												<div class="content">
 													<h4 class="title">
 														<a href="08-language-academy.html">Language Academy <span
-															class="btn-icon"><i class="feather-arrow-right"></i></span></a>
+																class="btn-icon"><i
+																	class="feather-arrow-right"></i></span></a>
 													</h4>
 												</div>
 											</div>
@@ -425,13 +456,14 @@ margin-bottom:15px;
 											<div class="inner">
 												<div class="thumbnail">
 													<a href="11-single-course.html"><img
-														th:src="@{/assets/images/splash/demo/h11.jpg}"
-														alt="Demo Images"></a>
+															th:src="@{/assets/images/splash/demo/h11.jpg}"
+															alt="Demo Images"></a>
 												</div>
 												<div class="content">
 													<h4 class="title">
 														<a href="11-single-course.html">Single Course <span
-															class="btn-icon"><i class="feather-arrow-right"></i></span></a>
+																class="btn-icon"><i
+																	class="feather-arrow-right"></i></span></a>
 													</h4>
 												</div>
 											</div>
@@ -446,13 +478,14 @@ margin-bottom:15px;
 											<div class="inner">
 												<div class="thumbnail">
 													<a href="10-online-course.html"><img
-														th:src="@{/assets/images/splash/demo/h10.jpg}"
-														alt="Demo Images"></a>
+															th:src="@{/assets/images/splash/demo/h10.jpg}"
+															alt="Demo Images"></a>
 												</div>
 												<div class="content">
 													<h4 class="title">
 														<a href="10-online-course.html">Online Course <span
-															class="btn-icon"><i class="feather-arrow-right"></i></span></a>
+																class="btn-icon"><i
+																	class="feather-arrow-right"></i></span></a>
 													</h4>
 												</div>
 											</div>
@@ -467,13 +500,14 @@ margin-bottom:15px;
 											<div class="inner">
 												<div class="thumbnail">
 													<a href="05-classic-lms.html"><img
-														th:src="@{/assets/images/splash/demo/h5.jpg}"
-														alt="Demo Images"></a>
+															th:src="@{/assets/images/splash/demo/h5.jpg}"
+															alt="Demo Images"></a>
 												</div>
 												<div class="content">
 													<h4 class="title">
 														<a href="05-classic-lms.html">Classic Lms <span
-															class="btn-icon"><i class="feather-arrow-right"></i></span></a>
+																class="btn-icon"><i
+																	class="feather-arrow-right"></i></span></a>
 													</h4>
 												</div>
 											</div>
@@ -488,13 +522,14 @@ margin-bottom:15px;
 											<div class="inner">
 												<div class="thumbnail">
 													<a href="02-course-school.html"><img
-														th:src="@{/assets/images/splash/demo/h2.jpg}"
-														alt="Demo Images"></a>
+															th:src="@{/assets/images/splash/demo/h2.jpg}"
+															alt="Demo Images"></a>
 												</div>
 												<div class="content">
 													<h4 class="title">
 														<a href="02-course-school.html">Course School <span
-															class="btn-icon"><i class="feather-arrow-right"></i></span></a>
+																class="btn-icon"><i
+																	class="feather-arrow-right"></i></span></a>
 													</h4>
 												</div>
 											</div>
@@ -509,13 +544,13 @@ margin-bottom:15px;
 											<div class="inner">
 												<div class="thumbnail">
 													<a href="#"><img
-														th:src="@{/assets/images/splash/demo/coming-soon-1.png}"
-														alt="Demo Images"></a>
+															th:src="@{/assets/images/splash/demo/coming-soon-1.png}"
+															alt="Demo Images"></a>
 												</div>
 												<div class="content">
 													<h4 class="title">
 														<a href="#">Coming Soon <span class="btn-icon"><i
-																class="feather-arrow-right"></i></span></a>
+																	class="feather-arrow-right"></i></span></a>
 													</h4>
 												</div>
 											</div>
@@ -530,13 +565,13 @@ margin-bottom:15px;
 											<div class="inner">
 												<div class="thumbnail">
 													<a href="#"><img
-														th:src="@{/assets/images/splash/demo/coming-soon-2.png}"
-														alt="Demo Images"></a>
+															th:src="@{/assets/images/splash/demo/coming-soon-2.png}"
+															alt="Demo Images"></a>
 												</div>
 												<div class="content">
 													<h4 class="title">
 														<a href="#">Coming Soon 2 <span class="btn-icon"><i
-																class="feather-arrow-right"></i></span></a>
+																	class="feather-arrow-right"></i></span></a>
 													</h4>
 												</div>
 											</div>
@@ -551,13 +586,13 @@ margin-bottom:15px;
 											<div class="inner">
 												<div class="thumbnail">
 													<a href="#"><img
-														th:src="@{/assets/images/splash/demo/coming-soon-3.png}"
-														alt="Demo Images"></a>
+															th:src="@{/assets/images/splash/demo/coming-soon-3.png}"
+															alt="Demo Images"></a>
 												</div>
 												<div class="content">
 													<h4 class="title">
 														<a href="#">Coming Soon 3 <span class="btn-icon"><i
-																class="feather-arrow-right"></i></span></a>
+																	class="feather-arrow-right"></i></span></a>
 													</h4>
 												</div>
 											</div>
@@ -568,12 +603,11 @@ margin-bottom:15px;
 
 								<div class="load-demo-btn text-center">
 									<a class="rbt-btn-link color-white" href="#">Scroll to view
-										more <svg xmlns="http://www.w3.org/2000/svg" width="16"
-											height="16" fill="currentColor" class="bi bi-arrow-down-up"
-											viewBox="0 0 16 16">
-										<path fill-rule="evenodd"
+										more <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+											fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
+											<path fill-rule="evenodd"
 												d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z" />
-									</svg>
+										</svg>
 									</a>
 								</div>
 							</div>
@@ -582,7 +616,7 @@ margin-bottom:15px;
 
 					<li class="with-megamenu has-menu-child-item"><a href="#">Courses
 							<i class="feather-chevron-down"></i>
-					</a> <!-- Start Mega Menu  -->
+						</a> <!-- Start Mega Menu  -->
 						<div class="rbt-megamenu grid-item-2">
 							<div class="wrapper">
 								<div class="row">
@@ -625,9 +659,9 @@ margin-bottom:15px;
 											<li><a href="course-details-2.html">Course Details
 													Two</a></li>
 											<li><a href="lesson.html">Course Lesson <span
-													class="rbt-badge-card">New</span></a></li>
+														class="rbt-badge-card">New</span></a></li>
 											<li><a href="create-course.html">Create Course <span
-													class="rbt-badge-card">New</span></a></li>
+														class="rbt-badge-card">New</span></a></li>
 										</ul>
 									</div>
 								</div>
@@ -646,11 +680,12 @@ margin-bottom:15px;
 									</div>
 								</div>
 							</div>
-						</div> <!-- End Mega Menu  --></li>
+						</div> <!-- End Mega Menu  -->
+					</li>
 
 					<li class="has-dropdown has-menu-child-item"><a href="#">Dashboard
 							<i class="feather-chevron-down"></i>
-					</a>
+						</a>
 						<ul class="submenu">
 							<li class="has-dropdown"><a href="#">Instructor
 									Dashboard</a>
@@ -671,7 +706,8 @@ margin-bottom:15px;
 											Attempts</a></li>
 									<li><a href="instructor-assignments.html">Assignments</a></li>
 									<li><a href="instructor-settings.html">Settings</a></li>
-								</ul></li>
+								</ul>
+							</li>
 							<li class="has-dropdown"><a href="#">Student Dashboard</a>
 								<ul class="submenu">
 									<li><a href="student-dashboard.html">Dashboard</a></li>
@@ -684,8 +720,10 @@ margin-bottom:15px;
 											Attempts</a></li>
 									<li><a th:href="@{/order/order_history}">Order History</a></li>
 									<li><a href="student-settings.html">Settings</a></li>
-								</ul></li>
-						</ul></li>
+								</ul>
+							</li>
+						</ul>
+					</li>
 
 					<li class="with-megamenu has-menu-child-item position-static">
 						<a href="#">Pages <i class="feather-chevron-down"></i></a> <!-- Start Mega Menu  -->
@@ -723,8 +761,8 @@ margin-bottom:15px;
 									<div class="col-lg-12 col-xl-3 col-xxl-3 single-mega-item">
 										<h3 class="rbt-short-title">Shop Pages</h3>
 										<ul class="mega-menu-item">
-											<li><a href="shop.html">Shop <span
-													class="rbt-badge-card">Sale Anything</span></a></li>
+											<li><a href="shop.html">Shop <span class="rbt-badge-card">Sale
+														Anything</span></a></li>
 											<li><a href="single-product.html">Single Product</a></li>
 											<li><a href="cart.html">Cart Page</a></li>
 											<li><a href="checkout.html">Checkout</a></li>
@@ -817,7 +855,7 @@ margin-bottom:15px;
 									<div class="col-lg-4 col-xxl-4 single-mega-item">
 										<ul class="mega-menu-item">
 											<li><a href="style-guide.html">Style Guide <span
-													class="rbt-badge-card">Hot</span></a></li>
+														class="rbt-badge-card">Hot</span></a></li>
 											<li><a href="accordion.html">Accordion</a></li>
 											<li><a href="advancetab.html">Advance Tab</a></li>
 											<li><a href="brand.html">Brand</a></li>
@@ -859,14 +897,12 @@ margin-bottom:15px;
 								<div class="row">
 									<div class="col-lg-12">
 										<div class="btn-wrapper">
-											<a
-												class="rbt-btn btn-gradient hover-icon-reverse square btn-xl w-100 text-center mt--30 hover-transform-none"
+											<a class="rbt-btn btn-gradient hover-icon-reverse square btn-xl w-100 text-center mt--30 hover-transform-none"
 												href="#"> <span class="icon-reverse-wrapper"> <span
-													class="btn-text">Visit Histudy Template</span> <span
-													class="btn-icon"><i class="feather-arrow-right"></i></span>
-													<span class="btn-icon"><i
-														class="feather-arrow-right"></i></span>
-											</span>
+														class="btn-text">Visit Histudy Template</span> <span
+														class="btn-icon"><i class="feather-arrow-right"></i></span>
+													<span class="btn-icon"><i class="feather-arrow-right"></i></span>
+												</span>
 											</a>
 										</div>
 									</div>
@@ -907,21 +943,21 @@ margin-bottom:15px;
 											<li><a href="post-format-video.html">Post Format
 													Video</a></li>
 											<li><a href="#">Media Under Title <span
-													class="rbt-badge-card">Coming</span></a></li>
+														class="rbt-badge-card">Coming</span></a></li>
 											<li><a href="#">Sticky Sidebar <span
-													class="rbt-badge-card">Coming</span></a></li>
-											<li><a href="#">Auto Masonry <span
-													class="rbt-badge-card">Coming</span></a></li>
-											<li><a href="#">Meta Overlaid <span
-													class="rbt-badge-card">Coming</span></a></li>
+														class="rbt-badge-card">Coming</span></a></li>
+											<li><a href="#">Auto Masonry <span class="rbt-badge-card">Coming</span></a>
+											</li>
+											<li><a href="#">Meta Overlaid <span class="rbt-badge-card">Coming</span></a>
+											</li>
 										</ul>
 									</div>
 
 									<div class="col-lg-12 col-xl-4 col-xxl-4 single-mega-item">
 										<div class="rbt-ads-wrapper">
 											<a class="d-block" href="#"><img
-												th:src="@{/assets/images/service/mobile-cat.jpg}"
-												alt="Education Images"></a>
+													th:src="@{/assets/images/service/mobile-cat.jpg}"
+													alt="Education Images"></a>
 										</div>
 									</div>
 								</div>
@@ -933,28 +969,22 @@ margin-bottom:15px;
 
 			<div class="mobile-menu-bottom">
 				<div class="rbt-btn-wrapper mb--20">
-					<a
-						class="rbt-btn btn-border-gradient radius-round btn-sm hover-transform-none w-100 justify-content-center text-center"
+					<a class="rbt-btn btn-border-gradient radius-round btn-sm hover-transform-none w-100 justify-content-center text-center"
 						href="#"> <span>Enroll Now</span>
 					</a>
 				</div>
 
 				<div class="social-share-wrapper">
 					<span class="rbt-short-title d-block">Find With Us</span>
-					<ul
-						class="social-icon social-default transparent-with-border justify-content-start mt--20">
-						<li><a href="https://www.facebook.com/"> <i
-								class="feather-facebook"></i>
-						</a></li>
-						<li><a href="https://www.twitter.com"> <i
-								class="feather-twitter"></i>
-						</a></li>
-						<li><a href="https://www.instagram.com/"> <i
-								class="feather-instagram"></i>
-						</a></li>
-						<li><a href="https://www.linkdin.com/"> <i
-								class="feather-linkedin"></i>
-						</a></li>
+					<ul class="social-icon social-default transparent-with-border justify-content-start mt--20">
+						<li><a href="https://www.facebook.com/"> <i class="feather-facebook"></i>
+							</a></li>
+						<li><a href="https://www.twitter.com"> <i class="feather-twitter"></i>
+							</a></li>
+						<li><a href="https://www.instagram.com/"> <i class="feather-instagram"></i>
+							</a></li>
+						<li><a href="https://www.linkdin.com/"> <i class="feather-linkedin"></i>
+							</a></li>
 					</ul>
 				</div>
 			</div>
@@ -973,8 +1003,7 @@ margin-bottom:15px;
 	</div>
 
 	<!-- Start Card Style -->
-	<div
-		class="rbt-dashboard-area rbt-section-overlayping-top rbt-section-gapBottom">
+	<div class="rbt-dashboard-area rbt-section-overlayping-top rbt-section-gapBottom">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
@@ -985,8 +1014,7 @@ margin-bottom:15px;
 						<div class="rbt-tutor-information">
 							<div class="rbt-tutor-information-left">
 								<div class="thumbnail rbt-avatars size-lg">
-									<img th:src="@{/assets/images/team/avatar-2.jpg}"
-										alt="Instructor">
+									<img th:src="@{/assets/images/team/avatar-2.jpg}" alt="Instructor">
 								</div>
 								<div class="tutor-content">
 									<h5 class="title">Emily Hannah</h5>
@@ -999,10 +1027,10 @@ margin-bottom:15px;
 							<div class="rbt-tutor-information-right">
 								<div class="tutor-btn">
 									<a class="rbt-btn btn-md hover-icon-reverse" href="#"> <span
-										class="icon-reverse-wrapper"> <span class="btn-text">教練模式</span>
+											class="icon-reverse-wrapper"> <span class="btn-text">教練模式</span>
 											<span class="btn-icon"><i class="feather-arrow-right"></i></span>
 											<span class="btn-icon"><i class="feather-arrow-right"></i></span>
-									</span>
+										</span>
 									</a>
 								</div>
 							</div>
@@ -1027,53 +1055,73 @@ margin-bottom:15px;
 									</div>
 
 									<div class="opinion-table">
-<!-- 										<h1>收件匣</h1> -->
+										<!-- 										<h1>收件匣</h1> -->
 
 										<ul class="row rhead">
-											<li style="text-align: center;  width: 20%;">會員暱稱</li>
+											<li style="text-align: center;  width: 20%;">意見編號</li>
 											<li style="width: 40%;">意見標題</li>
 											<li style="text-align: center;  width: 15%;">提出時間</li>
-											<li style="text-align: center;  width: 15%;" >處理狀態</li>
+											<li style="text-align: center;  width: 15%;">處理狀態</li>
 											<li style="text-align: center;  width: 10%;">操作</li>
 										</ul>
-
-										<ul class="row">
-											<li style="text-align: center;  width: 20%;">ZZZZZZZZZZZZ</li>
-											<li style="width: 40%;">驗證信都收不到</li>
-											<li style="text-align: center;  width: 15%;">2024.01.01.</li>
-											<li style="text-align: center;  width: 15%;">已回覆</li>
-											<li  style="text-align: center;  width: 10%;" class="content-expand">查看</li>
-										</ul>
-										<div class="check-content hidden">
-											<div class="check-content-title">
-<!-- 												<div class="send-from"> -->
-<!-- 													<p>寄信人</p> -->
-<!-- 													<p>abcdef</p> -->
-<!-- 												</div> -->
-												<div class="send-time">
-													<p>回覆時間</p>
-													<p>2024.01.01.</p>
+										<div th:each="opinion : ${opinionPage.content}"
+											th:attr="data-opinion-id=${opinion.opId}">
+											<th:block>
+												<ul class="row">
+													<li style="text-align: center;  width: 20%;"
+														th:text="${opinion.opId}">(意見編號)</li>
+													<li style="width: 40%;" th:text="${opinion.opTitle}">(意見主旨)</li>
+													<li style="text-align: center;  width: 15%;"
+														th:text="${#dates.format(opinion.opSendTime, 'yyyy.MM.dd')}">
+														(提出日期)</li>
+													<li style="text-align: center;  width: 15%;"
+														th:text="${opinion.opStatus == 0 ? '未處理' : '已回覆'}">(處理狀態)</li>
+													<li style="text-align: center;  width: 10%;" class="content-expand">
+														查看
+													</li>
+												</ul>
+												<div class="check-content hidden">
+													<div class="check-content-title">
+														<div class="reply-time">
+															<div th:if="${opinion.opStatus == 0}">
+																<p>站方處理中</p>
+															</div>
+															<div th:if="${opinion.opStatus == 1}">
+															<p>回覆時間</p>
+															<p
+																th:text="${#dates.format(opinion.opReplyTime, 'yyyy.MM.dd')}">
+																2024.01.01.</p>
+															</div>
+														</div>
+													</div>
+													<div class="check-content-content">
+														<div class="send-content">
+															<p class="send-content-title">意見內容：</p>
+															<p th:text="${opinion.opContent}">這裡將顯示後端讀取到的opContent內容</p>
+														</div>														
+															<div th:if="${opinion.opStatus == 1}">
+																<p>站方回覆：</p>
+																<p th:text="${opinion.opReplyContent}">
+																	這裡將顯示後端讀取到的opReplyContent內容</p>
+															</div>
+														</div>
+													</div>
 												</div>
-												<div class="reply-state">
-													<p>狀態</p>
-													<p>已回覆</p>
-												</div>
-											</div>
-											<div class="check-content-content">
-												<div class="send-content">
-													<p class="send-content-title">意見內容</p>
-													<p>驗證信都收不到驗證信都收不到驗證信都收不到驗證信都收不到驗證信都收不到驗證信都收不到</p>
-												</div>
-												<div class="reply-content">
-													<p class="reply-content-title">站方回覆</p>
-													<p>收不到就申請別家</p>
-												</div>
-											</div>
+											</th:block>
 										</div>
-										
-										
-										
-										
+										<div class="pagination-container"
+											style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+											<form th:action="@{/opinion/user_opinion_list}" method="get">
+												<select name="page" onchange="this.form.submit()">
+													<option
+														th:each="pageNum : ${#numbers.sequence(0, opinionPage.totalPages - 1)}"
+														th:value="${pageNum}"
+														th:selected="${pageNum == opinionPage.number}"
+														th:text="${pageNum + 1}"></option>
+												</select>
+												<input type="hidden" name="size" th:value="${opinionPage.size}">
+											</form>
+										</div>
 
 									</div>
 
@@ -1099,16 +1147,14 @@ margin-bottom:15px;
 		</div>
 	</div>
 	<!-- Start Footer aera -->
-	<footer
-		class="rbt-footer footer-style-1 bg-color-white overflow-hidden">
+	<footer class="rbt-footer footer-style-1 bg-color-white overflow-hidden">
 		<div class="footer-top">
 			<div class="container">
 				<div class="row g-5">
 					<div class="col-lg-4 col-md-6 col-sm-6 col-12">
 						<div class="footer-widget">
 							<div class="logo">
-								<a href="index.html"> <img
-									th:src="@{/assets/images/logo/logo.png}" alt="Edu-cause">
+								<a href="index.html"> <img th:src="@{/assets/images/logo/logo.png}" alt="Edu-cause">
 								</a>
 							</div>
 
@@ -1117,28 +1163,22 @@ margin-bottom:15px;
 							</p>
 
 							<ul class="social-icon social-default justify-content-start">
-								<li><a href="https://www.facebook.com/"> <i
-										class="feather-facebook"></i>
-								</a></li>
-								<li><a href="https://www.twitter.com"> <i
-										class="feather-twitter"></i>
-								</a></li>
-								<li><a href="https://www.instagram.com/"> <i
-										class="feather-instagram"></i>
-								</a></li>
-								<li><a href="https://www.linkdin.com/"> <i
-										class="feather-linkedin"></i>
-								</a></li>
+								<li><a href="https://www.facebook.com/"> <i class="feather-facebook"></i>
+									</a></li>
+								<li><a href="https://www.twitter.com"> <i class="feather-twitter"></i>
+									</a></li>
+								<li><a href="https://www.instagram.com/"> <i class="feather-instagram"></i>
+									</a></li>
+								<li><a href="https://www.linkdin.com/"> <i class="feather-linkedin"></i>
+									</a></li>
 							</ul>
 
 							<div class="contact-btn mt--30">
-								<a
-									class="rbt-btn hover-icon-reverse btn-border-gradient radius-round"
-									href="#">
+								<a class="rbt-btn hover-icon-reverse btn-border-gradient radius-round" href="#">
 									<div class="icon-reverse-wrapper">
-										<span class="btn-text">Contact With Us</span> <span
-											class="btn-icon"><i class="feather-arrow-right"></i></span> <span
-											class="btn-icon"><i class="feather-arrow-right"></i></span>
+										<span class="btn-text">Contact With Us</span> <span class="btn-icon"><i
+												class="feather-arrow-right"></i></span> <span class="btn-icon"><i
+												class="feather-arrow-right"></i></span>
 									</div>
 								</a>
 							</div>
@@ -1191,13 +1231,11 @@ margin-bottom:15px;
 								</p>
 
 								<div class="form-group right-icon icon-email mb--20">
-									<label for="email">Enter Your Email Here</label> <input
-										id="email" type="email">
+									<label for="email">Enter Your Email Here</label> <input id="email" type="email">
 								</div>
 
 								<div class="form-group mb--0">
-									<button
-										class="rbt-btn rbt-switch-btn btn-gradient radius-round btn-sm"
+									<button class="rbt-btn rbt-switch-btn btn-gradient radius-round btn-sm"
 										type="submit">
 										<span data-text="Submit Now">Submit Now</span>
 									</button>
@@ -1219,8 +1257,7 @@ margin-bottom:15px;
 				<div class="row align-items-center">
 					<div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12">
 						<p class="rbt-link-hover text-center text-lg-start">
-							Copyright © 2023 <a
-								href="https://themeforest.net/user/rbt-themes">Rainbow-Themes.</a>
+							Copyright © 2023 <a href="https://themeforest.net/user/rbt-themes">Rainbow-Themes.</a>
 							All Rights Reserved
 						</p>
 					</div>
@@ -1240,10 +1277,9 @@ margin-bottom:15px;
 	</footer>
 	<!-- End Footer aera -->
 	<div class="rbt-progress-parent">
-		<svg class="rbt-back-circle svg-inner" width="100%" height="100%"
-			viewBox="-1 -1 102 102">
-		<path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
-	</svg>
+		<svg class="rbt-back-circle svg-inner" width="100%" height="100%" viewBox="-1 -1 102 102">
+			<path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+		</svg>
 	</div>
 
 	<!-- JS
@@ -1279,33 +1315,36 @@ margin-bottom:15px;
 	<!-- Main JS -->
 	<script th:src="@{/assets/js/main.js}"></script>
 	<script>
-		
+
 	</script>
 	<script th:src="@{/js/mok/mok_opinion.js}"></script>
-	
+
 	<script>
-    var expandButtons = document.querySelectorAll('.content-expand');
-    var contentSections = document.querySelectorAll('.check-content');
+		var expandButtons = document.querySelectorAll('.content-expand');
+		var contentSections = document.querySelectorAll('.check-content');
 
 
-    expandButtons.forEach(function (button, index) {
-        button.addEventListener('click', function () {
+		expandButtons.forEach(function (button, index) {
+			button.addEventListener('click', function () {
 
-            if(contentSections[index].classList.contains('hidden')){
-                
-                contentSections.forEach(function (content) {
-                 content.classList.add('hidden');
-                });
-            
-                contentSections[index].classList.remove('hidden');
-            }else{
-                contentSections[index].classList.add('hidden');
-            }
+				if (contentSections[index].classList.contains('hidden')) {
 
-            
-        });
-    });
-    </script>
+					contentSections.forEach(function (content) {
+						content.classList.add('hidden');
+					});
+
+					contentSections[index].classList.remove('hidden');
+				} else {
+					contentSections[index].classList.add('hidden');
+				}
+
+
+			});
+		});
+	</script>
+
+
+
 </body>
 
 </html>

@@ -1,4 +1,4 @@
-package com.fitanywhere.ad.controller;
+package com.fitanywhere.adfgh.controller;
 
 import java.util.Collections;
 import java.util.List;
@@ -24,8 +24,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fitanywhere.ad.model.AdService;
-import com.fitanywhere.ad.model.AdVO;
+import com.fitanywhere.adfgh.model.AdService;
+import com.fitanywhere.adfgh.model.AdVO;
 import com.fitanywhere.course.model.CourseService;
 import com.fitanywhere.course.model.CourseVO;
 

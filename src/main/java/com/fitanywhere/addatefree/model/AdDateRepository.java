@@ -1,9 +1,9 @@
 // https://docs.spring.io/spring-data/jpa/docs/current/reference/html/
 
-package com.fitanywhere.ad.model;
+package com.fitanywhere.addatefree.model;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AdRepository extends JpaRepository<AdVO, Integer> {
+public interface AdDateRepository extends JpaRepository<AdDateVO, Integer> {
     
 }

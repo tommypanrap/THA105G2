@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.fitanywhere.adcarousel.model.AdCarouselService;
-import com.fitanywhere.adcarousel.model.AdCarouselVO;
+import com.fitanywhere.adcarshipousel.model.AdCarouselService;
+import com.fitanywhere.adcarshipousel.model.AdCarouselVO;
 import com.fitanywhere.course.model.CourseService;
 import com.fitanywhere.course.model.CourseVO;
 
@@ -39,7 +39,7 @@ public class IndexController_inSpringBoot {
         
     }
 	
-//	½Ð¨D¶i¨Ó¨ê·s¼s§i§PÂ_¬O§_²Å¦X­n¨D
+//	ï¿½Ð¨Dï¿½iï¿½Ó¨ï¿½sï¿½sï¿½iï¿½Pï¿½_ï¿½Oï¿½_ï¿½Å¦Xï¿½nï¿½D
 	@ModelAttribute("ads")
 	public List<AdCarouselVO> populateAds() {
 		return AdCarSvc.getBaseHomePageAd();

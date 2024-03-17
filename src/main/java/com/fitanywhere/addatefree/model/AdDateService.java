@@ -1,4 +1,4 @@
-package com.fitanywhere.addate.model;
+package com.fitanywhere.addatefree.model;
 
 import java.util.List;
 import java.util.Optional;

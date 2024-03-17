@@ -1,4 +1,4 @@
-package com.fitanywhere.ad.model;
+package com.fitanywhere.adfgh.model;
 
 
 
@@ -19,8 +19,8 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import com.fitanywhere.adcarousel.model.AdCarouselVO;
-import com.fitanywhere.addate.model.AdDateVO;
+import com.fitanywhere.adcarshipousel.model.AdCarouselVO;
+import com.fitanywhere.addatefree.model.AdDateVO;
 
 
 

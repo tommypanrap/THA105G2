@@ -1,4 +1,4 @@
-package com.fitanywhere.adcarousel.controller;
+package com.fitanywhere.adcarshipousel.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fitanywhere.ad.model.AdService;
-import com.fitanywhere.ad.model.AdVO;
-import com.fitanywhere.adcarousel.model.AdCarouselService;
-import com.fitanywhere.adcarousel.model.AdCarouselVO;
+import com.fitanywhere.adcarshipousel.model.AdCarouselService;
+import com.fitanywhere.adcarshipousel.model.AdCarouselVO;
+import com.fitanywhere.adfgh.model.AdService;
+import com.fitanywhere.adfgh.model.AdVO;
 import com.fitanywhere.course.model.CourseService;
 import com.fitanywhere.course.model.CourseVO;
 import com.fitanywhere.user.model.UserService;

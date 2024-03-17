@@ -1,4 +1,4 @@
-package com.fitanywhere.ad.model;
+package com.fitanywhere.adfgh.model;
 
 import java.util.List;
 import java.util.Optional;

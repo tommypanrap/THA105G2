@@ -21,9 +21,6 @@ public class ForumPostDBGifReaderController {
 	@Autowired
 	ForumPostService forumPostSvc;
 	
-	/*
-	 * This method will serve as listOneEmp.html , listAllEmp.html handler.
-	 */
 	@GetMapping("DBGifReader")
 	public void dBGifReader(@RequestParam("fpId") String fpId, HttpServletRequest req, HttpServletResponse res)
 			                                                                                          throws IOException {

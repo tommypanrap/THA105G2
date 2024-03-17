@@ -104,9 +104,6 @@ public class ForumPostVO implements Serializable {
 		if (this.fpViews == null) {
 			this.fpViews = 0; // 預設觀看數為0
 		}
-		if (this.fpPic == null || this.fpPic.length == 0) {
-			this.fpPic = java.util.Base64.getDecoder().decode(DefaultImage.getDefaultPicBase64()); // 如果USER沒設置圖片則預設一張圖片
-		}
 	}
 
 	@PreUpdate

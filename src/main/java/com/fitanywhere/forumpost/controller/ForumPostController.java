@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fitanywhere.forumpost.model.DefaultImage;
+import com.fitanywhere.forumpost.model.DefaultImage2;
 import com.fitanywhere.forumpost.model.ForumPostService;
 import com.fitanywhere.forumpost.model.ForumPostVO;
 import com.fitanywhere.user.model.UserService;
@@ -75,6 +77,38 @@ public class ForumPostController {
             redirectAttributes.addFlashAttribute("forumPostVO", forumPostVO);
             // 重定向回新增页面
             return "redirect:/forumpost/addForumPost";
+        }
+        
+        // 檢查用戶是否上傳了圖片，如果沒有，則根據文章分類設置不同的預設圖片
+        if (parts == null || parts.length == 0 || parts[0].isEmpty()) {
+            // 獲取用戶的文章分類
+            String category = forumPostVO.getFpCategory();
+            
+            // 根據文章分類設置預設圖片
+            byte[] defaultPic = null;
+            switch (category) {
+                case "重量訓練":
+                    defaultPic = java.util.Base64.getDecoder().decode(DefaultImage.getDefaultPic1());
+                    break;
+                case "皮拉提斯":
+                    defaultPic = java.util.Base64.getDecoder().decode(DefaultImage.getDefaultPic2());
+                    break;
+                case "有氧訓練":
+                    defaultPic = java.util.Base64.getDecoder().decode(DefaultImage.getDefaultPic3());
+                    break;
+                case "徒手健身":
+                    defaultPic = java.util.Base64.getDecoder().decode(DefaultImage2.getDefaultPic4());
+                    break;
+                case "飲食分享":
+                    defaultPic = java.util.Base64.getDecoder().decode(DefaultImage2.getDefaultPic5());
+                    break;
+            }
+            
+            // 將預設圖片設置到ForumPostVO對象中
+            forumPostVO.setFpPic(defaultPic);
+        } else {
+            // 將用戶上傳的圖片轉換為字節數組並存儲到ForumPostVO對象中
+            forumPostVO.setFpPic(parts[0].getBytes());
         }
 
 //        if (result.hasErrors()) {
@@ -167,7 +201,7 @@ public class ForumPostController {
 	public String listAllForumPost(Model model) {
     	 List<ForumPostVO> forumPosts = forumPostSvc.getAll();
          model.addAttribute("forumPosts", forumPosts);
-		return "front-end/forumpost/g2_blog_list1";
+		return "front-end/forumpost/g2_blog_list";
 	}
     
 	@GetMapping("select_page")

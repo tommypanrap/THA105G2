@@ -69,7 +69,7 @@
                                 <span class="rbt-cart-count">4</span>
                             </a>
                         </li>
-                        
+
                         <!-- Eugen 意見回饋按鈕 -->
                         <li class="access-icon">
                             <a class="rbt-round-btn opinion-btn" href="#">
@@ -527,35 +527,38 @@
         </div>
     </div>
 
-	<div th:replace="front-end/included_mail.html"></div>
+    <div th:replace="front-end/included_mail.html"></div>
 
     <!-- End Side Vav -->
     <a class="rbt-close_side_menu" href="javascript:void(0);"></a>
 </header>
+
 <script>
-//連結按鈕的地方
-$(".button_model").on("click",function(e){
-    e.preventDefault();
-    $("#lightbox").removeClass("none");
-});
+    //連結按鈕的地方
+    $(".button_model").on("click", function (e) {
+        e.preventDefault();
+        $("#lightbox").removeClass("none");
+    });
 
-// 關閉按鈕
-$("button.btn_model_close").on("click", function(){
-    $("#lightbox").addClass("none");
-});
+    // 關閉按鈕
+    $("button.btn_model_close").on("click", function () {
+        $("#lightbox").addClass("none");
+    });
 
-//$("#lightbox").on("click", function(){
-//    $("#lightbox").addClass("none");
-//})
 
-$("#lightbox > article").on("click", function(e){
-    e.stopPropagtion();
-});
+    // 首頁意見回饋彈窗會用最下面的Script處理(Eugen)
+    //$("#lightbox").on("click", function(){
+    //    $("#lightbox").addClass("none");
+    //})
 
-$(".opinion-btn").on("click",function(e){
-    e.preventDefault();
-    $("#lightbox").removeClass("none");
-});
+    /*  $("#lightbox > article").on("click", function (e) {
+         e.stopPropagtion();
+     });
+ 
+     $(".opinion-btn").on("click", function (e) {
+         e.preventDefault();
+         $("#lightbox").removeClass("none");
+     }); */
 </script>
 <script>
 
@@ -586,8 +589,8 @@ $(".opinion-btn").on("click",function(e){
                     var cover = item.crCover != null ? `data:image/jpeg;base64,${item.crCover}` : '/assets/images/client/avatar-02.png';
 
 
-                cartEl.innerHTML +=
-                    `<li class="minicart-item removeItem_parent">
+                    cartEl.innerHTML +=
+                        `<li class="minicart-item removeItem_parent">
 
                         <div class="thumbnail">
                             <a th:href="@{#}">
@@ -617,40 +620,81 @@ $(".opinion-btn").on("click",function(e){
     // Eugen (需要jQuery)
     // 處理意見回饋的登入檢查
     $(".opinion-btn").on("click", function (e) {
-        e.preventDefault(); // 防止默認動作
+        e.preventDefault(); // 防止預設動作
 
-        // 使用 AJAX 發送請求檢查用戶登入狀態
+        // 使用 AJAX 發送請求檢查使用者登錄狀態
         $.ajax({
             url: "/base_api/check_user_login",
             method: "POST",
             success: function (data, textStatus, xhr) {
-                // HTTP 200: 用戶已登入，顯示彈窗
+                // HTTP 200: 使用者已登錄，顯示彈窗
                 if (xhr.status === 200) {
-                    $("#lightbox").removeClass("none");
+                    $("#lightbox").removeClass("none"); // 只有在這裡顯示彈窗
                 }
             },
             error: function (xhr, textStatus, errorThrown) {
-                // HTTP 401: 用戶未登入，顯示警告
+                // HTTP 401: 使用者未登錄，顯示警告
                 if (xhr.status === 401) {
-                    alert("請先登入才能使用意見回饋功能!");
+                    alert("請先登錄才能使用意見反饋功能!");
                 } else {
                     // 其他HTTP錯誤，顯示一般錯誤提示
-                    alert("伺服器異常, 請稍後再試或聯絡站方!");
+                    alert("伺服器異常，請稍後再試或聯繫站方!");
                 }
             }
         });
     });
 
-    // 關閉按鈕
-    $("button.btn_model_close").on("click", function () {
-        $("#lightbox").addClass("none");
-    });
+    // 處理意見彈窗的資料傳輸和關閉
+    $(document).ready(function () {
+        // 初始化時禁用"送出"按鈕
+        $(".confirm").prop("disabled", true);
 
-    // 點擊彈窗外區域不應該關閉彈窗，所以這部分代碼被移除
+        // 監聽輸入，只有當兩個欄位都非空值才啟用"送出"按鈕
+        $("#titleInput, #contentInput").on("input", function () {
+            var title = $("#titleInput").val().trim();
+            var content = $("#contentInput").val().trim();
+            $(".confirm").prop("disabled", title === "" || content === "");
+        });
 
-    // 防止點擊彈窗內容時關閉彈窗
-    $("#lightbox > article").on("click", function (e) {
-        e.stopPropagation();
+        // "送出"按鈕點擊事件
+        $(".confirm").on("click", function () {
+            var title = $("#titleInput").val().trim();
+            var content = $("#contentInput").val().trim();
+
+            // 使用AJAX向後端發送請求
+            $.ajax({
+                url: "/opinion_api/user_create_opinion",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ opTitle: title, opContent: content }),
+                success: function (response) {
+                    // HTTP 200: 顯示成功消息，並關閉彈窗
+                    alert("已收到您的寶貴意見, 我們會盡快回覆您!");
+                    // 關閉彈窗
+                    $("#lightbox").addClass("none");
+                },
+                error: function (xhr) {
+                    // 根據不同的HTTP狀態碼給出不同的提示
+                    if (xhr.status === 500) {
+                        alert("伺服器錯誤, 請稍後重新提交!");
+                    } else {
+                        // 處理其他可能的錯誤
+                        alert("發生錯誤，請稍後再試!");
+                    }
+                }
+            });
+        });
+
+        // "取消"按鈕點擊事件，關閉彈窗
+        $("button.btn_model_close").on("click", function () {
+            $("#lightbox").addClass("none");
+        });
+
+        // 防止點擊彈窗內容時關閉彈窗
+        $("#lightbox > article").on("click", function (e) {
+            e.stopPropagation();
+        });
+
     });
 
     // 處理使用Post的會員登出
@@ -662,21 +706,42 @@ $(".opinion-btn").on("click",function(e){
 
             // 使用AJAX發送POST請求到指定的URL
             $.ajax({
-            type: "POST",
-            url: "/user_api/user_logout_post",
-            dataType: "json",
-            success: function(response) {
-                // 處理成功執行跳轉
-                if(response.status === "success") {
-                    window.location.href = response.redirect;
+                type: "POST",
+                url: "/user_api/user_logout_post",
+                dataType: "json",
+                success: function (response) {
+                    // 處理成功執行跳轉
+                    if (response.status === "success") {
+                        window.location.href = response.redirect;
+                    }
+                },
+                error: function () {
+                    alert("伺服器異常，請稍後再試!");
                 }
-            },
-            error: function() {
-                alert("伺服器異常，請稍後再試!");
-            }
-        });
+            });
         });
     });
+
+    // 意見回饋輸入基本檢查    
+    var titleInput = document.getElementById("titleInput");
+    var titleCount = document.getElementById("titleCount");
+    var contentInput = document.getElementById("contentInput");
+    var contentCount = document.getElementById("contentCount");
+
+    titleInput.addEventListener("input", function () {
+        if (titleInput.value.length > 15) {
+            titleInput.value = titleInput.value.slice(0, 15);
+            alert("標題不得超過15字!");
+        }
+    });
+
+    contentInput.addEventListener("input", function () {
+        if (contentInput.value.length > 150) {
+            contentInput.value = contentInput.value.slice(0, 150);
+            alert("內容不得超過150字!");
+        }
+    });
+
 
 
 

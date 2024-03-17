@@ -1,17 +1,18 @@
 package com.fitanywhere.opinion.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class OpinionAddReplyDTO {
 	private Integer opId;
 	private String opReplyContent;
-	private Date opReplyTime;
+	private LocalDateTime opReplyTime;
 	private Integer opStatus;
 
 	public OpinionAddReplyDTO() {
 	}
 
-	public OpinionAddReplyDTO(Integer opId, String opReplyContent, Date opReplyTime, Integer opStatus) {
+	public OpinionAddReplyDTO(Integer opId, String opReplyContent, LocalDateTime opReplyTime, Integer opStatus) {
 		this.opId = opId;
 		this.opReplyContent = opReplyContent;
 		this.opReplyTime = opReplyTime;
@@ -26,7 +27,7 @@ public class OpinionAddReplyDTO {
 		return opReplyContent;
 	}
 
-	public Date getOpReplyTime() {
+	public LocalDateTime getOpReplyTime() {
 		return opReplyTime;
 	}
 
@@ -42,12 +43,12 @@ public class OpinionAddReplyDTO {
 		this.opReplyContent = opReplyContent;
 	}
 
-	public void setOpReplyTime(Date opReplyTime) {
+	public void setOpReplyTime(LocalDateTime opReplyTime) {
 		this.opReplyTime = opReplyTime;
 	}
 
 	public void setOpStatus(Integer opStatus) {
 		this.opStatus = opStatus;
-	}	
+	}
 
 }

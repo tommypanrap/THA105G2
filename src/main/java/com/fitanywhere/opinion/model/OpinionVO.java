@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,47 +20,39 @@ import com.fitanywhere.user.model.UserVO;
 @Table(name = "opinion")
 public class OpinionVO implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@Column(name = "op_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer opId;
 	
-	@ManyToOne
-    @JoinColumn(name = "u_id", referencedColumnName = "u_id")
-    private UserVO user;
-	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "uId", referencedColumnName = "u_id")
+	private UserVO user;
+
 	@Column(name = "op_title", length = 150)
-    private String opTitle;
+	private String opTitle;
 
-    @Column(name = "op_content", columnDefinition = "LONGTEXT")
-    private String opContent;
+	@Column(name = "op_content", columnDefinition = "LONGTEXT")
+	private String opContent;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "op_send_time")
-    private Date opSendTime;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "op_send_time")
+	private Date opSendTime;
 
-    @Column(name = "op_reply_content", columnDefinition = "LONGTEXT")
-    private String opReplyContent;
+	@Column(name = "op_reply_content", columnDefinition = "LONGTEXT")
+	private String opReplyContent;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "op_reply_time")
-    private Date opReplyTime;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "op_reply_time")
+	private Date opReplyTime;
 
-    @Column(name = "op_status")
-    private Integer opStatus;
+	@Column(name = "op_status")
+	private Integer opStatus;
 
-    public OpinionVO() {
-        // Default constructor
-    }
-	
-    public OpinionVO(UserVO user, String opTitle, String opContent, Date opSendTime, Integer opStatus) {
-        this.user = user;
-        this.opTitle = opTitle;
-        this.opContent = opContent;
-        this.opSendTime = opSendTime;       
-        this.opStatus = opStatus;
-    }
+	public OpinionVO() {
+		// Default constructor
+	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -128,9 +121,5 @@ public class OpinionVO implements java.io.Serializable {
 	public void setOpStatus(Integer opStatus) {
 		this.opStatus = opStatus;
 	}	
-    
-    
-	
-
 
 }

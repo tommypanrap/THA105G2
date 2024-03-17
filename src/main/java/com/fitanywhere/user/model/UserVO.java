@@ -23,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fitanywhere.adcarousel.model.AdCarouselVO;
 import com.fitanywhere.course.model.CourseVO;
 import com.fitanywhere.mood.model.MoodVO;
+import com.fitanywhere.opinion.model.OpinionVO;
 import com.fitanywhere.socialpost.model.SocialPostVO;
 import com.fitanywhere.socialpost.model.SocialReplyVO;
 
@@ -34,7 +35,10 @@ public class UserVO implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "u_id")
-	private Integer uId;
+	private Integer uId;	
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<OpinionVO> opinions = new HashSet<>();
 
 	// Tommy
 	@ManyToOne
@@ -240,4 +244,16 @@ public class UserVO implements java.io.Serializable {
 		this.uRegisterdate = uRegisterdate;
 	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public Set<OpinionVO> getOpinions() {
+		return opinions;
+	}
+
+	public void setOpinions(Set<OpinionVO> opinions) {
+		this.opinions = opinions;
+	}	
+	
 }

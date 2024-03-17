@@ -275,7 +275,8 @@ public class UserService {
 	@Transactional(readOnly = true)
 	public UserReadDataDTO getUserDataDTOByID(Integer uId) {
 		return userJpaRepository.findUserDataDTOById(uId);
-	}
+	}	
+
 
 // =============================================
 // 寫入類Service

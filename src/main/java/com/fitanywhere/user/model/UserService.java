@@ -1,8 +1,8 @@
 package com.fitanywhere.user.model;
 
 
-import java.time.LocalDate;
 import java.security.SecureRandom;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -19,12 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fitanywhere.forumpost.model.ForumPostVO;
-<<<<<<< HEAD
 import com.fitanywhere.forumreply.model.ForumReplyVO;
-=======
-import com.fitanywhere.service.PasswordEncryptionService;
-import com.fitanywhere.course.model.CourseVO;
->>>>>>> refs/heads/master
 import com.fitanywhere.service.MailService;
 import com.fitanywhere.service.PasswordEncryptionService;
 

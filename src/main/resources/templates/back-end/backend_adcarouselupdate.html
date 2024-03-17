@@ -155,10 +155,6 @@ form div div {
 
 	<!-- JavaScript part -->
 <script type="text/javascript">
-//清除提示信息
-function hideContent(d) {
-     document.getElementById(d).style.display = "none";
-}
 
 //照片上傳-預覽用
 var filereader_support = typeof FileReader != 'undefined';
@@ -203,6 +199,34 @@ function previewfile(file) {
 		document.getElementById('submit').disabled = true;
 	}
 }
+
+// 對日期的驗證
+document.addEventListener("DOMContentLoaded", function() {
+  
+  // 選擇開始日期和結束日期的input元素
+  var startDate = document.querySelector('input[name="adcStartDate"]');
+  var endDate = document.querySelector('input[name="adcEndDate"]');
+
+  // 設定今天的日期為開始日期的最小值
+  startDate.min = new Date().toISOString().split('T')[0];
+
+  // 當開始日期改變時，調整結束日期的最小值
+  startDate.addEventListener('change', function() {
+    if (startDate.value) endDate.min = startDate.value;
+  }, false);
+  
+  // 當結束日期改變時，檢查是否小於開始日期，如果是，則重設結束日期
+  endDate.addEventListener('change', function() {
+    if (startDate.value && this.value < startDate.value) {
+      alert("結束時間不能小於開始時間。");
+      this.value = '';
+    }
+  }, false);
+
+});
+
+
+
 </script>
 
 </body>

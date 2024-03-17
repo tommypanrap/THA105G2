@@ -68,7 +68,6 @@
 			Integer adId = 1;
 			Integer uId = 10002;
 			/***************************2.開始查詢資料*********************************************/
-	//		EmpService empSvc = new EmpService();
 			AdVO adVO = adSvc.getOneAd(Integer.valueOf(adId));
 			CourseVO courseVO = new CourseVO();
 			UserVO userVO = new UserVO();
@@ -77,11 +76,15 @@
 			List<AdVO> list = adSvc.getAll();
 			List<UserVO> userList = userSvc.getUserByUId(uId);
 			List<CourseVO>	courseList = courSvc.getCourseByUId(uId);
-	//		List<AdCarouselVO>	adcarList = AdCarSvc.getAll();	
+			List<AdCarouselVO>	dayPriceList = AdCarSvc.getDayPriceByAdId(adId);
 			
 	//		將教練id抓到的課程廣告裝起來
 			List<AdCarouselVO> userAds = AdCarSvc.getAdOrderByUserId(uId);
 			model.addAttribute("userAds", userAds);
+			
+	//		將透過方案id的方案單價裝起來
+			List<AdCarouselVO> dayPrices = AdCarSvc.getDayPriceByAdId(adId);
+			model.addAttribute("dayPrices", dayPrices);
 			
 
 			model.addAttribute("adListData", list); // for select_page.html 第97 109行用
@@ -102,9 +105,6 @@
 			model.addAttribute("userVO", userVO);
 			model.addAttribute("getOne_For_Display", "true"); // 旗標getOne_For_Display見select_page.html的第126行 -->
 			
-			
-	//		return "back-end/emp/listOneEmp";  // 查詢完成後轉交listOneEmp.html
-	//		return "back-end/ad/select_page"; // 查詢完成後轉交select_page.html由其第128行insert listOneEmp.html內的th:fragment="listOneEmp-div
 			return "front-end/ad/instructor_advertising";
 		}
 
@@ -167,6 +167,7 @@
 	//	}
 	//	
 		
+		
 		@PostMapping("insert")
 		public String insert(@Valid AdCarouselVO adcarVO, BindingResult result, ModelMap model,
 				@RequestParam("adcUpdatePic") MultipartFile file, @RequestParam("uId") Integer uId, 
@@ -204,6 +205,12 @@
 			}
 			
 			if (result.hasErrors()) {
+				System.out.println("出錯了");
+				System.out.println("result has error" + result.hasErrors());
+				List<FieldError> listField = result.getFieldErrors();
+				for(FieldError error : listField) {
+					System.out.println(error);
+				}
 				return "back-end/adCarousel/addAdCarousel";
 			}
 			/*************************** 2.開始新增資料 *****************************************/
@@ -313,20 +320,6 @@
 			List<AdCarouselVO> list = AdCarSvc.getAll();
 			return list;
 		}
-
-		/*
-		* 【 第二種作法 】 Method used to populate the Map Data in view. 如 : 
-		* <form:select path="deptno" id="deptno" items="${depMapData}" />
-		*/
-	//	@ModelAttribute("deptMapData") //
-	//	protected Map<Integer, String> referenceMapData() {
-	//		Map<Integer, String> map = new LinkedHashMap<Integer, String>();
-	//		map.put(10, "財務部");
-	//		map.put(20, "研發部");
-	//		map.put(30, "業務部");
-	//		map.put(40, "生管部");
-	//		return map;
-	//	}
 
 		// 去除BindingResult中某個欄位的FieldError紀錄
 		public BindingResult removeFieldError(AdCarouselVO adcarVO, BindingResult result, String removedFieldname) {

@@ -51,8 +51,26 @@ public class SocialPostService {
 		return optional.orElse(null);  // public T orElse(T other) : 如果值存在就回傳其值，否則回傳other的值
 	}
 	
+	
 	public List<SocialPostVO> getAll() {
 		return repository.findAll();
+	}
+	
+	
+	public class ResourceNotFoundException extends RuntimeException {
+
+	    public ResourceNotFoundException(String message) {
+	        super(message);
+	    }
+	    
+	}
+	
+	// 更新社群貼文狀態 上下架 目前只用於後台
+	public void updatePostStatus(Integer spid, Integer spstatus) {
+	    SocialPostVO socialPost = repository.findById(spid)
+	    		 .orElseThrow(() -> new RuntimeException("Post not found with id " ));
+	    socialPost.setSpstatus(spstatus);
+	    repository.save(socialPost);
 	}
 	
 

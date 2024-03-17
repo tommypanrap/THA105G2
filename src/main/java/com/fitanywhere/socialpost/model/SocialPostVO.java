@@ -21,7 +21,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+
+
 
 import com.fitanywhere.mood.model.MoodVO;
 import com.fitanywhere.user.model.UserVO;
@@ -47,8 +50,6 @@ public class SocialPostVO {
 	@JoinColumn(name = "u_id")
 	private UserVO userVO;
 	
-//	@Column(name = "u_id")
-//	private Integer uId;
 	
 	@Column(name = "sp_category")
 	private String spcategory;
@@ -72,6 +73,7 @@ public class SocialPostVO {
 	private byte[] sppic;
 
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="socialPostVO")
+	@OrderBy("srId DESC")
 	private Set<SocialReplyVO> socialReplys = new HashSet<SocialReplyVO>();
 
 	public SocialPostVO() {
@@ -156,24 +158,11 @@ public class SocialPostVO {
 		return spcontent;
 	}
 
-//	public Integer getuId() {
-//		return uId;
-//	}
-//
-//	public void setuId(Integer uId) {
-//		this.uId = uId;
-//	}
 
 	public void setSpcontent(String spcontent) {
 		this.spcontent = spcontent;
 	}
 
-//	@Override
-//	public String toString() {
-//		return "SocialPostVO [spid=" + spid + ", userVO=" + userVO + ", spcategory=" + spcategory + ", sptime=" + sptime
-//				+ ", spupdated=" + spupdated + ", spstatus=" + spstatus + ", sptitle=" + sptitle + ", spcontent="
-//				+ spcontent + "]";
-//	}
-//	
+
 	
 }

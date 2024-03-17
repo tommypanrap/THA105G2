@@ -48,8 +48,8 @@ public class DetailController {
 
 
 
-    @PostMapping("details")
-    public List<DetailVO> getDetailsByOdId(Integer odId){
+    @GetMapping("details/{odId}")
+    public List<DetailVO> getDetailsByOdId(@PathVariable Integer odId){
 
         return detailService.getDetailsByOrderId(odId);
     }

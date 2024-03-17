@@ -2,6 +2,7 @@ package com.fitanywhere.detail.model;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fitanywhere.order.model.OrderVO;
 import com.fitanywhere.user.model.UserVO;
 import lombok.*;
@@ -57,6 +58,7 @@ public class DetailVO implements java.io.Serializable{
 	// 訂單編號
 	@ManyToOne
 	@JoinColumn(name = "od_id")
+	@JsonIgnore
 	private OrderVO orderVO;
 
 
@@ -120,13 +122,7 @@ public class DetailVO implements java.io.Serializable{
 		this.cdGiftRemark = cdGiftRemark;
 	}
 
-//	public Integer getOdId() {
-//		return odId;
-//	}
-//
-//	public void setOdId(Integer odId) {
-//		this.odId = odId;
-//	}
+
 
 	public OrderVO getOrderVO() {
 		return orderVO;

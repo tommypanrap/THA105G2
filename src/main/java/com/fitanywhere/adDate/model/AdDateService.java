@@ -1,4 +1,4 @@
-package com.fitanywhere.adDate.model;
+package com.fitanywhere.addate.model;
 
 import java.util.List;
 import java.util.Optional;

@@ -79,13 +79,13 @@
 
         }
 
-        #lightbox2 .fade:not(.show){
-            opacity:1;
+        #lightbox2 .fade:not(.show) {
+            opacity: 1;
         }
 
         .dataTables_filter {
             margin-bottom: 20px;
-            
+
         }
 
     </style>
@@ -998,7 +998,7 @@
                                                 <th class="odId" th:text="${orderVO.odId}"></th>
                                                 <td th:text="${#dates.format(orderVO.odCreateDate, 'yyyy-MM-dd HH:mm')}"></td>
                                                 <td th:text="${orderVO.odPrice}"></td>
-<!--                                                <td th:text="${orderVO.odStatus}"></td>-->
+                                                <!--                                                <td th:text="${orderVO.odStatus}"></td>-->
                                                 <td>
                                                     <span th:if="${orderVO.odStatus == 1}">訂單已完成</span>
                                                     <span th:if="${orderVO.odStatus == 2}">訂單失敗</span>
@@ -1014,7 +1014,7 @@
                                 </div>
 
                                 <div id="lightbox2" style="display: none;">
-                                    <div class="tab-pane fade" id="lightbox2-content2" role="tabpanel" >
+                                    <div class="tab-pane fade" id="lightbox2-content2" role="tabpanel">
                                         <div class="rbt-my-account-inner">
                                             <h3>訂單明細</h3>
 
@@ -1029,41 +1029,13 @@
                                                     </thead>
 
                                                     <tbody class="detailBody">
-<!--                                                    <tr>-->
-<!--                                                        <td>1</td>-->
-<!--                                                        <td>Miracle Morning</td>-->
-<!--                                                        <td>Janu 22, 2023</td>-->
-<!--                                                        <td>Pending</td>-->
-<!--                                                        <td>$45</td>-->
-<!--                                                        <td>-->
-<!--                                                            <a class="rbt-btn btn-gradient btn-sm" href="#">View-->
-<!--                                                                Details</a>-->
-<!--                                                        </td>-->
-<!--                                                    </tr>-->
+
 
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <!--                                    <div id="lightbox2" style="display: none;">-->
-                                    <!--                                        <table id="lightbox2-content2">-->
-                                    <!--                                            <thead>-->
-                                    <!--                                            <tr>-->
-                                    <!--                                                <th>課程圖片</th>-->
-                                    <!--                                                <th>課程名稱</th>-->
-                                    <!--                                                <th>價格</th>-->
-                                    <!--                                            </tr>-->
-                                    <!--                                            </thead>-->
-                                    <!--                                            <tbody class="detailBody">-->
-                                    <!--                                            <tr>-->
-                                    <!--                                                <th><img src="" alt=""/></th>-->
-                                    <!--                                                <td>${detail.crId}</td>-->
-                                    <!--                                                <td>${detail.cdPrice}</td>-->
-                                    <!--                                            </tr>-->
-                                    <!--                                            </tbody>-->
-                                    <!--                                        </table>-->
 
 
                                 </div>
@@ -1163,7 +1135,7 @@
                 }
             }
         });
-        $('#searchInput').on('input',function (){
+        $('#searchInput').on('input', function () {
             let searchText = $(this).val().trim();
             console.log('draw')
             dataTable.search(searchText).draw();
@@ -1186,25 +1158,44 @@
                 }
                 console.log('success');
                 return res.json();
-            }).then(data => {
-            console.log(data)
-            let lightbox2Content = '';
+            }).then(details => {
+            let fetchPromises = details.map(detail => {
+                return fetch('/cr_cover/course_image', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({cr_id: detail.crId}),
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Failed to fetch course image');
+                        }
+                        return response.blob();
+                    })
+                    .then(blob => {
+                        let image_cover = URL.createObjectURL(blob);
+                        return `
+                        <tr>
+                            <td><img src="${image_cover}" alt="" style="max-height: 50px"/></td>
+                            <td>${detail.crTitle}</td>
+                            <td>${detail.cdPrice}</td>
+                        </tr>
+                    `;
+                    });
+            });
 
-            data.forEach(detail => {
-                lightbox2Content += `
-                <tr>
-                    <td><img src="" alt=""/></td>
-                    <td>${detail.crTitle}</td>
-                    <td>${detail.cdPrice}</td>
-                </tr>
-                `;
+            Promise.all(fetchPromises).then(contents => {
+                let lightbox2Content = contents.join('');
+                $('.detailBody').html(lightbox2Content);
 
+
+                $('#lightbox2').show();
+                $('body').css('overflow', 'hidden');
+            }).catch(err => {
+                console.error("err:", err);
             })
-            $('.detailBody').html(lightbox2Content);
 
-
-            $('#lightbox2').show();
-            $('body').css('overflow', 'hidden');
         })
 
         // let details = $(odId_el).data('order-detail');

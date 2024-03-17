@@ -1146,20 +1146,14 @@
             <div class="col-lg-12">
                 <div class="rbt-course-grid-column">
 
-                    <th:block th:each="courseData: ${courseListData}" >
+                    <th:block th:each="courseData: ${courseListData}">
                         <div class="course-grid-3">
                             <div class="rbt-card variation-01 rbt-hover">
                                 <div class="rbt-card-img">
                                     <a href="course-details.html">
-<!--                                        "data:image/jpeg;base64,${item.crCover}-->
-
-                                        <img th:if="${courseData.base64CrCover != null}"
-                                             th:src="'data:image/jpeg;base64,' + ${courseData.base64CrCover}"
-                                             alt="Card image">
-
-                                        <img th:unless="${courseData.base64CrCover != null}"
-                                             th:src="@{/assets/images/client/avatar-02.png}"
-                                             alt="Card image">
+                                        <img th:src="@{/assets/images/client/avatar-02.png}"
+                                             th:data-src="'/course/img?crId='+ ${courseData.crId}"
+                                             style="max-height: 295px" class="defaultCrCover" alt="Card image">
 
                                     </a>
                                 </div>
@@ -1194,109 +1188,74 @@
                                     <div class="rbt-author-meta mb--10">
                                         <div class="rbt-avater">
                                             <a th:href="@{'/course_details_2'}">
-                                                <img class="userHeadshot" th:data-user-id="${courseData.userVO.uId}"  alt="Sophia Jaymes">
-<!--                                                <img th:src="@{/assets/images/client/avatar-02.png}"-->
+                                                <!--   <img class="userHeadshot" th:data-user-id="${courseData.userVO.uId}"  alt="Sophia Jaymes">-->
+                                                <!--   <img th:src="@{/assets/images/client/avatar-02.png}"-->
                                             </a>
                                         </div>
                                         <div class="rbt-author-info">
 
-                                            By <span th:text="${courseData.userVO.uName}"></span>
+                                            <!--     By <span th:text="${courseData.userVO.uName}"></span>-->
                                         </div>
                                     </div>
                                     <div class="rbt-card-bottom">
                                         <div class="rbt-price">
                                             <span class="current-price" th:text="'NT$'+ ${courseData.crPrice}"></span>
-                                            <!--                                            <span class="off-price">$120</span>-->
+                                            <!--   <span class="off-price">$120</span>-->
                                         </div>
-                                        <!--                                        -->
                                         <a class="rbt-btn-link left-icon" href="javascript:void(0);"
-                                           th:onclick="add2Cart([[${courseData}]]);"
-
-
-                                        ><i
-                                                class="feather-shopping-cart"></i>加入購物車</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </th:block>
-
-
-                    <!-- Start Single Card  -->
-                    <div class="course-grid-3">
-                        <div class="rbt-card variation-01 rbt-hover">
-                            <div class="rbt-card-img">
-                                <a href="course-details.html">
-                                    <img th:src="@{/assets/images/course/course-online-01.jpg}" alt="Card image">
-                                    <div class="rbt-badge-3 bg-white">
-                                        <span>-40%</span>
-                                        <span>Off</span>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="rbt-card-body">
-                                <div class="rbt-card-top">
-                                    <div class="rbt-review">
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                        </div>
-                                        <span class="rating-count"> (15 Reviews)</span>
-                                    </div>
-                                    <div class="rbt-bookmark-btn">
-                                        <a class="rbt-round-btn" title="Bookmark" th:href="@{#}"><i
-                                                class="feather-bookmark"></i></a>
-                                    </div>
-                                </div>
-
-                                <h4 class="rbt-card-title"><a href="course-details.html">React Front To Back</a>
-                                </h4>
-
-                                <ul class="rbt-meta">
-                                    <li><i class="feather-book"></i>12 Lessons</li>
-                                    <li><i class="feather-users"></i>50 Students</li>
-                                </ul>
-
-                                <p class="rbt-card-text">It is a long established fact that a reader will be
-                                    distracted.</p>
-                                <div class="rbt-author-meta mb--10">
-                                    <div class="rbt-avater">
-                                        <a th:href="@{#}">
-                                            <img th:src="@{/assets/images/client/avatar-02.png}" alt="Sophia Jaymes">
+                                           th:onclick="add2Cart([[${courseData}]]);">
+                                            <i class="feather-shopping-cart"></i>加入購物車
                                         </a>
                                     </div>
-                                    <div class="rbt-author-info">
-                                        By <a href="profile.html">Angela</a> In <a th:href="@{#}">Development</a>
-                                    </div>
-                                </div>
-                                <div class="rbt-card-bottom">
-                                    <div class="rbt-price">
-                                        <span class="current-price">$60</span>
-                                        <span class="off-price">$120</span>
-                                    </div>
-                                    <a class="rbt-btn-link" href="course-details.html">Learn
-                                        More<i class="feather-arrow-right"></i></a>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- End Single Card  -->
-
+                    </th:block>
                 </div>
                 <div class="row">
                     <div class="col-lg-12 mt--60">
                         <nav>
                             <ul class="rbt-pagination">
-                                <li><a th:href="@{#}" aria-label="Previous"><i class="feather-chevron-left"></i></a>
-                                </li>
-                                <li class="active"><a th:href="@{#}">1</a></li>
-                                <li><a th:href="@{#}">2</a></li>
-                                <li><a th:href="@{#}">3</a></li>
-                                <li><a th:href="@{#}" aria-label="Next"><i class="feather-chevron-right"></i></a></li>
+                                <li th:if="${currentPage > 0}"><a th:href="@{/course/courses(page=${currentPage - 1})}"
+                                                                  aria-label="Previous"><i
+                                        class="feather-chevron-left"></i></a></li>
+                                <li th:unless="${currentPage > 0}"><a href="javascript:void(0);"
+                                                                      aria-label="Previous"><i
+                                        class="feather-chevron-left"></i></a></li>
+
+
+                                <li th:if="${currentPage == 0}" class="active"><a href="javascript:void(0);"
+                                                                                  th:text="${currentPage+1}"></a></li>
+                                <li th:if="${currentPage == 0}"><a th:href="@{/course/courses(page=${currentPage + 1})}"
+                                                                   th:text="${currentPage+2}"></a></li>
+                                <li th:if="${currentPage == 0}"><a th:href="@{/course/courses(page=${currentPage + 2})}"
+                                                                   th:text="${currentPage+3}"></a></li>
+
+                                <li th:if="${currentPage > 0 && currentPage < totalPages}"><a
+                                        th:href="@{/course/courses(page=${currentPage - 1})}"
+                                        th:text="${currentPage}"></a></li>
+                                <li th:if="${currentPage > 0 && currentPage < totalPages}" class="active"><a
+                                        href="javascript:void(0);" th:text="${currentPage + 1}"></a></li>
+                                <li th:if="${currentPage > 0 && currentPage < totalPages}"><a
+                                        th:href="@{/course/courses(page=${currentPage + 1})}"
+                                        th:text="${currentPage + 2}"></a></li>
+
+                                <li th:if="${currentPage > 0 && currentPage == totalPages}"><a
+                                        th:href="@{/course/courses(page=${currentPage - 2})}"
+                                        th:text="${currentPage - 1}"></a></li>
+                                <li th:if="${currentPage > 0 && currentPage == totalPages}"><a
+                                        th:href="@{/course/courses(page=${currentPage - 1})}"
+                                        th:text="${currentPage}"></a></li>
+                                <li th:if="${currentPage > 0 && currentPage == totalPages}" class="active"><a
+                                        href="javascript:void(0);" th:text="${currentPage + 1}"></a></li>
+
+
+                                <li th:if="${currentPage < totalPages}"><a
+                                        th:href="@{/course/courses(page=${currentPage + 1})}" aria-label="Next"><i
+                                        class="feather-chevron-right"></i></a></li>
+                                <li th:unless="${currentPage < totalPages}"><a href="javascript:void(0);"
+                                                                               aria-label="Next"><i
+                                        class="feather-chevron-right"></i></a></li>
                             </ul>
                         </nav>
                     </div>
@@ -1306,7 +1265,6 @@
     </div>
 </div>
 <!-- End Card Style -->
-
 <div class="rbt-separator-mid">
     <div class="container">
         <hr class="rbt-separator m-0">
@@ -1357,13 +1315,6 @@
 
 <script>
     const add2Cart = (courseData) => {
-        // const coverBase64 = arrayBufferToBase64(crCover);
-        // const cartItem = {
-        //     crId: courseData.crId,
-        //     crTitle: courseData.crTitle,
-        //     crCover: courseData.crCover,
-        //     crPrice: courseData.crPrice
-        // };
         let crId = courseData.crId;
         //const url = window.location.href;
         fetch('/cart/add', {
@@ -1383,10 +1334,8 @@
         }).catch((error) => {
             console.error("發生錯誤:" + error);
         });
-
         // getCartItems();
     }
-
 
 
     //userRestController getUserHeadshot
@@ -1411,8 +1360,8 @@
                     return response.blob();
                 })
                 .then(blob => {
-                    let image_Url = URL.createObjectURL(blob);;
-                    let this_e = $(this);
+                    let image_Url = URL.createObjectURL(blob);
+                    ;
                     $(this).attr('src', image_Url);
                 })
                 .catch(error => {
@@ -1423,40 +1372,20 @@
     });
 
 
-    document.addEventListener("DOMContentLoaded", function () {
-        var table = document.getElementById('courses_table');
-        var dataTable = new DataTable(table, {
-            "lengthMenu": [10, 20, 50, 100],
-            "searching": true,  //搜尋功能, 預設是開啟
-            "paging": true,     //分頁功能, 預設是開啟
-            "ordering": true,   //排序功能, 預設是開啟
-            "language": {
-                "processing": "處理中...",
-                "loadingRecords": "載入中...",
-                "lengthMenu": "顯示 _MENU_ 筆結果",
-                "zeroRecords": "沒有符合的結果",
-                "info": "顯示第 _START_ 至 _END_ 筆結果，共<font color=red> _TOTAL_ </font>筆",
-                "infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
-                "infoFiltered": "(從 _MAX_ 筆結果中過濾)",
-                "infoPostFix": "",
-                "search": "搜尋:",
-                "paginate": {
-                    "first": "第一頁",
-                    "previous": "上一頁",
-                    "next": "下一頁",
-                    "last": "最後一頁"
-                },
-                "aria": {
-                    "sortAscending": ": 升冪排列",
-                    "sortDescending": ": 降冪排列"
-                }
-            }
-        });
-    });
+    $(document).ready(function () {
+        $('.defaultCrCover').each(function () {
+            const realSrc = $(this).data('src');
+            const image = new Image();
+            image.onload = () => {
+                $(this).attr('src', realSrc);
+            };
+            image.onerror = () => {
+                console.log('圖片加載失敗')
+            };
+            image.src = realSrc
 
-
-
-
+        })
+    })
 </script>
 </body>
 

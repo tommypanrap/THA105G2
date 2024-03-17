@@ -3,8 +3,11 @@ package com.fitanywhere.course.model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +17,14 @@ public class CourseService {
 
 	@Autowired
 	CourseRepository repository;
+
+	@Autowired
+	CoursePagingRepository pagingRepository;
+
+	// 獲取所有課程DTO
+	public Page<CoursesDTO> getAllCourses(Pageable pageable){
+	return  pagingRepository.findAllProjectedBy(pageable);
+	}
 
 	public Integer addCourse(CourseVO courseVO) {
 		CourseVO savedCourse = repository.save(courseVO);

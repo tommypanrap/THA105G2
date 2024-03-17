@@ -3,7 +3,6 @@ package com.fitanywhere.detail.model;
 import com.fitanywhere.course.model.CourseService;
 import com.fitanywhere.course.model.CourseVO;
 import com.fitanywhere.order.model.OrderService;
-import com.fitanywhere.order.model.OrderVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,7 +61,7 @@ public class DetailService {
         List<Integer> crIdsByOdId = repository.findCrIdsByOdId(odId);
         List<DetailDTO> list = crIdsByOdId.stream().map(crId -> {
             CourseVO courseVO = courseSvc.getOneCourse(crId);
-            return new DetailDTO(courseVO.getCrCover(), courseVO.getCrTitle(), courseVO.getCrPrice());
+            return new DetailDTO(crId, courseVO.getCrTitle(), courseVO.getCrPrice());
         }).collect(Collectors.toList());
         return list;
     }

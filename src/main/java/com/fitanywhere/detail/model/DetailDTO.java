@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DetailDTO implements java.io.Serializable {
-    private byte[] crCover;
+    private Integer crId;
     private String crTitle;
     private Integer cdPrice;
 

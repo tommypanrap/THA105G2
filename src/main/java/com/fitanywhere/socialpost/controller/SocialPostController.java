@@ -3,6 +3,7 @@ package com.fitanywhere.socialpost.controller;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fitanywhere.course.model.CourseStatus0DTO;
+import com.fitanywhere.course.model.CourseStatus1DTO;
+import com.fitanywhere.course.model.CourseStatus2DTO;
 import com.fitanywhere.socialpost.model.SocialPostService;
 import com.fitanywhere.socialpost.model.SocialPostVO;
 import com.fitanywhere.socialpost.model.SocialReplyService;
@@ -58,6 +62,8 @@ public class SocialPostController {
 	public String addSocialPost(Model model) {
 		return "front-end/socialpost/add_socialpost";
 	}
+	
+
 
 	@ModelAttribute("socialPostListData")
 	protected List<SocialPostVO> referenceListData(Model model) {
@@ -335,5 +341,35 @@ public class SocialPostController {
 
 		return list;
 	}
+	
+	@GetMapping("/settings")
+	public String user_settings() {
+		
+		return "front-end/socialpost/student_settings";
+	}
+	
+	/*=================取值========================*/
+	@ModelAttribute("uName")
+	public String getuName(Integer uId) {
+		uId = 10001 ;
+		String uName = userSvc.getUser(uId).getuName();
+		return uName;
+	}
+	
+	@ModelAttribute("userVO")
+	public UserVO getUser(Integer uId) {
+		uId = 10001 ;
+		UserVO userVO = userSvc.getUser(uId);
+		return userVO;
+	}
+	
+	@ModelAttribute("uHeadshot")
+	public String getuHeadshot(Integer uId) {
+		uId = 10001 ;
+		byte [] uHeadshot = userSvc.getUserHeadshot(uId);
+		return Base64.getEncoder().encodeToString(uHeadshot);
+	}
+	
+
 
 }

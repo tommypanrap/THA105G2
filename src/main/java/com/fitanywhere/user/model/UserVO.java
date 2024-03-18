@@ -23,7 +23,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 
 import com.fitanywhere.adcarousel.model.AdCarouselVO;
-import com.fitanywhere.adCarousel.model.AdCarouselVO;
 import com.fitanywhere.course.model.CourseVO;
 import com.fitanywhere.mood.model.MoodVO;
 import com.fitanywhere.opinion.model.OpinionVO;

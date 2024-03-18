@@ -33,14 +33,18 @@ public class ForumReplyService {
             if (repository.existsById(frId))
                 repository.deleteByFrStatus(frId);
         }
-        public ForumReplyVO getOneForumReply(Integer frId) {
-            Optional<ForumReplyVO> optional = repository.findById(frId);
+        public ForumReplyVO getOneForumReply(Integer fpId) {
+            Optional<ForumReplyVO> optional = repository.findById(fpId);
 //            return optional.get();
             return optional.orElse(null);  // public T orElse(T other) : 如果值存在就回傳其值，否則回傳other的值
         }
 
         public List<ForumReplyVO> getAll() {
             return repository.findAll();
+        }
+        
+        public List<ForumReplyVO> findReplyByFpId(Integer fpId) {
+            return repository.findByForumPostVO_FpId(fpId);
         }
         
         public Timestamp getOriginalFrTime(Integer frId) {

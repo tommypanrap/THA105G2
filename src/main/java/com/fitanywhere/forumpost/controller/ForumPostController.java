@@ -46,7 +46,7 @@ public class ForumPostController {
 	        forumPostVO = new ForumPostVO();
 	    }
 	    model.addAttribute("ForumPostVO", forumPostVO);
-	    return "front-end/forumpost/addForumPost";
+	    return "front-end/forumpost/g2_blog_new_article";
 	}
 	
 	@GetMapping("/details/{fpId}")
@@ -62,7 +62,7 @@ public class ForumPostController {
 	    
 	    model.addAttribute("forumPostVO", forumPostVO);
 	    
-	    return "front-end/forumpost/forumPostDetails";
+	    return "front-end/forumpost/g2_blog_details";
 	}
 
 	@PostMapping("insert")
@@ -132,7 +132,7 @@ public class ForumPostController {
 
 		/*************************** 3.查詢完成,準備轉交(Send the Success view) **************/
 		model.addAttribute("ForumPostVO", forumPostVO);
-		return "front-end/forumpost/update_forumpost_input"; 
+		return "front-end/forumpost/g2_blog_update_article"; 
 	}
 	
 	@PostMapping("update")

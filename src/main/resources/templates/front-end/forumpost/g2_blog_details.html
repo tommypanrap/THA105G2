@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:insert="~{/front-end/included-head}"></head>
 
@@ -916,6 +915,11 @@
                 <button class="rbt-btn rbt-switch-btn btn-gradient radius-round btn-sm eugen-bd-button" type="button">
                     <span data-text="Submit Now">舉報</span>
                 </button>
+                
+               <form method="post" th:action="@{/forumpost/getOne_For_Update}">
+    <input type="hidden" name="fpId" th:value="${forumPostVO.fpId}">
+    <button class="rbt-btn rbt-switch-btn btn-gradient radius-round btn-sm eugen-bd-button" type="submit">修改</button>
+</form>
 
     
     
@@ -982,27 +986,38 @@
                             </div>
                         </div> -->
 
-                    <div class="comment-respond">
-                        <h4 class="title">留言</h4>
-                        <form action="#">
-                            
-                            <!-- 回文區塊 -->
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="message">Leave a Reply</label>
-                                    <textarea id="message" name="message"></textarea>
-                                </div>
-                            </div>
+<div class="comment-respond">
+    <h4 class="title">留言</h4>
+    <form th:action="@{insert}" method="post" th:object="${ForumReplyVO}" class="row">
+    
+		<div class="blog-add">
+            <p>用戶ID</p>
+            <select  th:field="*{userVO.uId}">
+                <option th:each="user : ${userListData}" th:value="${user.uId}" th:text="${user.uNickname}" />
+            </select>
+        </div>
+                
+        <!-- 回文区块 -->
+        <div class="col-12">
+            <div class="form-group">
+                <label for="message">Leave a Reply</label>
+                <textarea id="message" name="frContent" th:field="*{frContent}"></textarea>
+            </div>
+        </div>
+        
+        <div>
+				<p>插入圖片</p>
+				<input type="file" name="frPic">
+				</div>
 
-                            <div class="col-lg-12">
-                                <a class="rbt-btn btn-gradient icon-hover radius-round btn-md" href="#">
-                                    <span class="btn-text">Post Comment</span>
-                                    <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                </a>
-                            </div>
-                    </div>
-                    </form>
-                </div>
+        <div class="col-lg-12">
+            <button type="submit" class="rbt-btn btn-gradient icon-hover radius-round btn-md">
+                <span class="btn-text">新增回复</span>
+                <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+            </button>
+        </div>
+    </form>
+</div>
             </div>
 
             <div class="rbt-comment-area">
@@ -1082,10 +1097,6 @@
 
         </div>
 
-
-    </div>
-    </div>
-    </div>
 
 
     <!-- Start Footer aera -->

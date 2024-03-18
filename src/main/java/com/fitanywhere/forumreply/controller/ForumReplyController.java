@@ -42,27 +42,30 @@ public class ForumReplyController {
 	@Autowired
 	ForumPostService forumPostSvc;
 
-	@GetMapping("addForumReply")
-	public String addForumReply(ModelMap model) {
-	    ForumPostVO forumPostVO = new ForumPostVO(); // 創建一個新的 ForumPostVO 對象
-	    List<ForumPostVO> forumPostListData = forumPostSvc.getAll(); // 獲取所有貼文資料
-	    model.addAttribute("ForumPostVO", forumPostVO); // 將 ForumPostVO 對象添加到模型中
-	    model.addAttribute("forumPostListData", forumPostListData); // 將所有貼文資料添加到模型中
-	    return "front-end/forumreply/addForumReply"; // 返回新增頁面
-	}
+	 @GetMapping("addForumReply")
+	    public String addForumReply(@RequestParam("fpId") int fpId, ModelMap model) {
+	        ForumReplyVO forumReplyVO = new ForumReplyVO(); // 创建一个新的 ForumReplyVO 对象
+	        List<ForumPostVO> forumPostListData = forumPostSvc.getAll(); // 获取所有贴文数据
+	        model.addAttribute("forumReplyVO", forumReplyVO); // 将 ForumReplyVO 对象添加到模型中
+	        model.addAttribute("forumPostListData", forumPostListData); // 将所有贴文数据添加到模型中
+	        model.addAttribute("fpId", fpId); // 添加postId到模型中
+	        return "front-end/forumreply/addForumReply"; // 返回新增页面
+	    }
 
 
-	@PostMapping("insert")
-	public String insert(@Valid ForumReplyVO forumReplyVO, BindingResult result, ModelMap model,
-	                     @RequestParam("frPic") MultipartFile[] parts, RedirectAttributes redirectAttributes) throws IOException {
+	 @PostMapping("insert")
+		public String insert(@Valid ForumReplyVO forumReplyVO, BindingResult result, ModelMap model,
+		                     @RequestParam("frPic") MultipartFile[] parts, RedirectAttributes redirectAttributes) throws IOException {
+		    
+	     // 将留言信息保存到数据库中
+	     forumReplySvc.addForumReply(forumReplyVO);
+	     
+	     Integer fpId = forumReplyVO.getForumPostVO().getFpId();
+	     model.addAttribute("ForumReplyVO", forumReplyVO);
 
-        forumReplySvc.addForumReply(forumReplyVO);
-        List<ForumReplyVO> list = forumReplySvc.getAll();
-        model.addAttribute("forumReplyListData", list);
-        model.addAttribute("success", "- (新增成功)");
-        return "redirect:/forumreply/listAllForumReply";
-    }
-
+	     // 重定向到留言所属的文章详情页面
+	     return "redirect:/forumpost/g2_blog_Details?postId=" + fpId;
+	 }
 	@PostMapping("getOne_For_Update")
 	public String getOne_For_Update(@RequestParam("frId") String frId, ModelMap model) {
 		/*************************** 2.開始查詢資料 *****************************************/

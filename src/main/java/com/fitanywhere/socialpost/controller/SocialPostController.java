@@ -52,17 +52,7 @@ public class SocialPostController {
 	@Autowired
 	UserService userSvc;
 	
-	//練習 之後會刪掉
-//	@GetMapping("select_page")
-//	public String select_page(Model model) {
-//		return "front-end/socialpost/select_page";
-//	}
-	
-	
-//	@GetMapping("list_all_socialpost")
-//	public String listAllSocialPost(Model model) {
-//		return "front-end/socialpost/list_all_socialpost";
-//	}
+
 
 	@GetMapping("/socialpost/add_socialpost")
 	public String addSocialPost(Model model) {
@@ -94,14 +84,16 @@ public class SocialPostController {
 		model.addAttribute("socialPostVO", socialPostVO);
 		return "front-end/socialpost/show_login_socialpost_test";
 	}
-
+	
+	
+	// 主要的mapping 
 	@GetMapping("")
 	public String social_post_member(HttpServletRequest req, ModelMap model) {
 		
 		HttpSession newSession = req.getSession(true);
 		
 		int sessionUId =  Integer.valueOf(newSession.getAttribute("uId").toString());
-		System.out.println("sessionUId:"+sessionUId);
+//		System.out.println("sessionUId:"+sessionUId);
 		
 		model.addAttribute("sessionUId", sessionUId);
 
@@ -124,7 +116,7 @@ public class SocialPostController {
 				
 //		UserVO userVO2 = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
 		int sessionUId =  Integer.valueOf(newSession.getAttribute("uId").toString());
-		System.out.println("sessionUId:"+sessionUId);
+//		System.out.println("sessionUId:"+sessionUId);
 		
 		model.addAttribute("sessionUId", sessionUId);
 
@@ -236,7 +228,7 @@ public class SocialPostController {
 		}
 
 		if (result.hasErrors() || parts[0].isEmpty()) {
-			return "front-end/socialpost/socialpost";
+			return "front-end/socialpost/";
 		}
 
 		socialPostSvc.addSocialPost(socialPostVO);

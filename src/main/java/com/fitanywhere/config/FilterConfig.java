@@ -17,8 +17,8 @@ public class FilterConfig {
         FilterRegistrationBean<LoginStatusFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(new LoginStatusFilter());
 //      請在這邊設定需要過濾登入狀態的網址
-        // Joy 添加了"/order/order_history","/order/add"
-        registrationBean.addUrlPatterns("/user/test_B/*", "/test_B/", "/test_C/","/socialpost/*","/order/order_history","/order/add");
+        // Joy 添加了"/order/order_history","/order/add","/cart/check"
+        registrationBean.addUrlPatterns("/user/test_B/*", "/test_B/", "/test_C/","/socialpost/*","/order/order_history","/order/add","/cart/check");
         return registrationBean;
     }
 //    =========================================================================

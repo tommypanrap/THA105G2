@@ -1,22 +1,15 @@
 package com.fitanywhere.course.controller;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Base64;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-
+import com.fitanywhere.ann.model.AnnService;
+import com.fitanywhere.ann.model.AnnVO;
+import com.fitanywhere.coach.model.CoachService;
+import com.fitanywhere.coach.model.CoachVO;
+import com.fitanywhere.course.model.*;
+import com.fitanywhere.coursedetail.model.CourseDetailService;
+import com.fitanywhere.coursedetail.model.CourseDetailVO;
+import com.fitanywhere.user.model.UserService;
+import com.fitanywhere.user.model.UserVO;
+import com.fitanywhere.usercourse.model.UserCourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -24,32 +17,17 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
-import com.fitanywhere.ann.model.AnnService;
-import com.fitanywhere.ann.model.AnnVO;
-import com.fitanywhere.coach.model.CoachService;
-import com.fitanywhere.coach.model.CoachVO;
-import com.fitanywhere.course.model.CourseService;
-import com.fitanywhere.course.model.CourseStatus0DTO;
-import com.fitanywhere.course.model.CourseStatus1DTO;
-import com.fitanywhere.course.model.CourseStatus2DTO;
-import com.fitanywhere.course.model.CourseVO;
-import com.fitanywhere.course.model.VideoService;
-import com.fitanywhere.course.model.VideoServiceImpl;
-import com.fitanywhere.coursedetail.model.CourseDetailService;
-import com.fitanywhere.coursedetail.model.CourseDetailVO;
-import com.fitanywhere.user.model.UserService;
-import com.fitanywhere.user.model.UserVO;
-import com.fitanywhere.user_course.model.UserCourseService;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import java.io.*;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/course")

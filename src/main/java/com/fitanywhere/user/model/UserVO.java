@@ -17,26 +17,33 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
+import com.fitanywhere.forumpost.model.ForumPostVO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fitanywhere.adcarousel.model.AdCarouselVO;
 import com.fitanywhere.course.model.CourseVO;
 import com.fitanywhere.forumpost.model.ForumPostVO;
 import com.fitanywhere.forumreply.model.ForumReplyVO;
 import com.fitanywhere.mood.model.MoodVO;
+import com.fitanywhere.opinion.model.OpinionVO;
 import com.fitanywhere.socialpost.model.SocialPostVO;
 import com.fitanywhere.socialpost.model.SocialReplyVO;
-//Tommy implements java.io.Serializable
+
 @Entity
 @Table(name = "user")
-public class UserVO implements java.io.Serializable{
+public class UserVO implements java.io.Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "u_id")
-	private Integer uId;
+	private Integer uId;	
 	
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<OpinionVO> opinions = new HashSet<>();
+
 	// Tommy
 	@ManyToOne
 	@JsonIgnore
@@ -82,8 +89,8 @@ public class UserVO implements java.io.Serializable{
 	@Column(name = "u_gender")
 	private Integer uGender;
 //	0 = 男; 1 = 女; 2 = 其他;
-	
-	@Column(name="u_headshot",columnDefinition = "longblob")
+
+	@Column(name = "u_headshot", columnDefinition = "longblob")
 	private byte[] uHeadshot;
 
 	@Column(name = "u_birth")
@@ -97,11 +104,10 @@ public class UserVO implements java.io.Serializable{
 	@Column(name = "u_registerdate")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date uRegisterdate;
-	
-	
+
 //	xiaoxin
-	
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="userVO")
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "userVO")
 	@JsonIgnore
 	private Set<AdCarouselVO> adCarousel = new HashSet<AdCarouselVO>();
 
@@ -138,14 +144,14 @@ public class UserVO implements java.io.Serializable{
 		this.adCarousel = adCarousel;
 	}
 
-	//Tommy
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="userVO")
+	// Tommy
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "userVO")
 	@JsonIgnore
 	@OrderBy("spid ASC")
 	private Set<SocialPostVO> socialposts = new HashSet<SocialPostVO>();
-	
-	//Tommy
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="userVO")
+
+	// Tommy
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "userVO")
 	@JsonIgnore
 	private Set<SocialReplyVO> socialReplys = new HashSet<SocialReplyVO>();
 
@@ -165,13 +171,12 @@ public class UserVO implements java.io.Serializable{
 		this.socialposts = socialposts;
 	}
 
-
 	// Constructor
 	public UserVO() {
 		// Default constructor
 	}
 
-	// Getters and setters 
+	// Getters and setters
 	public Integer getuId() {
 		return this.uId;
 	}
@@ -266,11 +271,18 @@ public class UserVO implements java.io.Serializable{
 
 	public void setuRegisterdate(Date uRegisterdate) {
 		this.uRegisterdate = uRegisterdate;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public Set<OpinionVO> getOpinions() {
+		return opinions;
+	}
+
+	public void setOpinions(Set<OpinionVO> opinions) {
+		this.opinions = opinions;
 	}	
-
-
+	
 }
-	
-
-	
-

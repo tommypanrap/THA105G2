@@ -1,6 +1,7 @@
 package com.fitanywhere.news.model;
 
 import java.sql.Timestamp;
+import java.sql.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,6 +26,7 @@ public class NewsVO {
 	
 	@Id
 	@Column(name = "news_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer newsId;
 	
 	@Column(name = "news")
@@ -34,7 +36,7 @@ public class NewsVO {
 	private String newsContent;
 	
 	@Column(name= "news_date")
-	private Timestamp newsDate;
+	private Date newsDate;
 
 	public Integer getNewsId() {
 		return newsId;
@@ -60,17 +62,25 @@ public class NewsVO {
 		this.newsContent = newsContent;
 	}
 
-	public Timestamp getNewsDate() {
+
+
+	public Date getNewsDate() {
 		return newsDate;
 	}
 
-	public void setNewsDate(Timestamp newsDate) {
+	public void setNewsDate(Date newsDate) {
 		this.newsDate = newsDate;
 	}
 
 	public NewsVO() {
 		super();
 	}
+
+//	@Override
+//	public String toString() {
+//		return "NewsVO [newsId=" + newsId + ", news=" + news + ", newsContent=" + newsContent + ", newsDate=" + newsDate
+//				+ "]";
+//	}
 	
 	
 

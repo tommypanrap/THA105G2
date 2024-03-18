@@ -132,12 +132,14 @@ display:none;
 
 									<div id="lightbox" class="none lightbox-add-post">
 										<form th:action="@{insert}" method="post"
-											th:object="${socialPostVO}" enctype="multipart/form-data">
+											th:object="${socialPostVO}" enctype="multipart/form-data" id="addPostForm">
 											<article>
 												<div class="article-inner-wrapper">
 													<h2>建立貼文</h2>
 													<div class="member-post-socialpost">
-														<img th:src="@{/images/member-3.png}" alt="">
+														<img
+												th:src="@{/socialpost/UserPhotoDBGifReader} + '?uId=' + ${userVO.uId}"
+												alt="">
 														<p th:text="${userVO.uNickname}" th:value="${userVO.uId}">振宇</p>
 														<input type="hidden" name="userId"
 															th:value="${userVO.uId}" th:field="*{userVO.uId}" />
@@ -155,7 +157,7 @@ display:none;
 																	<input name="createinputfile" id="createinputfile"
 																		type="file" class="inputfile" th:field="*{sppic}" />
 																	<img id="createfileImage"
-																		src="@{/images/others/thumbnail-placeholder.svg"
+																		th:src="@{/images/others/thumbnail-placeholder.svg}"
 																		alt="file image">
 																	<!-- our custom upload button -->
 																	<label class="d-flex" for="createinputfile"
@@ -171,7 +173,7 @@ display:none;
                                                         Support:</b> JPG, JPEG, PNG, GIF, WEBP</small> -->
 													</div>
 													<div class="feed-back-button">
-														<button type="submit" class="confirm">發布</button>
+														<button type="button" class="confirm">發布</button>
 														<button type="button" class="btn_model_close">取消</button>
 													</div>
 												</div>
@@ -332,6 +334,45 @@ display:none;
 	<script th:src="@{/js/main.js}"></script>
 	<script th:src="@{/js/social_post.js}"></script>
 	<script th:src="@{/js/mok/mok_opinion.js}"></script>
+	<script>
+	//最新消息
+	$(document).ready(function() {
+	    var lastNewsCount = 0; 
+	    var isFirstRequest = true;
+	    
+	    checkNewsUpdate();
+	    setInterval(checkNewsUpdate, 10000); 
+
+	    function checkNewsUpdate() {
+	        $.ajax({
+	            url: '/news/count',
+	            type: 'GET',
+	            success: function(count) {
+	                if(isFirstRequest) { 
+	                	 lastNewsCount = count;
+	                	 isFirstRequest = false;
+	                
+	                }else if(lastNewsCount < count) {
+	 
+	                    alert('有最新消息');
+	                    lastNewsCount = count; 
+	                    
+	                }
+	                
+                    console.log("count:"+count);
+
+	            },
+	            error: function() {
+	                console.error('無法取得最新消息數量');
+	            }
+	        });
+	    }
+	});
+	
+	
+
+	</script>
+
 </body>
 
 </html>

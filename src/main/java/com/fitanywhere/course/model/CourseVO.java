@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.HashSet;
 import java.util.Set;
 
-
 import javax.persistence.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -37,21 +37,21 @@ import com.fitanywhere.adcarousel.model.AdCarouselVO;
  */
 
 @DynamicUpdate
-@Entity  //要加上@Entity才能成為JPA的一個Entity類別
-@Table(name = "course") 
+@Entity // 要加上@Entity才能成為JPA的一個Entity類別
+@Table(name = "course")
 public class CourseVO implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "cr_id")
 //	@NotEmpty(message ="jjjjj")
 	private Integer crId;
-	
+
 	// mok
 	@ManyToOne
 	@JsonIgnore
-	@JoinColumn(name="u_id")
+	@JoinColumn(name = "u_id")
 	private UserVO userVO;
 
 	@Column(name = "cr_class")
@@ -62,7 +62,7 @@ public class CourseVO implements java.io.Serializable {
 
 	@Column(name = "cr_title")
 	private String crTitle;
-	
+
 	@Column(name = "cr_subtitle")
 	private String crSubtitle;
 
@@ -76,14 +76,13 @@ public class CourseVO implements java.io.Serializable {
 	private Integer crPrice;
 
 	@Column(name = "cr_create_date")
-	@CreatedDate 									// mok新增-創建時自動生成時間
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")  // mok新增-時間格式
+	@CreatedDate // mok新增-創建時自動生成時間
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // mok新增-時間格式
 	private Timestamp crCreateDate;
 
-	
 	@Column(name = "cr_edit_date")
-	@LastModifiedDate 								// mok新增-編輯後自動生成時間
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")  // mok新增-時間格式
+	@LastModifiedDate // mok新增-編輯後自動生成時間
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // mok新增-時間格式
 	private Timestamp crEditDate;
 
 	@Column(name = "cr_cm_quan")
@@ -115,14 +114,11 @@ public class CourseVO implements java.io.Serializable {
 
 	@Column(name = "cr_level")
 	private String crLevel;
-	
 
 //	xiaoxin
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="courseVO")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "courseVO")
 	@JsonIgnore
 	private Set<AdCarouselVO> adCarousel = new HashSet<AdCarouselVO>();
-
-
 
 	// mok
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "courseVO")
@@ -146,226 +142,182 @@ public class CourseVO implements java.io.Serializable {
 		this.userVO = userVO;
 	}
 
-
 //	public Set<AdCarouselVO> getAdCarousel() {
 //		return this.adCarousel;
 //	}
-
 
 	public void setAdCarousel(Set<AdCarouselVO> adCarousel) {
 		this.adCarousel = adCarousel;
 
 	}
 
-
-
 	// Joy
+
 	@Transient
 	private String base64CrCover;
-	public CourseVO() { //必需有一個不傳參數建構子(JavaBean基本知識)
-	}
 
+	public CourseVO() { // 必需有一個不傳參數建構子(JavaBean基本知識)
+	}
 
 	public Integer getCrId() {
 		return this.crId;
 	}
 
-
 	public void setCrId(Integer crId) {
 		this.crId = crId;
 	}
-
 
 	public String getCrClass() {
 		return this.crClass;
 	}
 
-
 	public void setCrClass(String crClass) {
 		this.crClass = crClass;
 	}
-
 
 	public Integer getCrState() {
 		return this.crState;
 	}
 
-
 	public void setCrState(Integer crState) {
 		this.crState = crState;
 	}
-
 
 	public String getCrTitle() {
 		return this.crTitle;
 	}
 
-
 	public void setCrTitle(String crTitle) {
 		this.crTitle = crTitle;
 	}
-
 
 	public String getCrSubtitle() {
 		return this.crSubtitle;
 	}
 
-
 	public void setCrSubtitle(String crSubtitle) {
 		this.crSubtitle = crSubtitle;
 	}
-
 
 	public String getCrIntro() {
 		return this.crIntro;
 	}
 
-
 	public void setCrIntro(String crIntro) {
 		this.crIntro = crIntro;
 	}
-
 
 	public byte[] getCrCover() {
 		return this.crCover;
 	}
 
-
 	public void setCrCover(byte[] crCover) {
 		this.crCover = crCover;
 	}
-
 
 	public Integer getCrPrice() {
 		return this.crPrice;
 	}
 
-
 	public void setCrPrice(Integer crPrice) {
 		this.crPrice = crPrice;
 	}
-
 
 	public Timestamp getCrCreateDate() {
 		return this.crCreateDate;
 	}
 
-
 	public void setCrCreateDate(Timestamp crCreateDate) {
 		this.crCreateDate = crCreateDate;
 	}
-
 
 	public Timestamp getCrEditDate() {
 		return this.crEditDate;
 	}
 
-
 	public void setCrEditDate(Timestamp crEditDate) {
 		this.crEditDate = crEditDate;
 	}
-
 
 	public Integer getCrCmQuan() {
 		return this.crCmQuan;
 	}
 
-
 	public void setCrCmQuan(Integer crCmQuan) {
 		this.crCmQuan = crCmQuan;
 	}
-
 
 	public Integer getCrTotStar() {
 		return this.crTotStar;
 	}
 
-
 	public void setCrTotStar(Integer crTotStar) {
 		this.crTotStar = crTotStar;
 	}
-
 
 	public String getCrPurpose1() {
 		return this.crPurpose1;
 	}
 
-
 	public void setCrPurpose1(String crPurpose1) {
 		this.crPurpose1 = crPurpose1;
 	}
-
 
 	public String getCrPurpose2() {
 		return this.crPurpose2;
 	}
 
-
 	public void setCrPurpose2(String crPurpose2) {
 		this.crPurpose2 = crPurpose2;
 	}
-
 
 	public String getCrPurpose3() {
 		return this.crPurpose3;
 	}
 
-
 	public void setCrPurpose3(String crPurpose3) {
 		this.crPurpose3 = crPurpose3;
 	}
-
 
 	public String getCrPre() {
 		return this.crPre;
 	}
 
-
 	public void setCrPre(String crPre) {
 		this.crPre = crPre;
 	}
-
 
 	public String getCrTarget1() {
 		return this.crTarget1;
 	}
 
-
 	public void setCrTarget1(String crTarget1) {
 		this.crTarget1 = crTarget1;
 	}
-
 
 	public String getCrHelloMsg() {
 		return this.crHelloMsg;
 	}
 
-
 	public void setCrHelloMsg(String crHelloMsg) {
 		this.crHelloMsg = crHelloMsg;
 	}
-
 
 	public String getCrCong() {
 		return this.crCong;
 	}
 
-
 	public void setCrCong(String crCong) {
 		this.crCong = crCong;
 	}
-
 
 	public String getCrLevel() {
 		return this.crLevel;
 	}
 
-
 	public void setCrLevel(String crLevel) {
 		this.crLevel = crLevel;
 	}
-
-
 
 //	@Id //@Id代表這個屬性是這個Entity的唯一識別屬性，並且對映到Table的主鍵
 //	@Column(name = "EMPNO")  //@Column指這個屬性是對應到資料庫Table的哪一個欄位   //【非必要，但當欄位名稱與屬性名稱不同時則一定要用】
@@ -459,7 +411,6 @@ public class CourseVO implements java.io.Serializable {
 //	public void setUpFiles(byte[] upFiles) {
 //		this.upFiles = upFiles;
 //	}
-
 
 	public String getBase64CrCover() {
 		return base64CrCover;

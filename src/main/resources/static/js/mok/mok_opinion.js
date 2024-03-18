@@ -1,4 +1,4 @@
-//連結按鈕的地方
+/* //連結按鈕的地方
 $(".button_model").on("click",function(e){
     e.preventDefault();
     $("#lightbox").removeClass("none");
@@ -20,4 +20,4 @@ $("#lightbox > article").on("click", function(e){
 $(".opinion-btn").on("click",function(e){
     e.preventDefault();
     $("#lightbox").removeClass("none");
-});
+}); */

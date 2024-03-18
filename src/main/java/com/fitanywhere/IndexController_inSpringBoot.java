@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fitanywhere.adcarousel.model.AdCarouselService;
+import com.fitanywhere.adcarousel.model.AdCarouselVO;
 import com.fitanywhere.course.model.CourseService;
 import com.fitanywhere.course.model.CourseVO;
 
@@ -22,16 +24,36 @@ public class IndexController_inSpringBoot {
 	@Autowired
 	CourseService courseSvc;
 	
+	@Autowired
+    private AdCarouselService AdCarSvc;
+	
+	
+	
 	@GetMapping("/")
-    public String index(@Valid CourseVO courseVO,Model model)  throws IOException {
-		System.out.println(courseSvc.getAll());
-		List<CourseVO> list = courseSvc.getAll();
+    public String index(Model model)   {
+//		System.out.println(courseSvc.getAll());
+		List<CourseVO> list = courseSvc.getSixCourses();
+		
+		list.forEach(courseVO ->
+		{
+			byte[] crCover = courseVO.getCrCover();
+			if (crCover!=null){
+			String base64CrCover = Base64.getEncoder().encodeToString(crCover);
+			courseVO.setBase64CrCover(base64CrCover);
+			}
+		});
+		
+		
 		model.addAttribute("courseListData", list);
-		System.out.println("list:"+list);
+
         return "index"; //view
+        
     }
 	
-	
-
+//	請求進來刷新廣告判斷是否符合要求
+	@ModelAttribute("ads")
+	public List<AdCarouselVO> populateAds() {
+		return AdCarSvc.getBaseHomePageAd();
+	}
 
 }

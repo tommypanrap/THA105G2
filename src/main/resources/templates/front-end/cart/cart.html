@@ -897,7 +897,7 @@
                                 <div class="cart-submit-btn-group">
                                     <div class="single-button w-50">
                                         <button class="rbt-btn btn-gradient rbt-switch-btn rbt-switch-y w-100 checkOut">
-                                            <span class="checkOut" data-text="結帳">結帳</span>
+                                            <span data-text="結帳">結帳</span>
                                         </button>
                                     </div>
                                     <div class="single-button w-50">
@@ -1141,6 +1141,8 @@
 
     //結帳
     $(document).on('click', '.checkOut', function () {
+        // 點擊後禁用按鈕
+        $(this).prop('disabled', true);
         let cartRows = $('.courseId');
         const cartData = {
             odStatus: 3,
@@ -1163,27 +1165,37 @@
             },
             body: JSON.stringify(cartData)
         }).then(res => {
-            if (!res.ok) {
-                throw new Error(`HTTP error! Status: ${res.status}`);
+            // 啟用按鈕
+            $('.checkOut').prop('disabled', false);
+            if (res.status === 401) {
+                // 未登入回到登入頁面
+                alert('請先登入！')
+                window.location.href = '/user/force_user_login';
             }
 
             return res.text();
-
         }).then(data => {
+            if (data === 'cartIsEmpty') {
+                alert('購物車為空！');
+                return;
+            }
             if (data === 'success') {
-                fetch('/cart/clear', {
-                    method: 'DELETE'
-                }).then(res => {
-                    if (!res.ok) {
-                        throw new Error(`HTTP error! Status: ${res.status}`);
-                    }
-                    console.log('clear success');
-                })
+                console.log('clear success');
                 window.location.href = '/order/order_history'
-
-
             }
 
+            // if (data === 'success') {
+            // fetch('/cart/clear', {
+            //     method: 'DELETE'
+            // }).then(res => {
+            //     if (!res.ok) {
+            //         throw new Error(`HTTP error! Status: ${res.status}`);
+            //     }
+            //     console.log('clear success');
+            // console.log(data.url);
+            // window.location.href = '';
+            // })
+            // }
         }).catch(err => {
             console.error(err);
         })

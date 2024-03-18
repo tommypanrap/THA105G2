@@ -53,33 +53,22 @@ public class CourseController {
 
 	@Autowired
 	private VideoServiceImpl videoSvc;
-	
+
+
+
 	@GetMapping("test")
 	public String test(ModelMap model) {
 		return "front-end/course/test123";
 	}
 
 
+
 	// 購物車功能-課程資訊新增到 model
-	@GetMapping("courses")
-	public String getCourses(ModelMap model) {
-		List<CourseVO> list = courseSvc.getAll();
-
-		//將圖片轉成base64
-		list.forEach(courseVO ->
-		{
-			byte[] crCover = courseVO.getCrCover();
-			if (crCover!=null){
-			String base64CrCover = Base64.getEncoder().encodeToString(crCover);
-			courseVO.setBase64CrCover(base64CrCover);
-			}
-		});
+//	@GetMapping("courses")
+//	public String getCourses(ModelMap model) {
+//		List<CourseVO> list = courseSvc.getSixCourses();
 
 
-
-		model.addAttribute("courseListData", list);
-		return "front-end/mj/course_filter_two_toggle";
-	}
 	@GetMapping("coach_course")
 	public String coachCourse(ModelMap model) {
 		/*************************** 3.新增完成,準備轉交(Send the Success view) **************/

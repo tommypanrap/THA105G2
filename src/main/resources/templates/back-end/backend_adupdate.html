@@ -1,0 +1,145 @@
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>方案資料修改 - update_ad_input.html</title>
+
+<head th:insert="~{/back-end/backend_included_head}"></head><style type="text/css">
+button {
+	padding: 5px;
+}
+
+form {
+	display: table;
+}
+
+form div {
+	display: table-row;
+}
+
+label, input, span, select {
+	display: table-cell;
+	margin: 5px;
+	text-align: left;
+}
+
+input[type=text], input[type=password], select, textarea {
+	width: 200px;
+	margin: 5px;
+}
+
+form div div {
+	display: table-cell;
+}
+
+.center {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.ad-wrapper{
+display:flex;
+}
+
+.ad-wrapper .ad-container{
+	padding:100px;
+	width:100%;
+}
+</style>
+</head>
+
+
+<body>
+	<!-- header -->
+	<div class="header_wrapper">
+		<header>
+			<p class="f-b-title">FitAnyWhere後台管理系統</p>
+			<div class="manager">
+				<img src="./images/member.png" alt="">
+				<p>最高管理員</p>
+			</div>
+		</header>
+	</div>
+
+	<nav
+		class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
+		<div align="center">
+			<h2>方案資料修改</h2>
+		</div>
+	</nav>
+
+	<div class="ad-wrapper">
+		<div th:replace="~{/back-end/backend_included_sidebar}"></div>
+		<div class="ad-container">
+			<div align="center">
+				<h3>
+					<b>所有欄位皆為必填欄位</b>
+				</h3>
+				<form th:action="@{update}" method="post" th:object="${adVO}"
+					enctype="multipart/form-data">
+					<div>
+						<label>方案編號:</label> <input type="text" th:field="*{adId}"
+							style="border: 0px; font-weight: bold;" readonly /><br />
+
+					</div>
+
+					<div>
+						<label>方案名稱:</label> <input type="text" th:field="*{adName}"
+							onclick="hideContent('adName.errors');" /><br /> <span
+							th:if="${#fields.hasErrors('adName')}" th:errors="*{adName}"
+							class="error" id="adName.errors"></span>
+					</div>
+
+					<div>
+						<label>方案狀態:</label> <input type="radio" th:field="*{adStatus}"
+							value="1" onclick="hideContent('adStatus.errors');" />啟用 <input
+							type="radio" th:field="*{adStatus}" value="0"
+							onclick="hideContent('adStatus.errors');" />停用 <span
+							th:if="${#fields.hasErrors('adStatus')}" th:errors="*{adStatus}"
+							class="error" id="adStatus.errors"></span>
+					</div>
+
+					<div>
+						<label>方案單日價格:</label> <input type="text" th:field="*{adDayPrice}"
+							onclick="hideContent('adDayPrice.errors');" /><br /> <span
+							th:if="${#fields.hasErrors('adDayPrice')}"
+							th:errors="*{adDayPrice}" class="error" id="adDayPrice.errors"></span>
+					</div>
+
+					<div>
+						<label>廣告方案類別:</label> <input type="text" th:field="*{adType}"
+							onclick="hideContent('adType.errors');" /><br /> <span
+							th:if="${#fields.hasErrors('adType')}"
+							th:errors="*{adType}" class="error" id="adType.errors"></span>
+					</div>
+					<div>
+						<div></div>
+						<div>
+							<button type="submit" id="submit">送出修改</button>
+						</div>
+						<div></div>
+					</div>
+				</form>
+				<h3><a th:href="@{list}">返回檢視已存在方案</a></h3>
+			</div>
+		</div>
+	</div>
+</body>
+
+	<div class="footer_wrapper">
+		<footer>
+			<p class="f-b-title">FitAnyWhere Backstage</p>
+		</footer>
+	</div>
+</html>

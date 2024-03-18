@@ -1,4 +1,4 @@
-//連結按鈕的地方
+/* //連結按鈕的地方
 $(".button_model").on("click",function(){
     $("#lightbox").removeClass("none");
 });
@@ -14,4 +14,4 @@ $("#lightbox").on("click", function(){
 
 $("#lightbox > article").on("click", function(e){
     e.stopPropagtion();
-});
+}); */

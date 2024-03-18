@@ -245,8 +245,6 @@ public class UserRestController {
 				newSession.setAttribute("loginDate", new Date()); // 登入時間
 				newSession.setAttribute("lastActiveTime", new Date()); // 最後活動時間
 				newSession.setMaxInactiveInterval(60 * 60); // Session保存期限(秒)
-
-
 				return 0; // 登入成功
 			} else {
 				return 1; // 登入失敗

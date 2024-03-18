@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.fitanywhere.order.model.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -38,6 +39,11 @@ public class UserRestController {
 
 	@Autowired
 	private CoachService coachService;
+
+
+	// Joy
+	@Autowired
+	private CartService cartService;
 
 // ===================================================================
 	// 註冊-檢查信箱是否重複註冊
@@ -190,8 +196,7 @@ public class UserRestController {
 		}
 	}
 
-// ===================================================================			
-
+// ===================================================================		
 	// 登入-依據會員輸入的信箱檢查此帳戶是否存在
 	@PostMapping("/find_account_by_mail")
 	public int checkAccountbyMail(@RequestBody Map<String, String> requestBody) {
@@ -245,6 +250,8 @@ public class UserRestController {
 				newSession.setAttribute("loginDate", new Date()); // 登入時間
 				newSession.setAttribute("lastActiveTime", new Date()); // 最後活動時間
 				newSession.setMaxInactiveInterval(60 * 60); // Session保存期限(秒)
+				// Joy - 將使用者已擁有課程存入Redis
+				cartService.storeOwnedCoursesInRedis(uId);
 				return 0; // 登入成功
 			} else {
 				return 1; // 登入失敗

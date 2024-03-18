@@ -79,7 +79,7 @@
         // 抓取購物車總金額
         let crTotalMatch = $('#crTotal').text().match(/\d+/);
         let crTotal = crTotalMatch ? parseInt(crTotalMatch[0]) : 0;
-        //更新購物車總金額
+        // 更新購物車總金額
         $('#crTotal').text(`NT$${crTotal - crPrice}`);
         // 刪除被刪除的item
         $(btn).closest('.removeItem_parent').remove();

@@ -10,6 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "administrator")
 public class AdminVO implements java.io.Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

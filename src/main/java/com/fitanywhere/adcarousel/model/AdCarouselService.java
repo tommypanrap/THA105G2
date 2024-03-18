@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fitanywhere.course.model.CourseVO;
 
-
 @Service("AdCarouselService")
 public class AdCarouselService {
 

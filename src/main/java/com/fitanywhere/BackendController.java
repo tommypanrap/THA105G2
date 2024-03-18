@@ -20,12 +20,6 @@ import javax.validation.Valid;
 @Controller
 public class BackendController {
 
-
-	
-	@GetMapping("/backend_news")
-	public String backend_news(Model model)  {
-        return "back-end/backend_news"; 
-    }
 	
 	@GetMapping("/backend_course")
 	public String backend_course(Model model)  {
@@ -54,9 +48,6 @@ public class BackendController {
         return "back-end/backend_course_discount"; 
     }
 	
-	@GetMapping("/backend_social")
-	public String backend_social(Model model)  {
-        return "back-end/backend_social"; 
-    }
+
 	
 }

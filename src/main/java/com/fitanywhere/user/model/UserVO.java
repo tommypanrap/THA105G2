@@ -11,17 +11,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fitanywhere.usercourse.model.UserCourseVO;
 import org.springframework.format.annotation.DateTimeFormat;
-
-import java.io.Serializable;
-import java.util.Date;
 
 import com.fitanywhere.adCarousel.model.AdCarouselVO;
 import com.fitanywhere.course.model.CourseVO;
@@ -125,6 +122,11 @@ public class UserVO implements java.io.Serializable{
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="userVO")
 	@JsonIgnore
 	private Set<SocialReplyVO> socialReplys = new HashSet<SocialReplyVO>();
+
+	// Mok
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="userVO")
+	@JsonIgnore
+	private Set<UserCourseVO> userCourses = new HashSet<UserCourseVO>();
 
 	public Set<SocialReplyVO> getSocialReplys() {
 		return socialReplys;

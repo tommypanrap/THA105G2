@@ -21,6 +21,6 @@ public interface AdCarouselRepository extends JpaRepository<AdCarouselVO, Intege
 	 @Query(value = "UPDATE ad_carousel_order SET adc_status = 0 WHERE adc_end_date < NOW()", nativeQuery = true)
 	 void updateAdCarouselOrderStatusDirectly();
 	 
-	@Query(value = "SELECT * FROM ad WHERE ad_id = ?1", nativeQuery = true)
-	List<AdCarouselVO> getDayPriceByAdId(Integer adId); 
+//	@Query(value = "SELECT * FROM ad WHERE ad_id = ?1", nativeQuery = true)
+//	List<AdCarouselVO> getDayPriceByAdId(Integer adId); 
 }

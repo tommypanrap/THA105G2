@@ -76,15 +76,15 @@ import com.fitanywhere.course.model.CourseService;
 			List<AdVO> list = adSvc.getAll();
 			List<UserVO> userList = userSvc.getUserByUId(uId);
 			List<CourseVO>	courseList = courSvc.getCourseByUId(uId);
-			List<AdCarouselVO>	dayPriceList = AdCarSvc.getDayPriceByAdId(adId);
+//			List<AdCarouselVO>	dayPriceList = AdCarSvc.getDayPriceByAdId(adId);
 			
 	//		將教練id抓到的課程廣告裝起來
 			List<AdCarouselVO> userAds = AdCarSvc.getAdOrderByUserId(uId);
 			model.addAttribute("userAds", userAds);
 			
 	//		將透過方案id的方案單價裝起來
-			List<AdCarouselVO> dayPrices = AdCarSvc.getDayPriceByAdId(adId);
-			model.addAttribute("dayPrices", dayPrices);
+//			List<AdCarouselVO> dayPrices = AdCarSvc.getDayPriceByAdId(adId);
+//			model.addAttribute("dayPrices", dayPrices);
 			
 
 			model.addAttribute("adListData", list); // for select_page.html 第97 109行用

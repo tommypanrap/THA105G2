@@ -76,9 +76,9 @@ public class AdCarouselService {
     }
     
  // 用adId抓該方案每日單價
- 	@Transactional(readOnly = true)
- 	public List<AdCarouselVO> getDayPriceByAdId(Integer adId){
- 		return repository.getDayPriceByAdId(adId);
- 	}
+// 	@Transactional(readOnly = true)
+// 	public List<AdCarouselVO> getDayPriceByAdId(Integer adId){
+// 		return repository.getDayPriceByAdId(adId);
+// 	}
     
 }

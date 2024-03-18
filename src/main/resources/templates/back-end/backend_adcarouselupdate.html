@@ -207,8 +207,6 @@ document.addEventListener("DOMContentLoaded", function() {
   var startDate = document.querySelector('input[name="adcStartDate"]');
   var endDate = document.querySelector('input[name="adcEndDate"]');
 
-  // 設定今天的日期為開始日期的最小值
-  startDate.min = new Date().toISOString().split('T')[0];
 
   // 當開始日期改變時，調整結束日期的最小值
   startDate.addEventListener('change', function() {

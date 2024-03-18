@@ -24,7 +24,6 @@ public class UserlistController {
 	public String listUsers(Model model, @RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "none") String filterStatus) {
 		Page<UserlistAllDataDTO> userPage;
-
 		switch (filterStatus) {
 		case "1":
 			userPage = userlistService.getAllUsersByStatus(Arrays.asList(0, 1), PageRequest.of(page, size));
@@ -35,7 +34,6 @@ public class UserlistController {
 		default:
 			userPage = userlistService.getAllUsersWithCoachId(PageRequest.of(page, size));
 		}
-
 		model.addAttribute("userPage", userPage);
 		return "back-end/backend_userlist_with_page";
 	}

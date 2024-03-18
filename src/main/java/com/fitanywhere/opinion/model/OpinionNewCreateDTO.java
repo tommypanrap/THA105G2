@@ -1,7 +1,5 @@
 package com.fitanywhere.opinion.model;
 
-import java.util.Date;
-
 public class OpinionNewCreateDTO {
 	// OpinionVO的屬性
 	private String opTitle;

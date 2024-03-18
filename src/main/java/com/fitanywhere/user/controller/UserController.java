@@ -44,7 +44,7 @@ public class UserController {
 		return modelAndView;
 	}
 	
-	//過濾器將未登入跳轉登入頁面
+	//過濾器將剛註冊未登入跳轉登入頁面
 	@GetMapping("/user_login_after_register")
 	public ModelAndView userLoginAfterRegister() {
 		ModelAndView modelAndView = new ModelAndView("front-end/user/user_login");

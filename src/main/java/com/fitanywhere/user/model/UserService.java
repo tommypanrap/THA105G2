@@ -53,7 +53,6 @@ public class UserService {
 	// 更改密碼的驗證信
 	public void sendMailForChanginPassword(String registerEmail, String verificationCode) {
 		try {
-
 			String uNickname = userJpaRepository.findOnlyNicknameByuMail(registerEmail);
 			String subject = "FitAnyWhere會員密碼變更驗證信";
 			LocalDateTime validUntil = LocalDateTime.now().plusMinutes(15);
@@ -84,12 +83,10 @@ public class UserService {
 	public String getVerificationCode(String email) {
 		// 使用下方的方法生成驗證碼
 		String verificationCode = generateRandomCode();
-
 		// 將驗證碼與電子郵件地址關聯後存入Redis，並設置存活時間為12分鐘
 		// 使用"MailVerificationCode:"作為key的一部分來確保唯一性
 		String key = "MailVerificationCode:" + email;
 		redisTemplate.opsForValue().set(key, verificationCode, 20, TimeUnit.MINUTES);
-
 		return verificationCode;
 	}
 
@@ -105,7 +102,6 @@ public class UserService {
 	// 註冊-從Redis讀取暫存的信箱驗證碼
 	public String getVerifiactionCodeInRedis(String uMail) {
 		String key = "MailVerificationCode:" + uMail;
-
 		try {
 			String result = redisTemplate.opsForValue().get(key);
 			if (result != null) {
@@ -163,18 +159,14 @@ public class UserService {
 			user.setuMail(dto.getuMail());
 			user.setuPhone(dto.getuPhone());
 			user.setuGender(dto.getuGender());
-
 			// 如果uBirth是java.util.Date類型，轉換為LocalDate
 			LocalDate birthDate = dto.getuBirth().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 			user.setuBirth(java.sql.Date.valueOf(birthDate));
-
 			user.setuPassword(dto.getuPassword());
 			user.setuStatus(dto.getuStatus());
-
 			// 轉換uRegisterDate到java.util.Date，如果必要的話
 			LocalDate registerDate = dto.getuRegisterDate();
 			user.setuRegisterdate(java.sql.Date.valueOf(registerDate));
-
 			userJpaRepository.save(user);
 			return 0;
 		} catch (Exception e) {
@@ -182,7 +174,6 @@ public class UserService {
 			e.printStackTrace();
 			return 1;
 		}
-
 	}
 
 // =============================================
@@ -217,6 +208,7 @@ public class UserService {
 			return 0;
 		} catch (Exception e) {
 			// 系統操作異常
+			e.printStackTrace();
 			return 2;
 		}
 	}
@@ -224,9 +216,7 @@ public class UserService {
 	// 處理密碼修改
 	@Transactional
 	public int changeUserPassword(String uMail, String uPassword, String inputVarificationCode) {
-
 		String savedVerificationCode = getVerifiactionCodeInRedis(uMail);
-
 		if (savedVerificationCode.equals("noDataFound")) {
 			// Redis查無資料返回"2"表示驗證碼已逾期
 			return 2;
@@ -244,6 +234,7 @@ public class UserService {
 					// 更新成功
 				} catch (Exception e) {
 					// 系統操作異常
+					e.printStackTrace();
 					return 3;
 				}
 			} else {
@@ -251,11 +242,33 @@ public class UserService {
 				return 1;
 			}
 		}
-
 	}
 
 // =============================================
 	// 可供調用的共用Service
+// =============================================
+// UserList Module
+	public boolean updateUserStatusWithMapping(Integer uId, Integer selectedValue) throws IllegalArgumentException {
+		Integer newStatus = mapSelectedValueToStatus(selectedValue);
+		if (newStatus == null) {
+			throw new IllegalArgumentException("未設定的selectedValue: " + selectedValue);
+		}
+		return updateUserStatus(uId, newStatus);
+	}
+
+	private Integer mapSelectedValueToStatus(Integer selectedValue) {
+		switch (selectedValue) {
+		case 1:
+			return 0; // 站方手動啟動
+		case 2:
+			return 1; // 站方手動BAN
+		case 3:
+			return 3; // 站方手動註銷
+		default:
+			return null; // 未知值返回空值
+		}
+	}
+
 // =============================================
 // 讀取類Service	
 
@@ -275,8 +288,7 @@ public class UserService {
 	@Transactional(readOnly = true)
 	public UserReadDataDTO getUserDataDTOByID(Integer uId) {
 		return userJpaRepository.findUserDataDTOById(uId);
-	}	
-
+	}
 
 // =============================================
 // 寫入類Service
@@ -291,11 +303,10 @@ public class UserService {
 	public boolean updateUserMood(Integer uId, Integer moodId) {
 		try {
 			userJpaRepository.updateMoodById(uId, moodId);
-			return true;
-			// 更新成功
+			return true; // 更新成功
 		} catch (Exception e) {
-			return false;
-			// 更新失敗
+			e.printStackTrace();
+			return false; // 更新失敗
 		}
 	}
 
@@ -304,11 +315,10 @@ public class UserService {
 	public boolean updateUserStatus(Integer uId, Integer uStatus) {
 		try {
 			userJpaRepository.updateStatusById(uId, uStatus);
-			return true;
-			// 更新成功
+			return true; // 更新成功
 		} catch (Exception e) {
-			return false;
-			// 更新失敗
+			e.printStackTrace();
+			return false; // 更新失敗
 		}
 	}
 
@@ -334,13 +344,11 @@ public class UserService {
 		Optional<UserVO> userOptional = Optional.ofNullable(userJpaRepository.findByuIdOptional(userDTO.getuId()));
 		if (userOptional.isPresent()) {
 			UserVO user = userOptional.get();
-
 			// 使用Optional來避免null檢查，並允許部分更新
 			Optional.ofNullable(userDTO.getuName()).ifPresent(user::setuName);
 			Optional.ofNullable(userDTO.getuPhone()).ifPresent(user::setuPhone);
 			Optional.ofNullable(userDTO.getuGender()).ifPresent(user::setuGender);
 			Optional.ofNullable(userDTO.getuBirth()).ifPresent(user::setuBirth);
-
 			userJpaRepository.save(user);
 			return true; // 更新成功
 		} else {
@@ -353,11 +361,9 @@ public class UserService {
 	// 修改密碼-自行修改密碼
 	@Transactional
 	public boolean updateUserPassword(Integer uId, String oldPassword, String newPassword) {
-
 		try {
 			// 讀取mySQL舊密碼
 			String savedPassword = userJpaRepository.findOnlyPasswordByuId(uId);
-
 			// 比對輸入的舊密碼是否正確
 			if (PasswordEncryptionService.checkPassword(oldPassword, savedPassword)) {
 				// 加密新密碼
@@ -367,12 +373,10 @@ public class UserService {
 				// 更新密碼成功
 				return true;
 			}
-
-			// 更新密碼失敗
-			return false;
+			return false; // 更新密碼失敗
 		} catch (Exception e) {
-			// 系統異常 更新密碼失敗
-			return false;
+			e.printStackTrace();
+			return false; // 系統異常 更新密碼失敗
 		}
 	}
 
@@ -382,7 +386,6 @@ public class UserService {
 	// 返回uID對應的整筆MySQL資料 (不建議使用 若大家都不用 未來考慮移除)
 	@Transactional(readOnly = true)
 	public UserVO getUserDataByID(Integer uId) {
-
 		UserVO userVO = userJpaRepository.findByuId(uId);
 		return userVO;
 	}
@@ -395,17 +398,16 @@ public class UserService {
 	public boolean updateUserProfile(UserVO userVO) {
 		try {
 			userJpaRepository.save(userVO);
-			return true; // 保存成功，返回 true
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false; // 保存失败，返回 false
+			return false;
 		}
 	}
 
 	// Andy
 	@Transactional(readOnly = true)
 	public UserVO getUser(Integer uId) {
-
 		UserVO userVO = userJpaRepository.findByuId(uId);
 		return userVO;
 	}
@@ -425,7 +427,6 @@ public class UserService {
 // =============================================
 // Tommy 新增 為了搜尋比對
 	public List<UserVO> searchUsersByNickname(String searchValue, Integer uId) {
-
 		return userJpaRepository.findByuNicknameNoMyself(searchValue, uId);
 	}
 

@@ -17,10 +17,9 @@ public class LettuceUtil {
     static {
         redisClient = RedisClient.create("redis://" + REDIS_HOST + ":" + REDIS_PORT);
         GenericObjectPoolConfig<StatefulRedisConnection<String, String>> poolConfig = new GenericObjectPoolConfig<>();
-        poolConfig.setMaxTotal(10);
+        poolConfig.setMaxTotal(25);
         poolConfig.setMinIdle(2);
-        poolConfig.setMaxIdle(5);
-
+        poolConfig.setMaxIdle(6);
         pool = ConnectionPoolSupport.createGenericObjectPool(() -> {
             StatefulRedisConnection<String, String> connection = redisClient.connect();
             connection.sync().select(DATABASE_INDEX); // 在這裡選擇數據庫

@@ -20,43 +20,42 @@ public class OpinionService {
 	private OpinionJpaRepository opinionJpaRepository;
 
 	@Autowired
-	private UserJpaRepository userJpaRepository;	
+	private UserJpaRepository userJpaRepository;
 
 	// 前台新增意見
 	@Transactional
 	public boolean isNewUserOpinionAdded(OpinionNewCreateDTO dto) {
-		
-		    Optional<UserVO> optionalUser = userJpaRepository.findById(dto.getuId());
-		    if (!optionalUser.isPresent()) {
-		        System.out.println("User not found");
-		        return false; // 如果找不到User，返回false
-		    }
-		    UserVO user = optionalUser.get();
-		    System.out.println(user.getuMail());
-
-		    OpinionVO opinion = new OpinionVO();
-		    opinion.setOpTitle(dto.getOpTitle());
-		    opinion.setOpContent(dto.getOpContent());
-		    opinion.setOpContent(dto.getOpContent());
-		    opinion.setOpSendTime(Timestamp.valueOf(LocalDateTime.now()));
-		    opinion.setOpStatus(0);	// "0"表示未處理	    
-		    opinion.setUser(user);
-
-		    try {
-		        opinionJpaRepository.save(opinion);
-		        return true; // 寫入成功
-		    } catch (Exception e) {
-		        System.out.println("寫入意見過程出現異常!");
-		        e.printStackTrace();
-		        return false;  // 寫入失敗
-		    }
-	}	
-	
-	// 前台分頁讀取
-		@Transactional(readOnly = true)
-		public Page<OpinionAllDataDTO> getAllOpinionsWithSelectedUser(Pageable pageable, Integer uId) {
-			return opinionJpaRepository.findAllOpinionsWithSelectedUser(pageable, uId);
+		// 確認發起請求的會員資料是否存在
+		Optional<UserVO> optionalUser = userJpaRepository.findById(dto.getuId());
+		if (!optionalUser.isPresent()) {
+			System.out.println("User not found");
+			return false;
 		}
+		// 取得該會員VO實例
+		UserVO user = optionalUser.get();
+		// 新增意見VO並開始封裝必要資料
+		OpinionVO opinion = new OpinionVO();
+		opinion.setOpTitle(dto.getOpTitle());
+		opinion.setOpContent(dto.getOpContent());
+		opinion.setOpSendTime(Timestamp.valueOf(LocalDateTime.now())); // 伺服器當下時間
+		opinion.setOpStatus(0); // "0"表示未處理
+		opinion.setUser(user);
+
+		try {
+			opinionJpaRepository.save(opinion);
+			return true; // 寫入成功
+		} catch (Exception e) {
+			System.out.println("寫入意見過程出現異常!");
+			e.printStackTrace();
+			return false; // 寫入失敗
+		}
+	}
+
+	// 前台分頁讀取
+	@Transactional(readOnly = true)
+	public Page<OpinionAllDataDTO> getAllOpinionsWithSelectedUser(Pageable pageable, Integer uId) {
+		return opinionJpaRepository.findAllOpinionsWithSelectedUser(pageable, uId);
+	}
 
 	// 後台分頁讀取
 	@Transactional(readOnly = true)
@@ -74,7 +73,7 @@ public class OpinionService {
 			opinionDTO.setOpReplyTime(LocalDateTime.now()); // 寫入當下時間
 			return opinionDTO;
 		} else {
-			// 更新失败
+			// 更新失敗
 			System.out.println("後台回覆會員意見流程異常!");
 			return null;
 		}

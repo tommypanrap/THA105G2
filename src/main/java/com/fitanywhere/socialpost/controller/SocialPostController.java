@@ -97,8 +97,11 @@ public class SocialPostController {
 		
 		model.addAttribute("sessionUId", sessionUId);
 
-		UserVO userVO = userSvc.getUserDataByID(sessionUId);
-		model.addAttribute("userVO", userVO);
+		UserVO sessionUserVO = userSvc.getUserDataByID(sessionUId);
+		model.addAttribute("userVO", sessionUserVO);
+		
+		UserVO userShowVO = userSvc.getUserDataByID(sessionUId);
+		model.addAttribute("userShowVO", userShowVO);
 		
 
 		SocialPostVO socialPostVO = new SocialPostVO();
@@ -120,9 +123,11 @@ public class SocialPostController {
 		
 		model.addAttribute("sessionUId", sessionUId);
 
-		UserVO userVO = userSvc.getUserDataByID(userId);
-		model.addAttribute("userVO", userVO);
+		UserVO sessionUserVO = userSvc.getUserDataByID(sessionUId);
+		model.addAttribute("userVO", sessionUserVO);
 		
+		UserVO userShowVO = userSvc.getUserDataByID(userId);
+		model.addAttribute("userShowVO", userShowVO);
 
 		SocialPostVO socialPostVO = new SocialPostVO();
 		model.addAttribute("socialPostVO", socialPostVO);

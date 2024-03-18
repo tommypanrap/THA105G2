@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fitanywhere.coach.model.CoachVO;
 import com.fitanywhere.course.model.CourseStatus0DTO;
 import com.fitanywhere.course.model.CourseStatus1DTO;
 import com.fitanywhere.course.model.CourseStatus2DTO;
@@ -286,6 +287,38 @@ public class SocialPostController {
 		model.addAttribute("socialPostVO", socialPostVO);
 
 		return "redirect:/socialpost/" + uId;
+	}
+	
+	// 更新使用者資料
+	@PostMapping("updateUserProfile")
+	public String updateUserProfile(@Valid UserVO userVO, BindingResult result, ModelMap model) throws IOException {
+
+		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
+		// 去除BindingResult中upFiles欄位的FieldError紀錄 --> 見第172行
+//		result = removeFieldError(courseVO, result, "upFiles");
+
+//		if (parts[0].isEmpty()) { // 使用者未選擇要上傳的新圖片時
+//			// EmpService empSvc = new EmpService();
+//			byte[] upFiles = empSvc.getOneEmp(empVO.getEmpno()).getUpFiles();
+//			empVO.setUpFiles(upFiles);
+//		} else {
+//			for (MultipartFile multipartFile : parts) {
+//				byte[] upFiles = multipartFile.getBytes();
+//				empVO.setUpFiles(upFiles);
+//			}
+//		}
+//		if (result.hasErrors()) {
+//			return "back-end/course/update_course_input";
+//		}
+		/*************************** 2.開始修改資料 *****************************************/
+		boolean isprofileSuccess = userSvc.updateUserProfile(userVO);
+//		Integer uId = userVO.getuId();
+//		CoachVO coachVO = coachSvc.getOneCoach(uId);
+		/*************************** 3.修改完成,準備轉交(Send the Success view) **************/
+//		model.addAttribute("isprofileSuccess", userVO);
+//		model.addAttribute("coachVO", coachVO);
+		model.addAttribute("isprofileSuccess",isprofileSuccess);
+		return "front-end/socialpost/student_settings"; // 修改成功後轉交listOneEmp.html
 	}
 
 	// 更新狀態 以表示刪除

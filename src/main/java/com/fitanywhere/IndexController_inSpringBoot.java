@@ -50,7 +50,9 @@ public class IndexController_inSpringBoot {
         
     }
 	
+
 //	請求進來刷新廣告判斷是否符合要求
+
 	@ModelAttribute("ads")
 	public List<AdCarouselVO> populateAds() {
 		return AdCarSvc.getBaseHomePageAd();

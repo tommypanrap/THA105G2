@@ -72,6 +72,7 @@
                                 <option value="3">註銷</option>
                             </select>
                         </td>
+                        
                         <td th:switch="${user.uStatus}">
                             <span th:case="0"></span>
                             <span th:case="1">部分停權</span>

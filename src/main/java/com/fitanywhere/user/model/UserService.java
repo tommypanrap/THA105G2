@@ -248,6 +248,7 @@ public class UserService {
 	// 可供調用的共用Service
 // =============================================
 // UserList Module
+	@Transactional
 	public boolean updateUserStatusWithMapping(Integer uId, Integer selectedValue) throws IllegalArgumentException {
 		Integer newStatus = mapSelectedValueToStatus(selectedValue);
 		if (newStatus == null) {

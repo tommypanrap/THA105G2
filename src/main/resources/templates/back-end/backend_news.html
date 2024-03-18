@@ -67,7 +67,7 @@
 
 
     <div id="lightbox" class="none"> 
-        <form action="">
+        <form th:action="@{/backend_news/add}" method="post" th:object="${newsVO}" enctype="multipart/form-data">
         <article>
             <div class="article-inner-wrapper">
                 <h1>頁面管理</h1>
@@ -77,15 +77,23 @@
                 <div class="news-send-content">
                     <div class="news-title">
                         <p>最新消息標題</p>
-                        <input type="text">
+                        <input type="text" th:field="*{news}">
                     </div>
-                    
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                                <div class="rbt-form-group" >
+                                                    <label for="newsDate">時間</label>
+                                                    <input id="newsDate" type="date" th:field="*{newsDate}">
+                                                    <span class="error-message" id="newsDateError" style=" color: red;
+    																										   font-size: 0.8rem;
+    																										   display: none; font-size:inherit" ></span>
+                                                </div>
+                                            </div>
 
 
-                    <textarea name="" id="" cols="30" rows="10" placeholder="填入發送內容"></textarea>
+                    <textarea name="" id="" cols="30" rows="10" placeholder="填入發送內容" th:field="*{newsContent}"></textarea>
                 </div>
                 <div class="lightbox-button">
-                    <button type="button"  class="confirm">確認送出</button>
+                    <button type="submit"  class="confirm">確認送出</button>
                     <button type="button" class="btn_model_close">取消</button>
                 </div>
             </div>

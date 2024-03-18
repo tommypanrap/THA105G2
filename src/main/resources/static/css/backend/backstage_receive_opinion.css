@@ -1,20 +1,43 @@
-.row{
-    display: flex;
-    width: 80%;
-    justify-content: space-between;
-    height: 40px;
-    align-items: center;
-    margin-left: 97px;
+.content {
+    width: 900px;
+}
 
+.row,
+.check-content {
+    /* 直接設定寬度為 .content 的 85%，減去內邊距的影響 */
+    width: calc(765px - 40px); /* 這裡的 40px 是左右內邊距的總和 */
+    margin-left: 97px; /* 根據需要保持或調整 */
     padding-left: 20px;
     padding-right: 20px;
 }
 
-.check-content{
-    width: 976px;
-    margin-left: 97px;
-    background-color: #eeeeee;
+.row {
+    display: flex;
+    justify-content: space-between;
+    height: 40px;
+    align-items: center;
 }
+
+.check-content {
+    display: flex;
+    background-color: #eeeeee;
+    padding-bottom: 20px; /* 根據需要調整 */
+}
+
+.check-content-title {
+    padding-left: 5px; /* 若這對總寬度有影響，考慮調整 */
+    padding-top: 20px;
+    width: 115px; /* 保持原設定 */
+}
+
+.check-content-content {
+    padding-left: 10px;
+    padding-top: 20px;
+    padding-right: 15px; /* 若這對總寬度有影響，考慮調整 */
+    width: 650px; /* 保持原設定 */
+}
+
+
 
 .content h1{
     margin-bottom: 40px;
@@ -36,30 +59,10 @@
     color:#fff;
 }
 
-.row.rhead li{
-    
+.row.rhead li{ 
 }
 
-.check-content-title{
-    padding-left: 58px;
-    padding-top: 20px;
-    width: 23.7%;
-}
 
-.check-content{
-    display: flex;
-    padding-bottom: 20px;
-}
-
-.check-content-content{
-    padding-top: 20px;
-    padding-right: 58px;
-
-    width: 76.3%;
-
-    
-    
-}
 
 .send-content{
     background-color: #dbdbdb;

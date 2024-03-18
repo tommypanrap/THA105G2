@@ -116,7 +116,7 @@ public class SocialPostController {
 				
 //		UserVO userVO2 = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
 		int sessionUId =  Integer.valueOf(newSession.getAttribute("uId").toString());
-		System.out.println("sessionUId:"+sessionUId);
+//		System.out.println("sessionUId:"+sessionUId);
 		
 		model.addAttribute("sessionUId", sessionUId);
 

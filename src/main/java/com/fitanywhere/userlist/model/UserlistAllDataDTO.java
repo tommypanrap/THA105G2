@@ -1,7 +1,5 @@
 package com.fitanywhere.userlist.model;
 
-import java.util.Date;
-
 public class UserlistAllDataDTO {
 	private Integer uId;
 	private String uNickname;

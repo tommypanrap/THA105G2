@@ -1,6 +1,5 @@
 package com.fitanywhere.user.model;
 
-
 import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.security.SecureRandom;
@@ -182,8 +181,24 @@ public class UserService {
 // =============================================
 	// 登入-檢查帳號是否可登入
 	@Transactional(readOnly = true)
-	public int userStatusCheck(String uMail) {
-		return userJpaRepository.findOnlyStatusByuMail(uMail);
+	public Integer userStatusCheck(String uMail) {
+		Integer uStatus = userJpaRepository.findOnlyStatusByuMail(uMail);
+		if (uStatus == null) {
+			return 999;
+		} // 禁止 提醒異常帳號
+		switch (uStatus) {
+		// 前端檢查帳號使否允許登入
+		case 0:
+			return 0; // 允許
+		case 1:
+			return 0; // 允許
+		case 2:
+			return 2; // 禁止 自行註銷
+		case 3:
+			return 3; // 禁止 站方註銷
+		default:
+			return 999; // 禁止 提醒異常帳號
+		}
 	}
 
 	// 登入-核對登入密碼是否正確
@@ -422,14 +437,14 @@ public class UserService {
 		return uHeadshot;
 	}
 
- 	//ROY
-	public Set<ForumPostVO> getForumPostByuId(Integer uId){
-	return getUser(uId).getForumPost();
+	// ROY
+	public Set<ForumPostVO> getForumPostByuId(Integer uId) {
+		return getUser(uId).getForumPost();
 	}
-	
-	//ROY
-	public Set<ForumReplyVO> getForumReplyByuId(Integer uId){
-	return getUser(uId).getForumReply();
+
+	// ROY
+	public Set<ForumReplyVO> getForumReplyByuId(Integer uId) {
+		return getUser(uId).getForumReply();
 	}
 
 	// test

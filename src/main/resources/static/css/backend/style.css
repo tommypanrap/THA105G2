@@ -1,5 +1,5 @@
 /* 把預設的樣式取消 */
-@import url('/css/reset.css');
+/* @import url('/css/reset.css'); */
 
 /* style.css -> 共用的css */
 
@@ -309,4 +309,7 @@ tr:nth-child(2n+3){
 	display:none;
 }
 
+.ad li{
+	padding-bottom:10px;
+}
 

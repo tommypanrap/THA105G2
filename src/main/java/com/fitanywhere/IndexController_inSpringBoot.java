@@ -12,6 +12,9 @@ import com.fitanywhere.adcarousel.model.AdCarouselService;
 import com.fitanywhere.adcarousel.model.AdCarouselVO;
 import com.fitanywhere.course.model.CourseService;
 import com.fitanywhere.course.model.CourseVO;
+import com.fitanywhere.forumpost.model.ForumPostRepository;
+import com.fitanywhere.forumpost.model.ForumPostService;
+import com.fitanywhere.forumpost.model.ForumPostVO;
 
 import java.io.IOException;
 import java.util.*;
@@ -23,6 +26,9 @@ public class IndexController_inSpringBoot {
 	
 	@Autowired
 	CourseService courseSvc;
+	
+	@Autowired
+	ForumPostService forumPostSvc;
 	
 	@Autowired
     private AdCarouselService AdCarSvc;
@@ -50,10 +56,17 @@ public class IndexController_inSpringBoot {
         
     }
 	
+
 //	請求進來刷新廣告判斷是否符合要求
+
 	@ModelAttribute("ads")
 	public List<AdCarouselVO> populateAds() {
 		return AdCarSvc.getBaseHomePageAd();
+	}
+	
+	@ModelAttribute("forumPostListFour")
+	public List<ForumPostVO> forumPostListFour() {
+		return forumPostSvc.findFourCourses();
 	}
 
 }

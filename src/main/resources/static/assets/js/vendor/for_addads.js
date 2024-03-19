@@ -29,33 +29,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 		// 將結束時間的最小值設定為開始時間或今天的日期，取決於哪個更晚
 		document.getElementById('adcEndDate').setAttribute('min', minEndDate);
 	});
-//		前端驗證欄位
-	function validateForm() {
-		var fileInput = document.getElementById('hiddenFileInput');
-		var startDateInput = document.getElementById('adcStartDate');
-		var endDateInput = document.getElementById('adcEndDate');
-		var dateError = document.getElementById('dateError');
-
-		// 驗證圖片是否已選擇
-		if (fileInput.files.length === 0) {
-			alert('請選擇圖片！');
-			return false;
-		}
-
-		// 驗證開始日期是否已選擇
-		if (!startDateInput.value) {
-			dateError.style.display = 'block';
-			return false;
-		}
-
-		// 驗證結束日期是否已選擇
-		if (!endDateInput.value) {
-			dateError.style.display = 'block';
-			return false;
-		}
-		// 驗證通過
-		return true;
-	}
 
 	// JavaScript函數來計算廣告時間和價格
 	function calculateAdPrice() {
@@ -73,9 +46,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 			const adDayPrice = 100; // 應該從後端獲取廣告每日價格
 			const totalPrice = duration * adDayPrice;
 			document.getElementById('adTotalPrice').textContent = `訂單總價： ${totalPrice}`;
-			console.log("給p標籤值")
 			document.getElementById('totalPriceField').value = totalPrice;
-			console.log("給input標籤值")
 
 		} else {
 			// 如果日期沒有被選擇，則不顯示總價格
@@ -153,14 +124,14 @@ document.getElementById("orderbutton").addEventListener("click", function (event
 
         // 執行 AJAX 請求
         $.ajax({
-            url: 'http://localhost:8080/adCarousel/insert',
+            url: '/adCarousel/insert',
             type: 'POST',
             data: formData,
             processData: false,
             contentType: false,
             success: function (response) {
                 window.alert("成功創建輪播廣告！");
-                window.location.href = 'http://localhost:8080/adCarousel/addAdCarousel';
+                window.location.href = '/adCarousel/addAdCarousel';
             },
             error: function (error) {
                 console.error('Error:', error);

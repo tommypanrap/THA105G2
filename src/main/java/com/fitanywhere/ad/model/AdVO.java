@@ -15,6 +15,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.fitanywhere.adcarousel.model.AdCarouselVO;
 import com.fitanywhere.addate.model.AdDateVO;
@@ -30,12 +33,16 @@ public class AdVO {
 	private Integer adId;
 	
 	@Column(name = "ad_name")
+	@NotEmpty(message="方案名稱: 請勿空白")
 	private String adName;
 	
 	@Column(name = "ad_status")
+	@NotNull(message="方案狀態: 請勿空白")
 	private Integer adStatus;
 	
 	@Column(name = "ad_day_price")
+	@NotNull(message="方案單日價格: 請勿空白")
+	@DecimalMin(value = "100", message = "方案單日價格: 不能小於{value}")
 	private Integer adDayPrice;
 	
 	@Column(name = "ad_type")

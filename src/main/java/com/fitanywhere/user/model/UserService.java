@@ -1,5 +1,8 @@
 package com.fitanywhere.user.model;
 
+
+import java.security.SecureRandom;
+import java.time.LocalDate;
 import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -7,15 +10,15 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
-
 import javax.mail.MessagingException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import com.fitanywhere.forumpost.model.ForumPostVO;
+import com.fitanywhere.forumreply.model.ForumReplyVO;
 import com.fitanywhere.service.MailService;
 import com.fitanywhere.service.PasswordEncryptionService;
 
@@ -417,6 +420,16 @@ public class UserService {
 	public byte[] getUserHeadshot(Integer uId) {
 		byte[] uHeadshot = userJpaRepository.getUserHeadshotByUserId(uId);
 		return uHeadshot;
+	}
+
+ 	//ROY
+	public Set<ForumPostVO> getForumPostByuId(Integer uId){
+	return getUser(uId).getForumPost();
+	}
+	
+	//ROY
+	public Set<ForumReplyVO> getForumReplyByuId(Integer uId){
+	return getUser(uId).getForumReply();
 	}
 
 	// test

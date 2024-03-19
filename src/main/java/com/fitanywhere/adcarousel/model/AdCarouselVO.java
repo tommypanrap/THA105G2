@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.FutureOrPresent;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fitanywhere.ad.model.AdVO;
@@ -36,13 +37,9 @@ public class AdCarouselVO {
 	private Integer adcId;
 	
 	@Column(name = "adc_start_date")
-//	@NotNull(message="結束日期: 請勿空白")	
-//	@Future(message="日期必須是在今日(不含)之後")
 	private Date adcStartDate;
 	
 	@Column(name = "adc_end_date")
-//	@NotNull(message="結束日期: 請勿空白")	
-//	@Future(message="日期必須是在今日(不含)之後")
 	private Date adcEndDate;
 	
 	@Column(name = "adc_total_price")

@@ -54,6 +54,8 @@ public class OrderController {
 
     @PutMapping("update")
     public String updateOrder(@RequestBody OrderVO orderVO) {
+//        OrderVO orderVO1 = orderSvc.getOneOrder(orderVO.getOdId());
+//        orderVO1.setOdStatus(orderVO.getOdStatus());
         orderSvc.updateOrder(orderVO);
         return "ok";
     }

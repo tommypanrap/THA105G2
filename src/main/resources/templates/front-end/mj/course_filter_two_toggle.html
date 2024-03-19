@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Course Filter Two Toggle - Online Courses & Education Bootstrap5 Template</title>
+    <title>fitanywhere Courses</title>
     <meta name="robots" content="noindex, follow"/>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -795,7 +795,7 @@
 
 
 <!-- Start Side Vav -->
-<div th:replace="front-end/cart/cartview.html"></div>
+<div th:replace="/front-end/cart/cartview.html"></div>
 <!-- End Side Vav -->
 <a class="close_side_menu" href="javascript:void(0);"></a>
 
@@ -852,32 +852,32 @@
                         </div>
                     </div>
                     <div class="col-xl-7 col-lg-12 col-md-12">
-                        <div class="rbt-sorting-list d-flex flex-wrap align-items-end justify-content-start justify-content-xl-end">
-                            <div class="rbt-short-item">
-                                <form action="#" class="rbt-search-style me-0">
-                                    <input type="text" placeholder="搜尋你想找的課程..">
-                                    <button type="submit" class="rbt-search-btn rbt-round-btn">
-                                        <i class="feather-search"></i>
-                                    </button>
-                                </form>
-                            </div>
-                            <div class="rbt-short-item">
-                                <div class="filter-select">
-                                    <span class="select-label d-block">排序</span>
-                                    <div class="filter-select rbt-modern-select search-by-category">
-                                        <select data-size="7">
-                                            <option>預設</option>
-                                            <option>Latest</option>
-                                            <option>Popularity</option>
-                                            <option>Trending</option>
-                                            <option>價格: 低到高</option>
-                                            <option>價格: 高到低</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
+<!--                        <div class="rbt-sorting-list d-flex flex-wrap align-items-end justify-content-start justify-content-xl-end">-->
+<!--                            <div class="rbt-short-item">-->
+<!--                                <form action="#" class="rbt-search-style me-0">-->
+<!--                                    <input type="text" placeholder="搜尋你想找的課程..">-->
+<!--                                    <button type="submit" class="rbt-search-btn rbt-round-btn">-->
+<!--                                        <i class="feather-search"></i>-->
+<!--                                    </button>-->
+<!--                                </form>-->
+<!--                            </div>-->
+<!--                            <div class="rbt-short-item">-->
+<!--                                <div class="filter-select">-->
+<!--                                    <span class="select-label d-block">排序</span>-->
+<!--                                    <div class="filter-select rbt-modern-select search-by-category">-->
+<!--                                        <select data-size="7">-->
+<!--                                            <option>預設</option>-->
+<!--                                            <option>Latest</option>-->
+<!--                                            <option>Popularity</option>-->
+<!--                                            <option>Trending</option>-->
+<!--                                            <option>價格: 低到高</option>-->
+<!--                                            <option>價格: 高到低</option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
 
-                        </div>
+<!--                        </div>-->
                     </div>
                 </div>
 
@@ -1151,22 +1151,7 @@
                                     </a>
                                 </div>
                                 <div class="rbt-card-body">
-                                    <div class="rbt-card-top">
-                                        <div class="rbt-review">
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                            <span class="rating-count"> (15 Reviews)</span>
-                                        </div>
-                                        <div class="rbt-bookmark-btn">
-                                            <a class="rbt-round-btn" title="Bookmark" th:href="@{#}"><i
-                                                    class="feather-bookmark"></i></a>
-                                        </div>
-                                    </div>
+
 
                                     <h4 class="rbt-card-title"><a th:href="@{'/course/single_course/' + ${courseData.crId}}"
                                                                   th:text="${courseData.crTitle}"></a>

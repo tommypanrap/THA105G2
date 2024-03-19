@@ -48,6 +48,15 @@ public class OrderService {
         }
     }
 
+    public boolean updateOdStatus(OrderVO orderVO) {
+        if (orderVO.getOdId() != null) {
+            if (repository.existsById(orderVO.getOdId())) {
+                repository.updateOdStatus(orderVO.getOdId(), orderVO.getOdStatus());
+                return true;
+            }
+        }
+        return false;
+    }
 
 
     public OrderVO getOneOrder(Integer odId) {

@@ -124,14 +124,14 @@ document.getElementById("orderbutton").addEventListener("click", function (event
 
         // 執行 AJAX 請求
         $.ajax({
-            url: 'http://localhost:8080/adCarousel/insert',
+            url: '/adCarousel/insert',
             type: 'POST',
             data: formData,
             processData: false,
             contentType: false,
             success: function (response) {
                 window.alert("成功創建輪播廣告！");
-                window.location.href = 'http://localhost:8080/adCarousel/addAdCarousel';
+                window.location.href = '/adCarousel/addAdCarousel';
             },
             error: function (error) {
                 console.error('Error:', error);

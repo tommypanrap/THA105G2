@@ -1,5 +1,3 @@
-// https://docs.spring.io/spring-data/jpa/docs/current/reference/html/
-
 package com.fitanywhere.adcarousel.model;
 
 import java.time.LocalDateTime;
@@ -14,13 +12,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.fitanywhere.course.model.CourseVO;
 
 public interface AdCarouselRepository extends JpaRepository<AdCarouselVO, Integer> {
-	
-//	將結束日期已經過了的方案狀態改為下架
-	 @Modifying
-	 @Transactional
-	 @Query(value = "UPDATE ad_carousel_order SET adc_status = 0 WHERE adc_end_date < NOW()", nativeQuery = true)
-	 void updateAdCarouselOrderStatusDirectly();
-	 
-//	@Query(value = "SELECT * FROM ad WHERE ad_id = ?1", nativeQuery = true)
-//	List<AdCarouselVO> getDayPriceByAdId(Integer adId); 
+ 
+// 將結束日期已經過了的方案狀態改為下架
+  @Modifying
+  @Transactional
+  @Query(value = "UPDATE ad_carousel_order SET adc_status = 0 WHERE adc_end_date < NOW()", nativeQuery = true)
+  void updateAdCarouselOrderStatusDirectly();
+  
+// @Query(value = "SELECT * FROM ad WHERE ad_id = ?1", nativeQuery = true)
+// List<AdCarouselVO> getDayPriceByAdId(Integer adId); 
 }

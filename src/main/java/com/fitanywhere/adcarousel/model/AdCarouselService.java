@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class AdCarouselService {
 
 	@Autowired
-	AAAAAdCarouselRepository repository;
+	AdCarouselRepository repository;
 
 	public void addAdCarousel(AdCarouselVO adCarouselVO) {
 		repository.save(adCarouselVO);

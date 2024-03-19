@@ -1,4 +1,4 @@
-package com.fitanywhere.ad.controller;
+package com.fitanywhere.adate.controller;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
@@ -28,12 +28,10 @@ import com.fitanywhere.ad.model.AdService;
 import com.fitanywhere.ad.model.AdVO;
 import com.fitanywhere.adate.model.AdDateService;
 import com.fitanywhere.adate.model.AdDateVO;
-import com.fitanywhere.adcarousel.model.AdCarouselService;
-import com.fitanywhere.adcarousel.model.AdCarouselVO;
 
 @Controller
-@RequestMapping("/ad")
-public class AAAAAdController {
+@RequestMapping("/adDate")
+public class AdDateController {
 
 	@Autowired
 	private AdService adSvc;
@@ -41,80 +39,71 @@ public class AAAAAdController {
 	@Autowired
 	private AdDateService adDateSvc;
 
-	@Autowired
-	private AdCarouselService AdCarSvc;
-
-	@GetMapping("/addAd")
-	public String addAd(ModelMap model) {
-		AdVO adVO = new AdVO();
-		model.addAttribute("adVO", adVO);
-		return "back-end/ad/addAd";
+	@GetMapping("/addAdDate")
+	public String addAdDate(ModelMap model) {
+		AdDateVO adDateVO = new AdDateVO();
+		model.addAttribute("adDateVO", adDateVO);
+		return "back-end/adDate/addAdDate";
 	}
 
 	@PostMapping("insert")
-	public String insert(@Valid AdVO adVO, ModelMap model) {
+	public String insert(@Valid AdDateVO adDateVO, ModelMap model) {
 
-		adSvc.addAd(adVO);
+		adDateSvc.addAdDate(adDateVO);
 
-		List<AdVO> list = adSvc.getAll();
-		model.addAttribute("adListData", list);
+		List<AdDateVO> list = adDateSvc.getAll();
+		model.addAttribute("adDateListData", list);
 		model.addAttribute("success", "- (新增成功)");
-		return "redirect:/ad/listAllAd";
+		return "redirect:/adDate/listAllAdDate";
 	}
 
 //    查詢單個id資料以進行更新
 	@PostMapping("getOne_For_Update")
-	public String getOne_For_Update(@RequestParam("adId") String adId, ModelMap model) {
+	public String getOne_For_Update(@RequestParam("adDateId") String adDateId, ModelMap model) {
 		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
 		/*************************** 2.開始查詢資料 *****************************************/
 		// EmpService empSvc = new EmpService();
-		AdVO adVO = adSvc.getOneAd(Integer.valueOf(adId));
+		System.out.println("come");
+		AdDateVO adDateVO = adDateSvc.getOneadDateId(Integer.valueOf(adDateId));
 
 		/*************************** 3.查詢完成,準備轉交(Send the Success view) **************/
-		model.addAttribute("adVO", adVO);
-		return "back-end/ad/update_ad_input"; // 查詢完成後轉交update_emp_input.html
+		model.addAttribute("adDateVO", adDateVO);
+		return "back-end/adDate/update_adDate_input"; // 查詢完成後轉交update_emp_input.html
 	}
 
 	@PostMapping("update")
-	public String update(@Valid AdVO adVO, BindingResult result, ModelMap model) {
+	public String update(@Valid AdDateVO adDateVO, BindingResult result, ModelMap model) {
 
 		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
-		result = removeFieldError(adVO, result, "adId");
+		result = removeFieldError(adDateVO, result, "adId");
 		if (result.hasErrors()) {
-			return "back-end/ad/update_ad_input";
+			return "back-end/adDate/update_adDate_input";
 		}
 
 		/*************************** 2.開始修改資料 *****************************************/
 		// EmpService empSvc = new EmpService();
-		adSvc.updateAd(adVO);
+		adDateSvc.updateAdDate(adDateVO);
 
 		/*************************** 3.修改完成,準備轉交(Send the Success view) **************/
 		model.addAttribute("success", "- (修改成功)");
-		adVO = adSvc.getOneAd(Integer.valueOf(adVO.getAdId()));
-		model.addAttribute("adVO", adVO);
-		return "back-end/ad/listOneAd"; // 修改成功後轉交listOneEmp.html
+		adDateVO = adDateSvc.getOneadDateId(Integer.valueOf(adDateVO.getAdDateId()));
+		model.addAttribute("adDateVO", adDateVO);
+		return "back-end/adDate/listOneAdDate"; // 修改成功後轉交listOneEmp.html
 	}
 
 //    關聯到另一個表 
-	@ModelAttribute("adDateListData")
-	protected List<AdDateVO> referenceadDateListData() {
+	@ModelAttribute("adListData")
+	protected List<AdVO> referenceListData() {
 		// DeptService deptSvc = new DeptService();
-		List<AdDateVO> list = adDateSvc.getAll();
-		return list;
-	}
-
-	@ModelAttribute("AdCarouselListData")
-	protected List<AdCarouselVO> referenceListData() {
-		// DeptService deptSvc = new DeptService();
-		List<AdCarouselVO> list = AdCarSvc.getAll();
+		List<AdVO> list = adSvc.getAll();
 		return list;
 	}
 
 	// 去除BindingResult中某個欄位的FieldError紀錄
-	public BindingResult removeFieldError(AdVO adVO, BindingResult result, String removedFieldname) {
+	public BindingResult removeFieldError(AdDateVO adDateVO, BindingResult result, String removedFieldname) {
 		List<FieldError> errorsListToKeep = result.getFieldErrors().stream()
 				.filter(fieldname -> !fieldname.getField().equals(removedFieldname)).collect(Collectors.toList());
-		result = new BeanPropertyBindingResult(adVO, "adVO");
+		result = new BeanPropertyBindingResult(adDateVO, "adDateVO");
 		for (FieldError fieldError : errorsListToKeep) {
 			result.addError(fieldError);
 		}
@@ -122,25 +111,20 @@ public class AAAAAdController {
 	}
 
 	@GetMapping("select_page")
-	public String select_page(Model model) {
-		return "back-end/ad/select_page";
+	public String select_pageAdDate(Model model) {
+		return "back-end/adDate/select_page";
 	}
 
-	@GetMapping("listAllAd")
-	public String listAllAd(Model model) {
-		return "back-end/ad/listAllAd";
+	@GetMapping("listAllAdDate")
+	public String listAllAdDate(Model model) {
+		return "back-end/adDate/listAllAdDate";
 	}
 
-	@ModelAttribute("adListData") // for select_page.html 第97 109行用 // for listAllEmp.html 第117 133行用
-	protected List<AdVO> referenceListData(Model model) {
+	@ModelAttribute("adDateListData") // for select_page.html 第97 109行用 // for listAllEmp.html 第117 133行用
+	protected List<AdDateVO> referenceAdDateListData(Model model) {
 
-		List<AdVO> list = adSvc.getAll();
+		List<AdDateVO> list = adDateSvc.getAll();
 		return list;
-	}
-	
-	@GetMapping("/hello")
-	public String goToIndex(Model model) {
-		return "back-end/index2";
 	}
 
 }

@@ -4,7 +4,7 @@ package com.fitanywhere.adcarousel.model;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AAAAAdCarouselRepository extends JpaRepository<AdCarouselVO, Integer> {
+public interface AdCarouselRepository extends JpaRepository<AdCarouselVO, Integer> {
 
 
 }

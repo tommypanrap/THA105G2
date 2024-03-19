@@ -17,7 +17,7 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import com.fitanywhere.adDate.model.AdDateVO;
-import com.fitanywhere.adCarousel.model.AdCarouselVO;
+import com.fitanywhere.adccccccarousel.model.AdCarouselVO;
 
 
 

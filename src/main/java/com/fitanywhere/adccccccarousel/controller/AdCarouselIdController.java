@@ -1,4 +1,4 @@
-package com.fitanywhere.adCarousel.controller;
+package com.fitanywhere.adccccccarousel.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fitanywhere.adCarousel.model.AdCarouselService;
-import com.fitanywhere.adCarousel.model.AdCarouselVO;
+import com.fitanywhere.adccccccarousel.model.AdCarouselService;
+import com.fitanywhere.adccccccarousel.model.AdCarouselVO;
 
 import java.util.*;
 

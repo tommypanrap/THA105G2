@@ -24,6 +24,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fitanywhere.adccccccarousel.model.AdCarouselVO;
 import com.fitanywhere.coursedetail.model.CourseDetailVO;
 import com.fitanywhere.user.model.UserVO;
 import org.springframework.data.annotation.CreatedDate;
@@ -32,7 +33,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fitanywhere.coursedetail.model.CourseDetailVO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fitanywhere.adCarousel.model.AdCarouselVO;
 
 /*
  * 註1: classpath必須有javax.persistence-api-x.x.jar 

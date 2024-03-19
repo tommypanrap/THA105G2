@@ -1,6 +1,6 @@
 // https://docs.spring.io/spring-data/jpa/docs/current/reference/html/
 
-package com.fitanywhere.adCarousel.model;
+package com.fitanywhere.adccccccarousel.model;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

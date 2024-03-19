@@ -66,7 +66,7 @@
 
                             <a class="rbt-cart-sidenav-activation rbt-round-btn" onclick="getCartItems()" href="#">
                                 <i class="feather-shopping-cart"></i>
-                                <span class="rbt-cart-count">4</span>
+<!--                                <span class="rbt-cart-count">4</span>-->
                             </a>
                         </li>
 
@@ -77,12 +77,12 @@
                             </a>
                         </li>
 
-                        <li class="access-icon">
-                            <a class=" rbt-round-btn" href="#">
-                                <i class="feather-bell"></i>
-                                <span class="rbt-cart-count">4</span>
-                            </a>
-                        </li>
+<!--                        <li class="access-icon">-->
+<!--                            <a class=" rbt-round-btn" href="#">-->
+<!--                                <i class="feather-bell"></i>-->
+<!--                                <span class="rbt-cart-count">4</span>-->
+<!--                            </a>-->
+<!--                        </li>-->
 
 
 
@@ -560,6 +560,9 @@
         fetch('/cart/get')
             .then((res) => {
                 // 如果不成功 new Error
+                if (res.redirected){
+                    window.location.href = res.url;
+                }
                 if (!res.ok) {
                     throw new Error("Network response was not ok.")
                 }

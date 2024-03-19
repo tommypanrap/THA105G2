@@ -140,8 +140,8 @@ public class CourseController {
 	}
 	@GetMapping("coach_dashboard")
 	public String dashboard(ModelMap model,HttpSession session) {
-		Integer uId = 10001;//先寫死等登入
-//		Integer uId = (Integer)session.getAttribute("uId");
+//		Integer uId = 10001;//先寫死等登入
+		Integer uId = (Integer)session.getAttribute("uId");
 		Integer coursecount = courseSvc.getCourseCount(uId);
 		Integer studentcount = ucSvc.getStudentCount(uId);
 		Integer starcount = courseSvc.getStarCount(uId);
@@ -172,8 +172,8 @@ public class CourseController {
 	}
 	@GetMapping("coach_settings")
 	public String settings(ModelMap model ,HttpSession session) {
-		Integer uId = 10001 ;//先寫死等登入uId
-//		Integer uId = (Integer)session.getAttribute("uId");
+//		Integer uId = 10001 ;//先寫死等登入uId
+		Integer uId = (Integer)session.getAttribute("uId");
 		CoachVO coachVO = coachSvc.getOneCoach(uId);
 		model.addAttribute("coachVO", coachVO);
 		return "front-end/course/coach_settings";
@@ -186,14 +186,13 @@ public class CourseController {
     public String handleFileUpload(@RequestParam("cdVideo") MultipartFile file ,@RequestParam("cdSaleVideo") MultipartFile salefile,String cdTitle,String cdUnit, @RequestParam("crId") CourseVO courseVO, ModelMap model,HttpSession session) {
 		String cdVideo = null;
 		String cdSaleVideo = null;
-//		Integer uId = (Integer)session.getAttribute("uId");
-		Integer uId = 10001;
+		Integer uId = (Integer)session.getAttribute("uId");
+//		Integer uId = 10001;
 		CourseDetailVO coursedetailVO = new CourseDetailVO();
 		coursedetailVO.setCourseVO(courseVO);
 		coursedetailVO.setCdTitle(cdTitle);
 		coursedetailVO.setCdUnit(cdUnit);
 		
-		// 在这里处理上传的文件
         if (!salefile.isEmpty()) {
             try {
             	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-hh:mm:ss");
@@ -591,24 +590,24 @@ public class CourseController {
 	/*=================取值========================*/
 	@ModelAttribute("uName")
 	public String getuName(HttpSession session) {
-		 Integer uId = 10001 ;
-//		Integer uId = (Integer)session.getAttribute("uId");
+//		 Integer uId = 10001 ;
+		Integer uId = (Integer)session.getAttribute("uId");
 		String uName = userSvc.getUser(uId).getuName();
 		return uName;
 	}
 	
 	@ModelAttribute("userVO")
 	public UserVO getUser(HttpSession session) {
-		Integer uId = 10001 ;
-//		Integer uId = (Integer)session.getAttribute("uId");
+//		Integer uId = 10001 ;
+		Integer uId = (Integer)session.getAttribute("uId");
 		UserVO userVO = userSvc.getUser(uId);
 		return userVO;
 	}
 	
 	@ModelAttribute("uHeadshot")
 	public String getuHeadshot(HttpSession session) {
-		Integer uId = 10001 ;
-//		Integer uId = (Integer)session.getAttribute("uId");
+//		Integer uId = 10001 ;
+		Integer uId = (Integer)session.getAttribute("uId");
 		byte [] uHeadshot = userSvc.getUserHeadshot(uId);
 		String defaultImagePath = "/Users/andy/Desktop/THA105/THA105G2/src/main/resources/static/images/andy/Test.png";
 		byte[] defaultImageBytes = null;
@@ -629,24 +628,24 @@ public class CourseController {
 	
 	@ModelAttribute("course0")
 	public List<CourseStatus0DTO> getcourse0(HttpSession session) {
-		Integer uId = 10001 ;
-//		Integer uId = (Integer)session.getAttribute("uId");
+//		Integer uId = 10001 ;
+		Integer uId = (Integer)session.getAttribute("uId");
 		List<CourseStatus0DTO> CourseStatus0DTO = courseSvc.getCourseByStatus0(uId);
 		return CourseStatus0DTO;
 	}
 	
 	@ModelAttribute("course1")
 	public List<CourseStatus1DTO> getcourse1(HttpSession session) {
-		Integer uId = 10001 ;
-//		Integer uId = (Integer)session.getAttribute("uId");
+//		Integer uId = 10001 ;
+		Integer uId = (Integer)session.getAttribute("uId");
 		List<CourseStatus1DTO> CourseStatus1DTO = courseSvc.getCourseByStatus1(uId);
 		return CourseStatus1DTO;
 	}
 	
 	@ModelAttribute("course2")
 	public List<CourseStatus2DTO> getcourse2(HttpSession session) {
-		Integer uId = 10001 ;
-//		Integer uId = (Integer)session.getAttribute("uId");
+//		Integer uId = 10001 ;
+		Integer uId = (Integer)session.getAttribute("uId");
 		List<CourseStatus2DTO> CourseStatus2DTO = courseSvc.getCourseByStatus2(uId);
 		return CourseStatus2DTO;
 	}

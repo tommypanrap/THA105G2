@@ -1080,21 +1080,21 @@
 			<!--         </div> -->
 			<!--     </form> -->
 			<!-- </div> -->
-			<!-- <!-- 回复列表 -->
-			<!-- <div class="rbt-comment-area"> -->
-			<!--     <h4 class="title" th:text="${#lists.size(forumReplyVO)} + ' 則留言'"></h4> -->
-			<!--     <ul class="comment-list"> -->
-			<!--         <li class="comment" th:each="forumReply : ${forumReplyVO}"> -->
-			<!--             <div class="comment-body"> -->
-			<!--                 <p th:text="${forumReply.frContent}"></p> -->
-			<!--                 <div class="comment-author"> -->
-			<!--                     <span class="author" th:text="${forumReply.userVO.uNickname}"></span> -->
-			<!--                     <span class="comment-date" th:text="${forumReply.frTime}"></span> -->
-			<!--                 </div> -->
-			<!--             </div> -->
-			<!--         </li> -->
-			<!--     </ul> -->
-			<!-- </div> -->
+			<!-- 回复列表 -->
+			<div class="rbt-comment-area">
+			    <h4 class="title" th:text="${#lists.size(forumReplyVO)} + ' 則留言'"></h4>
+			    <ul class="comment-list">
+			        <li class="comment" th:each="forumReply : ${forumReplyVO}">
+			            <div class="comment-body">
+			                <p th:text="${forumReply.frContent}"></p>
+			                <div class="comment-author">
+			                    <span class="author" th:text="${forumReply.userVO.uNickname}"></span>
+			                    <span class="comment-date" th:text="${forumReply.frTime}"></span>
+			                </div>
+			            </div>
+			        </li>
+			    </ul>
+			</div>
 			<!--             </div> -->
 
 			<!--         </div> -->

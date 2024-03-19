@@ -55,7 +55,6 @@ public class BackendSocialPostController {
 	@PostMapping("/backend/updateForumPostStatus")
 	public ResponseEntity<?> updateforumPostStatus(@RequestBody ForumPostDTO forumPostDTO) {
 	    try {
-	    	System.out.println(forumPostDTO.getFpId() +"/" +forumPostDTO.getFpStatus());
 	    	forumPostSvc.updateforumPostStatus(forumPostDTO.getFpId(), forumPostDTO.getFpStatus());
 	        return ResponseEntity.ok("更新成功");
 	    } catch (Exception e) {

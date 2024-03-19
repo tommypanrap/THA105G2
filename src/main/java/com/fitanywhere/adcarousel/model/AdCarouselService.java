@@ -9,7 +9,9 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.fitanywhere.course.model.CourseVO;
 
 @Service("AdCarouselService")
 public class AdCarouselService {
@@ -71,4 +73,11 @@ public class AdCarouselService {
 
         return userAds;
     }
+    
+ // 用adId抓該方案每日單價
+// 	@Transactional(readOnly = true)
+// 	public List<AdCarouselVO> getDayPriceByAdId(Integer adId){
+// 		return repository.getDayPriceByAdId(adId);
+// 	}
+    
 }

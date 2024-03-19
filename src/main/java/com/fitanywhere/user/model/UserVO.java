@@ -16,16 +16,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
-
 import com.fitanywhere.forumpost.model.ForumPostVO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fitanywhere.usercourse.model.UserCourseVO;
 import org.springframework.format.annotation.DateTimeFormat;
 import java.io.Serializable;
 import java.util.Date;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.fitanywhere.adcarousel.model.AdCarouselVO;
 import com.fitanywhere.course.model.CourseVO;
 import com.fitanywhere.mood.model.MoodVO;
@@ -41,7 +41,7 @@ public class UserVO implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "u_id")
-	private Integer uId;	
+	private Integer uId;
 	
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -145,6 +145,11 @@ public class UserVO implements java.io.Serializable {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "userVO")
 	@JsonIgnore
 	private Set<SocialReplyVO> socialReplys = new HashSet<SocialReplyVO>();
+
+	// Mok
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="userVO")
+	@JsonIgnore
+	private Set<UserCourseVO> userCourses = new HashSet<UserCourseVO>();
 
 	public Set<SocialReplyVO> getSocialReplys() {
 		return socialReplys;
@@ -274,6 +279,6 @@ public class UserVO implements java.io.Serializable {
 
 	public void setOpinions(Set<OpinionVO> opinions) {
 		this.opinions = opinions;
-	}	
-	
+	}
+
 }

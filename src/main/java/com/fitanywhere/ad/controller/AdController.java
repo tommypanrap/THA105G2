@@ -53,21 +53,24 @@ public class AdController {
 	}
 
 	@PostMapping("insert")
-	public String insert(@Valid AdVO adVO, ModelMap model) {
+	public String insert(@Valid AdVO adVO, BindingResult result, ModelMap model) {
 
+		if (result.hasErrors()) {
+			return "/back-end/backend_ad";
+		}
+		
 		adSvc.addAd(adVO);
-
 		List<AdVO> list = adSvc.getAll();
 		model.addAttribute("adListData", list);
 		model.addAttribute("success", "- (新增成功)");
-//		return "redirect:/back-end/list";
 		return "back-end/backend_adlistall";
 	}
 
 //    查詢單個id資料以進行更新
 	@PostMapping("getOne_For_Update")
-	public String getOne_For_Update(@RequestParam("adId") String adId, ModelMap model) {
+	public String getOne_For_Update(@RequestParam("adId") String adId,ModelMap model) {
 		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
+
 		/*************************** 2.開始查詢資料 *****************************************/
 		// EmpService empSvc = new EmpService();
 		AdVO adVO = adSvc.getOneAd(Integer.valueOf(adId));
@@ -81,9 +84,15 @@ public class AdController {
 	public String update(@Valid AdVO adVO, BindingResult result, ModelMap model) {
 
 		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
-		result = removeFieldError(adVO, result, "adId");
+//		result = removeFieldError(adVO, result, "adId");
 		if (result.hasErrors()) {
-			return "/backend_ad/update_ad_input";
+			System.out.println("出錯了");
+			System.out.println("result has error" + result.hasErrors());
+			List<FieldError> listField = result.getFieldErrors();
+			for(FieldError error : listField) {
+				System.out.println(error);
+			}
+			return "/back-end/backend_adupdate";
 		}
 
 		/*************************** 2.開始修改資料 *****************************************/
@@ -94,7 +103,7 @@ public class AdController {
 		model.addAttribute("success", "- (修改成功)");
 		adVO = adSvc.getOneAd(Integer.valueOf(adVO.getAdId()));
 		model.addAttribute("adVO", adVO);
-		return "/back-end/backend_adlistall"; // 修改成功後轉交listOneEmp.html
+		return "/back-end/backend_adlistall"; 
 	}
 
 

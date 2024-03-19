@@ -1093,13 +1093,13 @@
 <!--                                                                        class="feather-bookmark"></i></a>-->
 <!--                                                            </div>-->
 <!--                                                        </div>-->
-                                                        <h4 class="rbt-card-title"><a href="course-details.html"
-                                                                                      th:text="${re_courses.crTitle}"></a>
+                                                        <h4 class="rbt-card-title"><a th:href="@{'/course/single_course/' + ${re_courses.crId}}"
+                                                                                      th:text="${re_courses.crTitle}"> </a>
                                                         </h4>
-                                                        <ul class="rbt-meta">
-                                                            <li><i class="feather-book"></i>8 Lessons</li>
-                                                            <li><i class="feather-users"></i>30 Students</li>
-                                                        </ul>
+<!--                                                        <ul class="rbt-meta">-->
+<!--                                                            <li><i class="feather-book"></i>8 Lessons</li>-->
+<!--                                                            <li><i class="feather-users"></i>30 Students</li>-->
+<!--                                                        </ul>-->
                                                         <p class="rbt-card-text" th:text="${re_courses.crSubtitle}"></p>
 
                                                         <div class="rbt-author-meta mb--20">

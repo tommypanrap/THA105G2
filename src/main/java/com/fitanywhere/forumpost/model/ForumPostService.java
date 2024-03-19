@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fitanywhere.course.model.CourseVO;
 import com.fitanywhere.user.model.UserService;
@@ -81,6 +82,16 @@ public class ForumPostService {
             repository.updateViews(fpId, fpViews);
         }
         
+
+     // 更新社群貼文狀態 上下架 目前只用於後台
+        @Transactional
+    	public void updateforumPostStatus(Integer fpId, Integer fpStatus) {
+    	    ForumPostVO forumPost = repository.findById(fpId)
+    	    		 .orElseThrow(() -> new RuntimeException("Post not found with id " ));
+    	    forumPost.setFpStatus(fpStatus);
+    	    repository.save(forumPost);
+        }
+
         // Tommy
         public List<ForumPostVO> findFourCourses() {
     		
@@ -89,6 +100,7 @@ public class ForumPostService {
     		List<ForumPostVO> forumPostListFour = forumPosts.getContent();
     		
     		return forumPostListFour;
+
     	}
 
    

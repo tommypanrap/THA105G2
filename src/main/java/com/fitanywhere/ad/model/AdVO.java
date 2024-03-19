@@ -42,7 +42,7 @@ public class AdVO {
 	
 	@Column(name = "ad_day_price")
 	@NotNull(message="方案單日價格: 請勿空白")
-	@DecimalMin(value = "1", message = "方案單日價格: 不能小於{value}")
+	@DecimalMin(value = "100", message = "方案單日價格: 不能小於{value}")
 	private Integer adDayPrice;
 	
 	@Column(name = "ad_type")

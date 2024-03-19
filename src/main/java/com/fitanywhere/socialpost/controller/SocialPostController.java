@@ -396,12 +396,12 @@ public class SocialPostController {
 		return userVO;
 	}
 	
-	@ModelAttribute("uHeadshot")
-	public String getuHeadshot(Integer uId) {
-		uId = 10001 ;
-		byte [] uHeadshot = userSvc.getUserHeadshot(uId);
-		return Base64.getEncoder().encodeToString(uHeadshot);
-	}
+//	@ModelAttribute("uHeadshot")
+//	public String getuHeadshot(Integer uId) {
+//		uId = 10001 ;
+//		byte [] uHeadshot = userSvc.getUserHeadshot(uId);
+//		return Base64.getEncoder().encodeToString(uHeadshot);
+//	}
 	
 
 

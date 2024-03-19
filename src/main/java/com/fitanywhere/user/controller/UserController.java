@@ -55,42 +55,5 @@ public class UserController {
 
 // ==================================
 	// 開發測試用
-	
-	// uHeadshot讀寫
-	@GetMapping("/test1")
-	public String test1Page() {
-		return "front-end/user/test-only/test1";
-	}
-	// 讀取user資料
-	@GetMapping("/test2")
-	public String test2Page() {
-		return "front-end/user/test-only/test2";
-	}
-	// 寫入user資料
-	@GetMapping("/test3")
-	public String test3Page() {
-		return "front-end/user/test-only/test3";
-	}
-	// 讀寫user心情
-	@GetMapping("/test4")
-	public String test4Page() {
-		return "front-end/user/test-only/test4";
-	}
-	
-	// 自行更新密碼
-	@GetMapping("/test5")
-	public String test5Page() {
-		return "front-end/user/test-only/test5";
-	}
-
-//	Andy
-	@GetMapping("/coach_profile")
-	public UserVO profile(ModelMap model) {
-
-		Integer uId = 10001;
-		UserVO userVO = userService.getUser(uId);
-		return userVO;
-	}
-
 
 }

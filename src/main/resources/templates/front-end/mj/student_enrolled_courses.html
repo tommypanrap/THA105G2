@@ -545,15 +545,14 @@
             <div class="col-lg-12">
                 <!-- Start Dashboard Top  -->
                 <div class="rbt-dashboard-content-wrapper">
-                    <!--                    封面圖片-->
+                    <!--封面圖片-->
                     <div class="tutor-bg-photo bg_image bg_image--23 height-350"></div>
                     <!-- Start Tutor Information  -->
                     <div class="rbt-tutor-information">
                         <div class="rbt-tutor-information-left">
                             <div class="thumbnail rbt-avatars size-lg">
-                                <!--                                <img th:src="@{/assets/images/team/avatar-2.jpg}" alt="Instructor">-->
                                 <img class="userHeadshot" id="headshot"
-                                     th:data-user-id="${uId}" alt="User Headshot">
+                                     th:data-user-id="${session.uId}" alt="User Headshot">
                             </div>
                             <div class="tutor-content">
                                 <h5 class="title" th:text="${uNickname}">Emily Hannah</h5>
@@ -566,7 +565,7 @@
                         </div>
                         <div class="rbt-tutor-information-right">
                             <div class="tutor-btn">
-                                <a class="rbt-btn btn-md hover-icon-reverse" href="#">
+                                <a class="rbt-btn btn-md hover-icon-reverse" href="/course/coach_dashboard">
                                         <span class="icon-reverse-wrapper">
                                            <span class="btn-text">教練模式</span>
                                            <span class="btn-icon"><i class="feather-arrow-right"></i></span>

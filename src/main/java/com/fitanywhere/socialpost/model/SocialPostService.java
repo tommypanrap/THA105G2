@@ -56,6 +56,23 @@ public class SocialPostService {
 		return repository.findAll();
 	}
 	
+	
+	public class ResourceNotFoundException extends RuntimeException {
+
+	    public ResourceNotFoundException(String message) {
+	        super(message);
+	    }
+	    
+	}
+	
+	// 更新社群貼文狀態 上下架 目前只用於後台
+	public void updatePostStatus(Integer spid, Integer spstatus) {
+	    SocialPostVO socialPost = repository.findById(spid)
+	    		 .orElseThrow(() -> new RuntimeException("Post not found with id " ));
+	    socialPost.setSpstatus(spstatus);
+	    repository.save(socialPost);
+	}
+	
 
 	
 	

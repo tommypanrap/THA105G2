@@ -91,7 +91,8 @@ import com.fitanywhere.course.model.CourseService;
 			model.addAttribute("adListData", list); // for select_page.html 第97 109行用
 			model.addAttribute("courseListData", courseList); // for select_page.html 第97 109行用
 			model.addAttribute("adcarVO", adcarVO); 
-			model.addAttribute("userVO", userList); 
+			model.addAttribute("userVO", userList);
+			
 	//		model.addAttribute("courseListData", courseList); 
 	//		model.addAttribute("AdCarouselListData", adcarList); 
 			
@@ -104,6 +105,7 @@ import com.fitanywhere.course.model.CourseService;
 			model.addAttribute("adVO", adVO);
 			model.addAttribute("courseVO", courseVO);
 			model.addAttribute("userVO", userVO);
+			model.addAttribute("ForPhotoUserVO", userList.get(0)); //讓頁面顯示用戶照片
 			model.addAttribute("getOne_For_Display", "true"); // 旗標getOne_For_Display見select_page.html的第126行 -->
 			
 			return "front-end/ad/instructor_advertising";
@@ -160,6 +162,7 @@ import com.fitanywhere.course.model.CourseService;
 			// EmpService empSvc = new EmpService();
 			AdCarSvc.addAdCarousel(adcarVO);
 			/*************************** 3.新增完成,準備轉交(Send the Success view) **************/
+			prepareModelForView(session, model);
 			List<AdCarouselVO> list = AdCarSvc.getAll();
 			model.addAttribute("AdCarouselListData", list);
 			model.addAttribute("success", "- (新增成功)");
@@ -167,6 +170,26 @@ import com.fitanywhere.course.model.CourseService;
 			return "front-end/ad/instructor_advertising"; // 新增成功後重導至IndexController_inSpringBoot.java的第50行@GetMapping("/emp/listAllEmp")
 		}
 		
+		private void prepareModelForView(HttpSession session, ModelMap model) {
+		    Integer uId = (Integer) session.getAttribute("uId");
+		    if (uId != null) {
+		        // 根據uId重新獲取用戶資訊及其他必要的資料
+		        List<UserVO> userList = userSvc.getUserByUId(uId);
+		        List<CourseVO> courseList = courSvc.getCourseByUId(uId);
+		        List<AdVO> list = adSvc.getAll();
+		        List<AdCarouselVO> userAds = AdCarSvc.getAdOrderByUserId(uId);
+		        
+		        // 再次添加必要的模型屬性
+		        model.addAttribute("userAds", userAds);
+		        model.addAttribute("uName", session.getAttribute("uName"));
+		        model.addAttribute("adListData", list);
+		        model.addAttribute("courseListData", courseList);
+		        model.addAttribute("ForPhotoUserVO", userList.isEmpty() ? null : userList.get(0)); // 重新設置ForPhotoUserVO
+		        // 根據實際情況添加其他屬性
+		    } else {
+		        // 處理uId為null的情況，可能需要重定向到登入頁面或添加錯誤訊息
+		    }
+		}
 		
 		
 //		@PostMapping("insert")
@@ -294,22 +317,6 @@ import com.fitanywhere.course.model.CourseService;
 			List<AdCarouselVO> list = AdCarSvc.getAll();
 			return list;
 		}
-
-		/*
-		* This method will be called on listAllEmp.html form submission, handling POST request
-		*/
-	//	@PostMapping("delete")
-	//	public String delete(@RequestParam("empno") String empno, ModelMap model) {
-	//		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
-	//		/*************************** 2.開始刪除資料 *****************************************/
-	//		// EmpService empSvc = new EmpService();
-	//		empSvc.deleteEmp(Integer.valueOf(empno));
-	//		/*************************** 3.刪除完成,準備轉交(Send the Success view) **************/
-	//		List<EmpVO> list = empSvc.getAll();
-	//		model.addAttribute("empListData", list);
-	//		model.addAttribute("success", "- (刪除成功)");
-	//		return "back-end/emp/listAllEmp"; // 刪除完成後轉交listAllEmp.html
-	//	}
 
 		/*
 		* 第一種作法 Method used to populate the List Data in view. 如 : 

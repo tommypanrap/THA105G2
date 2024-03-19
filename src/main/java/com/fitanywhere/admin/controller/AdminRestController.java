@@ -39,6 +39,7 @@ public class AdminRestController {
 			// 轉換Integer成功
 		} catch (NumberFormatException e) {
 			System.out.println("adminId轉換Interger失敗!");
+			e.printStackTrace();
 		}
 
 		boolean isAdminIdExist = adminService.isAdminIdCorrect(adminId);
@@ -74,6 +75,7 @@ public class AdminRestController {
 			// 轉換Integer成功
 		} catch (NumberFormatException e) {
 			System.out.println("adminId轉換Interger失敗!");
+			e.printStackTrace();
 		}
 
 		String adminName = loginData.get("am_name");

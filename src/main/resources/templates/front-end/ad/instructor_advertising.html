@@ -35,6 +35,11 @@
     <link rel="stylesheet" th:href="@{/assets/css/plugins/magnigy-popup.min.css}">
     <link rel="stylesheet" th:href="@{/assets/css/plugins/plyr.css}">
     <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+    <style>
+    .bgyoda{
+    background-image: url(../images/bg/bbyoda.jpg);
+    }
+    </style>
 </head>
 
 <body>
@@ -941,15 +946,16 @@
                 <div class="col-lg-12">
                     <!-- Start Dashboard Top  -->
                     <div class="rbt-dashboard-content-wrapper">
-                        <div class="tutor-bg-photo bg_image bg_image--22 height-350"></div>
+                        <div class="tutor-bg-photo bg_image bg_image--22 height-350 bgyoda">
+                        </div>
                         <!-- Start Tutor Information  -->
                         <div class="rbt-tutor-information">
                             <div class="rbt-tutor-information-left">
                                 <div class="thumbnail rbt-avatars size-lg">
-                                    <img th:src="@{/assets/images/team/avatar.jpg}" alt="Instructor">
+                                    <img th:src="@{/socialpost/UserPhotoDBGifReader} + '?uId=' + ${ForPhotoUserVO.uId}" alt="">
                                 </div>
                                 <div class="tutor-content">
-                                    <h5 class="title"><span th:text="${uName}"></span></h5>
+                                    <h5 class="title"><span th:text="${ForPhotoUserVO.uName}"></span></h5>
                                     <div class="rbt-review">
                                         <div class="rating">
                                             <i class="fas fa-star"></i>
@@ -964,9 +970,9 @@
                             </div>
                             <div class="rbt-tutor-information-right">
                                 <div class="tutor-btn">
-                                    <a class="rbt-btn btn-md hover-icon-reverse" href="create-course.html">
+                                    <a class="rbt-btn btn-md hover-icon-reverse" href="/socialpost">
                                         <span class="icon-reverse-wrapper">
-                                            <span class="btn-text">Create a New Course</span>
+                                            <a href="/socialpost"><span class="btn-text">切換為學生模式</span></a>
                                             <span class="btn-icon"><i class="feather-arrow-right"></i></span>
                                             <span class="btn-icon"><i class="feather-arrow-right"></i></span>
                                         </span>
@@ -1108,7 +1114,7 @@
                                             </div>
 
                                             <!-- 假裝先寫死 -->
-                                            <input type="hidden" id="uId" value="10002">
+                                             <input type="hidden" id="uId" th:field="${ForPhotoUserVO.uId}"> 
 
 
                                             <!-- 動態生成輪播方案 -->

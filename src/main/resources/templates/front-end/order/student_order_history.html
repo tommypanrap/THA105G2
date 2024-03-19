@@ -37,6 +37,7 @@
           th:href="@{/assets/css/plugins/magnigy-popup.min.css}">
     <link rel="stylesheet" th:href="@{/assets/css/plugins/plyr.css}">
     <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+
     <style>
         .check_od_btn {
             height: 40px;
@@ -78,9 +79,21 @@
 
         }
 
-        #lightbox2 .fade:not(.show){
-            opacity:1;
+        #lightbox2 .fade:not(.show) {
+            opacity: 1;
         }
+
+        .dataTables_filter {
+            margin-bottom: 20px;
+
+        }
+        #headshot {
+            min-height: 120px;
+        }
+        .bg_image--23 {
+            background-image: url("../images/bg/yoda.jpg");
+        }
+    </style>
 
     </style>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -94,7 +107,7 @@
 <body>
 
 <!-- Start Header Area -->
-<div th:insert="front-end/header.html"></div>
+<div th:replace="front-end/header.html"></div>
 <!-- Mobile Menu Section -->
 <div class="popup-mobile-menu">
     <div class="inner-wrapper">
@@ -928,19 +941,18 @@
                     <div class="rbt-tutor-information">
                         <div class="rbt-tutor-information-left">
                             <div class="thumbnail rbt-avatars size-lg">
-                                <img th:src="@{/assets/images/team/avatar-2.jpg}" alt="Instructor">
+                                <img class="userHeadshot" th:data-user-id="${session.uId}" id="headshot" alt="User Headshot">
                             </div>
                             <div class="tutor-content">
-                                <h5 class="title">Emily Hannah</h5>
+                                <h5 class="title" th:text="${session.uNickname}"></h5>
                                 <ul class="rbt-meta rbt-meta-white mt--5">
-                                    <li><i class="feather-book"></i>5 Courses Enroled</li>
-                                    <li><i class="feather-award"></i>4 Certificate</li>
+                                    <li th:text="'已累積了 '+${orderCount}+ ' 筆訂單'"><i class="feather-book"></i></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="rbt-tutor-information-right">
                             <div class="tutor-btn">
-                                <a class="rbt-btn btn-md hover-icon-reverse" href="#"> <span
+                                <a class="rbt-btn btn-md hover-icon-reverse" href="/course/coach_dashboard"> <span
                                         class="icon-reverse-wrapper"> <span class="btn-text">教練模式</span>
 											<span class="btn-icon"><i class="feather-arrow-right"></i></span>
 											<span class="btn-icon"><i class="feather-arrow-right"></i></span>
@@ -956,53 +968,7 @@
                 <div class="row g-5">
                     <div class="col-lg-3">
                         <!-- Start Dashboard Sidebar  -->
-                        <div
-                                class="rbt-default-sidebar sticky-top rbt-shadow-box rbt-gradient-border">
-                            <div class="inner">
-                                <div class="content-item-content">
-
-                                    <div class="rbt-default-sidebar-wrapper">
-                                        <div class="section-title mb--20">
-                                            <h6 class="rbt-title-style-2">Welcome, Jone Due</h6>
-                                        </div>
-                                        <nav class="mainmenu-nav">
-                                            <ul class="dashboard-mainmenu rbt-default-sidebar-list">
-                                                <li><a href="student-dashboard.html"><i
-                                                        class="feather-home"></i><span>Dashboard</span></a></li>
-                                                <li><a href="student-profile.html"><i
-                                                        class="feather-user"></i><span>My Profile</span></a></li>
-                                                <li><a href="student-enrolled-courses.html"><i
-                                                        class="feather-book-open"></i><span>我的課程</span></a></li>
-                                                <li><a href="student-wishlist.html"><i
-                                                        class="feather-bookmark"></i><span>願望清單</span></a></li>
-                                                <li><a href="student-reviews.html"><i
-                                                        class="feather-star"></i><span>我的評論</span></a></li>
-                                                <li><a href="student-my-quiz-attempts.html"><i
-                                                        class="feather-help-circle"></i><span>我的問答</span></a></li>
-                                                <li><a th:href="@{/order/order_history}"><i
-                                                        class="feather-shopping-bag"></i><span>歷史訂單</span></a></li>
-                                                <li><a href="student-gift-history.html"><i
-                                                        class="feather-shopping-bag"></i><span>收禮紀錄</span></a></li>
-                                            </ul>
-                                        </nav>
-
-                                        <div class="section-title mt--40 mb--20">
-                                            <h6 class="rbt-title-style-2">User</h6>
-                                        </div>
-
-                                        <nav class="mainmenu-nav">
-                                            <ul class="dashboard-mainmenu rbt-default-sidebar-list">
-                                                <li><a href="student-settings.html"><i
-                                                        class="feather-settings"></i><span>設定</span></a></li>
-                                                <li><a href="index.html"><i
-                                                        class="feather-log-out"></i><span>登出</span></a></li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
+                        <div th:replace="front-end/member_sidebar"></div>
                         <!-- End Dashboard Sidebar  -->
                     </div>
 
@@ -1038,7 +1004,7 @@
                                                 <th class="odId" th:text="${orderVO.odId}"></th>
                                                 <td th:text="${#dates.format(orderVO.odCreateDate, 'yyyy-MM-dd HH:mm')}"></td>
                                                 <td th:text="${orderVO.odPrice}"></td>
-<!--                                                <td th:text="${orderVO.odStatus}"></td>-->
+                                                <!--                                                <td th:text="${orderVO.odStatus}"></td>-->
                                                 <td>
                                                     <span th:if="${orderVO.odStatus == 1}">訂單已完成</span>
                                                     <span th:if="${orderVO.odStatus == 2}">訂單失敗</span>
@@ -1054,7 +1020,7 @@
                                 </div>
 
                                 <div id="lightbox2" style="display: none;">
-                                    <div class="tab-pane fade" id="lightbox2-content2" role="tabpanel" >
+                                    <div class="tab-pane fade" id="lightbox2-content2" role="tabpanel">
                                         <div class="rbt-my-account-inner">
                                             <h3>訂單明細</h3>
 
@@ -1069,41 +1035,13 @@
                                                     </thead>
 
                                                     <tbody class="detailBody">
-<!--                                                    <tr>-->
-<!--                                                        <td>1</td>-->
-<!--                                                        <td>Miracle Morning</td>-->
-<!--                                                        <td>Janu 22, 2023</td>-->
-<!--                                                        <td>Pending</td>-->
-<!--                                                        <td>$45</td>-->
-<!--                                                        <td>-->
-<!--                                                            <a class="rbt-btn btn-gradient btn-sm" href="#">View-->
-<!--                                                                Details</a>-->
-<!--                                                        </td>-->
-<!--                                                    </tr>-->
+
 
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <!--                                    <div id="lightbox2" style="display: none;">-->
-                                    <!--                                        <table id="lightbox2-content2">-->
-                                    <!--                                            <thead>-->
-                                    <!--                                            <tr>-->
-                                    <!--                                                <th>課程圖片</th>-->
-                                    <!--                                                <th>課程名稱</th>-->
-                                    <!--                                                <th>價格</th>-->
-                                    <!--                                            </tr>-->
-                                    <!--                                            </thead>-->
-                                    <!--                                            <tbody class="detailBody">-->
-                                    <!--                                            <tr>-->
-                                    <!--                                                <th><img src="" alt=""/></th>-->
-                                    <!--                                                <td>${detail.crId}</td>-->
-                                    <!--                                                <td>${detail.cdPrice}</td>-->
-                                    <!--                                            </tr>-->
-                                    <!--                                            </tbody>-->
-                                    <!--                                        </table>-->
 
 
                                 </div>
@@ -1169,6 +1107,8 @@
 <script th:src="@{/assets/js/vendor/plyr.js}"></script>
 <!-- Main JS -->
 <script th:src="@{/assets/js/main.js}"></script>
+
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         var table = document.getElementById('order_history_table');
@@ -1187,7 +1127,8 @@
                 "infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
                 "infoFiltered": "(從 _MAX_ 筆結果中過濾)",
                 "infoPostFix": "",
-                "search": "搜尋:",
+                "search": "",
+                "searchPlaceholder": "請輸入想搜尋的訂單",
                 "paginate": {
                     "first": "第一頁",
                     "previous": "上一頁",
@@ -1200,13 +1141,18 @@
                 }
             }
         });
+        $('#searchInput').on('input', function () {
+            let searchText = $(this).val().trim();
+            console.log('draw')
+            dataTable.search(searchText).draw();
+        });
+
     });
 
 
     $('.check_od_btn').click(function (e) {
-        console.log('click button')
+        // 取消預設動作
         e.preventDefault();
-
         let odId_el = $(this).closest('tr').find('.odId');
         let odId = parseInt($(odId_el).text());
 
@@ -1217,25 +1163,60 @@
                 }
                 console.log('success');
                 return res.json();
-            }).then(data => {
-            console.log(data)
-            let lightbox2Content = '';
+            }).then(details => {
+            let fetchPromises = details.map(detail => {
+                // 讀取圖片
+                return fetch('/cr_cover/course_image', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({cr_id: detail.crId}),
+                }).then(response => {
+                        if (response.status === 404){
+                            return `
+                        <tr>
+                            <td><img src="/assets/images/client/avatar-02.png" alt="Course Cover" style="max-height: 50px"/></td>
+                            <td>${detail.crTitle}</td>
+                            <td>${detail.cdPrice}</td>
+                        </tr>
+                    `;
+                        }
+                        if (!response.ok) {
 
-            data.forEach(detail => {
-                lightbox2Content += `
-                <tr>
-                    <td><img src="" alt=""/></td>
-                    <td>${detail.crId}</td>
-                    <td>${detail.cdPrice}</td>
-                </tr>
-                `;
+                            throw new Error('Failed to fetch course image');
+                        }
+                        return response.blob();
+                    })
+                    .then(blob => {
+                        // 如果 404 直接使用預設圖
+                        if (typeof blob === 'string') {
+                            // 如果是字串代表找不到圖片
+                            return blob;
+                        }
+                        // 如果有圖片則轉為URL
+                        let image_cover = URL.createObjectURL(blob);
+                        return `
+                        <tr>
+                            <td><img src="${image_cover}" alt="Course Cover" style="max-height: 50px"/></td>
+                            <td>${detail.crTitle}</td>
+                            <td>${detail.cdPrice}</td>
+                        </tr>
+                    `;
+                    });
+            });
 
+            Promise.all(fetchPromises).then(contents => {
+                let lightbox2Content = contents.join('');
+                $('.detailBody').html(lightbox2Content);
+
+
+                $('#lightbox2').show();
+                $('body').css('overflow', 'hidden');
+            }).catch(err => {
+                console.error("err:", err);
             })
-            $('.detailBody').html(lightbox2Content);
 
-
-            $('#lightbox2').show();
-            $('body').css('overflow', 'hidden');
         })
 
         // let details = $(odId_el).data('order-detail');
@@ -1251,6 +1232,39 @@
 
     });
 
+    //userRestController getUserHeadshot
+    $(document).ready(function () {
+        let userIdList = [];
+
+        $('.userHeadshot').each(function () {
+            let data = $(this).data('user-id');
+
+            // fetch 可以直接處理二進制資料(如blob)
+            fetch('/user_api/user_headshot_test', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({u_id: data}),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('response error');
+                    }
+                    return response.blob();
+                })
+                .then(blob => {
+                    let image_Url = URL.createObjectURL(blob);
+                    ;
+                    let this_e = $(this);
+                    $(this).attr('src', image_Url);
+                })
+                .catch(error => {
+                    console.error('找不到user image:', error);
+                    $(this).attr('src', '/assets/images/client/avatar-02.png');
+                });
+        });
+    });
 </script>
 </body>
 

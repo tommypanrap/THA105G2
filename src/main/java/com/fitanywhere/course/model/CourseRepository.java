@@ -4,7 +4,11 @@ package com.fitanywhere.course.model;
 
 import java.util.List;
 
-import javax.persistence.NamedNativeQuery;import org.springframework.data.jpa.repository.JpaRepository;
+import javax.persistence.NamedNativeQuery;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -45,5 +49,8 @@ public interface CourseRepository extends JpaRepository<CourseVO, Integer> {
 	// uId找課程
 	@Query(value = "SELECT * FROM course WHERE u_id = ?1", nativeQuery = true)
 	List<CourseVO> getCourseByUId(Integer uId); 
+	
+	@Query("SELECT c FROM CourseVO c")
+	Page<CourseVO> findSixCourses(Pageable pageable);
 	
     }

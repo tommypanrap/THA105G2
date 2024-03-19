@@ -249,8 +249,8 @@ public class ForumPostController {
 	
 	private boolean isUserLoggedIn(HttpSession session) {
 	    // 檢查會話中是否存在用戶ID，如果存在則認為用戶已登入
-	    Integer userId = (Integer) session.getAttribute("userId");
-	    return userId != null;
+	    Integer uId = (Integer) session.getAttribute("uId");
+	    return uId != null;
 	}
 	
 	// 根據文章分類獲取預設圖片

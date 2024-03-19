@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -78,5 +79,18 @@ public class BaseRestController {
 			return "Not logged in!"; // 若未登入則返回未登入文字
 		}
 	}
+	
+	// Tommy header user 渲染
+//	@ModelAttribute("sessionHeaderUId")
+//	public String sessionHeaderUId(HttpServletRequest request) {
+//		HttpSession session = request.getSession(false); // 讀取Session並禁止發新Session
+//
+//		if (session != null && session.getAttribute("loginStatus") != null) {
+//			return (String) session.getAttribute("uNickname"); // 若有登入則返回會員暱稱
+//		} else {
+//			return "Not logged in!"; // 若未登入則返回未登入文字
+//		}
+//	}
+	
 
 }

@@ -197,30 +197,15 @@ public class UserRestController {
 
 // ===================================================================		
 	// 登入-依據會員輸入的信箱檢查此帳戶是否存在
-	@PostMapping("/find_account_by_mail")
-	public int checkAccountbyMail(@RequestBody Map<String, String> requestBody) {
-		String uMail = requestBody.get("u_email");
-		boolean isUserExist = userService.isEmailRegistered(uMail);
-		int uStatus = userService.userStatusCheck(uMail);
-		if (isUserExist) {
-			switch (uStatus) {
-			// 前端檢查帳號使否允許登入
-			case 0:
-				return 0;
-			case 1:
-				return 0;
-			case 2:
-				return 2;
-			case 3:
-				return 3;
-			default:
-				return 1;
-			}
-		} else {
-			// 會員不存在
-			return 1;
-		}
-	}
+	 @PostMapping("/find_account_by_mail")
+	 public int checkAccountbyMail(@RequestBody Map<String, String> requestBody) {
+	  String uMail = requestBody.get("u_email");
+	  boolean isUserExist = userService.isEmailRegistered(uMail);
+	  if (!isUserExist) {
+	   return 1; // 會員不存在
+	  } 
+	  return userService.userStatusCheck(uMail); // 依據uStatus返回不同狀態 
+	 }
 
 	// 登入-處理會員的登入，並在登入後重發Session並寫入常用資料
 	@PostMapping("/process_user_login")

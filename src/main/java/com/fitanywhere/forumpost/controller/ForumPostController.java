@@ -146,7 +146,7 @@ public class ForumPostController {
 	    if (!uId.equals(forumPostVO.getUserVO().getuId())) {
 	        // 如果用戶不是貼文的作者，返回錯誤提示
 	        model.addAttribute("error", "您無權修改此貼文");
-	        return "front-end/error";
+	        return "front-end/forumpost/error";
 	    }
 
 	    // 3. 將貼文資料添加到模型中並轉交頁面
@@ -211,7 +211,7 @@ public class ForumPostController {
 	    if (!uId.equals(forumPostVO.getUserVO().getuId())) {
 	        // 如果用戶不是貼文的作者，返回錯誤提示
 	        model.addAttribute("error", "只有貼文作者才能刪除貼文");
-	        return "front-end/error";
+	        return "front-end/forumpost/error";
 	    }
 
 	    // 執行刪除操作
@@ -249,8 +249,8 @@ public class ForumPostController {
 	
 	private boolean isUserLoggedIn(HttpSession session) {
 	    // 檢查會話中是否存在用戶ID，如果存在則認為用戶已登入
-	    Integer userId = (Integer) session.getAttribute("userId");
-	    return userId != null;
+	    Integer uId = (Integer) session.getAttribute("uId");
+	    return uId != null;
 	}
 	
 	// 根據文章分類獲取預設圖片

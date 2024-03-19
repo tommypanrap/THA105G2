@@ -3,20 +3,19 @@
 <meta charset="UTF-8">
 <head th:insert="~{/front-end/included-head}"></head>
 <head>
-	<style>
-	.body-index .chat-select-row{
-		flex-wrap:wrap;
-	}
-	
-	.chat-card{
-		margin-bottom:20px;
-	}
-	
-	.chat-img{
-		background-color:transparent;
-	}	
-	
-	</style>
+<style>
+.body-index .chat-select-row {
+	flex-wrap: wrap;
+}
+
+.chat-card {
+	margin-bottom: 20px;
+}
+
+.chat-img {
+	background-color: transparent;
+}
+</style>
 
 
 </head>
@@ -24,7 +23,7 @@
 <body class="rbt-header-sticky body-index">
 	<div th:insert="front-end/header.html"></div>
 	<div th:replace="front-end/header_moblie.html"></div>
-	
+
 
 	<!-- 廣告輪播 課程 -->
 	<!-- 要把jquery的物件可能要塞回來 -->
@@ -57,8 +56,8 @@
 	<!-- 近期熱門課程 標題-->
 
 
-		<a class="coach_index" th:href="@{course/coach_dashboard}"
-			style="text-align: center; justify-content: center">教練主頁入口 暫時 之後要刪掉</a>
+	<!-- 		<a class="coach_index" th:href="@{course/coach_dashboard}" -->
+	<!-- 			style="text-align: center; justify-content: center">教練主頁入口 暫時 之後要刪掉</a> -->
 
 
 	<!-- 近期熱門課程 結束-->
@@ -88,17 +87,33 @@
 							<a href="single-product.html" th:text="${courseVO.crTitle}">魔鬼有氧2</a>
 						</h2>
 
-						<span class="team-form" > <span class="location" th:text="${courseVO.userVO.uNickname}">By
-								吳永志</span>
+						<span class="team-form"> <span class="location"
+							th:text="${courseVO.userVO.uNickname}">By 吳永志</span>
 						</span>
 					</div>
 					<div class="thumbnail">
-						<a href="single-product.html"><img th:if="${courseVO.base64CrCover != null}"
-                                             th:src="'data:image/jpeg;base64,' + ${courseVO.base64CrCover}"
-                                             alt="Card image"></a>
+						<a href="single-product.html"><img
+							th:if="${courseVO.base64CrCover != null}"
+							th:src="'data:image/jpeg;base64,' + ${courseVO.base64CrCover}"
+							alt="Card image"></a>
 					</div>
 					<div class="content">
+					
+						<div class="rbt-author-meta mb--10">
+							<div class="rbt-avater">
+								<a href="/course_details_2"> <img
+									class="userHeadshot" 
+									
+									alt="Coach Image"> 
+									<!--   <img th:src="@{/assets/images/client/avatar-02.png}"-->
+								</a>
+							</div>
+							<div class="rbt-author-info">
 
+								By <span th:text="${courseVO.userVO.uNickname}"></span>
+							</div>
+						</div>
+						
 						<div class="rbt-review justify-content-center">
 							<div class="rating">
 								<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
@@ -108,8 +123,10 @@
 							<span class="rating-count">台灣第一健身強人，科學化鍛鍊全書</span>
 						</div>
 						<div class="rbt-price justify-content-center mt--10">
-							<span class="current-price theme-gradient" th:text="${courseVO.crPrice}">$60.50</span> <span
-								class="off-price" >$110.50</span>
+							<span class="current-price theme-gradient"
+								th:text=" 'NT$' + ${courseVO.crPrice}">$60.50</span>
+							<!-- 							 <span -->
+							<!-- 								class="off-price" >$110.50</span> -->
 						</div>
 
 					</div>
@@ -119,7 +136,7 @@
 		</div>
 
 
-	
+
 	</div>
 	<!-- End Feature Box  -->
 	</div>
@@ -146,7 +163,7 @@
 						<img src="./@{/images/calander.png" alt="">
 						<p th:text="${forumPostVO.fpTime}">2023/12/26</p>
 						<img src="./@{/images/eye.png" alt="">
-<!-- 						<p >2,580</p> -->
+						<!-- 						<p >2,580</p> -->
 					</div>
 					<div class="title-2">
 						<h2 th:text="${forumPostVO.fpTitle}">歐美超模的秘密：給零基礎的第一堂芭蕾雕塑</h2>
@@ -156,77 +173,76 @@
 					</div>
 				</div>
 				<div class="chat-img">
-					<img
-								th:src="@{/forumpost/DBGifReader(fpId=${forumPostVO.fpId})}"
-								alt="Card image">
+					<img th:src="@{/forumpost/DBGifReader(fpId=${forumPostVO.fpId})}"
+						alt="Card image">
 				</div>
 			</div>
-<!-- 			<div class="chat-card"> -->
-<!-- 				<div class="chat-card-word"> -->
-<!-- 					<div class="title-1"> -->
-<!-- 						<i class="feather-user"></i> -->
-<!-- 						<p>Joy老師</p> -->
-<!-- 						<img src="./@{/images/calander.png" alt=""> -->
-<!-- 						<p>2023/12/26</p> -->
-<!-- 						<img src="./@{/images/eye.png" alt=""> -->
-<!-- 						<p>2,580</p> -->
-<!-- 					</div> -->
-<!-- 					<div class="title-2"> -->
-<!-- 						<h2>歐美超模的秘密：給零基礎的第一堂芭蕾雕塑</h2> -->
-<!-- 					</div> -->
-<!-- 					<div class="title-3"> -->
-<!-- 						<p>奧黛麗赫本曾經說過：優美的姿態，來源於與知識同行而不是獨行。</p> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 				<div class="chat-img"> -->
-<!-- 					<img src="" alt=""> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
+			<!-- 			<div class="chat-card"> -->
+			<!-- 				<div class="chat-card-word"> -->
+			<!-- 					<div class="title-1"> -->
+			<!-- 						<i class="feather-user"></i> -->
+			<!-- 						<p>Joy老師</p> -->
+			<!-- 						<img src="./@{/images/calander.png" alt=""> -->
+			<!-- 						<p>2023/12/26</p> -->
+			<!-- 						<img src="./@{/images/eye.png" alt=""> -->
+			<!-- 						<p>2,580</p> -->
+			<!-- 					</div> -->
+			<!-- 					<div class="title-2"> -->
+			<!-- 						<h2>歐美超模的秘密：給零基礎的第一堂芭蕾雕塑</h2> -->
+			<!-- 					</div> -->
+			<!-- 					<div class="title-3"> -->
+			<!-- 						<p>奧黛麗赫本曾經說過：優美的姿態，來源於與知識同行而不是獨行。</p> -->
+			<!-- 					</div> -->
+			<!-- 				</div> -->
+			<!-- 				<div class="chat-img"> -->
+			<!-- 					<img src="" alt=""> -->
+			<!-- 				</div> -->
+			<!-- 			</div> -->
 		</div>
-<!-- 		<div class="chat-select-row"> -->
-<!-- 			<div class="chat-card"> -->
-<!-- 				<div class="chat-card-word"> -->
-<!-- 					<div class="title-1"> -->
-<!-- 						<i class="feather-user"></i> -->
-<!-- 						<p>Joy老師</p> -->
-<!-- 						<img src="./@{/images/calander.png" alt=""> -->
-<!-- 						<p>2023/12/26</p> -->
-<!-- 						<img src="./@{/images/eye.png" alt=""> -->
-<!-- 						<p>2,580</p> -->
-<!-- 					</div> -->
-<!-- 					<div class="title-2"> -->
-<!-- 						<h2>歐美超模的秘密：給零基礎的第一堂芭蕾雕塑</h2> -->
-<!-- 					</div> -->
-<!-- 					<div class="title-3"> -->
-<!-- 						<p>奧黛麗赫本曾經說過：優美的姿態，來源於與知識同行而不是獨行。</p> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 				<div class="chat-img"> -->
-<!-- 					<img src="" alt=""> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 			<div class="chat-card"> -->
-<!-- 				<div class="chat-card-word"> -->
-<!-- 					<div class="title-1"> -->
-<!-- 						<i class="feather-user"></i> -->
-<!-- 						<p>Joy老師</p> -->
-<!-- 						<img src="./@{/images/calander.png" alt=""> -->
-<!-- 						<p>2023/12/26</p> -->
-<!-- 						<img src="./@{/images/eye.png" alt=""> -->
-<!-- 						<p>2,580</p> -->
-<!-- 					</div> -->
-<!-- 					<div class="title-2"> -->
-<!-- 						<h2>歐美超模的秘密：給零基礎的第一堂芭蕾雕塑</h2> -->
-<!-- 					</div> -->
-<!-- 					<div class="title-3"> -->
-<!-- 						<p>奧黛麗赫本曾經說過：優美的姿態，來源於與知識同行而不是獨行。</p> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 				<div class="chat-img"> -->
-<!-- 					<img src="" alt=""> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
+		<!-- 		<div class="chat-select-row"> -->
+		<!-- 			<div class="chat-card"> -->
+		<!-- 				<div class="chat-card-word"> -->
+		<!-- 					<div class="title-1"> -->
+		<!-- 						<i class="feather-user"></i> -->
+		<!-- 						<p>Joy老師</p> -->
+		<!-- 						<img src="./@{/images/calander.png" alt=""> -->
+		<!-- 						<p>2023/12/26</p> -->
+		<!-- 						<img src="./@{/images/eye.png" alt=""> -->
+		<!-- 						<p>2,580</p> -->
+		<!-- 					</div> -->
+		<!-- 					<div class="title-2"> -->
+		<!-- 						<h2>歐美超模的秘密：給零基礎的第一堂芭蕾雕塑</h2> -->
+		<!-- 					</div> -->
+		<!-- 					<div class="title-3"> -->
+		<!-- 						<p>奧黛麗赫本曾經說過：優美的姿態，來源於與知識同行而不是獨行。</p> -->
+		<!-- 					</div> -->
+		<!-- 				</div> -->
+		<!-- 				<div class="chat-img"> -->
+		<!-- 					<img src="" alt=""> -->
+		<!-- 				</div> -->
+		<!-- 			</div> -->
+		<!-- 			<div class="chat-card"> -->
+		<!-- 				<div class="chat-card-word"> -->
+		<!-- 					<div class="title-1"> -->
+		<!-- 						<i class="feather-user"></i> -->
+		<!-- 						<p>Joy老師</p> -->
+		<!-- 						<img src="./@{/images/calander.png" alt=""> -->
+		<!-- 						<p>2023/12/26</p> -->
+		<!-- 						<img src="./@{/images/eye.png" alt=""> -->
+		<!-- 						<p>2,580</p> -->
+		<!-- 					</div> -->
+		<!-- 					<div class="title-2"> -->
+		<!-- 						<h2>歐美超模的秘密：給零基礎的第一堂芭蕾雕塑</h2> -->
+		<!-- 					</div> -->
+		<!-- 					<div class="title-3"> -->
+		<!-- 						<p>奧黛麗赫本曾經說過：優美的姿態，來源於與知識同行而不是獨行。</p> -->
+		<!-- 					</div> -->
+		<!-- 				</div> -->
+		<!-- 				<div class="chat-img"> -->
+		<!-- 					<img src="" alt=""> -->
+		<!-- 				</div> -->
+		<!-- 			</div> -->
+		<!-- 		</div> -->
 	</div>
 
 	<!-- Start Feature List Area  可用在 探索課程-->

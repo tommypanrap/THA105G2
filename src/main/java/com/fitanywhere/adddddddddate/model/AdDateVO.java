@@ -1,4 +1,4 @@
-package com.fitanywhere.adDate.model;
+package com.fitanywhere.adddddddddate.model;
 
 import java.sql.Date;
 import java.util.Objects;

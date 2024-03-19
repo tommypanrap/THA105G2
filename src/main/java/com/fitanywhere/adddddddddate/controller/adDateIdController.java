@@ -1,4 +1,4 @@
-package com.fitanywhere.adDate.controller;
+package com.fitanywhere.adddddddddate.controller;
 
 import java.util.List;
 import java.util.Set;
@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fitanywhere.ad.model.AdService;
-import com.fitanywhere.adDate.model.AdDateService;
-import com.fitanywhere.adDate.model.AdDateVO;
+import com.fitanywhere.adddddddddate.model.AdDateService;
+import com.fitanywhere.adddddddddate.model.AdDateVO;
 
 
 

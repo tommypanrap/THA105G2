@@ -1,6 +1,6 @@
 // https://docs.spring.io/spring-data/jpa/docs/current/reference/html/
 
-package com.fitanywhere.adDate.model;
+package com.fitanywhere.adddddddddate.model;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

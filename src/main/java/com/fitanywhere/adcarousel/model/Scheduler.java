@@ -19,7 +19,7 @@ public class Scheduler {
 	}
 
 	// 每天凌晨0點執行
-	@Scheduled(cron = "0 0 * * * *")
+	@Scheduled(cron = "0 0 0 * * *")
 	public void updateAdCarouselStatus() {
 		System.out.println("執行廣告狀態更新: " + LocalDateTime.now());
 		adCarouselRepository.updateAdCarouselOrderStatusDirectly();

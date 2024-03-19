@@ -1,180 +1,427 @@
 <!DOCTYPE html>
 <html lang="en">
-<head th:insert="~{/back-end/backend_included_head}"></head>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fitanywhere 訂單管理系統</title>
+    <!--<head th:insert="~{/back-end/backend_included_head}">-->
+    <link rel="stylesheet" th:href="@{/css/backend/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/backend/style.css}">
+    <link rel="stylesheet" th:href="@{/css/backend/backstage_user.css}">
+    <link rel="stylesheet" th:href="@{/css/backend/backstage_social.css}">
+    <link rel="stylesheet" th:href="@{/css/backend/backstage_receive_opinion.css}">
+<!--    <link rel="stylesheet" th:href="@{/css/backend/backstage_news.css}">-->
+    <link rel="stylesheet" th:href="@{/css/backend/backstage_manage_course.css}">
+<!--    <link rel="stylesheet" th:href="@{/css/backend/backstage_manage_course_order.css}">-->
+<!--    <link rel="stylesheet" th:href="@{/css/backend/backstage-ad.css}">-->
+<!--    <link rel="stylesheet" th:href="@{/css/backend/backstage_ad_list.css}">-->
+    <!--    <link th:href="@{/back-end/backend_included_head}" rel="stylesheet" type="text/css"/>-->
+    <!-- DataTables CSS -->
+<!--    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+<!--    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css">-->
+
+    <style>
+        table {
+            width: 100%;
+        }
+
+        th:first-child, td:first-child {
+            width: 30px;
+        }
+
+        .odId {
+            background-color: #8597e0;
+            color: black;
+        }
+
+
+
+        .check_od_btn {
+            height: 40px;
+            font-size: 14px;
+            padding: 0 15px;
+            line-height: 40px;
+
+        }
+
+        .datatable_list {
+            word-wrap: break-word;
+        }
+
+        #lightbox2 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: hsla(0, 0%, 0%, .5);
+
+            z-index: 10;
+        }
+
+        #lightbox2-content2 {
+            background-color: white;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 10px;
+            box-shadow: hsla(0, 0%, 0%, .5);
+            padding: 10px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            padding: 50px 0;
+
+
+        }
+
+        #lightbox2 .fade:not(.show) {
+            opacity: 1;
+        }
+
+        .dataTables_filter {
+            margin-bottom: 20px;
+
+        }
+
+        #headshot {
+            min-height: 120px;
+        }
+
+        .status-span {
+            cursor: pointer;
+        }
+        .content{
+            padding-top: 0px;
+            padding: 30px;
+        }
+        .content h1{
+            margin-left: 30px;
+        }
+        table.dataTable thead>tr>th.sorting{
+            text-align: center;
+        }
+        table.dataTable tbody tr:hover {
+            background-color: #b6d4fe !important;
+        }
+
+    </style>
+
+
+</head>
 <body>
-    <!-- header -->
-    <div class="header_wrapper">
-        <header>
-            <p class="f-b-title">FitAnyWhere後台管理系統</p>
-            <div class="manager">
-                <img src="./images/member.png" alt="">
-                <p>最高管理員</p>
-            </div>
-        </header>
-    </div>
 
-    <div class="wrapper">
-         <div th:replace="~{/back-end/backend_included_sidebar}"></div>
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- DataTables JS -->
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 
-        <!-- 內容 -->
-        <div class="content">
-            <h1>課程訂單管理</h1>
 
-            <div class="input-wrapper">
-                <div class="magnifier-container mr-input">
-                    <input type="text" placeholder="訂單號碼搜尋" class="input-2">
-                    <img th:src="@{/images/magnifier.png}" alt="" class="magnifier">
-                </div>
-
-                <div class="magnifier-container mr-input">
-                    <input type="text" placeholder="搜尋購買人" class="input-2">
-                    <img src="images/magnifier.png" alt="" class="magnifier">
-                </div>
-
-                <select name="" id="" class="mr-input">
-                    <option value="" style="display:none">訂單狀態</option>
-                    <option value="">訂單完成</option>
-                    <option value="">訂單不成立</option>
-                    <option value="" >訂單待付款</option>
-                </select>
-
-                <select name="" id="">
-                    <option value="" style="display:none">訂單金額</option>
-                    <option value="">金額由大至小</option>
-                    <option value="">金額由小至大</option>
-                </select>
-            </div>
-            <ul class="row rhead">
-                <li>課程訂單號碼</li>
-                <li>購買人</li>
-                <li>交易狀態</li>
-                <li>訂單總金額</li>
-                <li>查看</li>
-            </ul>
-
-            <ul class="row">
-                <li>100001</li>
-                <li>大吳</li>
-                <li>訂單完成</li>
-                <li>1200</li>
-                <li class="content-expand"><img src="images/eye2.png" alt=""></li>
-            </ul>
-            <div class="check-content order-detail hidden">
-                <ul class="order-rhead">
-                    <li class="col-15">課程名稱</li>
-                    <li class="col-15">金額</li>
-                    <li class="col-15">贈送狀態</li>
-                    <li class="col-30">贈送備註</li>
-                </ul>
-
-                <ul>
-                    <li class="col-15">30天健身健身</li>
-                    <li class="col-15">600</li>
-                    <li class="col-15">自己使用</li>
-                    <li class="col-30"></li>
-                </ul>
-
-                <ul>
-                    <li class="col-15">15天健身</li>
-                    <li class="col-15">600</li>
-                    <li class="col-15">贈送給小吳</li>
-                    <li class="col-30">小吳，去健身一下，練一練去電學生</li>
-                </ul>
-            </div>
-           
-            <ul class="row">
-                <li>100001</li>
-                <li>大吳</li>
-                <li>訂單完成</li>
-                <li>1200</li>
-                <li class="content-expand"><img src="images/eye2.png" alt=""></li>
-            </ul>
-            <div class="check-content order-detail hidden">
-                <ul class="order-rhead">
-                    <li class="col-15">課程名稱</li>
-                    <li class="col-15">金額</li>
-                    <li class="col-15">贈送狀態</li>
-                    <li class="col-30">贈送備註</li>
-                </ul>
-
-                <ul>
-                    <li class="col-15">30天健身健身</li>
-                    <li class="col-15">600</li>
-                    <li class="col-15">自己使用</li>
-                    <li class="col-30"></li>
-                </ul>
-
-                <ul>
-                    <li class="col-15">15天健身</li>
-                    <li class="col-15">600</li>
-                    <li class="col-15">贈送給小吳</li>
-                    <li class="col-30">小吳，去健身一下，練一練去電學生</li>
-                </ul>
-            </div>
-
-            <ul class="row">
-                <li>100001</li>
-                <li>大吳</li>
-                <li>訂單完成</li>
-                <li>1200</li>
-                <li class="content-expand"><img src="images/eye2.png" alt=""></li>
-            </ul>
-            <div class="check-content order-detail hidden">
-                <ul class="order-rhead">
-                    <li class="col-15">課程名稱</li>
-                    <li class="col-15">金額</li>
-                    <li class="col-15">贈送狀態</li>
-                    <li class="col-30">贈送備註</li>
-                </ul>
-
-                <ul>
-                    <li class="col-15">30天健身健身</li>
-                    <li class="col-15">600</li>
-                    <li class="col-15">自己使用</li>
-                    <li class="col-30"></li>
-                </ul>
-
-                <ul>
-                    <li class="col-15">15天健身</li>
-                    <li class="col-15">600</li>
-                    <li class="col-15">贈送給小吳</li>
-                    <li class="col-30">小吳，去健身一下，練一練去電學生</li>
-                </ul>
-            </div>
-            
+<!-- header -->
+<div class="header_wrapper">
+    <header>
+        <p class="f-b-title">FitAnyWhere後台管理系統</p>
+        <div class="manager">
+            <img src="./images/member.png" alt="">
+            <p>最高管理員</p>
         </div>
+    </header>
+</div>
+<div class="wrapper">
+    <div th:replace="~{/back-end/backend_included_sidebar}"></div>
+
+
+    <!-- 內容 -->
+    <div class="content">
+        <h1>課程訂單管理</h1>
+
+
+        <!------------------------------------------------------------------------>
+
+
+        <div class="col-lg-9">
+            <!-- Start Enrole Course  -->
+            <div class="rbt-dashboard-content bg-color-white rbt-shadow-box">
+                <div class="content">
+                    <!--                    <div class="section-title">-->
+                    <!--                        <h4 class="rbt-title-style-3">歷史訂單</h4>-->
+                    <!--                    </div>-->
+
+                    <div
+                            class="rbt-dashboard-table table-responsive mobile-table-750">
+                        <table class="rbt-table table table-borderless datatable_list backstage_table"
+                               id="order_table">
+                            <thead>
+                            <tr>
+                                <th>訂單編號</th>
+                                <!--											<th>課程名稱</th>-->
+                                <!-- <th>訂單創立時間</th> -->
+                                <th>訂單成立時間</th>
+                                <th>訂單狀態</th>
+                                <th style="width: 90px">訂單總金額</th>
+                                <th>購買者ID</th>
+                                <th>訂單詳情</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+
+                            <th:block th:each="orderVO : ${allOrders}">
+
+                                <tr  style="text-align: center;">
+                                    <th class="odId" th:data-od-id="${orderVO.odId}" th:text="${orderVO.odId}"></th>
+                                    <td th:text="${#dates.format(orderVO.odCreateDate, 'yyyy-MM-dd HH:mm')}"></td>
+
+                                    <!--                                                <td th:text="${orderVO.odStatus}"></td>-->
+                                    <td>
+                                        <span class="status-span" th:data-od-status="${orderVO.odStatus}">
+
+
+                                        <span th:switch="${orderVO.odStatus}">
+                                            <span th:case="1">訂單已完成</span>
+                                            <span th:case="2">訂單失敗</span>
+                                            <span th:case="3">訂單處理中</span>
+                                        </span>
+
+                                        </span>
+                                        <select class="status-select" style="display: none;">
+                                            <option value="1">訂單已完成</option>
+                                            <option value="2">訂單失敗</option>
+                                            <option value="3">訂單處理中</option>
+                                        </select>
+                                    </td>
+                                    <td th:text="${orderVO.odPrice}"></td>
+                                    <td th:text="${orderVO.uId}"></td>
+                                    <td><a class="rbt-btn check_od_btn" href="#">查看</a></td>
+                                </tr>
+
+                            </th:block>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!--        Details            -->
+                    <div id="lightbox2" style="display: none;">
+                        <div class="tab-pane fade" id="lightbox2-content2" role="tabpanel">
+                            <div class="rbt-my-account-inner">
+                                <h3>訂單明細</h3>
+
+                                <div class="rbt-my-account-table table-responsive text-center">
+                                    <table class="table table-bordered">
+                                        <thead class="thead-light">
+                                        <tr>
+                                            <th>課程圖片</th>
+                                            <th>課程名稱</th>
+                                            <th>價格</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody class="detailBody">
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </div>
 
-
-    <div class="footer_wrapper">
-        <footer>
-            <p class="f-b-title">FitAnyWhere Backstage</p>
-        </footer>
-    </div>
-
-    <script>
-    var expandButtons = document.querySelectorAll('.content-expand');
-    var contentSections = document.querySelectorAll('.check-content');
+</div>
 
 
-    expandButtons.forEach(function (button, index) {
-        button.addEventListener('click', function () {
+<div class="footer_wrapper">
+    <footer>
+        <p class="f-b-title">FitAnyWhere Backstage</p>
+    </footer>
+</div>
+<!-- JS
+============================================ -->
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<!-- ●●js  for jquery datatables 用 -->
+<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<!-- ●●js  for jquery datatables 用 -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.jqueryui.min.css"/>
 
-            if(contentSections[index].classList.contains('hidden')){
-                
-                contentSections.forEach(function (content) {
-                 content.classList.add('hidden');
-                });
-            
-                contentSections[index].classList.remove('hidden');
-            }else{
-                contentSections[index].classList.add('hidden');
+
+<script>
+    $('.check_od_btn').click(function (e) {
+        // 取消預設動作
+        e.preventDefault();
+        let odId_el = $(this).closest('tr').find('.odId');
+        let odId = parseInt($(odId_el).text());
+
+        fetch(`/detail/details/${odId}`)
+            .then(res => {
+                if (!res.ok) {
+                    console.log('error')
+                }
+                console.log('success');
+                return res.json();
+            }).then(details => {
+            let fetchPromises = details.map(detail => {
+                // 讀取圖片
+                return fetch('/cr_cover/course_image', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({cr_id: detail.crId}),
+                }).then(response => {
+                    if (response.status === 404) {
+                        return `
+                        <tr>
+                            <td><img src="/assets/images/client/avatar-02.png" alt="Course Cover" style="max-height: 50px"/></td>
+                            <td>${detail.crTitle}</td>
+                            <td>${detail.cdPrice}</td>
+                        </tr>
+                    `;
+                    }
+                    if (!response.ok) {
+
+                        throw new Error('Failed to fetch course image');
+                    }
+                    return response.blob();
+                })
+                    .then(blob => {
+                        // 如果 404 直接使用預設圖
+                        if (typeof blob === 'string') {
+                            // 如果是字串代表找不到圖片
+                            return blob;
+                        }
+                        // 如果有圖片則轉為URL
+                        let image_cover = URL.createObjectURL(blob);
+                        return `
+                        <tr>
+                            <td><img src="${image_cover}" alt="Course Cover" style="max-height: 50px"/></td>
+                            <td>${detail.crTitle}</td>
+                            <td>${detail.cdPrice}</td>
+                        </tr>
+                    `;
+                    });
+            });
+
+            Promise.all(fetchPromises).then(contents => {
+                let lightbox2Content = contents.join('');
+                $('.detailBody').html(lightbox2Content);
+
+
+                $('#lightbox2').show();
+                $('body').css('overflow', 'hidden');
+            }).catch(err => {
+                console.error("err:", err);
+            })
+
+        })
+
+        // let details = $(odId_el).data('order-detail');
+
+
+    });
+    $(document).mouseup(function (e) {
+        let lightbox2 = $('#lightbox2-content2');
+        if (!lightbox2.is(e.target) && lightbox2.has(e.target).length === 0) {
+            $('#lightbox2').hide();
+            $('body').css('overflow', 'auto');
+        }
+
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var table = document.getElementById('order_table');
+        var dataTable = new DataTable(table, {
+            "lengthMenu": [10, 15, 20, 50, 100],
+            "lengthChange": true,
+            "searching": true,  //搜尋功能, 預設是開啟
+            "paging": true,     //分頁功能, 預設是開啟
+            "ordering": true,   //排序功能, 預設是開啟
+            "language": {
+                "processing": "處理中...",
+                "loadingRecords": "載入中...",
+                "lengthMenu": "顯示 _MENU_ 筆結果",
+                "zeroRecords": "沒有符合的結果",
+                "info": "顯示第 _START_ 至 _END_ 筆結果，共<font color=red> _TOTAL_ </font>筆",
+                "infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
+                "infoFiltered": "(從 _MAX_ 筆結果中過濾)",
+                "infoPostFix": "",
+                "search": "",
+                "searchPlaceholder": "請輸入想搜尋的訂單",
+                "paginate": {
+                    "first": "第一頁",
+                    "previous": "上一頁",
+                    "next": "下一頁",
+                    "last": "最後一頁"
+                },
+                "aria": {
+                    "sortAscending": ": 升冪排列",
+                    "sortDescending": ": 降冪排列"
+                }
             }
-
-            
         });
     });
-    </script>
+
+
+    $(document).ready(function () {
+        $('.status-span').click(function () {
+            // 隱藏當前Text
+            $(this).hide();
+            // 下拉選單
+
+            let currentStatus = $(this).data('od-status');
+
+            let statusSelect = $(this).siblings('.status-select');
+            statusSelect.find('option[value="' + currentStatus + '"]').prop('selected', true);
+            statusSelect.show();
+        });
+        // $('.status-select').each(function() {
+        //     var odId = $(this).closest('tr').find('.odId').data('od-id');
+        //     var currentStatus = getCurrentStatus(odId); // 假设存在 getCurrentStatus 函数
+        //
+        //     // 设置默认选中项
+        //     $(this).val(currentStatus);
+        // });
+
+        // 下拉
+        $('.status-select').change(function () {
+            // 獲取選中的值
+            var newStatus = $(this).val();
+            console.log(newStatus);
+            // 獲取訂單編號
+            var odId = $(this).closest('tr').find('.odId').data('od-id');
+            console.log(odId);
+            // 發送請求
+            $.ajax({
+                url: '/backend/update/status',
+                method: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify({odId: odId, odStatus: newStatus}),
+                success: function (response) {
+
+                    alert('修改成功！');
+                    // 刷
+                    location.reload();
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                    alert('更新狀態時出錯！');
+                }
+            });
+        });
+    });
+
+
+</script>
 
 </body>
 </html>

@@ -39,6 +39,11 @@ padding-bottom:20px;
 	color: red;
 	margin-left: 10px; /* 和輸入欄位保持一定間隔 */
 }
+
+.container-ad-add{
+width:fit-content;
+margin:0 auto;
+}
 </style>
 
 
@@ -80,7 +85,7 @@ padding-bottom:20px;
 						<div class="parent2">
 							<p>以下欄位皆為必填表格，輸入以創建新的廣告方案</p>
 						</div>
-						<div align="center">
+						<div align="center" class="container-ad-add">
 							<form th:action="@{insert}" method="post" th:object="${adVO}"
 								enctype="multipart/form-data">
 

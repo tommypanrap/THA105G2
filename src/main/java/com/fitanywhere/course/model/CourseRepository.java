@@ -50,6 +50,7 @@ public interface CourseRepository extends JpaRepository<CourseVO, Integer> {
 	@Query(value = "SELECT * FROM course WHERE u_id = ?1", nativeQuery = true)
 	List<CourseVO> getCourseByUId(Integer uId); 
 	
+	// Tommy
 	@Query("SELECT c FROM CourseVO c")
 	Page<CourseVO> findSixCourses(Pageable pageable);
 	

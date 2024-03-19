@@ -27,5 +27,5 @@ public interface OrderRepository extends JpaRepository<OrderVO, Integer> {
     void updateOdStatus(@Param("odId") Integer odId, @Param("odStatus") Integer odStatus);
 
 }
-	}
+
 

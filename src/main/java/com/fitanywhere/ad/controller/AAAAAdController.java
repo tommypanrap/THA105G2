@@ -33,7 +33,7 @@ import com.fitanywhere.adcarousel.model.AdCarouselVO;
 
 @Controller
 @RequestMapping("/ad")
-public class adController {
+public class AAAAAdController {
 
 	@Autowired
 	private AdService adSvc;

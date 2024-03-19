@@ -31,7 +31,7 @@ import com.fitanywhere.adate.model.AdDateVO;
 
 @Controller
 @RequestMapping("/adDate")
-public class adDateController {
+public class AAAAAdDateController {
 
 	@Autowired
 	private AdService adSvc;

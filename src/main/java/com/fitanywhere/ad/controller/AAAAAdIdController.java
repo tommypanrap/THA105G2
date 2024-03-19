@@ -1,4 +1,4 @@
-package com.fitanywhere.adate.controller;
+package com.fitanywhere.ad.controller;
 
 import java.util.List;
 import java.util.Set;
@@ -6,7 +6,6 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -23,22 +22,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fitanywhere.ad.model.AdService;
-import com.fitanywhere.adate.model.AdDateService;
-import com.fitanywhere.adate.model.AdDateVO;
+import com.fitanywhere.ad.model.AdVO;
+
 
 
 
 @Controller
 @Validated
-@RequestMapping("/adDate")
-public class adDateIdController {
-	
-	
-	@Autowired
-    AdService adSvc;
+@RequestMapping("/ad")
+public class AAAAAdIdController {
 	
 	@Autowired
-	AdDateService adDateSvc;
+	AdService adSvc;
 
 	/*
 	 * This method will be called on select_page.html form submission, handling POST
@@ -47,35 +42,31 @@ public class adDateIdController {
 	@PostMapping("getOne_For_Display")
 	public String getOne_For_Display(
 		/***************************1.接收請求參數 - 輸入格式的錯誤處理*************************/
-		@NotEmpty(message="廣告時間ID: 請勿空白")
-		@Digits(integer = 1, fraction = 0, message = "方案編號: 請填數字-請勿超過{integer}位數")
-		@Min(value = 1, message = "廣告時間ID: 不能小於{value}")
-		@Max(value = 100, message = "廣告時間ID: 不能超過{value}")
-		@RequestParam("adDateId") String adDateId,
+		@NotEmpty(message="方案編號: 請勿空白")
+//		@Digits(integer = 1, fraction = 0, message = "方案編號: 請填數字-請勿超過{integer}位數")
+		@Min(value = 1, message = "方案編號: 不能小於{value}")
+		@Max(value = 100, message = "方案編號: 不能超過{value}")
+		@RequestParam("adId") String adId,
 		ModelMap model) {
 		
 		/***************************2.開始查詢資料*********************************************/
 //		EmpService empSvc = new EmpService();
-		AdDateVO adDateVO = adDateSvc.getOneadDateId(Integer.valueOf(adDateId));
-		System.out.println("adDateVO:"+adDateVO);
-		List<AdDateVO> list = adDateSvc.getAll();
-		model.addAttribute("adDateListData", list); // for select_page.html 第97 109行用
+		AdVO adVO = adSvc.getOneAd(Integer.valueOf(adId));
 		
-		if (adDateVO == null) {
+		List<AdVO> list = adSvc.getAll();
+		model.addAttribute("adListData", list); // for select_page.html 第97 109行用
+		
+		if (adVO == null) {
 			model.addAttribute("errorMessage", "查無資料");
-			
-			
-			return "back-end/adDate/select_page";
+			return "back-end/ad/select_page";
 		}
 		
 		/***************************3.查詢完成,準備轉交(Send the Success view)*****************/
-		model.addAttribute("adDateVO", adDateVO);
+		model.addAttribute("adVO", adVO);
 		model.addAttribute("getOne_For_Display", "true"); // 旗標getOne_For_Display見select_page.html的第126行 -->
 		
-		
-		
 //		return "back-end/emp/listOneEmp";  // 查詢完成後轉交listOneEmp.html
-		return "back-end/adDate/select_page"; // 查詢完成後轉交select_page.html由其第128行insert listOneEmp.html內的th:fragment="listOneEmp-div
+		return "back-end/ad/select_page"; // 查詢完成後轉交select_page.html由其第128行insert listOneEmp.html內的th:fragment="listOneEmp-div
 	}
 
 	
@@ -90,11 +81,11 @@ public class adDateIdController {
 	    //==== 以下第80~85行是當前面第69行返回 /src/main/resources/templates/back-end/emp/select_page.html 第97行 與 第109行 用的 ====   
 //	    model.addAttribute("empVO", new EmpVO());
 //    	EmpService empSvc = new EmpService();
-		List<AdDateVO> list = adDateSvc.getAll();
-		model.addAttribute("adDateListData", list); // for select_page.html 第97 109行用
+		List<AdVO> list = adSvc.getAll();
+		model.addAttribute("adListData", list); // for select_page.html 第97 109行用
 		
 		String message = strBuilder.toString();
-	    return new ModelAndView("back-end/adDate/select_page", "errorMessage", "請修正以下錯誤:<br>"+message);
+	    return new ModelAndView("back-end/ad/select_page", "errorMessage", "請修正以下錯誤:<br>"+message);
 	}
 	
 }

@@ -146,7 +146,7 @@ public class ForumPostController {
 	    if (!uId.equals(forumPostVO.getUserVO().getuId())) {
 	        // 如果用戶不是貼文的作者，返回錯誤提示
 	        model.addAttribute("error", "您無權修改此貼文");
-	        return "front-end/error";
+	        return "front-end/forumpost/error";
 	    }
 
 	    // 3. 將貼文資料添加到模型中並轉交頁面
@@ -211,7 +211,7 @@ public class ForumPostController {
 	    if (!uId.equals(forumPostVO.getUserVO().getuId())) {
 	        // 如果用戶不是貼文的作者，返回錯誤提示
 	        model.addAttribute("error", "只有貼文作者才能刪除貼文");
-	        return "front-end/error";
+	        return "front-end/forumpost/error";
 	    }
 
 	    // 執行刪除操作

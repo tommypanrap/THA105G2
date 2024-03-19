@@ -1,5 +1,6 @@
 package com.fitanywhere.course.model;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +15,10 @@ public class CourseService {
 	@Autowired
 	CourseRepository repository;
 
+	public void checkCourse(Integer crId,Integer crState) {
+		repository.checkCourse(crId, crState);
+	}
+	
 	public Integer addCourse(CourseVO courseVO) {
 		CourseVO savedCourse = repository.save(courseVO);
 		return savedCourse.getCrId();
@@ -77,6 +82,7 @@ public class CourseService {
 	            dto.setCrTitle((String) result[3]);
 	            dto.setCrCover((byte[]) result[4]);
 	            dto.setCrPrice((Integer) result[5]);
+	            dto.setCrCreateDate((Timestamp) result[6]);
 	            CourseStatus1DTO.add(dto);
 	        }
 	        return CourseStatus1DTO;

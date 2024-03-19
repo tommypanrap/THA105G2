@@ -30,6 +30,11 @@
     <link rel="stylesheet" th:href="@{/assets/css/plugins/magnigy-popup.min.css}">
     <link rel="stylesheet" th:href="@{/assets/css/plugins/plyr.css}">
     <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+    <style>
+    .bgyoda{
+    background-image: url(../images/bg/bbyoda.jpg);
+    }
+    </style>
 </head>
 
 <body>
@@ -822,7 +827,8 @@
                 <div class="col-lg-12">
                     <!-- Start Dashboard Top  -->
                     <div class="rbt-dashboard-content-wrapper">
-                        <div class="tutor-bg-photo bg_image bg_image--22 height-350"></div>
+                        <div class="tutor-bg-photo bg_image bg_image--22 height-350 bgyoda">
+                        </div>
                         <!-- Start Tutor Information  -->
                         <div class="rbt-tutor-information">
                             <div class="rbt-tutor-information-left">
@@ -831,26 +837,16 @@
                                 </div>
                                 <div class="tutor-content">
                                 <h5 class="title" th:text="${uName}"></h5>
-                                    <div class="rbt-review">
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                        </div>
-                                        <span class="rating-count"> (15 Reviews)</span>
-                                    </div>
                                 </div>
                             </div>
                             <div class="rbt-tutor-information-right">
                                 <div class="tutor-btn">
-                                    <a class="rbt-btn btn-md hover-icon-reverse" th:href="@{create_course}">
-                                        <span class="icon-reverse-wrapper">
-                        <span class="btn-text">創建課程</span>
-                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                        </span>
+                                    <a class="rbt-btn btn-md hover-icon-reverse" href="/course/my_courses">                                                                                                                                
+                                            <span
+          class="icon-reverse-wrapper"> <span class="btn-text">切換為學生模式</span>
+           <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+           <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+         </span>                         
                                     </a>
                                 </div>
                             </div>
@@ -902,23 +898,45 @@
                                             <div class="rbt-dashboard-content-wrapper">
                                                 <div class="tutor-bg-photo bg_image bg_image--22 height-245"></div>
                                                 <!-- Start Tutor Information  -->
+                                                <form id="updateAvatarForm" th:action="@{update_uHeadshot}" method="post" enctype="multipart/form-data">
                                                 <div class="rbt-tutor-information">
                                                     <div class="rbt-tutor-information-left">
                                                         <div class="thumbnail rbt-avatars size-lg position-relative">
-                                                            <img th:src="'data:image/jpeg;base64,' + ${uHeadshot}" alt="Instructor">
-                                                            <div class="rbt-edit-photo-inner">
-                                                                <button class="rbt-edit-photo" title="Upload Photo">
-                                                                    <i class="feather-camera"></i>
-                                                                </button>
-                                                            </div>
+                                                        	<img id="avatarPreview" th:src="'data:image/jpeg;base64,' + ${uHeadshot}" alt="Instructor">
+															    <div class="rbt-edit-photo-inner">
+															        <input type="file" id="fileInput" name="fileInput" accept="image/*" style="display: none;" onchange="previewImage(event)">
+															        <button class="rbt-edit-photo" title="Upload Photo" type="button" onclick="document.getElementById('fileInput').click()">
+															            <i class="feather-camera"></i>
+															        </button>
+															    </div>
                                                         </div>
                                                     </div>
                                                     <div class="rbt-tutor-information-right">
                                                         <div class="tutor-btn">
-                                                            <button class="rbt-btn btn-sm btn-border color-white radius-round-10" type="submit" >編輯大頭照</button>
-                                                        </div>
+														        <input type="hidden" id="uId" name="uId" th:value="10001">
+														        <button id="updateAvatarBtn" class="rbt-btn btn-sm btn-border color-white radius-round-10" type="button">更換大頭照</button>
+														</div>
                                                     </div>
                                                 </div>
+												</form>
+                                                <script>
+                                                function previewImage(event) {
+                                                	
+                                                    var file = event.target.files[0];
+                                                    if (file) {
+                                                        var reader = new FileReader();
+                                                        reader.onload = function(e) {
+                                                            document.getElementById('avatarPreview').src = e.target.result;
+                                                         // 更新隐藏的输入框的值，以便在表单提交时使用
+                                                        };
+                                                        reader.readAsDataURL(file);
+                                                    }
+                                                }
+                                                document.getElementById('updateAvatarBtn').addEventListener('click', function() {
+                                                    // 提交表单
+                                                    document.getElementById('updateAvatarForm').submit();
+                                                });
+                                                </script>
                                                 <!-- End Tutor Information  -->
                                             </div>
                                             <!-- Start Profile Row  -->
@@ -937,6 +955,7 @@
                                                     <div class="rbt-form-group">
                                                         <label for="mood">心情狀態</label>
                                                         <input id="moodId" type="text" th:field="*{moodVO.moodId}">
+                                                        <img th:src="'data:image/jpeg;base64,' + ${uHeadshot}" alt="Instructor">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-12">

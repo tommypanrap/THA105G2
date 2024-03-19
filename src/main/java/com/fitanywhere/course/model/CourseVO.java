@@ -15,6 +15,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -54,24 +57,31 @@ public class CourseVO implements java.io.Serializable {
 	@JoinColumn(name="u_id")
 	private UserVO userVO;
 
+	@NotNull(message="課程類別: 請勿空白")
 	@Column(name = "cr_class")
 	private String crClass;
 
 	@Column(name = "cr_state")
 	private Integer crState;
 
+	@NotEmpty(message="課程名稱: 請勿空白")
 	@Column(name = "cr_title")
 	private String crTitle;
 	
+	@NotEmpty(message="課程副標題: 請勿空白")
 	@Column(name = "cr_subtitle")
 	private String crSubtitle;
 
+	@NotEmpty(message="課程介紹: 請勿空白")
 	@Column(name = "cr_intro", columnDefinition = "longtext")
 	private String crIntro;
 
+//	@NotNull(message="課程封面縮圖: 請勿空白")
 	@Column(name = "cr_cover", columnDefinition = "longblob")
 	private byte[] crCover;
 
+	@Min(1)
+	@NotNull(message="價錢: 請正確輸入價錢")
 	@Column(name = "cr_price")
 	private Integer crPrice;
 
@@ -92,24 +102,31 @@ public class CourseVO implements java.io.Serializable {
 	@Column(name = "cr_tot_star")
 	private Integer crTotStar;
 
+	@NotEmpty(message="學習目標1: 請勿空白")
 	@Column(name = "cr_purpose_1")
 	private String crPurpose1;
 
+	@NotEmpty(message="學習目標2: 請勿空白")
 	@Column(name = "cr_purpose_2")
 	private String crPurpose2;
 
+	@NotEmpty(message="學習目標3: 請勿空白")
 	@Column(name = "cr_purpose_3")
 	private String crPurpose3;
 
+	@NotEmpty(message="目標學習先決條件: 請勿空白")
 	@Column(name = "cr_pre")
 	private String crPre;
 
+	@NotEmpty(message="目標學習適合對象: 請勿空白")
 	@Column(name = "cr_target_1")
 	private String crTarget1;
 
+	@NotEmpty(message="歡迎訊息: 請勿空白")
 	@Column(name = "cr_hello_msg", columnDefinition = "longtext")
 	private String crHelloMsg;
 
+	@NotEmpty(message="祝賀訊息: 請勿空白")
 	@Column(name = "cr_cong", columnDefinition = "longtext")
 	private String crCong;
 

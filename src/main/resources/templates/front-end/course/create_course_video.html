@@ -824,16 +824,22 @@
                                     </h2>
                                     <div>
                                     <form id="uploadVideo" enctype="multipart/form-data" th:action="@{uploadVideo}" method="POST">
+                                    <label>影片名稱</label>
+                                    <input id="cdTitle" name="cdTitle" type="text">
+                                    <label>章節名稱</label>
+                                    <input id="cdUnit" name="cdUnit" type="text">
+                                    <label>上傳預覽短影片</label>
+                                    <input id="cdSaleVideo" name="cdSaleVideo" type="file" >
+                                    <label>上傳影片</label>
                                     <input id="cdVideo" name="cdVideo" type="file" >
 									<button id="uploadBtn" type="submit">上傳</button>
                                     </form>
                                     <div th:if="${work}">
 										        <script th:inline="javascript">
 										        setTimeout(function() {
-										        		alert('影片上傳成功！'); 
+										        		alert('影片上傳成功！可以繼續上傳下支影片了！'); 
 												},)  
-												window.location.href = 'coach_dashboard'
-										         // 如果处理失败，则弹出提示框
+												/* window.location.href = 'coach_dashboard' */
 										        </script>
 										    </div>
                                     </div>
@@ -846,7 +852,7 @@
                         <div class="mt--10 row g-5">
                             
                             <div class="col-lg-8">
-                                <a class="rbt-btn btn-gradient hover-icon-reverse w-100 text-center" href="#" id="createCourseButton">
+                                <a class="rbt-btn btn-gradient hover-icon-reverse w-100 text-center" th:href="@{coach_dashboard}" id="createCourseButton">
                                     <span class="icon-reverse-wrapper">
                                         <span class="btn-text">完成創建課程</span>
                                     <span class="btn-icon"><i class="feather-arrow-right"></i></span>
@@ -865,11 +871,12 @@
                                 </div>
                                 <div class="rbt-course-upload-tips">
                                     <ul class="rbt-list-style-1">
-                                        <li><i class="feather-check"></i>設定課程名稱、價格</li>
-                                        <li><i class="feather-check"></i>課程封面縮圖大小為700x430.</li>
-                                        <li><i class="feather-check"></i>課程其他資訊會顯示在課程頁面上</li>
-                                        <li><i class="feather-check"></i>寫下給學員的訊息</li>
-                                        <li><i class="feather-check"></i>完成創建課程後到下一頁上傳影片吧！</li>
+                                        <li><i class="feather-check"></i>填寫影片名稱</li>
+                                        <li><i class="feather-check"></i>填寫影片章節名稱</li>
+                                        <li><i class="feather-check"></i>選取預覽短影片上傳！</li>
+                                        <li><i class="feather-check"></i>選取影片上傳！</li>
+                                        <li><i class="feather-check"></i>如果還有下支影片請重複以上步驟＾</li>
+                                        <li><i class="feather-check"></i>步驟都完成後請按完成創建課程</li>
                                         <a class="rbt-btn bt hover-icon-reverse" th:href="@{coach_dashboard}">
                                             <span class="icon-reverse-wrapper" >
                             <span class="btn-text" >返回主頁</span>
@@ -1051,6 +1058,24 @@
     </script>
     <script>
     document.getElementById("uploadBtn").addEventListener("click", function(){
+    	event.preventDefault(); 
+    	var cdTitle = document.getElementById("cdTitle").value;
+        var cdUnit = document.getElementById("cdUnit").value;
+        var cdSaleVideo = document.getElementById("cdSaleVideo").value;
+        var cdVideo = document.getElementById("cdVideo").value;
+        // 检查输入字段的值是否为 null 或空
+        if (!cdTitle.trim()) {
+        	return alert("請輸入影片名稱");
+        }
+        if (!cdUnit.trim()) {
+        	return alert("請輸入章節名稱");
+        }
+        if (!cdSaleVideo) {
+        	return alert("請上傳預覽短影片");
+        }
+        if (!cdVideo) {
+        	return alert("請上傳影片");
+        }
     	const form = document.getElementById('uploadVideo');
     	var crId = sessionStorage.getItem('crId');
     	let myInput;
@@ -1061,32 +1086,6 @@
     	myInput.setAttribute('value', crId);
     	form.submit();
     });    	
-//                                 document.getElementById("uploadBtn").addEventListener("click", function() {
-//         								var crId = sessionStorage.getItem('crId');
-//         								var data = {
-//         								        crId : $('#crId').val(),
-//         								        };
-// 								        const formData = new FormData();
-// 								        for (const key in data) {
-// 								            formData.append(key, data[key]);
-// 								        }
-// 								       /* formData.append("crId", crId); */
-// 								        /* myInput = document.createElement('input');
-// 								        formData.appendChild(myInput);
-// 								    	myInput.setAttribute('type', 'text');
-// 								    	myInput.setAttribute('name', 'crId')
-// 								    	myInput.setAttribute('value', crId); */
-// 								        formData.append("cdVideo", $('#cdVideo').files); 
-// 								        /* $.post('http://localhost:8081/THA105G2/course/insert', data) */
-// 								        $.post('http://localhost:8080/course/uploadVideo',formData)
-// 								        .done(function(response) {
-// 											window.alert("成功上傳影片！恭喜成功完成創建課程的流程");
-// 								        }, 'json'
-// 								        )
-// 								        .fail(function(error) {
-// 								            console.error('Error:', error);
-// 								        });
-// 								    });
                                 
                             </script>
 </body>

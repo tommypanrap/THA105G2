@@ -30,6 +30,11 @@
     <link rel="stylesheet" th:href="@{/assets/css/plugins/magnigy-popup.min.css}">
     <link rel="stylesheet" th:href="@{/assets/css/plugins/plyr.css}">
     <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+    <style>
+    .bgyoda{
+    background-image: url(../images/bg/bbyoda.jpg);
+    }
+    </style>
 </head>
 
 <body>
@@ -819,7 +824,8 @@
                 <div class="col-lg-12">
                     <!-- Start Dashboard Top  -->
                     <div class="rbt-dashboard-content-wrapper">
-                        <div class="tutor-bg-photo bg_image bg_image--22 height-350"></div>
+                        <div class="tutor-bg-photo bg_image bg_image--22 height-350 bgyoda">
+                        </div>
                         <!-- Start Tutor Information  -->
                         <div class="rbt-tutor-information">
                             <div class="rbt-tutor-information-left">
@@ -828,26 +834,16 @@
                                 </div>
                                 <div class="tutor-content">
                                 <h5 class="title" th:text="${uName}"></h5>
-                                    <div class="rbt-review">
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                        </div>
-                                        <span class="rating-count"> (15 Reviews)</span>
-                                    </div>
                                 </div>
                             </div>
                             <div class="rbt-tutor-information-right">
                                 <div class="tutor-btn">
-                                    <a class="rbt-btn btn-md hover-icon-reverse" th:href="@{create_course}">
-                                        <span class="icon-reverse-wrapper">
-                        <span class="btn-text">創建課程</span>
-                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                        </span>
+                                    <a class="rbt-btn btn-md hover-icon-reverse" href="/course/my_courses">                                                                                                                                
+                                            <span
+          class="icon-reverse-wrapper"> <span class="btn-text">切換為學生模式</span>
+           <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+           <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+         </span>                         
                                     </a>
                                 </div>
                             </div>
@@ -885,8 +881,8 @@
                                         <div class="rbt-course-field-wrapper rbt-default-form">
                                             <div class="course-field mb--15">
                                                 <label for="field-1" >公告標題</label>
+                                                <!-- <div id="anTitleError" class="error-message"></div> -->
                                                 <input id="anTitle" type="text"  placeholder="課程最新公告">
-                                                <span  th:if="${errors}" th:errors="*{errors}" class="error" id="crId.errors"></span>
                                                 <small class="d-block mt_dec--5"><i class="feather-info">標題20個字以內</i></small>
                                             </div>
                                             <div class="course-field mb--15">
@@ -926,31 +922,17 @@
         }, 'json'
         )
         .fail(function(error) {
-        	document.getElementById('anTitleError').innerText = error;
+        	const allErrors = JSON.parse(error.responseText)
+        	console.log(allErrors)
+        	let errorMsg = ''
+        	for(let error of allErrors) {
+        		errorMsg += `${error.defaultMessage}\n`
+        	}
+       		window.alert(errorMsg)
         });
-        // 发送异步请求到后端保存数据
-        /* fetch('http://localhost:8081/THA105G2/front-end/course/course.do', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded' // Change content type to form data
-                },
-                body: new URLSearchParams(data).toString() // Convert data to URL-encoded form data
-            })
-            .then(response => response.json()) // 处理后端返回的JSON响应
-            .then(responseData => {
-                // 在控制台打印后端返回的数据
-                console.log(responseData);
-
-                // 这里可以根据需要处理后端返回的数据
-            })
-            .catch(error => console.error('Error:', error)); */
     });
-                                
                             </script>
-                                        
                                     </div>
-
-
                                 </div>
                             </div>
                            

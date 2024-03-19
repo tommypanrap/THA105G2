@@ -30,6 +30,11 @@
     <link rel="stylesheet" th:href="@{/assets/css/plugins/magnigy-popup.min.css}">
     <link rel="stylesheet" th:href="@{/assets/css/plugins/plyr.css}">
     <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+    <style>
+    .bgyoda{
+    background-image: url(../images/bg/bbyoda.jpg);
+    }
+    </style>
 </head>
 
 <body>
@@ -822,7 +827,8 @@
                 <div class="col-lg-12">
                     <!-- Start Dashboard Top  -->
                     <div class="rbt-dashboard-content-wrapper">
-                        <div class="tutor-bg-photo bg_image bg_image--22 height-350"></div>
+                        <div class="tutor-bg-photo bg_image bg_image--22 height-350 bgyoda">
+                        </div>
                         <!-- Start Tutor Information  -->
                         <div class="rbt-tutor-information">
                             <div class="rbt-tutor-information-left">
@@ -831,26 +837,16 @@
                                 </div>
                                 <div class="tutor-content">
                                     <h5 class="title" th:text="${uName}"></h5>
-                                    <div class="rbt-review">
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                        </div>
-                                        <span class="rating-count"> (15 Reviews)</span>
-                                    </div>
                                 </div>
                             </div>
                             <div class="rbt-tutor-information-right">
                                 <div class="tutor-btn">
-                                    <a class="rbt-btn btn-md hover-icon-reverse" th:href="@{create_course}">
-                                        <span class="icon-reverse-wrapper">
-                        				<span class="btn-text">創建課程</span>
-                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                        </span>
+                                    <a class="rbt-btn btn-md hover-icon-reverse" href="/course/my_courses">                                                                                                                                
+                                            <span
+          class="icon-reverse-wrapper"> <span class="btn-text">切換為學生模式</span>
+           <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+           <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+         </span>                         
                                     </a>
                                 </div>
                             </div>
@@ -925,17 +921,37 @@
                                                                 	<div class="rating">
                                                                 	<!-- 平均星星數 -->
 																		<div>
-																		    <!-- 計算平均星星數到小數點第一位 -->
+																		    <!-- 計算平均分數到小數點第一位 -->
 																		    <span th:with="avgs = ${course.crTotStar / (course.crCmQuan*1.0)}" th:text="${ #numbers.formatDecimal(avgs,1,'COMMA',1,'POINT')}" ></span>
 																		</div>
 	                                                                    <!-- 滿星的部分 -->
-																	    <div th:each="star : ${#numbers.sequence(1, course.crTotStar/course.crCmQuan)}">
-																	        <i class="fas fa-star"></i>
-																	    </div>
+	                                                                    <div th:if="${course.crTotStar div course.crCmQuan >= 1}">
+																		    <div th:each="star : ${#numbers.sequence(1, (course.crTotStar div course.crCmQuan))}">
+																		        <i class="fas fa-star"></i>
+																		    </div>
+																		</div>
+																		<!-- 半顆星星的顯示 -->
+																		<div th:if="${(#numbers.formatDecimal((course.crTotStar / (course.crCmQuan*1.0)) % 1, 1, 'DEFAULT', 1, 'POINT'))} >= 0.5">
+																		    <i class="fas fa-star-half-alt"></i>
+																		</div>
 																	    <!-- 不滿星的部分，灰色星星 -->
-																	    <div th:each="star : ${#numbers.sequence(course.crTotStar/course.crCmQuan + 1, 5)}">
-																	        <i class="fas fa-star" style="color: grey;"></i>
-																	    </div>
+																	    <!-- 判断小数部分是否大于等于0.5 -->
+																		<div th:if="${(#numbers.formatDecimal((course.crTotStar / (course.crCmQuan*1.0)) % 1, 1, 'DEFAULT', 1, 'POINT'))} >= 0.5">
+																		    <!-- 如果有多余的半颗星，则生成对应数量的星星 -->
+																		    <div>
+																		        <i th:each="star : ${#numbers.sequence(course.crTotStar/course.crCmQuan + 2, 5)}"
+																		           class="fas fa-star"
+																		           style="color: grey; display: inline-block;"></i>
+																		    </div>
+																		</div>
+																		<!-- 如果没有多余的半颗星，则生成剩余数量的星星 -->
+																		<div th:if="${(#numbers.formatDecimal((course.crTotStar / (course.crCmQuan*1.0)) % 1, 1, 'DEFAULT', 1, 'POINT'))} < 0.5">
+																		    <div>
+																		        <i th:each="star : ${#numbers.sequence(course.crTotStar/course.crCmQuan + 1, 5)}"
+																		           class="fas fa-star"
+																		           style="color: grey; display: inline-block;"></i>
+																		    </div>
+																		</div>
 	                                                                    <span class="rating-count" th:text="${course.crCmQuan}"></span>
 	                                                                    <span class="rating-count"> 則評論</span>
                                                                     </div>
@@ -952,10 +968,15 @@
 
                                                             <div class="rbt-card-bottom">
                                                                 <div class="rbt-price">
+                                                                    <span>價錢 $</span>
                                                                     <span class="current-price" th:text="${course.crPrice}"></span>
-                                                                    <span class="off-price">待確認</span>
                                                                 </div>
                                                             </div>
+                                                            <ul class="rbt-meta">
+                                                                <!-- 創建時間 -->
+                                                                <li>上架時間</li>
+                                                                <li th:text="${#dates.format(course.crCreateDate, 'yyyy-MM-dd HH:mm:ss')}"></li>
+                                                            </ul>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1035,8 +1056,8 @@
                                                             <div class="rbt-card-bottom">
                                                                 <div class="rbt-price">
                                                                 	<!-- 課程價格 -->
+                                                                	<span>價錢 $</span>
                                                                     <span class="current-price" th:text="${course.crPrice}"></span>
-                                                                    <span class="off-price">$86</span>
                                                                 </div>
                                                                 <a class="rbt-btn-link left-icon" th:href="@{update_course(crId=${course.crId})}"><i class="feather-edit"></i>修改</a>
                                                             </div>
@@ -1060,10 +1081,13 @@
                                                             </div>
                                                             <h4 class="rbt-card-title"><a href="course-details.html" th:text="${course.crTitle}"></a>
                                                             </h4>
+                                                            <ul class="rbt-meta">
+                                                                <!-- 放類別名稱 -->
+                                                                <li th:text="${course.crClass}"></li>
                                                             <div class="rbt-card-bottom">
                                                                 <div class="rbt-price">
+                                                                	<span>價錢 $</span>
                                                                     <span class="current-price" th:text="${course.crPrice}"></span>
-                                                                    <span class="off-price">$120</span>
                                                                 </div>
                                                                 <a class="rbt-btn-link left-icon" href="#"><i class="feather-edit"></i> Edit</a>
                                                             </div>
@@ -1072,93 +1096,6 @@
                                                 </div>
                                                 <!-- End Single Course  -->
 
-                                                <!-- Start Single Course  -->
-                                                <!-- <div class="col-lg-4 col-md-6 col-12">
-                                                    <div class="rbt-card variation-01 rbt-hover">
-                                                        <div class="rbt-card-img">
-                                                            <a href="course-details.html">
-                                                                <img src="assets/images/course/course-online-02.jpg" alt="Card image">
-                                                            </a>
-                                                        </div>
-                                                        <div class="rbt-card-body">
-                                                            <div class="rbt-card-top">
-                                                                <div class="rbt-review">
-                                                                    <div class="rating">
-                                                                        <i class="fas fa-star"></i>
-                                                                        <i class="fas fa-star"></i>
-                                                                        <i class="fas fa-star"></i>
-                                                                        <i class="fas fa-star"></i>
-                                                                        <i class="fas fa-star"></i>
-                                                                    </div>
-                                                                    <span class="rating-count"> (15 Reviews)</span>
-                                                                </div>
-                                                                <div class="rbt-bookmark-btn">
-                                                                    <a class="rbt-round-btn" title="Bookmark" href="#"><i class="feather-bookmark"></i></a>
-                                                                </div>
-                                                            </div>
-                                                            <h4 class="rbt-card-title"><a href="course-details.html">PHP
-                                                                    Beginner + Advanced</a>
-                                                            </h4>
-                                                            <ul class="rbt-meta">
-                                                                <li><i class="feather-book"></i>10 Lessons</li>
-                                                                <li><i class="feather-users"></i>30 Students</li>
-                                                            </ul>
-
-                                                            <div class="rbt-card-bottom">
-                                                                <div class="rbt-price">
-                                                                    <span class="current-price">$20</span>
-                                                                    <span class="off-price">$43</span>
-                                                                </div>
-                                                                <a class="rbt-btn-link left-icon" href="#"><i class="feather-edit"></i> Edit</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div> -->
-                                                <!-- End Single Course  -->
-
-                                                <!-- Start Single Course  -->
-                                                <!-- <div class="col-lg-4 col-md-6 col-12">
-                                                    <div class="rbt-card variation-01 rbt-hover">
-                                                        <div class="rbt-card-img">
-                                                            <a href="course-details.html">
-                                                                <img src="assets/images/course/course-online-03.jpg" alt="Card image">
-                                                            </a>
-                                                        </div>
-                                                        <div class="rbt-card-body">
-                                                            <div class="rbt-card-top">
-                                                                <div class="rbt-review">
-                                                                    <div class="rating">
-                                                                        <i class="fas fa-star"></i>
-                                                                        <i class="fas fa-star"></i>
-                                                                        <i class="fas fa-star"></i>
-                                                                        <i class="fas fa-star"></i>
-                                                                        <i class="fas fa-star"></i>
-                                                                    </div>
-                                                                    <span class="rating-count"> (4 Reviews)</span>
-                                                                </div>
-                                                                <div class="rbt-bookmark-btn">
-                                                                    <a class="rbt-round-btn" title="Bookmark" href="#"><i class="feather-bookmark"></i></a>
-                                                                </div>
-                                                            </div>
-                                                            <h4 class="rbt-card-title"><a href="course-details.html">Angular Zero to
-                                                                    Mastery</a>
-                                                            </h4>
-                                                            <ul class="rbt-meta">
-                                                                <li><i class="feather-book"></i>14 Lessons</li>
-                                                                <li><i class="feather-users"></i>26 Students</li>
-                                                            </ul>
-
-                                                            <div class="rbt-card-bottom">
-                                                                <div class="rbt-price">
-                                                                    <span class="current-price">$23</span>
-                                                                    <span class="off-price">$45</span>
-                                                                </div>
-                                                                <a class="rbt-btn-link left-icon" href="#"><i class="feather-edit"></i> Edit</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div> -->
-                                                <!-- End Single Course  -->
                                             </div>
                                         </div>
                                     </div>

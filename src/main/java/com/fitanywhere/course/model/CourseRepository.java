@@ -24,6 +24,11 @@ public interface CourseRepository extends JpaRepository<CourseVO, Integer> {
 	@Query("SELECT COUNT(*) FROM CourseVO WHERE u_Id = :uId")
     Integer getCourseCount(Integer uId);
 	
+	@Transactional
+	@Modifying
+	@Query(value="UPDATE course SET cr_state = :crState WHERE cr_id = :crId ",nativeQuery = true)
+	void checkCourse(Integer crId,Integer crState);
+	
 	@Query(value="SELECT SUM(cr_tot_star) AS total_star FROM (SELECT SUM(cr_tot_star) AS cr_tot_star FROM course WHERE u_id = :uId GROUP BY cr_id) AS subquery", nativeQuery = true)
 	Integer getTotalStarCount(Integer uId);
 	
@@ -34,7 +39,7 @@ public interface CourseRepository extends JpaRepository<CourseVO, Integer> {
 	@Query(value="SELECT cr_class, cr_title, cr_cover, cr_price, cr_id FROM course WHERE u_Id = :uId AND cr_state = 0", nativeQuery = true)
 	List<Object[]> getCourseByStatus0(Integer uId);
 	
-	@Query(value="SELECT cr_tot_star, cr_cm_quan, cr_class, cr_title, cr_cover, cr_price FROM course WHERE u_Id = :uId AND cr_state = 1", nativeQuery = true)
+	@Query(value="SELECT cr_tot_star, cr_cm_quan, cr_class, cr_title, cr_cover, cr_price, cr_create_date FROM course WHERE u_Id = :uId AND cr_state = 1", nativeQuery = true)
 	List<Object[]> getCourseByStatus1(Integer uId);
 	
 	@Query(value="SELECT cr_class, cr_title, cr_cover, cr_price FROM course WHERE u_Id = :uId AND cr_state = 2", nativeQuery = true)

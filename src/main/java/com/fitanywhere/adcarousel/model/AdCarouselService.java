@@ -1,4 +1,4 @@
-package com.fitanywhere.adccccccarousel.model;
+package com.fitanywhere.adcarousel.model;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package com.fitanywhere.adccccccarousel.controller;
+package com.fitanywhere.adcarousel.controller;
 
 import javax.validation.Valid;
 
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fitanywhere.ad.model.AdService;
-import com.fitanywhere.adccccccarousel.model.AdCarouselService;
-import com.fitanywhere.adccccccarousel.model.AdCarouselVO;
+import com.fitanywhere.adcarousel.model.AdCarouselService;
+import com.fitanywhere.adcarousel.model.AdCarouselVO;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;

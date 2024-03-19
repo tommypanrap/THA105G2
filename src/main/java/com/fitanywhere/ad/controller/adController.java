@@ -28,8 +28,8 @@ import com.fitanywhere.ad.model.AdService;
 import com.fitanywhere.ad.model.AdVO;
 import com.fitanywhere.adDate.model.AdDateService;
 import com.fitanywhere.adDate.model.AdDateVO;
-import com.fitanywhere.adccccccarousel.model.AdCarouselService;
-import com.fitanywhere.adccccccarousel.model.AdCarouselVO;
+import com.fitanywhere.adcarousel.model.AdCarouselService;
+import com.fitanywhere.adcarousel.model.AdCarouselVO;
 
 @Controller
 @RequestMapping("/ad")

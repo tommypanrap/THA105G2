@@ -3,6 +3,7 @@ package com.fitanywhere.socialpost.controller;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fitanywhere.coach.model.CoachVO;
+import com.fitanywhere.course.model.CourseStatus0DTO;
+import com.fitanywhere.course.model.CourseStatus1DTO;
+import com.fitanywhere.course.model.CourseStatus2DTO;
 import com.fitanywhere.socialpost.model.SocialPostService;
 import com.fitanywhere.socialpost.model.SocialPostVO;
 import com.fitanywhere.socialpost.model.SocialReplyService;
@@ -58,6 +63,8 @@ public class SocialPostController {
 	public String addSocialPost(Model model) {
 		return "front-end/socialpost/add_socialpost";
 	}
+	
+
 
 	@ModelAttribute("socialPostListData")
 	protected List<SocialPostVO> referenceListData(Model model) {
@@ -97,8 +104,11 @@ public class SocialPostController {
 		
 		model.addAttribute("sessionUId", sessionUId);
 
-		UserVO userVO = userSvc.getUserDataByID(sessionUId);
-		model.addAttribute("userVO", userVO);
+		UserVO sessionUserVO = userSvc.getUserDataByID(sessionUId);
+		model.addAttribute("userVO", sessionUserVO);
+		
+		UserVO userShowVO = userSvc.getUserDataByID(sessionUId);
+		model.addAttribute("userShowVO", userShowVO);
 		
 
 		SocialPostVO socialPostVO = new SocialPostVO();
@@ -120,9 +130,11 @@ public class SocialPostController {
 		
 		model.addAttribute("sessionUId", sessionUId);
 
-		UserVO userVO = userSvc.getUserDataByID(userId);
-		model.addAttribute("userVO", userVO);
+		UserVO sessionUserVO = userSvc.getUserDataByID(sessionUId);
+		model.addAttribute("userVO", sessionUserVO);
 		
+		UserVO userShowVO = userSvc.getUserDataByID(userId);
+		model.addAttribute("userShowVO", userShowVO);
 
 		SocialPostVO socialPostVO = new SocialPostVO();
 		model.addAttribute("socialPostVO", socialPostVO);
@@ -276,6 +288,38 @@ public class SocialPostController {
 
 		return "redirect:/socialpost/" + uId;
 	}
+	
+	// 更新使用者資料
+	@PostMapping("updateUserProfile")
+	public String updateUserProfile(@Valid UserVO userVO, BindingResult result, ModelMap model) throws IOException {
+
+		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
+		// 去除BindingResult中upFiles欄位的FieldError紀錄 --> 見第172行
+//		result = removeFieldError(courseVO, result, "upFiles");
+
+//		if (parts[0].isEmpty()) { // 使用者未選擇要上傳的新圖片時
+//			// EmpService empSvc = new EmpService();
+//			byte[] upFiles = empSvc.getOneEmp(empVO.getEmpno()).getUpFiles();
+//			empVO.setUpFiles(upFiles);
+//		} else {
+//			for (MultipartFile multipartFile : parts) {
+//				byte[] upFiles = multipartFile.getBytes();
+//				empVO.setUpFiles(upFiles);
+//			}
+//		}
+//		if (result.hasErrors()) {
+//			return "back-end/course/update_course_input";
+//		}
+		/*************************** 2.開始修改資料 *****************************************/
+		boolean isprofileSuccess = userSvc.updateUserProfile(userVO);
+//		Integer uId = userVO.getuId();
+//		CoachVO coachVO = coachSvc.getOneCoach(uId);
+		/*************************** 3.修改完成,準備轉交(Send the Success view) **************/
+//		model.addAttribute("isprofileSuccess", userVO);
+//		model.addAttribute("coachVO", coachVO);
+		model.addAttribute("isprofileSuccess",isprofileSuccess);
+		return "front-end/socialpost/student_settings"; // 修改成功後轉交listOneEmp.html
+	}
 
 	// 更新狀態 以表示刪除
 	@PostMapping("update_for_delete")
@@ -330,5 +374,35 @@ public class SocialPostController {
 
 		return list;
 	}
+	
+	@GetMapping("/settings")
+	public String user_settings() {
+		
+		return "front-end/socialpost/student_settings";
+	}
+	
+	/*=================取值========================*/
+	@ModelAttribute("uName")
+	public String getuName(Integer uId) {
+		uId = 10001 ;
+		String uName = userSvc.getUser(uId).getuName();
+		return uName;
+	}
+	
+	@ModelAttribute("userVO")
+	public UserVO getUser(Integer uId) {
+		uId = 10001 ;
+		UserVO userVO = userSvc.getUser(uId);
+		return userVO;
+	}
+	
+	@ModelAttribute("uHeadshot")
+	public String getuHeadshot(Integer uId) {
+		uId = 10001 ;
+		byte [] uHeadshot = userSvc.getUserHeadshot(uId);
+		return Base64.getEncoder().encodeToString(uHeadshot);
+	}
+	
+
 
 }

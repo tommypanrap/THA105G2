@@ -16,12 +16,19 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
+import com.fitanywhere.forumpost.model.ForumPostVO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fitanywhere.usercourse.model.UserCourseVO;
+import org.springframework.format.annotation.DateTimeFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.Serializable;
+import java.util.Date;
+
 import com.fitanywhere.adcarousel.model.AdCarouselVO;
 import com.fitanywhere.course.model.CourseVO;
+import com.fitanywhere.forumpost.model.ForumPostVO;
+import com.fitanywhere.forumreply.model.ForumReplyVO;
 import com.fitanywhere.mood.model.MoodVO;
 import com.fitanywhere.opinion.model.OpinionVO;
 import com.fitanywhere.socialpost.model.SocialPostVO;
@@ -35,8 +42,9 @@ public class UserVO implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "u_id")
-	private Integer uId;	
+	private Integer uId;
 	
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<OpinionVO> opinions = new HashSet<>();
 
@@ -107,6 +115,31 @@ public class UserVO implements java.io.Serializable {
 	@JsonIgnore
 	private Set<AdCarouselVO> adCarousel = new HashSet<AdCarouselVO>();
 
+	
+	//ROY	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy="userVO")
+	@OrderBy("u_id asc") //asc = 根據指定的欄位排序
+	private Set<ForumPostVO> forumPost = new HashSet<ForumPostVO>();
+	public Set<ForumPostVO> getForumPost() {
+		return forumPost;
+	}
+	
+	//ROY	
+		@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy="userVO")
+		@OrderBy("u_id asc") //asc = 根據指定的欄位排序
+		private Set<ForumReplyVO> forumReply = new HashSet<ForumReplyVO>();
+		public Set<ForumReplyVO> getForumReply() {
+			return forumReply;
+		}
+
+		public void setForumPost(Set<ForumPostVO> forumPost) {
+			this.forumPost = forumPost;
+		}
+		
+		public void setForumReply(Set<ForumReplyVO> forumReply) {
+			this.forumReply = forumReply;
+		}
+
 	public Set<AdCarouselVO> getAdCarousel() {
 		return this.adCarousel;
 	}
@@ -125,6 +158,11 @@ public class UserVO implements java.io.Serializable {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "userVO")
 	@JsonIgnore
 	private Set<SocialReplyVO> socialReplys = new HashSet<SocialReplyVO>();
+
+	// Mok
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="userVO")
+	@JsonIgnore
+	private Set<UserCourseVO> userCourses = new HashSet<UserCourseVO>();
 
 	public Set<SocialReplyVO> getSocialReplys() {
 		return socialReplys;
@@ -254,6 +292,6 @@ public class UserVO implements java.io.Serializable {
 
 	public void setOpinions(Set<OpinionVO> opinions) {
 		this.opinions = opinions;
-	}	
-	
+	}
+
 }

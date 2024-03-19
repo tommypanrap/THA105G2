@@ -83,10 +83,4 @@ public class StudentCourseController {
 		return "front-end/mj/course_details_2";
 	}
 
-	@GetMapping(value = "/own_course_list/{crId}")
-	public String ownCourseList(@PathVariable Integer crId, ModelMap model, HttpSession session) {
-
-
-		return "front-end/mj/student_enrolled_courses";
-	}
 }

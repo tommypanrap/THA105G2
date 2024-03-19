@@ -28,10 +28,6 @@ public class BackendController {
 	@Autowired
 	CourseDetailService courseDetailSvc;
 	
-	@GetMapping("/backend_news")
-	public String backend_news(Model model)  {
-        return "back-end/backend_news"; 
-    }
 	
 	@GetMapping("/backend_course")
 	public String backend_course(Model model)  {

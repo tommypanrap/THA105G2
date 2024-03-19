@@ -17,7 +17,7 @@ public class FilterConfig {
         FilterRegistrationBean<LoginStatusFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(new LoginStatusFilter());
 //      請在這邊設定需要過濾登入狀態的網址
-        // Joy 添加了"/order/order_history","/order/add"
+        // Joy 添加了"/order/*","/cart/*"
         // Mok 添加"/course/my_courses/*"
         registrationBean.addUrlPatterns("/user/test_B/*", "/test_B/", "/test_C/","/socialpost/*","/order/*","/cart/*", "/course/my_courses/*");
         return registrationBean;
@@ -27,8 +27,9 @@ public class FilterConfig {
     public FilterRegistrationBean<AdminLoginStatusFilter> adminLoginStatusFilter() {
         FilterRegistrationBean<AdminLoginStatusFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(new AdminLoginStatusFilter());
-//      請在這邊設定需要過濾管理員登入狀態的網址  
-        registrationBean.addUrlPatterns("/backend_user1111/*", "/其他後端");
+//      請在這邊設定需要過濾管理員登入狀態的網址
+        // Joy 添加了"/backend/order-get"
+        registrationBean.addUrlPatterns("/backend_user1111/*", "/其他後端","/backend/*");
         return registrationBean;
     }
     

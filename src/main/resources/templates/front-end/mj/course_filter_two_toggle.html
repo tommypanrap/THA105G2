@@ -1304,7 +1304,7 @@
 <script>
     const add2Cart = (courseData) => {
         let crId = courseData.crId;
-        //const url = window.location.href;
+
         fetch('/cart/add', {
             method: 'POST',
             body: crId,
@@ -1312,6 +1312,9 @@
                 "content-type": "application/json",
             }
         }).then((res) => {
+            if (res.redirected){
+                window.location.href = res.url;
+            }
             if (res.status === 401) {
                 // 未登入回到登入頁面
                 alert('請先登入！')

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Course Filter Two Toggle - Online Courses & Education Bootstrap5 Template</title>
+    <title>fitanywhere Courses</title>
     <meta name="robots" content="noindex, follow"/>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -795,7 +795,7 @@
 
 
 <!-- Start Side Vav -->
-<div th:replace="front-end/cart/cartview.html"></div>
+<div th:replace="/front-end/cart/cartview.html"></div>
 <!-- End Side Vav -->
 <a class="close_side_menu" href="javascript:void(0);"></a>
 
@@ -824,7 +824,7 @@
                             <h1 class="title mb--0">所有課程</h1>
 
                         </div>
-                        <p class="description">Courses that help beginner designers become true unicorns. </p>
+                        <p class="description">在這裡找到所有你想上的健身課程！ </p>
                     </div>
                 </div>
             </div>
@@ -852,39 +852,32 @@
                         </div>
                     </div>
                     <div class="col-xl-7 col-lg-12 col-md-12">
-                        <div class="rbt-sorting-list d-flex flex-wrap align-items-end justify-content-start justify-content-xl-end">
-                            <div class="rbt-short-item">
-                                <form action="#" class="rbt-search-style me-0">
-                                    <input type="text" placeholder="搜尋你想找的課程..">
-                                    <button type="submit" class="rbt-search-btn rbt-round-btn">
-                                        <i class="feather-search"></i>
-                                    </button>
-                                </form>
-                            </div>
-                            <div class="rbt-short-item">
-                                <div class="filter-select">
-                                    <span class="select-label d-block">排序</span>
-                                    <div class="filter-select rbt-modern-select search-by-category">
-                                        <select data-size="7">
-                                            <option>預設</option>
-                                            <option>Latest</option>
-                                            <option>Popularity</option>
-                                            <option>Trending</option>
-                                            <option>價格: 低到高</option>
-                                            <option>價格: 高到低</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
+<!--                        <div class="rbt-sorting-list d-flex flex-wrap align-items-end justify-content-start justify-content-xl-end">-->
+<!--                            <div class="rbt-short-item">-->
+<!--                                <form action="#" class="rbt-search-style me-0">-->
+<!--                                    <input type="text" placeholder="搜尋你想找的課程..">-->
+<!--                                    <button type="submit" class="rbt-search-btn rbt-round-btn">-->
+<!--                                        <i class="feather-search"></i>-->
+<!--                                    </button>-->
+<!--                                </form>-->
+<!--                            </div>-->
+<!--                            <div class="rbt-short-item">-->
+<!--                                <div class="filter-select">-->
+<!--                                    <span class="select-label d-block">排序</span>-->
+<!--                                    <div class="filter-select rbt-modern-select search-by-category">-->
+<!--                                        <select data-size="7">-->
+<!--                                            <option>預設</option>-->
+<!--                                            <option>Latest</option>-->
+<!--                                            <option>Popularity</option>-->
+<!--                                            <option>Trending</option>-->
+<!--                                            <option>價格: 低到高</option>-->
+<!--                                            <option>價格: 高到低</option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
 
-                            <div class="rbt-short-item">
-                                <div class="view-more-btn text-start text-sm-end">
-                                    <button class="discover-filter-button discover-filter-activation rbt-btn btn-white btn-md radius-round">
-                                        篩選<i class="feather-filter"></i></button>
-                                </div>
-                            </div>
-
-                        </div>
+<!--                        </div>-->
                     </div>
                 </div>
 
@@ -1146,158 +1139,96 @@
             <div class="col-lg-12">
                 <div class="rbt-course-grid-column">
 
-                    <th:block th:each="courseData: ${courseListData}" id="courses_table">
+                    <th:block th:each="courseData: ${courseListData}">
                         <div class="course-grid-3">
                             <div class="rbt-card variation-01 rbt-hover">
                                 <div class="rbt-card-img">
-                                    <a href="course-details.html">
-<!--                                        "data:image/jpeg;base64,${item.crCover}-->
-
-                                        <img th:if="${courseData.base64CrCover != null}"
-                                             th:src="'data:image/jpeg;base64,' + ${courseData.base64CrCover}"
-                                             alt="Card image">
-
-                                        <img th:unless="${courseData.base64CrCover != null}"
-                                             th:src="@{/assets/images/client/avatar-02.png}"
-                                             alt="Card image">
+                                    <a th:href="@{'/course/single_course/' + ${courseData.crId}}">
+                                        <img th:src="@{/assets/images/client/avatar-02.png}"
+                                             th:data-src="'/course/img?crId='+ ${courseData.crId}"
+                                             style="max-height: 295px" class="defaultCrCover" alt="Card image">
 
                                     </a>
                                 </div>
                                 <div class="rbt-card-body">
-                                    <div class="rbt-card-top">
-                                        <div class="rbt-review">
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                            <span class="rating-count"> (15 Reviews)</span>
-                                        </div>
-                                        <div class="rbt-bookmark-btn">
-                                            <a class="rbt-round-btn" title="Bookmark" th:href="@{#}"><i
-                                                    class="feather-bookmark"></i></a>
-                                        </div>
-                                    </div>
 
-                                    <h4 class="rbt-card-title"><a href="course-details.html"
+
+                                    <h4 class="rbt-card-title"><a th:href="@{'/course/single_course/' + ${courseData.crId}}"
                                                                   th:text="${courseData.crTitle}"></a>
                                     </h4>
-
-                                    <ul class="rbt-meta">
-                                        <li><i class="feather-book"></i>12 Lessons</li>
-                                        <li><i class="feather-users"></i>50 Students</li>
-                                    </ul>
 
                                     <p class="rbt-card-text" th:text="${courseData.crSubtitle}"></p>
                                     <div class="rbt-author-meta mb--10">
                                         <div class="rbt-avater">
                                             <a th:href="@{'/course_details_2'}">
-<!--                                                <img src="data:image/jpeg;base64,${item.crCover}"-->
-                                                <img th:src="@{/assets/images/client/avatar-02.png}"
-                                                     alt="Sophia Jaymes">
+                                                   <img class="userHeadshot" th:data-user-id="${courseData.uId}"  alt="Coach Image">
+                                                <!--   <img th:src="@{/assets/images/client/avatar-02.png}"-->
                                             </a>
                                         </div>
                                         <div class="rbt-author-info">
 
-                                            By <span th:text="${courseData.userVO.uName}"></span>
+                                                 By <span th:text="${courseData.uNickName}"></span>
                                         </div>
                                     </div>
                                     <div class="rbt-card-bottom">
                                         <div class="rbt-price">
                                             <span class="current-price" th:text="'NT$'+ ${courseData.crPrice}"></span>
-                                            <!--                                            <span class="off-price">$120</span>-->
+                                            <!--   <span class="off-price">$120</span>-->
                                         </div>
-                                        <!--                                        -->
                                         <a class="rbt-btn-link left-icon" href="javascript:void(0);"
-                                           th:onclick="add2Cart([[${courseData}]]);"
-
-
-                                        ><i
-                                                class="feather-shopping-cart"></i>加入購物車</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </th:block>
-
-
-                    <!-- Start Single Card  -->
-                    <div class="course-grid-3">
-                        <div class="rbt-card variation-01 rbt-hover">
-                            <div class="rbt-card-img">
-                                <a href="course-details.html">
-                                    <img th:src="@{/assets/images/course/course-online-01.jpg}" alt="Card image">
-                                    <div class="rbt-badge-3 bg-white">
-                                        <span>-40%</span>
-                                        <span>Off</span>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="rbt-card-body">
-                                <div class="rbt-card-top">
-                                    <div class="rbt-review">
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                        </div>
-                                        <span class="rating-count"> (15 Reviews)</span>
-                                    </div>
-                                    <div class="rbt-bookmark-btn">
-                                        <a class="rbt-round-btn" title="Bookmark" th:href="@{#}"><i
-                                                class="feather-bookmark"></i></a>
-                                    </div>
-                                </div>
-
-                                <h4 class="rbt-card-title"><a href="course-details.html">React Front To Back</a>
-                                </h4>
-
-                                <ul class="rbt-meta">
-                                    <li><i class="feather-book"></i>12 Lessons</li>
-                                    <li><i class="feather-users"></i>50 Students</li>
-                                </ul>
-
-                                <p class="rbt-card-text">It is a long established fact that a reader will be
-                                    distracted.</p>
-                                <div class="rbt-author-meta mb--10">
-                                    <div class="rbt-avater">
-                                        <a th:href="@{#}">
-                                            <img th:src="@{/assets/images/client/avatar-02.png}" alt="Sophia Jaymes">
+                                           th:onclick="add2Cart([[${courseData}]]);">
+                                            <i class="feather-shopping-cart"></i>加入購物車
                                         </a>
                                     </div>
-                                    <div class="rbt-author-info">
-                                        By <a href="profile.html">Angela</a> In <a th:href="@{#}">Development</a>
-                                    </div>
-                                </div>
-                                <div class="rbt-card-bottom">
-                                    <div class="rbt-price">
-                                        <span class="current-price">$60</span>
-                                        <span class="off-price">$120</span>
-                                    </div>
-                                    <a class="rbt-btn-link" href="course-details.html">Learn
-                                        More<i class="feather-arrow-right"></i></a>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- End Single Card  -->
-
+                    </th:block>
                 </div>
                 <div class="row">
                     <div class="col-lg-12 mt--60">
                         <nav>
                             <ul class="rbt-pagination">
-                                <li><a th:href="@{#}" aria-label="Previous"><i class="feather-chevron-left"></i></a>
-                                </li>
-                                <li class="active"><a th:href="@{#}">1</a></li>
-                                <li><a th:href="@{#}">2</a></li>
-                                <li><a th:href="@{#}">3</a></li>
-                                <li><a th:href="@{#}" aria-label="Next"><i class="feather-chevron-right"></i></a></li>
+                                <li th:if="${currentPage > 0}"><a th:href="@{/course/courses(page=${currentPage - 1})}"
+                                                                  aria-label="Previous"><i
+                                        class="feather-chevron-left"></i></a></li>
+                                <li th:unless="${currentPage > 0}"><a href="javascript:void(0);"
+                                                                      aria-label="Previous"><i
+                                        class="feather-chevron-left"></i></a></li>
+
+
+                                <li th:if="${currentPage == 0}" class="active"><a href="javascript:void(0);"
+                                                                                  th:text="${currentPage+1}"></a></li>
+                                <li th:if="${currentPage == 0}"><a th:href="@{/course/courses(page=${currentPage + 1})}"
+                                                                   th:text="${currentPage+2}"></a></li>
+                                <li th:if="${currentPage == 0}"><a th:href="@{/course/courses(page=${currentPage + 2})}"
+                                                                   th:text="${currentPage+3}"></a></li>
+
+                                <li th:if="${currentPage > 0 && currentPage < totalPages}"><a
+                                        th:href="@{/course/courses(page=${currentPage - 1})}"
+                                        th:text="${currentPage}"></a></li>
+                                <li th:if="${currentPage > 0 && currentPage < totalPages}" class="active"><a
+                                        href="javascript:void(0);" th:text="${currentPage + 1}"></a></li>
+                                <li th:if="${currentPage > 0 && currentPage < totalPages}"><a
+                                        th:href="@{/course/courses(page=${currentPage + 1})}"
+                                        th:text="${currentPage + 2}"></a></li>
+
+                                <li th:if="${currentPage > 0 && currentPage == totalPages}"><a
+                                        th:href="@{/course/courses(page=${currentPage - 2})}"
+                                        th:text="${currentPage - 1}"></a></li>
+                                <li th:if="${currentPage > 0 && currentPage == totalPages}"><a
+                                        th:href="@{/course/courses(page=${currentPage - 1})}"
+                                        th:text="${currentPage}"></a></li>
+                                <li th:if="${currentPage > 0 && currentPage == totalPages}" class="active"><a
+                                        href="javascript:void(0);" th:text="${currentPage + 1}"></a></li>
+
+
+                                <li th:if="${currentPage < totalPages}"><a
+                                        th:href="@{/course/courses(page=${currentPage + 1})}" aria-label="Next"><i
+                                        class="feather-chevron-right"></i></a></li>
+                                <li th:unless="${currentPage < totalPages}"><a href="javascript:void(0);"
+                                                                               aria-label="Next"><i
+                                        class="feather-chevron-right"></i></a></li>
                             </ul>
                         </nav>
                     </div>
@@ -1307,173 +1238,13 @@
     </div>
 </div>
 <!-- End Card Style -->
-
 <div class="rbt-separator-mid">
     <div class="container">
         <hr class="rbt-separator m-0">
     </div>
 </div>
 <!-- Start Footer aera -->
-<footer class="rbt-footer footer-style-1 bg-color-white overflow-hidden">
-    <div class="footer-top">
-        <div class="container">
-            <div class="row g-5">
-                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="footer-widget">
-                        <div class="logo">
-                            <a href="index.html">
-                                <img th:src="@{/assets/images/logo/logo.png}" alt="Edu-cause">
-                            </a>
-                        </div>
-
-                        <p class="description mt--20">We’re always in search for talented
-                            and motivated people. Don’t be shy introduce yourself!
-                        </p>
-
-                        <ul class="social-icon social-default justify-content-start">
-                            <li><a href="https://www.facebook.com/">
-                                <i class="feather-facebook"></i>
-                            </a>
-                            </li>
-                            <li><a href="https://www.twitter.com">
-                                <i class="feather-twitter"></i>
-                            </a>
-                            </li>
-                            <li><a href="https://www.instagram.com/">
-                                <i class="feather-instagram"></i>
-                            </a>
-                            </li>
-                            <li><a href="https://www.linkdin.com/">
-                                <i class="feather-linkedin"></i>
-                            </a>
-                            </li>
-                        </ul>
-
-                        <div class="contact-btn mt--30">
-                            <a class="rbt-btn hover-icon-reverse btn-border-gradient radius-round" th:href="@{#}">
-                                <div class="icon-reverse-wrapper">
-                                    <span class="btn-text">Contact With Us</span>
-                                    <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                    <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-2 col-md-6 col-sm-6 col-12">
-                    <div class="footer-widget">
-                        <h5 class="ft-title">Useful Links</h5>
-                        <ul class="ft-link">
-                            <li>
-                                <a href="12-marketplace.html">Marketplace</a>
-                            </li>
-                            <li>
-                                <a href="04-kindergarten.html">kindergarten</a>
-                            </li>
-                            <li>
-                                <a href="13-university-classic.html">University</a>
-                            </li>
-                            <li>
-                                <a href="09-gym-coaching.html">GYM Coaching</a>
-                            </li>
-                            <li>
-                                <a href="faqs.html">FAQ</a>
-                            </li>
-                            <li>
-                                <a href="about-us-01.html">About Us</a>
-                            </li>
-                            <li>
-                                <a href="privacy-policy.html">Privacy policy</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-lg-2 col-md-6 col-sm-6 col-12">
-                    <div class="footer-widget">
-                        <h5 class="ft-title">Our Company</h5>
-                        <ul class="ft-link">
-                            <li>
-                                <a href="contact.html">Contact Us</a>
-                            </li>
-                            <li>
-                                <a href="become-a-teacher.html">Become Teacher</a>
-                            </li>
-                            <li>
-                                <a href="blog.html">Blog</a>
-                            </li>
-                            <li>
-                                <a href="instructor.html">Instructor</a>
-                            </li>
-                            <li>
-                                <a href="event-list.html">Events</a>
-                            </li>
-                            <li>
-                                <a href="course-filter-one-toggle.html">Course</a>
-                            </li>
-                            <li>
-                                <a href="contact.html">Contact</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="footer-widget">
-                        <h5 class="ft-title">Get Contact</h5>
-                        <ul class="ft-link">
-                            <li><span>Phone:</span> <a th:href="@{#}">(406) 555-0120</a></li>
-                            <li><span>E-mail:</span> <a href="mailto:hr@example.com">admin@example.com</a></li>
-                        </ul>
-
-                        <form class="newsletter-form mt--20" action="#">
-                            <h6 class="w-600">Newsletter</h6>
-                            <p class="description">2000+ Our students are subscribe Around the World.<br> Don’t be shy
-                                introduce yourself!</p>
-
-                            <div class="form-group right-icon icon-email mb--20">
-                                <label for="email">Enter Your Email Here</label>
-                                <input id="email" type="email">
-                            </div>
-
-                            <div class="form-group mb--0">
-                                <button class="rbt-btn rbt-switch-btn btn-gradient radius-round btn-sm" type="submit">
-                                    <span data-text="Submit Now">Submit Now</span>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="rbt-separator-mid">
-        <div class="container">
-            <hr class="rbt-separator m-0">
-        </div>
-    </div>
-    <!-- Start Copyright Area  -->
-    <div class="copyright-area copyright-style-1 ptb--20">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12">
-                    <p class="rbt-link-hover text-center text-lg-start">Copyright © 2023 <a
-                            href="https://themeforest.net/user/rbt-themes">Rainbow-Themes.</a> All Rights Reserved</p>
-                </div>
-                <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-12 col-12">
-                    <ul class="copyright-link rbt-link-hover justify-content-center justify-content-lg-end mt_sm--10 mt_md--10">
-                        <li><a th:href="@{#}">Terms of service</a></li>
-                        <li><a href="privacy-policy.html">Privacy policy</a></li>
-                        <li><a href="subscription.html">Subscription</a></li>
-                        <li><a href="login.html">Login & Register</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Copyright Area  -->
-</footer>
+<div th:replace="/front-end/footer"></div>
 <!-- End Footer aera -->
 <div class="rbt-progress-parent">
     <svg class="rbt-back-circle svg-inner" width="100%" height="100%" viewBox="-1 -1 102 102">
@@ -1517,15 +1288,8 @@
 
 <script>
     const add2Cart = (courseData) => {
-        // const coverBase64 = arrayBufferToBase64(crCover);
-        // const cartItem = {
-        //     crId: courseData.crId,
-        //     crTitle: courseData.crTitle,
-        //     crCover: courseData.crCover,
-        //     crPrice: courseData.crPrice
-        // };
         let crId = courseData.crId;
-        //const url = window.location.href;
+
         fetch('/cart/add', {
             method: 'POST',
             body: crId,
@@ -1533,59 +1297,76 @@
                 "content-type": "application/json",
             }
         }).then((res) => {
-            if (res.ok) {
-                return res.json()
+            if (res.redirected){
+                window.location.href = res.url;
+            }
+            if (res.status === 401) {
+                // 未登入回到登入頁面
+                alert('請先登入！')
+                window.location.href = '/user/force_user_login';
             } else {
-                throw new Error("Network response was not ok.")
+                return res.text();
             }
         }).then((data) => {
-            console.log(data);
+            if (data === '您已擁有該課程！') {
+                alert(data);
+            } else if (data === '成功添加至購物車！')
+                console.log(data);
         }).catch((error) => {
             console.error("發生錯誤:" + error);
         });
-
         // getCartItems();
     }
 
 
+    //userRestController getUserHeadshot
+    $(document).ready(function () {
+        let userIdList = [];
 
+        $('.userHeadshot').each(function () {
+            let data = $(this).data('user-id');
 
-
-
-    document.addEventListener("DOMContentLoaded", function () {
-        var table = document.getElementById('courses_table');
-        var dataTable = new DataTable(table, {
-            "lengthMenu": [10, 20, 50, 100],
-            "searching": true,  //搜尋功能, 預設是開啟
-            "paging": true,     //分頁功能, 預設是開啟
-            "ordering": true,   //排序功能, 預設是開啟
-            "language": {
-                "processing": "處理中...",
-                "loadingRecords": "載入中...",
-                "lengthMenu": "顯示 _MENU_ 筆結果",
-                "zeroRecords": "沒有符合的結果",
-                "info": "顯示第 _START_ 至 _END_ 筆結果，共<font color=red> _TOTAL_ </font>筆",
-                "infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
-                "infoFiltered": "(從 _MAX_ 筆結果中過濾)",
-                "infoPostFix": "",
-                "search": "搜尋:",
-                "paginate": {
-                    "first": "第一頁",
-                    "previous": "上一頁",
-                    "next": "下一頁",
-                    "last": "最後一頁"
+            // fetch 可以直接處理二進制資料(如blob)
+            fetch('/user_api/user_headshot_test', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
                 },
-                "aria": {
-                    "sortAscending": ": 升冪排列",
-                    "sortDescending": ": 降冪排列"
-                }
-            }
+                body: JSON.stringify({u_id: data}),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('response error');
+                    }
+                    return response.blob();
+                })
+                .then(blob => {
+                    let image_Url = URL.createObjectURL(blob);
+                    ;
+                    $(this).attr('src', image_Url);
+                })
+                .catch(error => {
+                    console.error('找不到user image:', error);
+                    $(this).attr('src', '/assets/images/client/avatar-02.png');
+                });
         });
     });
 
 
+    $(document).ready(function () {
+        $('.defaultCrCover').each(function () {
+            const realSrc = $(this).data('src');
+            const image = new Image();
+            image.onload = () => {
+                $(this).attr('src', realSrc);
+            };
+            image.onerror = () => {
+                console.log('圖片加載失敗')
+            };
+            image.src = realSrc
 
-
+        })
+    })
 </script>
 </body>
 

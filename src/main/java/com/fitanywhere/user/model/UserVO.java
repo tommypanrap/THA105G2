@@ -3,6 +3,7 @@ package com.fitanywhere.user.model;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,40 +12,51 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
-
+import com.fitanywhere.forumpost.model.ForumPostVO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fitanywhere.usercourse.model.UserCourseVO;
 import org.springframework.format.annotation.DateTimeFormat;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 
 import com.fitanywhere.adcarousel.model.AdCarouselVO;
 import com.fitanywhere.course.model.CourseVO;
+import com.fitanywhere.forumpost.model.ForumPostVO;
+import com.fitanywhere.forumreply.model.ForumReplyVO;
 import com.fitanywhere.mood.model.MoodVO;
+import com.fitanywhere.opinion.model.OpinionVO;
 import com.fitanywhere.socialpost.model.SocialPostVO;
 import com.fitanywhere.socialpost.model.SocialReplyVO;
-//Tommy implements java.io.Serializable
+
 @Entity
 @Table(name = "user")
-public class UserVO implements java.io.Serializable{
+public class UserVO implements java.io.Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "u_id")
 	private Integer uId;
 	
-	
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<OpinionVO> opinions = new HashSet<>();
+
 	// Tommy
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "mood_id")
 	private MoodVO moodVO;
 
 	// Mok
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "userVO")
+	@JsonIgnore
 	private Set<CourseVO> courses = new HashSet<CourseVO>();
 
 	public Set<CourseVO> getCourses() {
@@ -81,8 +93,8 @@ public class UserVO implements java.io.Serializable{
 	@Column(name = "u_gender")
 	private Integer uGender;
 //	0 = 男; 1 = 女; 2 = 其他;
-	
-	@Column(name="u_headshot",columnDefinition = "longblob")
+
+	@Column(name = "u_headshot", columnDefinition = "longblob")
 	private byte[] uHeadshot;
 
 	@Column(name = "u_birth")
@@ -96,12 +108,37 @@ public class UserVO implements java.io.Serializable{
 	@Column(name = "u_registerdate")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date uRegisterdate;
-	
-	
+
 //	xiaoxin
-	
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="userVO")
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "userVO")
+	@JsonIgnore
 	private Set<AdCarouselVO> adCarousel = new HashSet<AdCarouselVO>();
+
+	
+	//ROY	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy="userVO")
+	@OrderBy("u_id asc") //asc = 根據指定的欄位排序
+	private Set<ForumPostVO> forumPost = new HashSet<ForumPostVO>();
+	public Set<ForumPostVO> getForumPost() {
+		return forumPost;
+	}
+	
+	//ROY	
+		@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy="userVO")
+		@OrderBy("u_id asc") //asc = 根據指定的欄位排序
+		private Set<ForumReplyVO> forumReply = new HashSet<ForumReplyVO>();
+		public Set<ForumReplyVO> getForumReply() {
+			return forumReply;
+		}
+
+		public void setForumPost(Set<ForumPostVO> forumPost) {
+			this.forumPost = forumPost;
+		}
+		
+		public void setForumReply(Set<ForumReplyVO> forumReply) {
+			this.forumReply = forumReply;
+		}
 
 	public Set<AdCarouselVO> getAdCarousel() {
 		return this.adCarousel;
@@ -111,14 +148,21 @@ public class UserVO implements java.io.Serializable{
 		this.adCarousel = adCarousel;
 	}
 
-	//Tommy
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="userVO")
+	// Tommy
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "userVO")
+	@JsonIgnore
 	@OrderBy("spid ASC")
 	private Set<SocialPostVO> socialposts = new HashSet<SocialPostVO>();
-	
-	//Tommy
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="userVO")
+
+	// Tommy
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "userVO")
+	@JsonIgnore
 	private Set<SocialReplyVO> socialReplys = new HashSet<SocialReplyVO>();
+
+	// Mok
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy="userVO")
+	@JsonIgnore
+	private Set<UserCourseVO> userCourses = new HashSet<UserCourseVO>();
 
 	public Set<SocialReplyVO> getSocialReplys() {
 		return socialReplys;
@@ -136,13 +180,12 @@ public class UserVO implements java.io.Serializable{
 		this.socialposts = socialposts;
 	}
 
-
 	// Constructor
 	public UserVO() {
 		// Default constructor
 	}
 
-	// Getters and setters 
+	// Getters and setters
 	public Integer getuId() {
 		return this.uId;
 	}
@@ -237,11 +280,18 @@ public class UserVO implements java.io.Serializable{
 
 	public void setuRegisterdate(Date uRegisterdate) {
 		this.uRegisterdate = uRegisterdate;
-	}	
+	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public Set<OpinionVO> getOpinions() {
+		return opinions;
+	}
+
+	public void setOpinions(Set<OpinionVO> opinions) {
+		this.opinions = opinions;
+	}
 
 }
-	
-
-	
-

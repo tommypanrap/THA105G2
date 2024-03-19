@@ -1,1184 +1,346 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
 <head th:insert="~{/front-end/included-head}"></head>
-   
+<head>
+<style>
+.body-index .chat-select-row {
+	flex-wrap: wrap;
+}
+
+.chat-card {
+	margin-bottom: 20px;
+}
+
+.chat-img {
+	background-color: transparent;
+}
+</style>
+
+
+</head>
 
 <body class="rbt-header-sticky body-index">
 	<div th:insert="front-end/header.html"></div>
-    <div class="popup-mobile-menu">
-    <div class="inner-wrapper">
-        <div class="inner-top">
-            <div class="content">
-                <div class="logo">
-                    <a href="index.html">
-                        <img th:src="@{/assets/images/logo/logo.png}" alt="Education Logo Images">
-                    </a>
-                </div>
-                <div class="rbt-btn-close">
-                    <button class="close-button rbt-round-btn"><i class="feather-x"></i></button>
-                </div>
-            </div>
-            <p class="description">Histudy is a education website template. You can customize all.</p>
-            <ul class="navbar-top-left rbt-information-list justify-content-start">
-                <li>
-                    <a href="mailto:hello@example.com"><i class="feather-mail"></i>example@gmail.com</a>
-                </li>
-                <li>
-                    <a href="#"><i class="feather-phone"></i>(302) 555-0107</a>
-                </li>
-            </ul>
-        </div>
-
-        <nav class="mainmenu-nav">
-            <ul class="mainmenu">
-                <li class="with-megamenu has-menu-child-item position-static">
-                    <a href="#">Home <i class="feather-chevron-down"></i></a>
-                    <!-- Start Mega Menu  -->
-                    <div class="rbt-megamenu menu-skin-dark">
-                        <div class="wrapper">
-                            <div class="row row--15 home-plesentation-wrapper single-dropdown-menu-presentation">
-
-                                <!-- Start Single Demo  -->
-                                <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
-                                    <div class="demo-single">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="01-main-demo.html"><img th:src="@{/assets/images/splash/demo/h1.jpg}" alt="Demo Images"></a>
-                                            </div>
-                                            <div class="content">
-                                                <h4 class="title"><a href="01-main-demo.html">Home Demo <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Demo  -->
-
-                                <!-- Start Single Demo  -->
-                                <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
-                                    <div class="demo-single">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="12-marketplace.html"><img th:src="@{/assets/images/splash/demo/h12.jpg}" alt="Demo Images"></a>
-                                            </div>
-                                            <div class="content">
-                                                <h4 class="title"><a href="12-marketplace.html">Marketplace <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Demo  -->
-                                <!-- Start Single Demo  -->
-                                <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
-                                    <div class="demo-single">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="04-kindergarten.html"><img th:src="@{/assets/images/splash/demo/h4.jpg}" alt="Demo Images"></a>
-                                            </div>
-                                            <div class="content">
-                                                <h4 class="title"><a href="04-kindergarten.html">kindergarten <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Demo  -->
-                                <!-- Start Single Demo  -->
-                                <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
-                                    <div class="demo-single">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="13-university-classic.html"><img th:src="@{/assets/images/splash/demo/h13.jpg}" alt="Demo Images"></a>
-                                            </div>
-                                            <div class="content">
-                                                <h4 class="title"><a href="13-university-classic.html">University Classic <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Demo  -->
-
-                                <!-- Start Single Demo  -->
-                                <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
-                                    <div class="demo-single">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="14-home-elegant.html"><img th:src="@{/assets/images/splash/demo/h14.jpg}" alt="Demo Images"></a>
-                                            </div>
-                                            <div class="content">
-                                                <h4 class="title"><a href="14-home-elegant.html">Home Elegant <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Demo  -->
-
-                                <!-- Start Single Demo  -->
-                                <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
-                                    <div class="demo-single">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="09-gym-coaching.html"><img th:src="@{/assets/images/splash/demo/h9.jpg}" alt="Demo Images"></a>
-                                            </div>
-                                            <div class="content">
-                                                <h4 class="title"><a href="09-gym-coaching.html">Gym Coaching <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Demo  -->
-
-                                <!-- Start Single Demo  -->
-                                <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
-                                    <div class="demo-single">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="03-online-school.html"><img th:src="@{/assets/images/splash/demo/h3.jpg}" alt="Demo Images"></a>
-                                            </div>
-                                            <div class="content">
-                                                <h4 class="title"><a href="03-online-school.html">Online School <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Demo  -->
-
-                                <!-- Start Single Demo  -->
-                                <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
-                                    <div class="demo-single">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="06-university-status.html"><img th:src="@{/assets/images/splash/demo/h6.jpg}" alt="Demo Images"></a>
-                                            </div>
-                                            <div class="content">
-                                                <h4 class="title"><a href="06-university-status.html">University Status <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Demo  -->
-
-                                <!-- Start Single Demo  -->
-                                <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
-                                    <div class="demo-single">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="15-home-technology.html"><img th:src="@{/assets/images/splash/demo/h15.jpg}" alt="Demo Images"></a>
-                                            </div>
-                                            <div class="content">
-                                                <h4 class="title"><a href="15-home-technology.html">Home Technology <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Demo  -->
-
-                                <!-- Start Single Demo  -->
-                                <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
-                                    <div class="demo-single">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="07-instructor-portfolio.html"><img th:src="@{/assets/images/splash/demo/h7.jpg}" alt="Demo Images"></a>
-                                            </div>
-                                            <div class="content">
-                                                <h4 class="title"><a href="07-instructor-portfolio.html">Instructor Portfolio <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Demo  -->
-
-                                <!-- Start Single Demo  -->
-                                <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
-                                    <div class="demo-single">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="08-language-academy.html"><img th:src="@{/assets/images/splash/demo/h8.jpg}" alt="Demo Images"></a>
-                                            </div>
-                                            <div class="content">
-                                                <h4 class="title"><a href="08-language-academy.html">Language Academy <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Demo  -->
-
-                                <!-- Start Single Demo  -->
-                                <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
-                                    <div class="demo-single">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="11-single-course.html"><img th:src="@{/assets/images/splash/demo/h11.jpg}" alt="Demo Images"></a>
-                                            </div>
-                                            <div class="content">
-                                                <h4 class="title"><a href="11-single-course.html">Single Course <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Demo  -->
-
-                                <!-- Start Single Demo  -->
-                                <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
-                                    <div class="demo-single">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="10-online-course.html"><img th:src="@{/assets/images/splash/demo/h10.jpg}" alt="Demo Images"></a>
-                                            </div>
-                                            <div class="content">
-                                                <h4 class="title"><a href="10-online-course.html">Online Course <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Demo  -->
-
-                                <!-- Start Single Demo  -->
-                                <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
-                                    <div class="demo-single">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="05-classic-lms.html"><img th:src="@{/assets/images/splash/demo/h5.jpg}" alt="Demo Images"></a>
-                                            </div>
-                                            <div class="content">
-                                                <h4 class="title"><a href="05-classic-lms.html">Classic Lms <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Demo  -->
-
-                                <!-- Start Single Demo  -->
-                                <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item">
-                                    <div class="demo-single">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="02-course-school.html"><img th:src="@{/assets/images/splash/demo/h2.jpg}" alt="Demo Images"></a>
-                                            </div>
-                                            <div class="content">
-                                                <h4 class="title"><a href="02-course-school.html">Course School <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Demo  -->
-
-                                <!-- Start Single Demo  -->
-                                <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item coming-soon">
-                                    <div class="demo-single">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="#"><img th:src="@{/assets/images/splash/demo/coming-soon-1.png}" alt="Demo Images"></a>
-                                            </div>
-                                            <div class="content">
-                                                <h4 class="title"><a href="#">Coming Soon <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Demo  -->
-
-                                <!-- Start Single Demo  -->
-                                <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item coming-soon">
-                                    <div class="demo-single">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="#"><img th:src="@{/assets/images/splash/demo/coming-soon-2.png}" alt="Demo Images"></a>
-                                            </div>
-                                            <div class="content">
-                                                <h4 class="title"><a href="#">Coming Soon 2 <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Demo  -->
-
-                                <!-- Start Single Demo  -->
-                                <div class="col-lg-12 col-xl-2 col-xxl-2 col-md-12 col-sm-12 col-12 single-mega-item coming-soon">
-                                    <div class="demo-single">
-                                        <div class="inner">
-                                            <div class="thumbnail">
-                                                <a href="#"><img th:src="@{/assets/images/splash/demo/coming-soon-3.png}" alt="Demo Images"></a>
-                                            </div>
-                                            <div class="content">
-                                                <h4 class="title"><a href="#">Coming Soon 3 <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Single Demo  -->
-                            </div>
-
-                            <div class="load-demo-btn text-center">
-                                <a class="rbt-btn-link color-white" href="#">Scroll to view more <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z" />
-                                </svg></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Mega Menu  -->
-                </li>
-
-                <li class="with-megamenu has-menu-child-item">
-                    <a href="#">Courses <i class="feather-chevron-down"></i></a>
-                    <!-- Start Mega Menu  -->
-                    <div class="rbt-megamenu grid-item-2">
-                        <div class="wrapper">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="mega-top-banner">
-                                        <div class="content">
-                                            <h4 class="title">Developer hub</h4>
-                                            <p class="description">Start building fast, with code samples, key resources and more.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row row--15">
-                                <div class="col-lg-12 col-xl-6 col-xxl-6 single-mega-item">
-                                    <h3 class="rbt-short-title">Course Layout</h3>
-                                    <ul class="mega-menu-item">
-                                        <li><a href="course-filter-one-toggle.html">Filter One Toggle</a></li>
-                                        <li><a href="course-filter-one-open.html">Filter One Open</a></li>
-                                        <li><a href="course-filter-two-toggle.html">Filter Two Toggle</a></li>
-                                        <li><a href="course-filter-two-open.html">Filter Two Open</a></li>
-                                        <li><a href="course-with-tab.html">Course With Tab</a></li>
-                                        <li><a href="course-with-tab-two.html">Course With Tab Two</a></li>
-                                        <li><a href="course-card-2.html">Course Card Two</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-lg-12 col-xl-6 col-xxl-6 single-mega-item">
-                                    <h3 class="rbt-short-title">Course Layout</h3>
-                                    <ul class="mega-menu-item">
-                                        <li><a href="course-card-3.html">Course Card Three</a></li>
-                                        <li><a href="course-masonry.html">Course Masonry</a></li>
-                                        <li><a href="course-with-sidebar.html">Course With Sidebar</a></li>
-                                        <li><a href="course-details.html">Course Details</a></li>
-                                        <li><a href="course-details-2.html">Course Details Two</a></li>
-                                        <li><a href="lesson.html">Course Lesson <span class="rbt-badge-card">New</span></a></li>
-                                        <li><a href="create-course.html">Create Course <span class="rbt-badge-card">New</span></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <ul class="nav-quick-access">
-                                        <li><a href="#"><i class="feather-folder-minus"></i> Quick Start Guide</a></li>
-                                        <li><a href="#"><i class="feather-folder-minus"></i> For Open Source</a></li>
-                                        <li><a href="#"><i class="feather-folder-minus"></i> API Status</a></li>
-                                        <li><a href="#"><i class="feather-folder-minus"></i> Support</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Mega Menu  -->
-                </li>
-
-                <li class="has-dropdown has-menu-child-item">
-                    <a href="#">Dashboard
-                        <i class="feather-chevron-down"></i>
-                    </a>
-                    <ul class="submenu">
-                        <li class="has-dropdown"><a href="#">Instructor Dashboard</a>
-                            <ul class="submenu">
-                                <li><a href="instructor-dashboard.html">Dashboard</a></li>
-                                <li><a href="instructor-profile.html">Profile</a></li>
-                                <li><a href="instructor-enrolled-courses.html">Enrolled Courses</a></li>
-                                <li><a href="instructor-wishlist.html">Wishlist</a></li>
-                                <li><a href="instructor-reviews.html">Reviews</a></li>
-                                <li><a href="instructor-my-quiz-attempts.html">My Quiz Attempts</a></li>
-                                <li><a href="instructor-order-history.html">Order History</a></li>
-                                <li><a href="instructor-course.html">My Course</a></li>
-                                <li><a href="instructor-announcements.html">Announcements</a></li>
-                                <li><a href="instructor-quiz-attempts.html">Quiz Attempts</a></li>
-                                <li><a href="instructor-assignments.html">Assignments</a></li>
-                                <li><a href="instructor-settings.html">Settings</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-dropdown"><a href="#">Student Dashboard</a>
-                            <ul class="submenu">
-                                <li><a href="student-dashboard.html">Dashboard</a></li>
-                                <li><a href="student-profile.html">Profile</a></li>
-                                <li><a href="student-enrolled-courses.html">Enrolled Courses</a></li>
-                                <li><a href="student-wishlist.html">Wishlist</a></li>
-                                <li><a href="student-reviews.html">Reviews</a></li>
-                                <li><a href="student-my-quiz-attempts.html">My Quiz Attempts</a></li>
-                                <li><a  th:href="@{/order/order_history}">Order History</a></li>
-                                <li><a href="student-settings.html">Settings</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="with-megamenu has-menu-child-item position-static">
-                    <a href="#">Pages <i class="feather-chevron-down"></i></a>
-                    <!-- Start Mega Menu  -->
-                    <div class="rbt-megamenu grid-item-4">
-                        <div class="wrapper">
-                            <div class="row row--15">
-                                <div class="col-lg-12 col-xl-3 col-xxl-3 single-mega-item">
-                                    <h3 class="rbt-short-title">Get Started</h3>
-                                    <ul class="mega-menu-item">
-                                        <li><a href="about-us-01.html">About Us</a></li>
-                                        <li><a href="about-us-02.html">About Us 02</a></li>
-                                        <li><a href="event-grid.html">Event Grid</a></li>
-                                        <li><a href="event-list.html">Event List</a></li>
-                                        <li><a href="event-sidebar.html">Event Sidebar</a></li>
-                                        <li><a href="event-details.html">Event Details</a></li>
-                                        <li><a href="academy-gallery.html">Academy Gallery</a></li>
-                                        <li><a href="admission-guide.html">Admission Guide</a></li>
-                                    </ul>
-                                </div>
-
-                                <div class="col-lg-12 col-xl-3 col-xxl-3 single-mega-item">
-                                    <h3 class="rbt-short-title">Get Started</h3>
-                                    <ul class="mega-menu-item">
-                                        <li><a href="profile.html">Profile</a></li>
-                                        <li><a href="contact.html">Contact Us</a></li>
-                                        <li><a href="become-a-teacher.html">Become a Teacher</a></li>
-                                        <li><a href="instructor.html">Instructor</a></li>
-                                        <li><a href="faqs.html">FAQS</a></li>
-                                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                                        <li><a href="404.html">404 Page</a></li>
-                                        <li><a href="maintenance.html">Maintenance</a></li>
-                                    </ul>
-                                </div>
-
-                                <div class="col-lg-12 col-xl-3 col-xxl-3 single-mega-item">
-                                    <h3 class="rbt-short-title">Shop Pages</h3>
-                                    <ul class="mega-menu-item">
-                                        <li><a href="shop.html">Shop <span class="rbt-badge-card">Sale Anything</span></a></li>
-                                        <li><a href="single-product.html">Single Product</a></li>
-                                        <li><a href="cart.html">Cart Page</a></li>
-                                        <li><a href="checkout.html">Checkout</a></li>
-                                        <li><a href="wishlist.html">Wishlist Page</a></li>
-                                        <li><a href="my-account.html">My Acount</a></li>
-                                        <li><a href="login.html">Login & Register</a></li>
-                                        <li><a href="subscription.html">Subscription</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-lg-12 col-xl-3 col-xxl-3 single-mega-item">
-                                    <div class="mega-category-item">
-                                        <!-- Start Single Category  -->
-                                        <div class="nav-category-item">
-                                            <div class="thumbnail">
-                                                <div class="image"><img th:src="@{/assets/images/course/category-2.png}" alt="Course images"></div>
-                                                <a href="course-filter-one-toggle.html">
-                                                    <span>Online Education</span>
-                                                    <i class="feather-chevron-right"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <!-- End Single Category  -->
-
-                                        <!-- Start Single Category  -->
-                                        <div class="nav-category-item">
-                                            <div class="thumbnail">
-                                                <div class="image"><img th:src="@{/assets/images/course/category-1.png}" alt="Course images"></div>
-                                                <a href="course-filter-one-toggle.html">
-                                                    <span>Language Club</span>
-                                                    <i class="feather-chevron-right"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <!-- End Single Category  -->
-
-                                        <!-- Start Single Category  -->
-                                        <div class="nav-category-item">
-                                            <div class="thumbnail">
-                                                <div class="image"><img th:src="@{/assets/images/course/category-4.png}" alt="Course images"></div>
-                                                <a href="course-filter-one-toggle.html">
-                                                    <span>University Status</span>
-                                                    <i class="feather-chevron-right"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <!-- End Single Category  -->
-
-                                        <!-- Start Single Category  -->
-                                        <div class="nav-category-item">
-                                            <div class="thumbnail">
-                                                <a href="course-filter-one-toggle.html">
-                                                    <span>Course School</span>
-                                                    <i class="feather-chevron-right"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <!-- End Single Category  -->
-
-                                        <!-- Start Single Category  -->
-                                        <div class="nav-category-item">
-                                            <div class="thumbnail">
-                                                <div class="image"><img th:src="@{/assets/images/course/category-9.png}" alt="Course images"></div>
-                                                <a href="course-filter-one-toggle.html">
-                                                    <span>Academy</span>
-                                                    <i class="feather-chevron-right"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <!-- End Single Category  -->
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Mega Menu  -->
-                </li>
-
-                <li class="with-megamenu has-menu-child-item position-static">
-                    <a href="#">Elements <i class="feather-chevron-down"></i></a>
-                    <!-- Start Mega Menu  -->
-                    <div class="rbt-megamenu grid-item-3">
-                        <div class="wrapper">
-                            <div class="row row--15 single-dropdown-menu-presentation">
-                                <div class="col-lg-4 col-xxl-4 single-mega-item">
-                                    <ul class="mega-menu-item">
-                                        <li><a href="style-guide.html">Style Guide <span class="rbt-badge-card">Hot</span></a></li>
-                                        <li><a href="accordion.html">Accordion</a></li>
-                                        <li><a href="advancetab.html">Advance Tab</a></li>
-                                        <li><a href="brand.html">Brand</a></li>
-                                        <li><a href="button.html">Button</a></li>
-                                        <li><a href="badge.html">Badge</a></li>
-                                        <li><a href="card.html">Card</a></li>
-                                        <li><a href="call-to-action.html">Call To Action</a></li>
-                                    </ul>
-                                </div>
-
-                                <div class="col-lg-4 col-xxl-4 single-mega-item">
-                                    <ul class="mega-menu-item">
-                                        <li><a href="counterup.html">Counter</a></li>
-                                        <li><a href="category.html">Categories</a></li>
-                                        <li><a href="../header.html">Header Style</a></li>
-                                        <li><a href="newsletter.html">Newsletter</a></li>
-                                        <li><a href="team.html">Team</a></li>
-                                        <li><a href="social.html">Social</a></li>
-                                        <li><a href="list-style.html">List Style</a></li>
-                                        <li><a href="gallery.html">Gallery</a></li>
-                                    </ul>
-                                </div>
-
-                                <div class="col-lg-4 col-xxl-4 single-mega-item">
-                                    <ul class="mega-menu-item">
-                                        <li><a href="pricing.html">Pricing</a></li>
-                                        <li><a href="progressbar.html">Progressbar</a></li>
-                                        <li><a href="testimonial.html">Testimonial</a></li>
-                                        <li><a href="service.html">Service</a></li>
-                                        <li><a href="split.html">Split Area</a></li>
-                                        <li><a href="search.html">Search Style</a></li>
-                                        <li><a href="instagram.html">Instagram Style</a></li>
-                                        <li><a href="#">& More Coming</a></li>
-
-                                    </ul>
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="btn-wrapper">
-                                        <a class="rbt-btn btn-gradient hover-icon-reverse square btn-xl w-100 text-center mt--30 hover-transform-none" href="#">
-                                                <span class="icon-reverse-wrapper">
-                                        <span class="btn-text">Visit Histudy Template</span>
-                                                <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                                <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                                </span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Mega Menu  -->
-                </li>
-
-                <li class="with-megamenu has-menu-child-item position-static">
-                    <a href="#">Blog <i class="feather-chevron-down"></i></a>
-                    <!-- Start Mega Menu  -->
-                    <div class="rbt-megamenu grid-item-3">
-                        <div class="wrapper">
-                            <div class="row row--15">
-                                <div class="col-lg-12 col-xl-4 col-xxl-4 single-mega-item">
-                                    <h3 class="rbt-short-title">Blog Styles</h3>
-                                    <ul class="mega-menu-item">
-                                        <li><a href="blog-list.html">Blog List</a></li>
-                                        <li><a href="blog.html">Blog Grid</a></li>
-                                        <li><a href="blog-grid-minimal.html">Blog Grid Minimal</a></li>
-                                        <li><a href="blog-with-sidebar.html">Blog With Sidebar</a></li>
-                                        <li><a href="blog-details.html">Blog Details</a></li>
-                                        <li><a href="post-format-standard.html">Post Format Standard</a></li>
-                                        <li><a href="post-format-gallery.html">Post Format Gallery</a></li>
-                                    </ul>
-                                </div>
-
-                                <div class="col-lg-12 col-xl-4 col-xxl-4 single-mega-item">
-                                    <h3 class="rbt-short-title">Get Started</h3>
-                                    <ul class="mega-menu-item">
-                                        <li><a href="post-format-quote.html">Post Format Quote</a></li>
-                                        <li><a href="post-format-audio.html">Post Format Audio</a></li>
-                                        <li><a href="post-format-video.html">Post Format Video</a></li>
-                                        <li><a href="#">Media Under Title <span class="rbt-badge-card">Coming</span></a></li>
-                                        <li><a href="#">Sticky Sidebar <span class="rbt-badge-card">Coming</span></a></li>
-                                        <li><a href="#">Auto Masonry <span class="rbt-badge-card">Coming</span></a></li>
-                                        <li><a href="#">Meta Overlaid <span class="rbt-badge-card">Coming</span></a></li>
-                                    </ul>
-                                </div>
-
-                                <div class="col-lg-12 col-xl-4 col-xxl-4 single-mega-item">
-                                    <div class="rbt-ads-wrapper">
-                                        <a class="d-block" href="#"><img th:src="@{/assets/images/service/mobile-cat.jpg}" alt="Education Images"></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Mega Menu  -->
-                </li>
-            </ul>
-        </nav>
-
-        <div class="mobile-menu-bottom">
-            <div class="rbt-btn-wrapper mb--20">
-                <a class="rbt-btn btn-border-gradient radius-round btn-sm hover-transform-none w-100 justify-content-center text-center" href="#">
-                    <span>Enroll Now</span>
-                </a>
-            </div>
-
-            <div class="social-share-wrapper">
-                <span class="rbt-short-title d-block">Find With Us</span>
-                <ul class="social-icon social-default transparent-with-border justify-content-start mt--20">
-                    <li><a href="https://www.facebook.com/">
-                        <i class="feather-facebook"></i>
-                    </a>
-                    </li>
-                    <li><a href="https://www.twitter.com">
-                        <i class="feather-twitter"></i>
-                    </a>
-                    </li>
-                    <li><a href="https://www.instagram.com/">
-                        <i class="feather-instagram"></i>
-                    </a>
-                    </li>
-                    <li><a href="https://www.linkdin.com/">
-                        <i class="feather-linkedin"></i>
-                    </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-    </div>
-</div>
-    
-
-        <!-- 廣告輪播 課程 -->
-        <!-- 要把jquery的物件可能要塞回來 -->
-        <!-- 縮小到一定尺寸 RWD就壞掉了 -->
-        <div class="rbt-splash-testimonial-area bg-color-white overflow-hidden position-relative">
-            <div class=" pt--90">
-                <div class="scroll-animation-wrapper no-overlay mt--50">
-                    <div class="scroll-animation scroll-right-left"></div>
-                </div>
-            </div>  
-        </div>
-        <!-- 廣告輪播 課程 結束 -->
-
-        <!-- 近期熱門課程 -->
-        <!-- 近期熱門課程 標題-->
-        <div class="wrapper">
-            <div class="post">
-                <h1>近期熱門課程
-                </h1>
-                <p>每週真誠推薦</p>
-            </div>
-            <a class="coach_index" th:href="@{course/coach_dashboard}" style="text-align:center;justify-content: center" >教練主頁入口</a>
-            <a class="test_index" th:href="@{course/test}" style="text-align:center;justify-content: center" >測試</a>
-        </div>
-
-
-
-        <div class="row content-width">
-            <div class="col-lg-12">
-                <div class="swiper category-activation-three rbt-arrow-between icon-bg-gray gutter-swiper-30 ptb--20">
-                    <div class="swiper-wrapper">
-
-                        <!-- 近期熱門課程 課程卡片  -->
-                        <div class="swiper-slide">
-                            <div class="single-slide">
-                                <div class="rbt-cat-box rbt-cat-box-1 variation-2 text-center">
-                                    <div class="inner">
-                                        <div class="content pt--0 pb--10">
-                                            <h2 class="title"><a href="single-product.html">魔鬼有氧</a></h2>
-        
-                                            <span class="team-form">
-                                                <span class="location">By 吳永志</span>
-                                            </span>
-                                        </div>
-                                        <div class="thumbnail"><a href="single-product.html"><img src="https://images.ctee.com.tw/newsphoto/2022-02-02/1024/20220202700118.jpg" alt="Histudy Book Image"></a></div>
-                                        <div class="content">
-        
-                                            <div class="rbt-review justify-content-center">
-                                                <div class="rating">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                </div>
-                                                <span class="rating-count">台灣第一健身強人，科學化鍛鍊全書</span>
-                                            </div>
-                                            <div class="rbt-price justify-content-center mt--10">
-                                                <span class="current-price theme-gradient">$60.50</span>
-                                                <span class="off-price">$110.50</span>  
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-
-                        <!-- 近期熱門課程 課程卡片  -->
-                        <div class="swiper-slide">
-                            <div class="single-slide">
-                                <div class="rbt-cat-box rbt-cat-box-1 variation-2 text-center">
-         
-                            <!-- 課程卡片 -->
-                            <div class="inner">
-                                <div class="content pt--0 pb--10">
-                                    <h2 class="title"><a href="single-product.html">魔鬼有氧</a></h2>
-
-                                    <span class="team-form">
-                                        <span class="location">By 吳永志</span>
-                                    </span>
-                                </div>
-                                <div class="thumbnail"><a href="single-product.html"><img src="https://images.ctee.com.tw/newsphoto/2022-02-02/1024/20220202700118.jpg" alt="Histudy Book Image"></a></div>
-                                <div class="content">
-
-                                    <div class="rbt-review justify-content-center">
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                        </div>
-                                        <span class="rating-count">台灣第一健身強人，科學化鍛鍊全書</span>
-                                    </div>
-                                    <div class="rbt-price justify-content-center mt--10">
-                                        <span class="current-price theme-gradient">$60.50</span>
-                                        <span class="off-price">$110.50</span>  
-                                    </div>
-                                </div>
-                            </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-
-                        <!-- 近期熱門課程 課程卡片  -->
-                        <div class="swiper-slide">
-                            <div class="single-slide">
-                                <div class="rbt-cat-box rbt-cat-box-1 variation-2 text-center">
-                                    <div class="inner">
-                                        <div class="content pt--0 pb--10">
-                                            <h2 class="title"><a href="single-product.html">魔鬼有氧</a></h2>
-        
-                                            <span class="team-form">
-                                                <span class="location">By 吳永志</span>
-                                            </span>
-                                        </div>
-                                        <div class="thumbnail"><a href="single-product.html"><img src="https://images.ctee.com.tw/newsphoto/2022-02-02/1024/20220202700118.jpg" alt="Histudy Book Image"></a></div>
-                                        <div class="content">
-        
-                                            <div class="rbt-review justify-content-center">
-                                                <div class="rating">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                </div>
-                                                <span class="rating-count">台灣第一健身強人，科學化鍛鍊全書</span>
-                                            </div>
-                                            <div class="rbt-price justify-content-center mt--10">
-                                                <span class="current-price theme-gradient">$60.50</span>
-                                                <span class="off-price">$110.50</span>  
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                       
-
-                        <!-- 近期熱門課程 課程卡片  -->
-                        <div class="swiper-slide">
-                            <div class="single-slide">
-                                <div class="rbt-cat-box rbt-cat-box-1 variation-2 text-center">
-                                    <div class="inner">
-                                        <div class="content pt--0 pb--10">
-                                            <h2 class="title"><a href="single-product.html">魔鬼有氧</a></h2>
-        
-                                            <span class="team-form">
-                                                <span class="location">By 吳永志</span>
-                                            </span>
-                                        </div>
-                                        <div class="thumbnail"><a href="single-product.html"><img src="https://images.ctee.com.tw/newsphoto/2022-02-02/1024/20220202700118.jpg" alt="Histudy Book Image"></a></div>
-                                        <div class="content">
-        
-                                            <div class="rbt-review justify-content-center">
-                                                <div class="rating">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                </div>
-                                                <span class="rating-count">台灣第一健身強人，科學化鍛鍊全書</span>
-                                            </div>
-                                            <div class="rbt-price justify-content-center mt--10">
-                                                <span class="current-price theme-gradient">$60.50</span>
-                                                <span class="off-price">$110.50</span>  
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-
-                        <!-- 近期熱門課程 課程卡片  -->
-                        <div class="swiper-slide">
-                            <div class="single-slide">
-                                <div class="rbt-cat-box rbt-cat-box-1 variation-2 text-center">
-                                    <div class="inner">
-                                        <div class="content pt--0 pb--10">
-                                            <h2 class="title"><a href="single-product.html">魔鬼有氧</a></h2>
-        
-                                            <span class="team-form">
-                                                <span class="location">By 吳永志</span>
-                                            </span>
-                                        </div>
-                                        <div class="thumbnail"><a href="single-product.html"><img src="https://images.ctee.com.tw/newsphoto/2022-02-02/1024/20220202700118.jpg" alt="Histudy Book Image"></a></div>
-                                        <div class="content">
-        
-                                            <div class="rbt-review justify-content-center">
-                                                <div class="rating">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                </div>
-                                                <span class="rating-count">台灣第一健身強人，科學化鍛鍊全書</span>
-                                            </div>
-                                            <div class="rbt-price justify-content-center mt--10">
-                                                <span class="current-price theme-gradient">$60.50</span>
-                                                <span class="off-price">$110.50</span>  
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-
-                    </div>
-
-                    <div class="rbt-swiper-arrow rbt-arrow-left">
-                        <div class="custom-overfolow">
-                            <i class="rbt-icon feather-arrow-left"></i>
-                            <i class="rbt-icon-top feather-arrow-left"></i>
-                        </div>
-                    </div>
-
-                    <div class="rbt-swiper-arrow rbt-arrow-right">
-                        <div class="custom-overfolow">
-                            <i class="rbt-icon feather-arrow-right"></i>
-                            <i class="rbt-icon-top feather-arrow-right"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 近期熱門課程 結束-->
-
-        <!-- 探索課程 -->
-        <!-- 探索課程 標題-->   
-        <div class="wrapper wrapper-explore">
-            <div class="post post-left">
-                <h1>探索課程
-                </h1>
-                <p>加入最優惠</p>
-            </div>
-            <div class="post-right">
-                <a href="">更多 > </a>
-            </div>
-        </div>
-
-        <div class="row g-5 mt--30 content-width">
-            <!-- Start Feature Box  -->
-            <div class="col-lg-4 col-md-6 col-12" data-sal-delay="200" data-sal="slide-up" data-sal-duration="800" th:each="courseVO : ${courseListData}">
-                <div class="rbt-default-card style-three rbt-hover">
-                    <!-- 課程卡片 開始 -->
-                    <div class="inner">
-                        <div class="content pt--0 pb--10">
-                            <h2 class="title"><a href="single-product.html" th:text="${courseVO.crTitle}">魔鬼有氧2</a></h2>
-
-                            <span class="team-form">
-                                <span class="location" >By 吳永志</span>
-                            </span>
-                        </div>
-                        <div class="thumbnail"><a href="single-product.html"><img src="https://images.ctee.com.tw/newsphoto/2022-02-02/1024/20220202700118.jpg" alt="Histudy Book Image"></a></div>
-                        <div class="content">
-
-                            <div class="rbt-review justify-content-center">
-                                <div class="rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <span class="rating-count">台灣第一健身強人，科學化鍛鍊全書</span>
-                            </div>
-                            <div class="rbt-price justify-content-center mt--10">
-                                <span class="current-price theme-gradient">$60.50</span>
-                                <span class="off-price">$110.50</span>  
-                            </div>
-
-                        </div>
-                    </div>
-                    <!-- 課程卡片 結束 -->
-                </div>
-            </div>
-
-<!--             <div class="col-lg-4 col-md-6 col-12" data-sal-delay="200" data-sal="slide-up" data-sal-duration="800"> -->
-<!--                 <div class="rbt-default-card style-three rbt-hover"> -->
-<!--                     <div class="inner"> -->
-<!--                         <div class="content pt--0 pb--10"> -->
-<!--                             <h2 class="title"><a href="single-product.html">帶你輕鬆穿上馬甲線</a></h2> -->
-
-<!--                             <span class="team-form"> -->
-<!--                                 <span class="location">By 莫舒涵</span> -->
-<!--                             </span> -->
-<!--                         </div> -->
-<!--                         <div class="thumbnail"><a href="single-product.html"><img src="https://www.fitnessfactory.com.tw/upload/2023_04_10/2_20230410123750z4vbkabDZ5.jpg" alt="Histudy Book Image"></a></div> -->
-<!--                         <div class="content"> -->
-
-<!--                             <div class="rbt-review justify-content-center"> -->
-<!--                                 <div class="rating"> -->
-<!--                                     <i class="fas fa-star"></i> -->
-<!--                                     <i class="fas fa-star"></i> -->
-<!--                                     <i class="fas fa-star"></i> -->
-<!--                                     <i class="fas fa-star"></i> -->
-<!--                                     <i class="fas fa-star"></i> -->
-<!--                                 </div> -->
-<!--                                 <span class="rating-count">打破女性健身迷思！不怕變肌肉女！每天10分鐘瘦出健康美</span> -->
-<!--                             </div> -->
-<!--                             <div class="rbt-price justify-content-center mt--10"> -->
-<!--                                 <span class="current-price theme-gradient">$60.50</span> -->
-<!--                                 <span class="off-price">$110.50</span>   -->
-<!--                             </div> -->
-  
-<!--                         </div> -->
-<!--                     </div> -->
-<!--                 </div> -->
-<!--             </div> -->
-
-<!--             <div class="col-lg-4 col-md-6 col-12" data-sal-delay="200" data-sal="slide-up" data-sal-duration="800"> -->
-                
-            </div>
-            <!-- End Feature Box  -->
-        </div>
-
-        <!-- 精選貼文 -->
-        <!-- 精選貼文 標題 -->
-        <div class="wrapper wrapper-explore">
-            <div class="post post-left">
-                <h1>精選貼文
-                </h1>
-                <p>每週為你嚴選系列文章</p>
-            </div>
-            <div class="post-right">
-                <a href="">更多 > </a>
-            </div>
-        </div>
-
-        <div class="chat-select">
-            <div class="chat-select-row">
-                <div class="chat-card">
-                    <div class="chat-card-word">
-                        <div class="title-1"><i class="feather-user"></i><p>Joy老師</p><img src="./@{/images/calander.png" alt=""><p>2023/12/26</p><img src="./@{/images/eye.png" alt=""><p>2,580</p></div>
-                        <div class="title-2"><h2>歐美超模的秘密：給零基礎的第一堂芭蕾雕塑</h2></div>
-                        <div class="title-3"><p>奧黛麗赫本曾經說過：優美的姿態，來源於與知識同行而不是獨行。</p></div>
-                    </div>
-                    <div class="chat-img"><img src="" alt=""></div>
-                </div>
-                <div class="chat-card">
-                    <div class="chat-card-word">
-                        <div class="title-1"><i class="feather-user"></i><p>Joy老師</p><img src="./@{/images/calander.png" alt=""><p>2023/12/26</p><img src="./@{/images/eye.png" alt=""><p>2,580</p></div>
-                        <div class="title-2"><h2>歐美超模的秘密：給零基礎的第一堂芭蕾雕塑</h2></div>
-                        <div class="title-3"><p>奧黛麗赫本曾經說過：優美的姿態，來源於與知識同行而不是獨行。</p></div>
-                    </div>
-                    <div class="chat-img"><img src="" alt=""></div>
-                </div>
-            </div>
-            <div class="chat-select-row">
-                <div class="chat-card">
-                    <div class="chat-card-word">
-                        <div class="title-1"><i class="feather-user"></i><p>Joy老師</p><img src="./@{/images/calander.png" alt=""><p>2023/12/26</p><img src="./@{/images/eye.png" alt=""><p>2,580</p></div>
-                        <div class="title-2"><h2>歐美超模的秘密：給零基礎的第一堂芭蕾雕塑</h2></div>
-                        <div class="title-3"><p>奧黛麗赫本曾經說過：優美的姿態，來源於與知識同行而不是獨行。</p></div>
-                    </div>
-                    <div class="chat-img"><img src="" alt=""></div>
-                </div>
-                <div class="chat-card">
-                    <div class="chat-card-word">
-                        <div class="title-1"><i class="feather-user"></i><p>Joy老師</p><img src="./@{/images/calander.png" alt=""><p>2023/12/26</p><img src="./@{/images/eye.png" alt=""><p>2,580</p></div>
-                        <div class="title-2"><h2>歐美超模的秘密：給零基礎的第一堂芭蕾雕塑</h2></div>
-                        <div class="title-3"><p>奧黛麗赫本曾經說過：優美的姿態，來源於與知識同行而不是獨行。</p></div>
-                    </div>
-                    <div class="chat-img"><img src="" alt=""></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Start Feature List Area  可用在 探索課程-->
-        <div class="rbt-splash-fetaure-list-area bg-color-white rbt-section-gap top-circle-shape-top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="section-title text-center">
-                            
-                            
-                        </div>
-                    </div>
-                </div>
-                <div class="row g-5 mt--30">
-
-                
-                    <!-- Start Feature Box  -->
-                    <div class="col-lg-4 col-md-6 col-12" data-sal-delay="200" data-sal="slide-up" data-sal-duration="800">
-
-                    </div>
-
-                    <div class="col-lg-3 col-md-3 col-2">
-
-                    </div>
-
-
-
-                </div>
-            </div>
-        </div>
-    <!-- End Feature List Area  -->
-
-
-
-    <!-- Start Accordion Area  -->
-    
-    <!-- End Accordion Area  -->
-
-
-
-
-
-<footer th:replace="front-end/footer.html"></footer>
-
-    <!-- go top 跳到最上面 -->
-    <div class="rbt-progress-parent">
-        <svg class="rbt-back-circle svg-inner" width="100%" height="100%" viewBox="-1 -1 102 102">
+	<div th:replace="front-end/header_moblie.html"></div>
+
+
+	<!-- 廣告輪播 課程 -->
+	<!-- 要把jquery的物件可能要塞回來 -->
+	<!-- 縮小到一定尺寸 RWD就壞掉了 -->
+	<div
+		class="rbt-splash-testimonial-area bg-color-white overflow-hidden position-relative">
+		<div class=" pt--90">
+			<div class="scroll-animation-wrapper no-overlay mt--50">
+				<div class="scroll-animation scroll-right-left">
+
+					<div th:each="ad : ${ads}"
+						class="single-column-20 bg-theme-gradient-odd"
+						style="background-size: contain;">
+						<div class="rbt-testimonial-box style-2"
+							style="width: 470px; height: 450px; background-size: contain; background-repeat: no-repeat; background-position: center center;">
+							<div class="img-test">
+								<!-- 使用Thymeleaf設置圖片的src -->
+								<img th:src="@{/adCarousel/DBGifReader(adcId=${ad.adcId})}"
+									style="width: 470px; height: 450px;" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 廣告輪播 課程 結束 -->
+
+	<!-- 近期熱門課程 -->
+	<!-- 近期熱門課程 標題-->
+
+
+	<!-- 		<a class="coach_index" th:href="@{course/coach_dashboard}" -->
+	<!-- 			style="text-align: center; justify-content: center">教練主頁入口 暫時 之後要刪掉</a> -->
+
+
+	<!-- 近期熱門課程 結束-->
+
+	<!-- 探索課程 -->
+	<!-- 探索課程 標題-->
+	<div class="wrapper wrapper-explore">
+		<div class="post post-left">
+			<h1>探索課程</h1>
+			<p>加入最優惠</p>
+		</div>
+		<div class="post-right">
+			<a href="">更多 > </a>
+		</div>
+	</div>
+
+	<div class="row g-5 mt--30 content-width">
+		<!-- Start Feature Box  -->
+		<div class="col-lg-4 col-md-6 col-12" data-sal-delay="200"
+			data-sal="slide-up" data-sal-duration="800"
+			th:each="courseVO : ${courseListData}">
+			<div class="rbt-default-card style-three rbt-hover">
+				<!-- 課程卡片 開始 -->
+				<div class="inner">
+					<div class="content pt--0 pb--10">
+						<h2 class="title">
+							<a href="single-product.html" th:text="${courseVO.crTitle}">魔鬼有氧2</a>
+						</h2>
+
+						<span class="team-form"> <span class="location"
+							th:text="${courseVO.userVO.uNickname}">By 吳永志</span>
+						</span>
+					</div>
+					<div class="thumbnail">
+						<a href="single-product.html"><img
+							th:if="${courseVO.base64CrCover != null}"
+							th:src="'data:image/jpeg;base64,' + ${courseVO.base64CrCover}"
+							alt="Card image"></a>
+					</div>
+					<div class="content">
+					
+						<div class="rbt-author-meta mb--10">
+							<div class="rbt-avater">
+								<a href="/course_details_2"> <img
+									class="userHeadshot" 
+									
+									alt="Coach Image"> 
+									<!--   <img th:src="@{/assets/images/client/avatar-02.png}"-->
+								</a>
+							</div>
+							<div class="rbt-author-info">
+
+								By <span th:text="${courseVO.userVO.uNickname}"></span>
+							</div>
+						</div>
+						
+						<div class="rbt-review justify-content-center">
+							<div class="rating">
+								<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+									class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+									class="fas fa-star"></i>
+							</div>
+							<span class="rating-count">台灣第一健身強人，科學化鍛鍊全書</span>
+						</div>
+						<div class="rbt-price justify-content-center mt--10">
+							<span class="current-price theme-gradient"
+								th:text=" 'NT$' + ${courseVO.crPrice}">$60.50</span>
+							<!-- 							 <span -->
+							<!-- 								class="off-price" >$110.50</span> -->
+						</div>
+
+					</div>
+				</div>
+				<!-- 課程卡片 結束 -->
+			</div>
+		</div>
+
+
+
+	</div>
+	<!-- End Feature Box  -->
+	</div>
+
+	<!-- 精選貼文 -->
+	<!-- 精選貼文 標題 -->
+	<div class="wrapper wrapper-explore">
+		<div class="post post-left">
+			<h1>精選貼文</h1>
+			<p>每週為你嚴選系列文章</p>
+		</div>
+		<div class="post-right">
+			<a href="">更多 > </a>
+		</div>
+	</div>
+
+	<div class="chat-select">
+		<div class="chat-select-row">
+			<div class="chat-card" th:each="forumPostVO : ${forumPostListFour}">
+				<div class="chat-card-word">
+					<div class="title-1">
+						<i class="feather-user"></i>
+						<p th:text="${forumPostVO.userVO.uNickname}">Joy老師</p>
+						<img src="./@{/images/calander.png" alt="">
+						<p th:text="${forumPostVO.fpTime}">2023/12/26</p>
+						<img src="./@{/images/eye.png" alt="">
+						<!-- 						<p >2,580</p> -->
+					</div>
+					<div class="title-2">
+						<h2 th:text="${forumPostVO.fpTitle}">歐美超模的秘密：給零基礎的第一堂芭蕾雕塑</h2>
+					</div>
+					<div class="title-3">
+						<p th:text="${forumPostVO.fpContent}">奧黛麗赫本曾經說過：優美的姿態，來源於與知識同行而不是獨行。</p>
+					</div>
+				</div>
+				<div class="chat-img">
+					<img th:src="@{/forumpost/DBGifReader(fpId=${forumPostVO.fpId})}"
+						alt="Card image">
+				</div>
+			</div>
+			<!-- 			<div class="chat-card"> -->
+			<!-- 				<div class="chat-card-word"> -->
+			<!-- 					<div class="title-1"> -->
+			<!-- 						<i class="feather-user"></i> -->
+			<!-- 						<p>Joy老師</p> -->
+			<!-- 						<img src="./@{/images/calander.png" alt=""> -->
+			<!-- 						<p>2023/12/26</p> -->
+			<!-- 						<img src="./@{/images/eye.png" alt=""> -->
+			<!-- 						<p>2,580</p> -->
+			<!-- 					</div> -->
+			<!-- 					<div class="title-2"> -->
+			<!-- 						<h2>歐美超模的秘密：給零基礎的第一堂芭蕾雕塑</h2> -->
+			<!-- 					</div> -->
+			<!-- 					<div class="title-3"> -->
+			<!-- 						<p>奧黛麗赫本曾經說過：優美的姿態，來源於與知識同行而不是獨行。</p> -->
+			<!-- 					</div> -->
+			<!-- 				</div> -->
+			<!-- 				<div class="chat-img"> -->
+			<!-- 					<img src="" alt=""> -->
+			<!-- 				</div> -->
+			<!-- 			</div> -->
+		</div>
+		<!-- 		<div class="chat-select-row"> -->
+		<!-- 			<div class="chat-card"> -->
+		<!-- 				<div class="chat-card-word"> -->
+		<!-- 					<div class="title-1"> -->
+		<!-- 						<i class="feather-user"></i> -->
+		<!-- 						<p>Joy老師</p> -->
+		<!-- 						<img src="./@{/images/calander.png" alt=""> -->
+		<!-- 						<p>2023/12/26</p> -->
+		<!-- 						<img src="./@{/images/eye.png" alt=""> -->
+		<!-- 						<p>2,580</p> -->
+		<!-- 					</div> -->
+		<!-- 					<div class="title-2"> -->
+		<!-- 						<h2>歐美超模的秘密：給零基礎的第一堂芭蕾雕塑</h2> -->
+		<!-- 					</div> -->
+		<!-- 					<div class="title-3"> -->
+		<!-- 						<p>奧黛麗赫本曾經說過：優美的姿態，來源於與知識同行而不是獨行。</p> -->
+		<!-- 					</div> -->
+		<!-- 				</div> -->
+		<!-- 				<div class="chat-img"> -->
+		<!-- 					<img src="" alt=""> -->
+		<!-- 				</div> -->
+		<!-- 			</div> -->
+		<!-- 			<div class="chat-card"> -->
+		<!-- 				<div class="chat-card-word"> -->
+		<!-- 					<div class="title-1"> -->
+		<!-- 						<i class="feather-user"></i> -->
+		<!-- 						<p>Joy老師</p> -->
+		<!-- 						<img src="./@{/images/calander.png" alt=""> -->
+		<!-- 						<p>2023/12/26</p> -->
+		<!-- 						<img src="./@{/images/eye.png" alt=""> -->
+		<!-- 						<p>2,580</p> -->
+		<!-- 					</div> -->
+		<!-- 					<div class="title-2"> -->
+		<!-- 						<h2>歐美超模的秘密：給零基礎的第一堂芭蕾雕塑</h2> -->
+		<!-- 					</div> -->
+		<!-- 					<div class="title-3"> -->
+		<!-- 						<p>奧黛麗赫本曾經說過：優美的姿態，來源於與知識同行而不是獨行。</p> -->
+		<!-- 					</div> -->
+		<!-- 				</div> -->
+		<!-- 				<div class="chat-img"> -->
+		<!-- 					<img src="" alt=""> -->
+		<!-- 				</div> -->
+		<!-- 			</div> -->
+		<!-- 		</div> -->
+	</div>
+
+	<!-- Start Feature List Area  可用在 探索課程-->
+	<div
+		class="rbt-splash-fetaure-list-area bg-color-white rbt-section-gap top-circle-shape-top">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="section-title text-center"></div>
+				</div>
+			</div>
+			<div class="row g-5 mt--30">
+
+
+				<!-- Start Feature Box  -->
+				<div class="col-lg-4 col-md-6 col-12" data-sal-delay="200"
+					data-sal="slide-up" data-sal-duration="800"></div>
+
+				<div class="col-lg-3 col-md-3 col-2"></div>
+
+
+
+			</div>
+		</div>
+	</div>
+	<!-- End Feature List Area  -->
+
+
+
+	<!-- Start Accordion Area  -->
+
+	<!-- End Accordion Area  -->
+
+
+
+
+
+	<footer th:replace="front-end/footer.html"></footer>
+
+	<!-- go top 跳到最上面 -->
+	<div class="rbt-progress-parent">
+		<svg class="rbt-back-circle svg-inner" width="100%" height="100%"
+			viewBox="-1 -1 102 102">
             <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
         </svg>
-    </div>
+	</div>
 
-	
+
 	<!-- Modernizer JS -->
-    <script th:src="@{/js/vendor/modernizr.min.js}"></script>
-    <!-- jQuery JS -->
-    <script th:src="@{/js/vendor/jquery.js}"></script>
-    <!-- Bootstrap JS -->
-    <script th:src="@{/js/vendor/bootstrap.min.js}"></script>
-    <!-- sal.js -->
-    <script th:src="@{/js/vendor/sal.js}"></script>
-    <script th:src="@{/js/vendor/swiper.js}"></script>
-    <script th:src="@{/js/vendor/magnify.min.js}"></script>
-    <script th:src="@{/js/vendor/jquery-appear.js}"></script>
-    <script th:src="@{/js/vendor/odometer.js}"></script>
-    <script th:src="@{/js/vendor/backtotop.js}"></script>
-    <script th:src="@{/js/vendor/isotop.js}"></script>
-    <script th:src="@{/js/vendor/imageloaded.js}"></script>
+	<script th:src="@{/js/vendor/modernizr.min.js}"></script>
+	<!-- jQuery JS -->
+	<script th:src="@{/js/vendor/jquery.js}"></script>
+	<!-- Bootstrap JS -->
+	<script th:src="@{/js/vendor/bootstrap.min.js}"></script>
+	<!-- sal.js -->
+	<script th:src="@{/js/vendor/sal.js}"></script>
+	<script th:src="@{/js/vendor/swiper.js}"></script>
+	<script th:src="@{/js/vendor/magnify.min.js}"></script>
+	<script th:src="@{/js/vendor/jquery-appear.js}"></script>
+	<script th:src="@{/js/vendor/odometer.js}"></script>
+	<script th:src="@{/js/vendor/backtotop.js}"></script>
+	<script th:src="@{/js/vendor/isotop.js}"></script>
+	<script th:src="@{/js/vendor/imageloaded.js}"></script>
 
-    <script th:src="@{/js/vendor/wow.js}"></script>
-    <script th:src="@{/js/vendor/waypoint.min.js}"></script>
-    <script th:src="@{/js/vendor/easypie.js}"></script>
-    <script th:src="@{/js/vendor/text-type.js}"></script>
-    <script th:src="@{/js/vendor/jquery-one-page-nav.js}"></script>
-    <script th:src="@{/js/vendor/bootstrap-select.min.js}"></script>
-    <script th:src="@{/js/vendor/jquery-ui.js}"></script>
-    <script th:src="@{/js/vendor/magnify-popup.min.js}"></script>
-    <script th:src="@{/js/vendor/paralax-scroll.js}"></script>
-    <script th:src="@{/js/vendor/paralax.min.js}"></script>
-    <script th:src="@{/js/vendor/countdown.js}"></script>
-    <script th:src="@{/js/vendor/plyr.js}"></script>
-    <!-- Main JS -->
-    <script th:src="@{/js/main.js}"></script>
-    <script th:src="@{/js/mok/mok_opinion.js}"></script>
-    
-    <script>
+	<script th:src="@{/js/vendor/wow.js}"></script>
+	<script th:src="@{/js/vendor/waypoint.min.js}"></script>
+	<script th:src="@{/js/vendor/easypie.js}"></script>
+	<script th:src="@{/js/vendor/text-type.js}"></script>
+	<script th:src="@{/js/vendor/jquery-one-page-nav.js}"></script>
+	<script th:src="@{/js/vendor/bootstrap-select.min.js}"></script>
+	<script th:src="@{/js/vendor/jquery-ui.js}"></script>
+	<script th:src="@{/js/vendor/magnify-popup.min.js}"></script>
+	<script th:src="@{/js/vendor/paralax-scroll.js}"></script>
+	<script th:src="@{/js/vendor/paralax.min.js}"></script>
+	<script th:src="@{/js/vendor/countdown.js}"></script>
+	<script th:src="@{/js/vendor/plyr.js}"></script>
+	<!-- Main JS -->
+	<script th:src="@{/js/main.js}"></script>
+	<script th:src="@{/js/mok/mok_opinion.js}"></script>
+
+	<script>
                 $(document).ready(function() {
                     console.log($('.scroll-animation.scroll-right-left'))
                     const imgText = [
                         {
-                            src:'assets/images/andy/IMG_0879.JPG',
-                            text:'test1'
+                            src:'https://i.pinimg.com/564x/96/ab/74/96ab74e38ceba1e678ccf2132c93f273.jpg',
+                            text:'就是要你'
                         },
                         {
-                            src:'https://marketing-prd.s3.amazonaws.com/goodjob/frontend/imgs/台北前端班_周廷翰.jpg',
-                            text:'技術支援'
-                        },
-                        {
-                            src:'assets/images/andy/DC6D26C9-A632-4A85-8F10-28A65CE7D91A_1_105_c.jpeg',
-                            text:'技術指導'
-                        },
-                        {
-                            src:'assets/images/andy/4CB38D77-0199-4DF4-BA6F-FD10D5D16CA3.jpeg',
-                            text:'我老婆'
-                        },
-                        {
-                            src:'assets/images/about/about-03.jpg',
-                            text:'test3'
-                        },{
-                            src:'assets/images/andy/C4749C2E-02A0-4ADA-A049-75BA0718F26F.jpeg',
-                            text:'test3'
-                        },{
-                            src:'assets/images/about/about-03.jpg',
-                            text:'test3'
-                        },{
-                            src:'assets/images/about/about-03.jpg',
-                            text:'test3'
-                        },{
-                            src:'assets/images/about/about-03.jpg',
-                            text:'test3'
-                        },
-                        {
-                            src:'assets/images/about/about-03.jpg',
-                            text:'test3'
-                        },{
-                            src:'assets/images/about/about-03.jpg',
-                            text:'test3'
-                        },{
-                            src:'assets/images/about/about-03.jpg',
-                            text:'test3'
+                            src:'https://i.pinimg.com/564x/a9/5c/ea/a95ceaef7caf10e0dfa883fa5073c533.jpg',
+                            text:'鳩引餓死'
                         }
                     ]
         for(let index in imgText){
-        $('.scroll-animation.scroll-right-left').append(`<div class="single-column-20 bg-theme-gradient-odd">
+        $('.scroll-animation.scroll-right-left').append(`<div class="single-column-20 bg-theme-gradient-odd" style="width: 470px; height: 450px; background-size: contain; background-repeat: no-repeat; background-position: center center;">
                             <div class="rbt-testimonial-box style-2">
                                 <div class="img-test">
-                                    
-                                    <img src=${imgText[index].src} alt="Clint Images">
+                                    <img src=${imgText[index].src} style="width: 470px; height: 450px;" alt="Clint Images">
                                 </div>
                             </div>
                         </div>`);
@@ -1188,7 +350,7 @@
     </script>
 
 
-<script>
+	<script>
     $(".mainmenu-sub").on("mouseenter mouseleave",function(){
         $(this).find("a").toggleClass("mainmenu-sub-active");
     });

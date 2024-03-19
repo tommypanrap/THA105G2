@@ -1,5 +1,6 @@
 package com.fitanywhere.detail.controller;
 
+import com.fitanywhere.detail.model.DetailDTO;
 import com.fitanywhere.detail.model.DetailService;
 import com.fitanywhere.detail.model.DetailVO;
 import com.fitanywhere.order.model.OrderService;
@@ -48,10 +49,11 @@ public class DetailController {
 
 
 
-    @PostMapping("details")
-    public List<DetailVO> getDetailsByOdId(Integer odId){
+    // 獲取使用者的訂單明細(課程圖片、課程名稱、課程單價)
+    @GetMapping("details/{odId}")
+    public List<DetailDTO> getDetailsByOdId(@PathVariable Integer odId){
 
-        return detailService.getDetailsByOrderId(odId);
+        return detailService.getDetailDTOByOrderId(odId);
     }
 
 }

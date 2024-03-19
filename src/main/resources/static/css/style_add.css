@@ -132,7 +132,7 @@
 
 .body-index .chat-img{
     display: block;
-    background-color: gray;
+/*     background-color: gray; */
     width: 145px;
     aspect-ratio: 1;
 }

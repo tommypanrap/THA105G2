@@ -11,55 +11,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fitanywhere.user.model.UserService;
-import com.fitanywhere.userlist.model.UserlistService;
 
 @RestController
 @RequestMapping("/backend_userlist_api")
 public class UserlistRestController {
-	@Autowired
-	private UserlistService userlistService;
+
 	@Autowired
 	private UserService userService;
 
+	// 有空再把數據處理封裝到Service
 	@PostMapping("/manual_change_uStatus")
 	public ResponseEntity<?> manualChangeUserStatus(@RequestBody Map<String, String> requestBody) {
-		
-		String stringId = requestBody.get("uId");
-		String stringValue = requestBody.get("value");
-		Integer uId = null;
-		Integer selectedValue = null;
-		Integer newStatus = null;
-
 		try {
-			uId = Integer.parseInt(stringId);
-			selectedValue = Integer.parseInt(stringValue);
-			// 轉換Integer成功
-		} catch (NumberFormatException e) {
-			System.out.println("stringId轉換Interger失敗!");
-		}
-
-		if (selectedValue != null) {
-			switch (selectedValue) {
-			case 1:
-				newStatus = 0; // 站方手動啟動
-				break;
-			case 2:
-				newStatus = 1; // 站方手動BAN
-				break;
-			case 3:
-				newStatus = 3; // 站方手動註銷
-				break;			
-			default:
-				System.out.println("未設定的stringValue: " + stringValue);
-				break;
+			Integer uId = Integer.parseInt(requestBody.get("uId"));
+			Integer selectedValue = Integer.parseInt(requestBody.get("value"));
+			if (userService.updateUserStatusWithMapping(uId, selectedValue)) {
+				return ResponseEntity.ok().build();
+			} else {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 			}
+		} catch (NumberFormatException e) {
+			System.out.println("參數轉Integer失敗!");
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body("參數轉Integer錯誤!");
+		} catch (IllegalArgumentException e) {
+			System.out.println("未定義的參數!");
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body("未定義的參數!");
+		} catch (Exception e) {
+			System.out.println("內部處理錯誤!");
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // 500
 		}
-		
-		if (userService.updateUserStatus(uId, newStatus)) {
-			return ResponseEntity.ok().build();
-		} else {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); //500 內部處理錯誤
-		}	
 	}
-
 }
+

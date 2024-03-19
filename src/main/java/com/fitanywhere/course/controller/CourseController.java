@@ -19,6 +19,16 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import com.fitanywhere.ann.model.AnnService;
+import com.fitanywhere.ann.model.AnnVO;
+import com.fitanywhere.coach.model.CoachService;
+import com.fitanywhere.coach.model.CoachVO;
+import com.fitanywhere.course.model.*;
+import com.fitanywhere.coursedetail.model.CourseDetailService;
+import com.fitanywhere.coursedetail.model.CourseDetailVO;
+import com.fitanywhere.user.model.UserService;
+import com.fitanywhere.user.model.UserVO;
+import com.fitanywhere.usercourse.model.UserCourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +43,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
@@ -51,8 +62,15 @@ import com.fitanywhere.coursedetail.model.CourseDetailVO;
 import com.fitanywhere.user.model.UserHeadshotOnlyDTO;
 import com.fitanywhere.user.model.UserService;
 import com.fitanywhere.user.model.UserVO;
-import com.fitanywhere.user_course.model.UserCourseService;
+import com.fitanywhere.usercourse.model.UserCourseService;
 import com.google.gson.Gson;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import java.io.*;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/course")
@@ -87,26 +105,13 @@ public class CourseController {
 	}
 
 
+
 	// 購物車功能-課程資訊新增到 model
-	@GetMapping("courses")
-	public String getCourses(ModelMap model) {
-		List<CourseVO> list = courseSvc.getAll();
-
-		//將圖片轉成base64
-		list.forEach(courseVO ->
-		{
-			byte[] crCover = courseVO.getCrCover();
-			if (crCover!=null){
-			String base64CrCover = Base64.getEncoder().encodeToString(crCover);
-			courseVO.setBase64CrCover(base64CrCover);
-			}
-		});
+//	@GetMapping("courses")
+//	public String getCourses(ModelMap model) {
+//		List<CourseVO> list = courseSvc.getSixCourses();
 
 
-
-		model.addAttribute("courseListData", list);
-		return "front-end/mj/course_filter_two_toggle";
-	}
 	@GetMapping("coach_course")
 	public String coachCourse(ModelMap model) {
 		/*************************** 3.新增完成,準備轉交(Send the Success view) **************/

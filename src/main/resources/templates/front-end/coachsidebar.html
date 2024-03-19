@@ -12,16 +12,15 @@
 
                                         <div class="rbt-default-sidebar-wrapper">
                                             <div class="section-title mb--20">
-                                                <h6 class="rbt-title-style-welcome">Welcome, <span th:text="${uName}"></span></h6>
+                                               <h6 class="rbt-title-style-2">Welcome</h6>
                                             </div>
                                             <nav class="mainmenu-nav">
                                                 <ul class="dashboard-mainmenu rbt-default-sidebar-list">
-                                                    <li><a th:href="@{coach_dashboard}"><i class="feather-home"></i><span>教練主頁</span></a></li>
-                                                    <li><a th:href="@{coach_course}"><i class="feather-monitor"></i><span>課程管理</span></a></li>
-                                                    <li><a th:href="@{course_announcement}"><i class="feather-volume-2"></i><span>課程公告</span></a></li>
-                                                    <li><a href="instructor-wishlist.html"><i class="feather-bookmark"></i><span>廣告投放</span></a></li>
-                                                    <li><a href="instructor-order-history.html"><i class="feather-shopping-bag"></i><span>金流設定</span></a></li>
-                                                    <li><a href="instructor-reviews.html"><i class="feather-star"></i><span>Reviews</span></a></li>                                                        
+                                                    <li><a th:href="@{/course/coach_dashboard}"><i class="feather-home"></i><span>教練主頁</span></a></li>
+                                                    <li><a th:href="@{/course/coach_course}"><i class="feather-monitor"></i><span>課程管理</span></a></li>
+                                                    <li><a th:href="@{/course/course_announcement}"><i class="feather-volume-2"></i><span>課程公告</span></a></li>
+                                                    <li><a th:href="@{/adCarousel/addAdCarousel}"><i class="feather-bookmark"></i><span>廣告投放</span></a></li>                                                     
+                                                    <li><a th:href="@{/course/create_course}"><i class="feather-bookmark"></i><span>創建課程</span></a></li>                                                     
                                                 </ul>
                                             </nav>
 
@@ -33,7 +32,7 @@
 
                                             <nav class="mainmenu-nav">
                                                 <ul class="dashboard-mainmenu rbt-default-sidebar-list">
-                                                    <li><a th:href="@{coach_settings}"><i class="feather-settings"></i><span>資料設定</span></a></li>
+                                                    <li><a th:href="@{/course/coach_settings}"><i class="feather-settings"></i><span>資料設定</span></a></li>
                                                     <li><a href="index.html"><i class="feather-log-out"></i><span>登出</span></a></li>
                                                 </ul>
                                             </nav>

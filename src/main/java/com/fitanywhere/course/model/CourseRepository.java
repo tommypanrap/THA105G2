@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.NamedNativeQuery;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -44,5 +46,17 @@ public interface CourseRepository extends JpaRepository<CourseVO, Integer> {
 	
 	@Query(value="SELECT cr_class, cr_title, cr_cover, cr_price FROM course WHERE u_Id = :uId AND cr_state = 2", nativeQuery = true)
 	List<Object[]> getCourseByStatus2(Integer uId);
+
+	// 讀取指定crId的crCover
+	@Query("SELECT new com.fitanywhere.course.model.CourseCrCoverDTO(c.crId, c.crCover) FROM CourseVO c WHERE c.crId = :crId")
+	CourseCrCoverDTO findCourseCrCoverById(@Param("crId") Integer crId);
+
+	// uId找課程
+	@Query(value = "SELECT * FROM course WHERE u_id = ?1", nativeQuery = true)
+	List<CourseVO> getCourseByUId(Integer uId); 
+	
+	// Tommy
+	@Query("SELECT c FROM CourseVO c")
+	Page<CourseVO> findSixCourses(Pageable pageable);
 	
     }

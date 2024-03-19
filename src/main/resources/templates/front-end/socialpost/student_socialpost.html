@@ -2,7 +2,31 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head th:insert="~{/front-end/included-head}"></head>
+<style>
 
+.uId{
+display:none; 
+}
+.uNickname{
+display:none;
+}
+.uHeadshot{
+display:none;
+}
+#resultsContainer{
+display:none;
+}
+#resultsContainer.show{
+display:block;
+}
+.sessionUId{
+display:none;
+}
+.bg_image--23 {
+	background-image: url(../images/member_banner.png);
+}
+
+</style>
 <body class="rbt-header-sticky">
 	<header th:replace="front-end/header.html"></header>
 	<div th:insert="front-end/header_moblie.html"></div>
@@ -21,7 +45,37 @@
 			<div class="row">
 				<div class="col-lg-12">
 
-
+					<div class="rbt-dashboard-content-wrapper">
+						<div class="tutor-bg-photo bg_image bg_image--23 height-350"></div>
+						<!-- Start Tutor Information  -->
+						<div class="rbt-tutor-information">
+							<div class="rbt-tutor-information-left">
+								<div class="thumbnail rbt-avatars size-lg">
+									<img
+										th:src="@{/socialpost/UserPhotoDBGifReader} + '?uId=' + ${userVO.uId}"
+										alt="">
+								</div>
+								<div class="tutor-content">
+									<h5 class="title" th:text="${userVO.uNickname}">Emily Hannah</h5>
+									<ul class="rbt-meta rbt-meta-white mt--5">
+										<li><i class="feather-book"></i>5 Courses Enroled</li>
+										<li><i class="feather-award"></i>4 Certificate</li>
+									</ul>
+								</div>
+							</div>
+							<div class="rbt-tutor-information-right">
+								<div class="tutor-btn">
+<!-- 									<a class="rbt-btn btn-md hover-icon-reverse" href="#"> <span -->
+<!-- 										class="icon-reverse-wrapper"> <span class="btn-text">教練模式</span> -->
+<!-- 											<span class="btn-icon"><i class="feather-arrow-right"></i></span> -->
+<!-- 											<span class="btn-icon"><i class="feather-arrow-right"></i></span> -->
+<!-- 									</span> -->
+<!-- 									</a> -->
+								</div>
+							</div>
+						</div>
+						<!-- End Tutor Information  -->
+					</div>
 
 
 					<div class="row g-5">
@@ -34,9 +88,9 @@
 
 						<div class="col-lg-9">
 							<div class="rbt-dashboard-content ">
-								<span th:text="${userShowPostVO.uId}" class="uId"></span>
-								<span th:text="${userShowPostVO.uNickname}" class="uNickname"></span>
-								<span th:text="${userShowPostVO.uHeadshot}" class="uHeadshot"></span>
+								<span th:text="${userShowVO.uId}" class="uId"></span>
+								<span th:text="${userShowVO.uNickname}" class="uNickname"></span>
+								<span th:text="${userShowVO.uHeadshot}" class="uHeadshot"></span>
 								<div class="input-wrapper">
 									<input type="text" placeholder="搜尋其他用戶"
 										class="search-member-social"> <img
@@ -46,7 +100,9 @@
 								<!-- 									<li th:each="user : ${matchingUsers}"><span -->
 								<!-- 										th:text="${user.uNickname}"></span></li> -->
 								<!-- 								</ul> -->
-
+<!-- 								暫時加的 -->
+								<div class="search-result" id="resultsContainer"></div>
+								
 								<div class="search-result"
 									th:if="${matchingUsers != null and not #lists.isEmpty(matchingUsers)}">
 									<div class="search-result-list-one"
@@ -63,10 +119,10 @@
 								<div class="content-social-post">
 									<div class="content-inner">
 										<div class="user-section-title">
-											<span th:text="${userShowPostVO.uId}" class="uid-for-send"></span>
+											<span th:text="${userShowVO.uId}" class="uid-for-send"></span>
 											<div id="article">
 												<img
-													th:src="@{/socialpost/UserPhotoDBGifReader} + '?uId=' + ${userShowPostVO.uId}"
+													th:src="@{/socialpost/UserPhotoDBGifReader} + '?uId=' + ${userShowVO.uId}"
 													alt="">
 											</div>
 											<div id="article member-col">
@@ -78,7 +134,7 @@
 											<div id="post member-col">
 												<h4 class="post-num"
 													style="display: flex; justify-content: center; padding-top: 2rem; margin-top: 2rem; margin-bottom: 0;"
-													th:text="${#lists.size(userVO.socialposts.?[spstatus == 1])}">a</h4>
+													th:text="${#lists.size(userShowVO.socialposts.?[spstatus == 1])}">a</h4>
 												<h4 class="rbt-title-style-3"
 													style="padding-top: 2rem; padding-bottom: 0;">個人貼文</h4>
 											</div>
@@ -97,23 +153,27 @@
 
 								<div class="row g-5 member-post">
 
-
+<!-- 									測試	 -->
+<span th:text="${sessionUId}" class="sessionUId"></span>
 									<input type="text" placeholder="在想甚麼呢?"
-										class="member-post-input" th:if="${#strings.isEmpty(navUId)}">
+										class="member-post-input" th:if="${userShowVO.uId != null and sessionUId != null and userShowVO.uId == sessionUId}">
+										
 
-									<p class="add-post" th:if="${#strings.isEmpty(navUId)}">新增貼文</p>
+									<p class="add-post" th:if="${userShowVO.uId != null and sessionUId != null and userShowVO.uId == sessionUId}">新增貼文</p>
 
 
 
 
 									<div id="lightbox" class="none lightbox-add-post">
 										<form th:action="@{insert}" method="post"
-											th:object="${socialPostVO}" enctype="multipart/form-data">
+											th:object="${socialPostVO}" enctype="multipart/form-data" id="addPostForm">
 											<article>
 												<div class="article-inner-wrapper">
 													<h2>建立貼文</h2>
 													<div class="member-post-socialpost">
-														<img th:src="@{/images/member-3.png}" alt="">
+														<img
+												th:src="@{/socialpost/UserPhotoDBGifReader} + '?uId=' + ${userVO.uId}"
+												alt="">
 														<p th:text="${userVO.uNickname}" th:value="${userVO.uId}">振宇</p>
 														<input type="hidden" name="userId"
 															th:value="${userVO.uId}" th:field="*{userVO.uId}" />
@@ -131,7 +191,7 @@
 																	<input name="createinputfile" id="createinputfile"
 																		type="file" class="inputfile" th:field="*{sppic}" />
 																	<img id="createfileImage"
-																		src="@{/images/others/thumbnail-placeholder.svg"
+																		th:src="@{/images/others/thumbnail-placeholder.svg}"
 																		alt="file image">
 																	<!-- our custom upload button -->
 																	<label class="d-flex" for="createinputfile"
@@ -147,7 +207,7 @@
                                                         Support:</b> JPG, JPEG, PNG, GIF, WEBP</small> -->
 													</div>
 													<div class="feed-back-button">
-														<button type="submit" class="confirm">發布</button>
+														<button type="button" class="confirm">發布</button>
 														<button type="button" class="btn_model_close">取消</button>
 													</div>
 												</div>
@@ -161,27 +221,27 @@
 							<span th:if="${navUId != null}" th:text="${navUId}"
 								class="navUId">aaa</span>
 							<!-- 							<span th:if="${#strings.isEmpty(navUId)}" >測試字 - 新增貼文</span> -->
-							<div th:each="socialPost : ${userShowPostVO.socialposts}"
+							<div th:each="socialPost : ${userShowVO.socialposts}"
 								th:if="${socialPost.spstatus == 1}">
 
 								<div class="article-post">
 									<div class="title">
 										<div class="title-info-wrapper">
 											<img
-												th:src="@{/socialpost/UserPhotoDBGifReader} + '?uId=' + ${userShowPostVO.uId}"
+												th:src="@{/socialpost/UserPhotoDBGifReader} + '?uId=' + ${userShowVO.uId}"
 												alt="">
 
 											<div class="title-info">
-												<p th:text="${userShowPostVO.uNickname}"></p>
+												<p th:text="${userVO.uNickname}"></p>
 												<p
 													th:text="${#dates.format(socialPost.sptime, 'yyyy年MM月dd日')}"></p>
 											</div>
 										</div>
 										<div class="button-container">
 											<img th:src="@{/images/social-edit.png}" alt="" class="edit"
-												th:if="${#strings.isEmpty(navUId)}"> <img
+												th:if="${userShowVO.uId != null and sessionUId != null and userShowVO.uId == sessionUId}"> <img
 												th:src="@{/images/social-delete.png}"
-												th:if="${#strings.isEmpty(navUId)}" alt=""
+												th:if="${userShowVO.uId != null and sessionUId != null and userShowVO.uId == sessionUId}" alt=""
 												class="delete-socialpost">
 										</div>
 									</div>
@@ -195,29 +255,31 @@
 											th:src="@{/socialpost/DBGifReader} + '?spid=' + ${socialPost.spid}"
 											alt=""> <input type="text" class="social-reply-input"
 											placeholder="留言...">
-										<div class="social-reply"
-											th:each="socialReply : ${socialPost.socialReplys}"
-											th:if="${socialPost.socialReplys != null and not #lists.isEmpty(socialPost.socialReplys)}">
-											<div class="reply-member">
-												<img th:if="${socialReply.userVO != null}"
-													th:src="@{/socialpost/UserPhotoDBGifReader} + '?uId=' + ${socialReply.userVO.uId}">
-												<div class="reply-name-text">
-													<p class="member-nickname"
-														th:text="${socialReply.userVO?.uNickname}"
-														th:if="${socialPost.socialReplys != null and not #lists.isEmpty(socialPost.socialReplys)}">怡蓉老師</p>
-													<p class="reply-time">10分鐘</p>
-												</div>
-											</div>
-											<div class="reply-content" th:text="${socialReply.srContent}"
+										<div class="social-reply-container">
+											<div class="social-reply"
+												th:each="socialReply : ${socialPost.socialReplys}"
 												th:if="${socialPost.socialReplys != null and not #lists.isEmpty(socialPost.socialReplys)}">
-												>
-												<p>同學有人在嘛</p>
+												<div class="reply-member">
+													<img th:if="${socialReply.userVO != null}"
+														th:src="@{/socialpost/UserPhotoDBGifReader} + '?uId=' + ${socialReply.userVO.uId}">
+													<div class="reply-name-text">
+														<p class="member-nickname"
+															th:text="${socialReply.userVO?.uNickname}"
+															th:if="${socialPost.socialReplys != null and not #lists.isEmpty(socialPost.socialReplys)}">怡蓉老師</p>
+														<p class="reply-time" th:text="${#dates.format(socialReply.srTime, 'yyyy-MM-dd HH:mm:ss')}">10分鐘</p>
+													</div>
+												</div>
+												<div class="reply-content" th:text="${socialReply.srContent}"
+													th:if="${socialPost.socialReplys != null and not #lists.isEmpty(socialPost.socialReplys)}">
+													>
+													<p>同學有人在嘛</p>
+												</div>
+	
 											</div>
-
 										</div>
 									</div>
 									<div class="post-content-edit">
-										<form th:action="@{update_social_post}" method="post"
+										<form th:action="@{update_social_post/{uId}(uId=${userVO.uId})}" method="post"
 											enctype="multipart/form-data">
 											<textarea name="spcontent" id="spcontent_textarea" cols="30"
 												rows="10" th:value="${socialPost.spcontent}"
@@ -306,6 +368,48 @@
 	<script th:src="@{/js/main.js}"></script>
 	<script th:src="@{/js/social_post.js}"></script>
 	<script th:src="@{/js/mok/mok_opinion.js}"></script>
+	<script>
+	//最新消息
+	$(document).ready(function() {
+	    var lastNewsCount = 0; 
+	    var isFirstRequest = true;
+	    var sessionUId = $(".sessionUId").text();
+	    var lastNewsCount = localStorage.getItem(newsCountKey) ? parseInt(localStorage.getItem(newsCountKey), 10) : 0; 
+// 	    console.log(sessionUId);
+	    
+	    checkNewsUpdate();
+	    setInterval(checkNewsUpdate, 10000); 
+
+	    function checkNewsUpdate() {
+	        $.ajax({
+	            url: '/news/count',
+	            type: 'GET',
+	            success: function(count) {
+	                if(isFirstRequest) { 
+	                	 lastNewsCount = count;
+	                	 isFirstRequest = false;
+	                
+	                }else if(lastNewsCount < count) {
+	 
+	                    alert('有最新消息');
+	                    lastNewsCount = count; 
+	                    
+	                }
+	                localStorage.setItem(newsCountKey, lastNewsCount);
+                    console.log("count:"+count);
+
+	            },
+	            error: function() {
+	                console.error('無法取得最新消息數量');
+	            }
+	        });
+	    }
+	});
+	
+	
+
+	</script>
+
 </body>
 
 </html>

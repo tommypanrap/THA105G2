@@ -4,9 +4,14 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service("courseService")
@@ -19,6 +24,14 @@ public class CourseService {
 		repository.checkCourse(crId, crState);
 	}
 	
+	@Autowired
+	CoursePagingRepository pagingRepository;
+
+	// 獲取所有課程DTO
+	public Page<CoursesDTO> getAllCourses(Pageable pageable){
+	return  pagingRepository.findAllProjectedBy(pageable);
+	}
+
 	public Integer addCourse(CourseVO courseVO) {
 		CourseVO savedCourse = repository.save(courseVO);
 		return savedCourse.getCrId();
@@ -100,6 +113,28 @@ public class CourseService {
             CourseStatus2DTO.add(dto);
         }
         return CourseStatus2DTO;
+	}
+
+	// 透過crId取cr cover
+	@Transactional(readOnly = true)
+	public CourseCrCoverDTO getCourseCrCoverById(Integer crId){
+		return  repository.findCourseCrCoverById(crId);
+	}
+
+	// 用uId抓相關課程
+	@Transactional(readOnly = true)
+	public List<CourseVO> getCourseByUId(Integer uId){
+		return repository.getCourseByUId(uId);
+	}
+	
+	// Tommy
+	public List<CourseVO> getSixCourses() {
+		
+		Pageable firstPageWithSixCourses = PageRequest.of(0, 6);
+		Page<CourseVO> courses = repository.findSixCourses(firstPageWithSixCourses);
+		List<CourseVO> courseListSix = courses.getContent();
+		
+		return courseListSix;
 	}
 
 }

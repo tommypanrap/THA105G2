@@ -91,20 +91,32 @@ $(document).ready(function() {
 				uId: uid
 			}
 
-			const formData = new FormData();
-			for (const key in data) {
-				formData.append(key, data[key]);
-			}
+
 
 			$.ajax({
 				url: '/socialpost/search_social_member',
 				type: 'POST',
-				data: formData,
-				contentType: false, // 必須為 false，告訴 jQuery 不要設置 contentType
-				processData: false, // 必須為 false，告訴 jQuery 不要處理數據
+				data: JSON.stringify(data),
+				contentType: 'application/json',
 				success: function(responseData) {
 					//					window.alert("進來ajax");
-					window.location.href = 'student_socialpost';
+					//					window.location.href = 'student_socialpost';
+					//					location.reload();
+					let resultsContainer = $('#resultsContainer'); // 假設有一個放結果的容器
+					resultsContainer.addClass("show");
+					resultsContainer.empty(); // 清空之前的結果
+
+					// 遍歷返回的用戶數據並更新HTML
+					responseData.users.forEach(function(user) {
+						let userElement = `
+                        <div class="search-result-list-one">
+                            
+                            <img src="data:image/jpeg;base64,${user.headshot}" alt="User Headshot" />
+                            <a href="/socialpost/${user.uId}"><p>${user.nickname}</p></a>
+                        </div>
+                    `;
+						resultsContainer.append(userElement); // 將每個用戶的信息添加到容器中
+					});
 				},
 				error: function(xhr, status, error) {
 					console.error('Error:', error);
@@ -117,7 +129,7 @@ $(document).ready(function() {
 	});
 
 	//新增留言
-	$(".social-reply-input").on("keydown",async function(e) {
+	$(".social-reply-input").on("keydown", async function(e) {
 		if (e.keyCode === 13) {
 			//			alert("social-reply-input");
 
@@ -133,13 +145,26 @@ $(document).ready(function() {
 			let replyMemberText = $('<div class="reply-member-text"></div>');
 
 			let userPhotoUrl = await handleFetchUserImage();
-			//圖片先亂寫
 			var userPhoto = $('<img>').attr('src', userPhotoUrl);
 
+
+			//時間
+			let now = new Date();
+
+			let displayTime = now.getFullYear() + '/' +
+				(now.getMonth() + 1).toString().padStart(2, '0') + '/' +
+				now.getDate().toString().padStart(2, '0') + ' ' +
+				now.getHours().toString().padStart(2, '0') + ':' +
+				now.getMinutes().toString().padStart(2, '0');
+
+			let timestamp = now.toISOString();
+
+			console.log(timestamp);
 			//先寫死
 			var memberNickname = $('<p class="member-nickname"></p>').text("user001");
-			var replyTime = $('<p class="reply-time"></p>').text("20:00");
+			var replyTime = $('<p class="reply-time"></p>').text(displayTime);
 			replyMemberText.append(memberNickname, replyTime);
+
 
 
 			replyMember.append(userPhoto, replyMemberText);
@@ -149,14 +174,14 @@ $(document).ready(function() {
 			var replyContent = $('<div class="reply-content"></div>').text(replyValue);
 
 			var socialReply = $('<div class="social-reply"></div>').append(replyMember, replyMember, replyContent);
-			$('.post-content').append(socialReply);
+			$('.social-reply-container').prepend(socialReply);
 
 			//清空輸入框
 			$(this).val('');
 
 			let spidValue = $(this).siblings(".spid").text();
 			console.log("spid:", typeof spidValue);
-			
+
 			let uIdForAddReply = parseInt($('.uId').text());
 
 			var data = {
@@ -171,7 +196,7 @@ $(document).ready(function() {
 			}
 
 			$.ajax({
-				url: `/socialposts/${spidValue}/replies`,
+				url: `/socialpost/${spidValue}/replies`,
 				type: 'POST',
 				data: formData,
 				contentType: false, // 必須為 false，告訴 jQuery 不要設置 contentType
@@ -179,7 +204,7 @@ $(document).ready(function() {
 				success: function(responseData) {
 					console.log("成功增加留言");
 					//					window.alert("進來ajax");
-					window.location.href = 'student_socialpost';
+					//					window.location.href = 'student_socialpost';
 				},
 				error: function(xhr, status, error) {
 					console.error('Error:', error);
@@ -211,40 +236,58 @@ $(document).ready(function() {
 
 	})
 
-async function fetchUserImage() {
-    let uId = parseInt($('.uId').text());
-    let image_Url;
+	async function fetchUserImage() {
+		let uId = parseInt($('.sessionUId').text());
+		let image_Url;
 
-    try {
-        const response = await fetch('/user_api/user_headshot_test', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ u_id: uId }),
-        });
+		try {
+			const response = await fetch('/user_api/user_headshot_test', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ u_id: uId }),
+			});
 
-        if (!response.ok) {
-            throw new Error('response error');
-        }
+			if (!response.ok) {
+				throw new Error('response error');
+			}
 
-        const blob = await response.blob();
-        image_Url = URL.createObjectURL(blob);
-        console.log("image_Url:" + image_Url);
-    } catch (error) {
-        console.error('找不到user image:', error);
-    }
+			const blob = await response.blob();
+			image_Url = URL.createObjectURL(blob);
+			console.log("image_Url:" + image_Url);
+		} catch (error) {
+			console.error('找不到user image:', error);
+		}
 
-    return image_Url; 
-}
-
-
-async function handleFetchUserImage() {
-    return await fetchUserImage();
-}
+		return image_Url;
+	}
 
 
-//handleFetchUserImage();
+	async function handleFetchUserImage() {
+		return await fetchUserImage();
+	}
+
+
+	//建立貼文點擊
+	$(".confirm").on("click",function(e){
+		if($(".post-draft").val().trim() ===""){
+			alert("你還沒填文章內容");
+			return false;
+			
+		}else if($("#createinputfile")[0].files.length === 0){
+			alert("發文要附圖");
+			return false;
+		}else{
+			$("#addPostForm").submit();	
+		}
+		
+	})
+
+
+
+
+
 
 
 

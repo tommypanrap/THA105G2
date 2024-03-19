@@ -1,215 +1,294 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head th:insert="~{/back-end/backend_included_head}"></head>
 
-<head th:insert="~{/back-end/backend_included_head}"></head>
-
-<body>
+  <body>
     <!-- header -->
     <div class="header_wrapper">
-        <header>
-            <p class="f-b-title">FitAnyWhere後台管理系統</p>
-            <div class="manager">
-                <img src="./images/member.png" alt="">
-                <p>最高管理員</p>
-            </div>
-        </header>
+      <header>
+        <p class="f-b-title">FitAnyWhere後台管理系統</p>
+        <div class="manager">
+          <img src="./images/member.png" alt="" />
+          <p>最高管理員</p>
+        </div>
+      </header>
     </div>
 
     <!-- 下面一層容器 -->
     <div class="wrapper">
-        <!-- sidebar -->
-        <div th:replace="~{/back-end/backend_included_sidebar}"></div>
+      <!-- sidebar -->
+      <div th:replace="~{/back-end/backend_included_sidebar}"></div>
 
-        <!-- 內容 -->
-        <div class="content">
-            <h1>會員意見收件匣</h1>
+      <!-- 內容 -->
+      <div class="content">
+        <h1>會員意見收件匣</h1>
 
-            <ul class="row rhead"
-                style="display: flex; justify-content: space-between; width: calc(765px - 40px); padding: 0 20px; gap: 10px;">
-                <li style="width: 120px; text-align: center;">意見編號</li>
-                <li style="width: 340px;">意見標題</li>
-                <li style="width: 100px; text-align: center;">提出時間</li>
-                <li style="width: 70px;text-align: center;">處理狀態</li>
-                <li style="width: 50px;text-align: center;">操作</li>
+        <ul
+          class="row rhead"
+          style="
+            display: flex;
+            justify-content: space-between;
+            width: calc(765px - 40px);
+            padding: 0 20px;
+            gap: 10px;
+          "
+        >
+          <li style="width: 120px; text-align: center">意見編號</li>
+          <li style="width: 340px">意見標題</li>
+          <li style="width: 100px; text-align: center">提出時間</li>
+          <li style="width: 70px; text-align: center">處理狀態</li>
+          <li style="width: 50px; text-align: center">操作</li>
+        </ul>
+
+        <div
+          th:each="opinion : ${opinionPage.content}"
+          th:attr="data-opinion-id=${opinion.opId}"
+        >
+          <th:block>
+            <ul
+              class="row"
+              style="
+                display: flex;
+                justify-content: space-between;
+                width: calc(765px - 40px);
+                padding: 0 20px;
+                gap: 10px;
+              "
+            >
+              <li
+                style="width: 120px; text-align: center"
+                th:text="${opinion.opId}"
+              >
+                (意見編號)
+              </li>
+              <li style="width: 340px" th:text="${opinion.opTitle}">
+                (意見主旨)
+              </li>
+              <li
+                style="width: 100px; text-align: center"
+                th:text="${#dates.format(opinion.opSendTime, 'yyyy.MM.dd')}"
+              >
+                (提出日期)
+              </li>
+              <li
+                class="opinion-status"
+                style="width: 70px; text-align: center"
+                th:text="${opinion.opStatus == 0 ? '未處理' : '已回覆'}"
+              >
+                (狀態)
+              </li>
+              <li
+                class="content-expand"
+                style="width: 50px; text-align: center"
+              >
+                查看
+              </li>
             </ul>
 
-            <div th:each="opinion : ${opinionPage.content}" th:attr="data-opinion-id=${opinion.opId}">
-                <th:block>
-                    <ul class="row"
-                        style="display: flex; justify-content: space-between; width: calc(765px - 40px); padding: 0 20px; gap: 10px;">
-                        <li style="width: 120px; text-align: center;" th:text="${opinion.opId}">(意見編號)</li>
-                        <li style="width: 340px;" th:text="${opinion.opTitle}">(意見主旨)</li>
-                        <li style="width: 100px; text-align: center;"
-                            th:text="${#dates.format(opinion.opSendTime, 'yyyy.MM.dd')}">(提出日期)</li>
-                        <li class="opinion-status" style="width: 70px;text-align: center;"
-                            th:text="${opinion.opStatus == 0 ? '未處理' : '已回覆'}">
-                            (狀態)</li>
-                        <li class="content-expand" style="width: 50px;text-align: center;">查看</li>
-                    </ul>
-
-                    <div class="check-content hidden">
-                        <div class="check-content-title">
-                            <div class="send-from">
-                                <p>會員暱稱</p>
-                                <p th:text="${opinion.uNickname}">ZZZZZZZZZZZZ</p>
-                            </div>
-                            <!-- 捨棄 -->
-                            <!-- <div class="reply-state">
+            <div class="check-content hidden">
+              <div class="check-content-title">
+                <div class="send-from">
+                  <p>會員暱稱</p>
+                  <p th:text="${opinion.uNickname}">ZZZZZZZZZZZZ</p>
+                </div>
+                <!-- 捨棄 -->
+                <!-- <div class="reply-state">
                                 <p>處理狀態</p>
                                 <p th:text="${opinion.opStatus == 0 ? '未回覆' : '已回覆'}"></p>
                             </div> -->
-                            <div class="reply-time">
-                                <p>結案時間</p>
-                                <p th:text="${#dates.format(opinion.opReplyTime, 'yyyy.MM.dd')}">2024.1.1</p>
-                            </div>
-
-                        </div>
-                        <div class="check-content-content">
-                            <div class="send-content">
-                                <p class="send-content-title">意見內容：</p>
-                                <p th:text="${opinion.opContent}">這裡將顯示後端讀取到的opContent內容</p>
-                            </div>
-                            <div class="reply-content">
-                                <p>回覆內容：</p>
-                                <form th:action="@{/opinion_api/update_opinion_reply}" method="post" class="ajax-form">
-                                    <div th:if="${opinion.opStatus == 0}">
-                                        <textarea name="opReplyContent" maxlength="600" id="replyContent" cols="30"
-                                            rows="10" placeholder="請輸入回覆內容(最多150中文字)"></textarea>
-                                        <div class="button-container">
-                                            <button type="submit">確認送出</button>
-                                        </div>
-                                    </div>
-                                    <div th:if="${opinion.opStatus == 1}">
-                                        <p th:text="${opinion.opReplyContent}">這裡將顯示後端讀取到的opReplyContent內容</p>
-                                    </div>
-                                    <input type="hidden" th:name="opId" th:value="${opinion.opId}" />
-                                </form>
-                            </div>
-                        </div>
+                <div class="reply-time">
+                  <p>結案時間</p>
+                  <p
+                    th:text="${#dates.format(opinion.opReplyTime, 'yyyy.MM.dd')}"
+                  >
+                    2024.1.1
+                  </p>
+                </div>
+              </div>
+              <div class="check-content-content">
+                <div class="send-content">
+                  <p class="send-content-title">意見內容：</p>
+                  <p th:text="${opinion.opContent}">
+                    這裡將顯示後端讀取到的opContent內容
+                  </p>
+                </div>
+                <div class="reply-content">
+                  <p>回覆內容：</p>
+                  <form
+                    th:action="@{/opinion_api/update_opinion_reply}"
+                    method="post"
+                    class="ajax-form"
+                  >
+                    <div th:if="${opinion.opStatus == 0}">
+                      <textarea
+                        name="opReplyContent"
+                        maxlength="600"
+                        id="replyContent"
+                        cols="30"
+                        rows="10"
+                        placeholder="請輸入回覆內容(最多150中文字)"
+                      ></textarea>
+                      <div class="button-container">
+                        <button type="submit">確認送出</button>
+                      </div>
                     </div>
-                </th:block>
+                    <div th:if="${opinion.opStatus == 1}">
+                      <p th:text="${opinion.opReplyContent}">
+                        這裡將顯示後端讀取到的opReplyContent內容
+                      </p>
+                    </div>
+                    <input
+                      type="hidden"
+                      th:name="opId"
+                      th:value="${opinion.opId}"
+                    />
+                  </form>
+                </div>
+              </div>
             </div>
-            <div class="pagination-container"
-                style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
-                <form th:action="@{/backend_opinion}" method="get">
-                    <select name="page" onchange="this.form.submit()">
-                        <option th:each="pageNum : ${#numbers.sequence(0, opinionPage.totalPages - 1)}"
-                            th:value="${pageNum}" th:selected="${pageNum == opinionPage.number}"
-                            th:text="${pageNum + 1}"></option>
-                    </select>
-                    <input type="hidden" name="size" th:value="${opinionPage.size}">
-                </form>
-            </div>
+          </th:block>
         </div>
+        <div
+          class="pagination-container"
+          style="
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+          "
+        >
+          <form th:action="@{/backend_opinion}" method="get">
+            <select name="page" onchange="this.form.submit()">
+              <option
+                th:each="pageNum : ${#numbers.sequence(0, opinionPage.totalPages - 1)}"
+                th:value="${pageNum}"
+                th:selected="${pageNum == opinionPage.number}"
+                th:text="${pageNum + 1}"
+              ></option>
+            </select>
+            <input type="hidden" name="size" th:value="${opinionPage.size}" />
+          </form>
+        </div>
+      </div>
     </div>
-
 
     <div class="footer_wrapper">
-        <footer>
-            <p class="f-b-title">FitAnyWhere Backstage</p>
-        </footer>
+      <footer>
+        <p class="f-b-title">FitAnyWhere Backstage</p>
+      </footer>
     </div>
 
     <script>
-        var expandButtons = document.querySelectorAll('.content-expand');
-        var contentSections = document.querySelectorAll('.check-content');
+      var expandButtons = document.querySelectorAll(".content-expand");
+      var contentSections = document.querySelectorAll(".check-content");
 
-
-        expandButtons.forEach(function (button, index) {
-            button.addEventListener('click', function () {
-
-                if (contentSections[index].classList.contains('hidden')) {
-
-                    contentSections.forEach(function (content) {
-                        content.classList.add('hidden');
-                    });
-
-                    contentSections[index].classList.remove('hidden');
-                } else {
-                    contentSections[index].classList.add('hidden');
-                }
-
-
+      expandButtons.forEach(function (button, index) {
+        button.addEventListener("click", function () {
+          if (contentSections[index].classList.contains("hidden")) {
+            contentSections.forEach(function (content) {
+              content.classList.add("hidden");
             });
+
+            contentSections[index].classList.remove("hidden");
+          } else {
+            contentSections[index].classList.add("hidden");
+          }
         });
+      });
     </script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            document.querySelectorAll('.ajax-form').forEach(function (form) {
-                var opId = form.querySelector('input[name="opId"]').value;
-                var textarea = form.querySelector('textarea[name="opReplyContent"]');
+      document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".ajax-form").forEach(function (form) {
+          var opId = form.querySelector('input[name="opId"]').value;
+          var textarea = form.querySelector('textarea[name="opReplyContent"]');
 
-                form.addEventListener('submit', function (e) {
-                    e.preventDefault();
+          form.addEventListener("submit", function (e) {
+            e.preventDefault();
 
-                    if (textarea) {
-                        var opReplyContent = textarea.value.trim();
+            if (textarea) {
+              var opReplyContent = textarea.value.trim();
 
-                        fetch(form.getAttribute('action'), {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                opId: Number(opId),
-                                opReplyContent: opReplyContent,
-                            }),
-                        })
-                            .then(response => {
-                                if (response.ok) {
-                                    return response.json();
-                                } else {
-                                    throw new Error('伺服器錯誤，請稍後再試！');
-                                }
-                            })
-                            .then(data => {
-                                console.log(data);
-                                var opinionBlock = document.querySelector('div[data-opinion-id="' + data.opId + '"]');
-                                console.log(opinionBlock);
-                                if (opinionBlock) {
-                                    // 直接更新狀態為"已回覆"
-                                    var statusElement = opinionBlock.querySelector('.opinion-status');
-                                    if (statusElement) {
-                                        statusElement.textContent = '已回覆';
-                                    }
-
-                                    // 回覆內容直接顯示回傳值的內容
-                                    var replyContentElement = opinionBlock.querySelector('div.reply-content p');
-                                    if (replyContentElement) {
-                                        replyContentElement.textContent = data.opReplyContent;
-                                        replyContentElement.style.display = 'block';
-                                    }
-
-                                    // 更新結案時間
-                                    var replyTimeElement = opinionBlock.querySelector('.reply-time p:nth-child(2)');
-                                    if (replyTimeElement && data.opReplyTime) {
-                                        var replyTime = new Date(data.opReplyTime).toLocaleDateString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' });
-                                        replyTimeElement.textContent = replyTime;
-                                    }
-
-                                    // 隱藏表單
-                                    var formContainer = opinionBlock.querySelector('.reply-content form');
-                                    if (formContainer) {
-                                        formContainer.style.display = 'none';
-                                    }
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                                alert(error.message);
-                            });
+              fetch(form.getAttribute("action"), {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  opId: Number(opId),
+                  opReplyContent: opReplyContent,
+                }),
+              })
+                .then((response) => {
+                  if (response.ok) {
+                    return response.json();
+                  } else {
+                    throw new Error("伺服器錯誤，請稍後再試！");
+                  }
+                })
+                .then((data) => {
+                  console.log(data);
+                  var opinionBlock = document.querySelector(
+                    'div[data-opinion-id="' + data.opId + '"]'
+                  );
+                  console.log(opinionBlock);
+                  if (opinionBlock) {
+                    // 直接更新狀態為"已回覆"
+                    var statusElement =
+                      opinionBlock.querySelector(".opinion-status");
+                    if (statusElement) {
+                      statusElement.textContent = "已回覆";
                     }
+
+                    // 回覆內容直接顯示回傳值的內容
+                    var replyContentElement = opinionBlock.querySelector(
+                      "div.reply-content p"
+                    );
+                    if (replyContentElement) {
+                      // 創建一個新的 <span> 元素，用於顯示固定文字 "回覆內容："
+                      var prefixElement = document.createElement("span");
+                      prefixElement.textContent = "回覆內容：";
+                      opinionBlock
+                        .querySelector("div.reply-content")
+                        .insertBefore(prefixElement, replyContentElement);
+
+                      // 設置後端返回的資料
+                      replyContentElement.textContent = data.opReplyContent;
+                      replyContentElement.style.display = "block";
+                    }
+
+                    // 更新結案時間
+                    var replyTimeElement = opinionBlock.querySelector(
+                      ".reply-time p:nth-child(2)"
+                    );
+                    if (replyTimeElement && data.opReplyTime) {
+                      var replyTime = new Date(
+                        data.opReplyTime
+                      ).toLocaleDateString("zh-TW", {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                      });
+                      replyTimeElement.textContent = replyTime;
+                    }
+
+                    // 隱藏表單
+                    var formContainer = opinionBlock.querySelector(
+                      ".reply-content form"
+                    );
+                    if (formContainer) {
+                      formContainer.style.display = "none";
+                    }
+                  }
+                })
+                .catch((error) => {
+                  console.error("Error:", error);
+                  alert(error.message);
                 });
-            });
+            }
+          });
         });
+      });
     </script>
-
-
-
-
-
-
-</body>
-
+  </body>
 </html>

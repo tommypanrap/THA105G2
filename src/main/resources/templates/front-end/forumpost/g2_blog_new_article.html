@@ -20,7 +20,7 @@
     		margin:0 auto;
     		justify-content:space-between;
     	}
-    	.blog-cactegory{
+    	.blog-category{
     		width:45%;
     	}
     	.blog-add{
@@ -69,7 +69,7 @@
             <form th:action="@{insert}" method="post" th:object="${ForumPostVO}" enctype="multipart/form-data">
             	
             	<div class="blog-row">
-	            	<div class="blog-cactegory">
+	            	<div class="blog-category">
 						<p>文章分類</p>
 		                <select name="fpCategory" id="fpCategory">
 		                    <option value="重量訓練">重量訓練</option>
@@ -81,12 +81,12 @@
 	                </div>
 	                
 	                
-	                <div class="blog-add">
-	                    <p>用戶ID</p>
-	                    <select th:field="*{userVO.uId}">
-	            <option th:each="userVO : ${userListData}" th:value="${userVO.uId}" th:text="${userVO.uNickname}" />
-	            </select>
-	                </div>
+<!-- 	                <div class="blog-add"> -->
+<!-- 	                    <p>用戶ID</p> -->
+<!-- 	                    <select th:field="*{userVO.uId}"> -->
+<!-- 	            <option th:each="userVO : ${userListData}" th:value="${userVO.uId}" th:text="${userVO.uNickname}" /> -->
+<!-- 	            </select> -->
+<!-- 	                </div> -->
                 
                 </div>
 				

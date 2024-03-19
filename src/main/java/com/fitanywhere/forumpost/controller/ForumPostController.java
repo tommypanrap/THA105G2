@@ -16,7 +16,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,11 +45,21 @@ public class ForumPostController {
 	UserService userSvc;
 
 	@GetMapping("addForumPost")
-	public String addForumPost(ModelMap model, @ModelAttribute("forumPostVO") ForumPostVO forumPostVO) {
+	public String addForumPost(ModelMap model, @ModelAttribute("forumPostVO") ForumPostVO forumPostVO, HttpSession session) {
+		if (!isUserLoggedIn(session)) {
+	        // 如果未登入，重定向到登錄頁面或其他處理方式
+	        return "redirect:/user/force_user_login";
+	    }
+	    
+	    // 如果已登入，根據用戶ID獲取用戶資訊
+	    Integer userId = (Integer) session.getAttribute("userId");
+	    UserVO userVO = userSvc.getUserDataByID(userId);
+	    
 	    if (forumPostVO == null) {
 	        forumPostVO = new ForumPostVO();
 	    }
 	    model.addAttribute("forumPostVO", forumPostVO);
+	    model.addAttribute("userVO", userVO);
 	    return "front-end/forumpost/g2_blog_new_article";
 	}
 	
@@ -76,9 +85,20 @@ public class ForumPostController {
 	
 	@PostMapping("insert")
 	public String insert(@Valid ForumPostVO forumPostVO, BindingResult result, ModelMap model,
-	                     @RequestParam("fpPic") MultipartFile[] parts, RedirectAttributes redirectAttributes) throws IOException {
+	                     @RequestParam("fpPic") MultipartFile[] parts, RedirectAttributes redirectAttributes, HttpSession session) throws IOException {
 	    
-        // 檢查中是否存在相同標題文章
+		 // 檢查用戶是否已經登入
+	    if (!isUserLoggedIn(session)) {
+	        // 如果未登入，重定向到登錄頁面或其他處理方式
+	        return "redirect:/user/force_user_login";
+	    }
+
+	    // 獲取登入用戶的ID
+	    Integer uId = (Integer) session.getAttribute("uId");
+	    UserVO userVO = userSvc.getUserDataByID(uId);
+	    forumPostVO.setUserVO(userVO);
+	    
+		// 檢查中是否存在相同標題文章
         boolean titleExists = forumPostSvc.existsByFpTitle(forumPostVO.getFpTitle());
         if (titleExists) {
             result.addError(new FieldError("ForumPostVO", "fpTitle", "文章標題已存在"));
@@ -88,30 +108,13 @@ public class ForumPostController {
             return "redirect:/forumpost/addForumPost";
         }
         
-        // 檢查用戶是否上傳了圖片，如果沒有，則根據文章分類設置不同的預設圖片
+     // 檢查用戶是否上傳了圖片，如果沒有，則根據文章分類設置不同的預設圖片
         if (parts == null || parts.length == 0 || parts[0].isEmpty()) {
             // 獲取用戶的文章分類
             String category = forumPostVO.getFpCategory();
             
             // 根據文章分類設置預設圖片
-            byte[] defaultPic = null;
-            switch (category) {
-                case "重量訓練":
-                    defaultPic = java.util.Base64.getDecoder().decode(DefaultImage.getDefaultPic1());
-                    break;
-                case "皮拉提斯":
-                    defaultPic = java.util.Base64.getDecoder().decode(DefaultImage.getDefaultPic2());
-                    break;
-                case "有氧訓練":
-                    defaultPic = java.util.Base64.getDecoder().decode(DefaultImage.getDefaultPic3());
-                    break;
-                case "徒手健身":
-                    defaultPic = java.util.Base64.getDecoder().decode(DefaultImage2.getDefaultPic4());
-                    break;
-                case "飲食分享":
-                    defaultPic = java.util.Base64.getDecoder().decode(DefaultImage2.getDefaultPic5());
-                    break;
-            }
+            byte[] defaultPic = getDefaultPicByCategory(category);
             
             // 將預設圖片設置到ForumPostVO對象中
             forumPostVO.setFpPic(defaultPic);
@@ -123,26 +126,53 @@ public class ForumPostController {
         forumPostSvc.addForumPost(forumPostVO);
         /*************************** 3.新增完成,準備轉交(Send the Success view) **************/
         List<ForumPostVO> list = forumPostSvc.getAll();
+        model.addAttribute("forumPostVO", forumPostVO);
         model.addAttribute("forumPostListData", list);
         model.addAttribute("success", "- (新增成功)");
         return "redirect:/forumpost/listAllForumPost";
     }
 
 	@PostMapping("getOne_For_Update")
-	public String getOne_For_Update(@RequestParam("fpId") String fpId, ModelMap model) {
-		/*************************** 2.開始查詢資料 *****************************************/
-		ForumPostVO forumPostVO = forumPostSvc.getOneForumPost(Integer.valueOf(fpId));
+	public String getOne_For_Update(@RequestParam("fpId") String fpId, HttpSession session, ModelMap model) {
+	    // 1. 驗證登入狀態
+	    if (!isUserLoggedIn(session)) {
+	        // 如果未登入，重定向到登錄頁面或其他處理方式
+	        return "redirect:/user/force_user_login";
+	    }
 
-		/*************************** 3.查詢完成,準備轉交(Send the Success view) **************/
-		model.addAttribute("forumPostVO", forumPostVO);
-		return "front-end/forumpost/g2_blog_update_article"; 
+	    // 2. 確認用戶身份
+	    ForumPostVO forumPostVO = forumPostSvc.getOneForumPost(Integer.valueOf(fpId));
+	    Integer uId = (Integer) session.getAttribute("uId");
+	    if (!uId.equals(forumPostVO.getUserVO().getuId())) {
+	        // 如果用戶不是貼文的作者，返回錯誤提示
+	        model.addAttribute("error", "您無權修改此貼文");
+	        return "front-end/error";
+	    }
+
+	    // 3. 將貼文資料添加到模型中並轉交頁面
+	    model.addAttribute("forumPostVO", forumPostVO);
+	    return "front-end/forumpost/g2_blog_update_article";
 	}
 	
 	@PostMapping("update")
 	public String update(@Valid ForumPostVO forumPostVO, BindingResult result, ModelMap model,
-	                     @RequestParam("fpPic") MultipartFile[] parts, RedirectAttributes redirectAttributes) throws IOException {
+	                     @RequestParam("fpPic") MultipartFile[] parts, RedirectAttributes redirectAttributes, HttpSession session) throws IOException {
+	    // 檢查用戶是否已經登入
+	    if (!isUserLoggedIn(session)) {
+	        // 如果未登入，重定向到登錄頁面或其他處理方式
+	        return "redirect:/user/force_user_login";
+	    }
 
-        // 檢查中是否存在相同標題文章
+	    // 確認用戶是否是貼文的作者
+	    Integer uId = (Integer) session.getAttribute("uId");
+	    ForumPostVO originalPost = forumPostSvc.getOneForumPost(forumPostVO.getFpId());
+	    if (!uId.equals(originalPost.getUserVO().getuId())) {
+	        // 如果用戶不是貼文的作者，返回錯誤提示
+	        model.addAttribute("error", "您無權修改此貼文");
+	        return "front-end/error";
+	    }
+
+	    // 檢查中是否存在相同標題文章
 	    boolean titleExists = forumPostSvc.existsByFpTitle(forumPostVO.getFpTitle());
 	    if (titleExists) {
 	        result.addError(new FieldError("ForumPostVO", "fpTitle", "文章标题已存在"));
@@ -154,48 +184,40 @@ public class ForumPostController {
 	        forumPostVO.setFpPic(fpPic);
 	    }
 
-	    forumPostVO.setFpTime(forumPostSvc.getOriginalFpTime(forumPostVO.getFpId()));
-        forumPostVO.setFpViews(forumPostSvc.getOriginalFpViews(forumPostVO.getFpId()));
-        forumPostVO.setFpPic(forumPostSvc.getOriginalFpPic(forumPostVO.getFpId()));
-        
-//	    if (result.hasErrors()) {
-//            // 將user輸入的數據保存到 Model 中
-//	        redirectAttributes.addFlashAttribute("forumPostVO", forumPostVO);
-//	        return "redirect:/forumpost/update_forumpost_input";
-//	    }
+	    forumPostVO.setFpTime(originalPost.getFpTime());
+	    forumPostVO.setFpViews(originalPost.getFpViews());
+	    forumPostVO.setFpPic(originalPost.getFpPic());
 
 	    forumPostSvc.updateForumPost(forumPostVO);
 
 	    model.addAttribute("success", "- (修改成功)");
-	    forumPostVO = forumPostSvc.getOneForumPost(Integer.valueOf(forumPostVO.getFpId()));
+	    forumPostVO = forumPostSvc.getOneForumPost(forumPostVO.getFpId());
 	    model.addAttribute("forumPostVO", forumPostVO);
-	    return "front-end/forumpost/listOneForumPost"; // 修改成功後轉交listOneUser.html
+	    return "redirect:/forumpost/details?fpId=" + forumPostVO.getFpId();
 	}
 
 
 	@PostMapping("delete")
 	public String delete(@RequestParam("fpId") String fpId, HttpSession session, ModelMap model) {
-	    // 1. 從 session 中獲取當前用戶身份信息
-	    UserVO currentUser = (UserVO) session.getAttribute("currentUser");
-	    if (currentUser == null) {
-	        // 如果用戶未登錄，重定向到登錄頁面或返回錯誤信息
-	        return "redirect:/login";
+	    // 檢查用戶是否已經登入
+	    if (!isUserLoggedIn(session)) {
+	        // 如果未登入，重定向到登錄頁面或其他處理方式
+	        return "redirect:/user/force_user_login";
 	    }
 
-	    // 2. 獲取要刪除的貼文
+	    // 確認用戶是否是貼文的作者
+	    Integer uId = (Integer) session.getAttribute("uId");
 	    ForumPostVO forumPostVO = forumPostSvc.getOneForumPost(Integer.valueOf(fpId));
-
-	    // 3. 檢查用戶身份是否有權刪除貼文
-	    if (!currentUser.equals(forumPostVO.getUserVO())) {
-	        // 如果用戶不是貼文作者，則拒絕刪除操作
+	    if (!uId.equals(forumPostVO.getUserVO().getuId())) {
+	        // 如果用戶不是貼文的作者，返回錯誤提示
 	        model.addAttribute("error", "只有貼文作者才能刪除貼文");
-	        return "front-end/error"; // 返回一個錯誤頁面或重新導
+	        return "front-end/error";
 	    }
 
-	    // 4. 執行刪除操作
+	    // 執行刪除操作
 	    forumPostSvc.deleteForumPost(Integer.valueOf(fpId));
 
-	    // 5. 刪除完成後重定向或返回到合適的頁面
+	    // 刪除完成後重定向或返回到合適的頁面
 	    return "redirect:/forumpost/listAllForumPost";
 	}
 
@@ -223,6 +245,30 @@ public class ForumPostController {
 			result.addError(fieldError);
 		}
 		return result;
+	}
+	
+	private boolean isUserLoggedIn(HttpSession session) {
+	    // 檢查會話中是否存在用戶ID，如果存在則認為用戶已登入
+	    Integer userId = (Integer) session.getAttribute("userId");
+	    return userId != null;
+	}
+	
+	// 根據文章分類獲取預設圖片
+	private byte[] getDefaultPicByCategory(String category) {
+	    switch (category) {
+	        case "重量訓練":
+	            return java.util.Base64.getDecoder().decode(DefaultImage.getDefaultPic1());
+	        case "皮拉提斯":
+	            return java.util.Base64.getDecoder().decode(DefaultImage.getDefaultPic2());
+	        case "有氧訓練":
+	            return java.util.Base64.getDecoder().decode(DefaultImage.getDefaultPic3());
+	        case "徒手健身":
+	            return java.util.Base64.getDecoder().decode(DefaultImage2.getDefaultPic4());
+	        case "飲食分享":
+	            return java.util.Base64.getDecoder().decode(DefaultImage2.getDefaultPic5());
+	        default:
+	            return null; // 或者設置一個預設的圖片
+	    }
 	}
 	
 //	====

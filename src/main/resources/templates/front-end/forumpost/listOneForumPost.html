@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>討論區貼文資料 - listOneForumPost.html</title>
+
+<style type="text/css">
+	
+    span {
+		display: inline-block;
+		width: 150px;
+		text-align: left;
+		font-weight: bold;
+	}
+</style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
+		 <div align="center"> <h2>討論區貼文資料 - listOneForumPost.html</h2>
+		 <h3><a class="navbar-brand" th:href="@{/forumpost/select_page}"><img th:src="@{/images/back1.gif}">回查詢頁<label th:text="${success}"></label></a></h3></div>
+</nav>
+
+	<div align="center" th:fragment="listOneForumPost-div">
+		<div th:if="${ForumPostVO.fpStatus == 1}">
+		<h3><span>查詢結果 :</span></h3>
+		<span>貼文編號:</span><span th:text="${ForumPostVO.fpId}"></span><br/>
+		<span>會員名稱:</span><span th:text="${ForumPostVO.UserVO.uId}"></span><br/>
+		<span>貼文分類:</span><span th:text="${ForumPostVO.fpCategory}"></span><br/>
+		<span>貼文標題:</span><span th:text="${ForumPostVO.fpTitle}"></span><br/>
+		<span>貼文內容:</span><span th:text="${ForumPostVO.fpContent}"></span><br/>
+		<span>貼文時間:</span><span th:text="${#dates.format(ForumPostVO.fpTime, 'yyyy-MM-dd HH:mm')}"></span><br/>
+		<span>貼文更新時間:</span><span th:text="${#dates.format(ForumPostVO.fpUpdate, 'yyyy-MM-dd HH:mm')}"></span><br/>
+		<span>貼文圖片:</span><span> <img th:src="@{/forumpost/DBGifReader} + '?fpId=' + ${ForumPostVO.fpId}" width="100px"></span><br/>
+	</div>
+	
+    <div th:unless="${ForumPostVO.fpStatus == 1}">
+        <!--當fpStat 不為 1 時顯示的內容 -->
+        <h3>此篇文章已刪除</h3>
+        <img width="90px"  height="80px" th:src="@{/images/delete.jpg}">
+    </div>
+	</div>
+</body>
+</html>

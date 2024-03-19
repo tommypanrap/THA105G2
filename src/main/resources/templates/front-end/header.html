@@ -95,7 +95,7 @@
                                             <img th:src="@{/assets/images/team/avatar.jpg}" alt="User Images">
                                         </div>
                                         <div class="admin-info">
-                                            <span class="name">Nipa Bali</span>
+                                            <span class="name" th:text="${session.uNickname}">Nipa Bali</span>
                                             <a class="rbt-btn-link color-primary" href="#">個人檔案</a>
                                         </div>
                                     </div>
@@ -169,7 +169,7 @@
                                             <img th:src="@{/assets/images/team/avatar.jpg}" alt="User Images">
                                         </div>
                                         <div class="admin-info">
-                                            <span class="name">Nipa Bali</span>
+                                            <span class="name" th:text="${session.uNickname}">Nipa Bali</span>
                                             <a class="rbt-btn-link color-primary" href="profile.html">View Profile</a>
                                         </div>
                                     </div>

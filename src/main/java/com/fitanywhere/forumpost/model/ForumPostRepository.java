@@ -2,11 +2,15 @@ package com.fitanywhere.forumpost.model;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.fitanywhere.course.model.CourseVO;
 
 public interface ForumPostRepository extends JpaRepository<ForumPostVO, Integer> {
 //    @Transactional
@@ -36,5 +40,9 @@ public interface ForumPostRepository extends JpaRepository<ForumPostVO, Integer>
 	@Transactional
 	@Query("UPDATE ForumPostVO f SET f.fpViews = :fpViews WHERE f.fpId = :fpId")
 	void updateViews(@Param("fpId") int fpId, @Param("fpViews") int fpViews);
+	
+	// Tommy
+	@Query("SELECT f FROM ForumPostVO f")
+	Page<ForumPostVO> getFourCourses(Pageable pageable);
 
 }

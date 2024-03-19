@@ -158,7 +158,7 @@ th, td {
 					<tr>
 						<td th:text="${adVO.adId}"></td>
 						<td th:text="${adVO.adName}"></td>
-						<td th:text="${adVO.adStatus}"></td>
+						<td th:text="${adVO.adStatus == 1 ? '啟用' : '停用'}"></td>
 						<td th:text="${adVO.adDayPrice}"></td>
 						<td th:text="${adVO.adType}"></td>
 

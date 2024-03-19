@@ -15,8 +15,6 @@
     <meta name="robots" content="noindex, follow" />
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    Favicon
     <link rel="shortcut icon" type="image/x-icon" th:href="@{/assets/images/favicon.png}">
 
     <!--     CSS
@@ -951,7 +949,7 @@
                                     <img th:src="@{/assets/images/team/avatar.jpg}" alt="Instructor">
                                 </div>
                                 <div class="tutor-content">
-                                    <h5 class="title">John Due</h5>
+                                    <h5 class="title"><span th:text="${uName}"></span></h5>
                                     <div class="rbt-review">
                                         <div class="rating">
                                             <i class="fas fa-star"></i>

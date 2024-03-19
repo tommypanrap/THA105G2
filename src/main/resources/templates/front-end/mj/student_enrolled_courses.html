@@ -30,6 +30,7 @@
     <link rel="stylesheet" th:href="@{/assets/css/plugins/magnigy-popup.min.css}">
     <link rel="stylesheet" th:href="@{/assets/css/plugins/plyr.css}">
     <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+
 </head>
 
 <body>
@@ -736,7 +737,8 @@
                             <div class="tutor-btn">
                                 <a class="rbt-btn btn-md hover-icon-reverse" href="#">
                                         <span class="icon-reverse-wrapper">
-                        <span class="btn-text">教練模式</span>
+                       					<a th:href="@{/course/coach_dashboard}" class="button-class">
+    									<span class="btn-text">教練模式</span></a>
                                         <span class="btn-icon"><i class="feather-arrow-right"></i></span>
                                         <span class="btn-icon"><i class="feather-arrow-right"></i></span>
                                         </span>

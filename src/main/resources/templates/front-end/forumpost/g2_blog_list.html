@@ -131,8 +131,8 @@
 </head>
 
 <body class="rbt-header-sticky">
-	<header th:insert="~{/front-end/included-header}"></header>
-	<!-- <header th:insert="~{/front-end/header}"></header> -->
+<!-- 	<header th:insert="~{/front-end/included-header}"></header> -->
+	<header th:insert="~{/front-end/header}"></header>
 
 	<!-- Mobile Menu Section -->
 	<div class="popup-mobile-menu">
@@ -1091,7 +1091,9 @@
 									<input type="text" class="eugen-search-input"
 										placeholder="搜尋...">
 									<button class="eugen-search-button">搜尋</button>
+									<a href='addForumPost'>
 									<button class="eugen-search-button write">發布文章</button>
+									</a>
 								</div>
 								<div class="chat-tag-wrapper tag-wrapper-add">
 									<a href="#" class="rbt-badge-2 filter-tag" data-tag="全部文章"> 全部文章 </a> <a href="#"
@@ -1118,14 +1120,14 @@
 
 		<div class="container">
 			<!-- Start Card Area -->
-			<div class="row" th:each="forumPostVO:${forumPostListData}">
+			<div class="row row-forum" th:each="forumPostVO:${forumPostListData}">
 				<div class="col-lg-10 offset-lg-1 mt_dec--30">
 
 					<div
-						class="rbt-card card-list variation-02 rbt-hover mt--30 new-classname card-add-class">
+						class="rbt-card card-list variation-02 rbt-hover mt--30 new-classname card-add-class rbt-card-forum">
 						<div class="rbt-card-img">
 							<a
-								th:href="@{/forumpost/details/{fpId}(fpId=${forumPostVO.fpId})}">
+								th:href="@{/forumpost/details(fpId=${forumPostVO.fpId})}">
 								<img
 								th:src="@{/forumpost/DBGifReader(fpId=${forumPostVO.fpId})}"
 								alt="Card image">
@@ -1135,10 +1137,10 @@
 							<a
 								th:href="@{/forumpost/category/{fpCategory}(fpCategory=${forumPostVO.fpCategory})}"
 								class="rbt-badge-2"><span
-								th:text="${forumPostVO.fpCategory}"></span> </a>
+								th:text="${forumPostVO.fpCategory}" class="forumTag"></span> </a>
 							<h5 class="rbt-card-title">
 								<a
-									th:href="@{/forumpost/details/{fpId}(fpId=${forumPostVO.fpId})}"
+									th:href="@{/forumpost/details(fpId=${forumPostVO.fpId})}"
 									th:text="${forumPostVO.fpTitle}"></a>
 								<p th:text="${forumPostVO.fpContent}"></p>
 							</h5>
@@ -1244,9 +1246,13 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function filterPosts(selectedTag) {
-        const allPosts = document.querySelectorAll('.rbt-card');
+    	
+//         const allPosts = document.querySelectorAll('.rbt-card-forum');
+        const allPosts = document.querySelectorAll('.row-forum');
 
+		
         allPosts.forEach(post => {
+
             const postTags = post.querySelector('.rbt-badge-2').textContent.trim();
             const postBody = post.querySelector('.rbt-card-body');
             if (postTags !== selectedTag && selectedTag !== '全部文章') {

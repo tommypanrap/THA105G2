@@ -33,9 +33,8 @@ public class FrIdController {
 	ForumReplyService forumReplySvc;
 
 	@PostMapping("getOne_For_Display")
-	public String getOne_For_Display(/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
-	@NotEmpty(message = "會員帳號: 請勿空白") @Digits(integer = 100, fraction = 0, message = "會員編號: 請填數字-請勿超過{integer}位數") @RequestParam("frId") String frId,
-			ModelMap model) {
+	public String getOne_For_Display(
+	@RequestParam("frId") String frId,ModelMap model) {
 
 		ForumReplyVO forumReplyVO = forumReplySvc.getOneForumReply(Integer.valueOf(frId));
 

@@ -7,6 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fitanywhere.forumpost.model.ForumPostService;
+import com.fitanywhere.forumpost.model.ForumPostVO;
 import com.fitanywhere.user.model.UserService;
 
 
@@ -18,14 +20,29 @@ public class ForumReplyService {
         ForumReplyRepository repository;
         
         @Autowired
+    	ForumPostService forumPostSvc;
+        
+        @Autowired
         UserService userSvc;
         
 
-        public void addForumReply(ForumReplyVO forumReplyVO) {
+        public void addForumReply(ForumReplyVO forumReplyVO, int fpId) {
+            // 在新增留言時，設置留言對應的貼文ID
+            ForumPostVO forumPostVO = new ForumPostVO();
+            forumPostVO.setFpId(fpId);
+            forumReplyVO.setForumPostVO(forumPostVO);
+
+            // 調用 repository 保存留言對象
             repository.save(forumReplyVO);
         }
 
-        public void updateForumReply(ForumReplyVO forumReplyVO) {
+        public void updateForumReply(ForumReplyVO forumReplyVO, int fpId) {
+            // 確保更新的留言與相應的貼文關聯
+            ForumPostVO forumPostVO = new ForumPostVO();
+            forumPostVO.setFpId(fpId);
+            forumReplyVO.setForumPostVO(forumPostVO);
+
+            // 更新留言
             repository.save(forumReplyVO);
         }
 
@@ -55,13 +72,4 @@ public class ForumReplyService {
             return null;
         }
         
-        public byte[] getOriginalFrPic(Integer frId) {
-            ForumReplyVO forumReplyVO = repository.findById(frId).orElse(null);
-            if (forumReplyVO != null) {
-                return forumReplyVO.getFrPic(); // 取得原本的發文圖片
-            }
-            return null;
-        }
-
-   
 }

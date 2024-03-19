@@ -12,13 +12,52 @@
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png">
+    
+    <style>
+    	.blog-row{
+    		display:flex;
+    		width:70%;
+    		margin:0 auto;
+    		justify-content:space-between;
+    	}
+    	.blog-cactegory{
+    		width:45%;
+    	}
+    	.blog-add{
+    		width:45%;
+    	}
+    	.blog-small-container{
+    		width:70%;
+    		margin:0 auto;
+    	}
+    	.rbt-page-banner-wrapper input{
+    		background:white;
+    		width:100%;
+    	}
+    	
+    	.rbt-page-banner-wrapper textarea{
+    		background:white;
+    	}
+    	
+    	.blog-small-container .blog-add{
+    		width:100%;
+    	}
+    	.rbt-banner-content-inner-container p{
+    		margin:0;
+    	}
+    	input{
+    		max-width:none;
+    	}
+    
+    </style>
 
 </head>
 
 
 
 <body class="rbt-header-sticky">
-<header th:insert="~{/front-end/included-header}"></header>
+<!-- <header th:insert="~{/front-end/included-header}"></header> -->
+<header th:insert="~{/front-end/header}"></header>
 
 <div class="rbt-page-banner-wrapper">
     <!-- Start Banner BG Image  -->
@@ -28,22 +67,30 @@
         <br>
         <div class="rbt-banner-content-inner-container">
             <form th:action="@{insert}" method="post" th:object="${ForumPostVO}" enctype="multipart/form-data">
-				<p>文章分類</p>
-                <select name="fpCategory" id="fpCategory">
-                    <option value="重量訓練">重量訓練</option>
-                    <option value="皮拉提斯">皮拉提斯</option>
-                    <option value="有氧訓練">有氧訓練</option>
-                    <option value="徒手健身">徒手健身</option>
-                    <option value="飲食分享">飲食分享</option>
-                </select>
+            	
+            	<div class="blog-row">
+	            	<div class="blog-cactegory">
+						<p>文章分類</p>
+		                <select name="fpCategory" id="fpCategory">
+		                    <option value="重量訓練">重量訓練</option>
+		                    <option value="皮拉提斯">皮拉提斯</option>
+		                    <option value="有氧訓練">有氧訓練</option>
+		                    <option value="徒手健身">徒手健身</option>
+		                    <option value="飲食分享">飲食分享</option>
+		                </select>
+	                </div>
+	                
+	                
+	                <div class="blog-add">
+	                    <p>用戶ID</p>
+	                    <select th:field="*{userVO.uId}">
+	            <option th:each="userVO : ${userListData}" th:value="${userVO.uId}" th:text="${userVO.uNickname}" />
+	            </select>
+	                </div>
                 
-                <div class="blog-add">
-                    <p>用戶ID</p>
-                    <select th:field="*{userVO.uId}">
-            <option th:each="userVO : ${userListData}" th:value="${userVO.uId}" th:text="${userVO.uNickname}" />
-            </select>
                 </div>
-
+				
+				<div class="blog-small-container">
                 <div class="blog-add">
                     <p>文章標題</p>
                     <input type="text" th:field="*{fpTitle}">
@@ -61,6 +108,8 @@
 
                 <button type="submit">儲存</button>
                 <button type="button" onclick="window.history.back();">取消</button>
+                
+                </div>
             </form>
         </div>
         <br>

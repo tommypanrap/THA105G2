@@ -1,4 +1,4 @@
-package com.fitanywhere.forumpost.controller;
+package com.fitanywhere.forumreply.controller;
 
 import java.io.IOException;
 
@@ -13,14 +13,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fitanywhere.forumpost.model.ForumPostService;
+import com.fitanywhere.forumreply.model.ForumReplyService;
 import com.fitanywhere.user.model.UserService;
 
 @Controller
-@RequestMapping("/forumpost")
-public class ForumPostDBGifReaderController {
+@RequestMapping("/forumreply")
+public class ForumReplyDBGifReaderController {
 	
 	@Autowired
 	ForumPostService forumPostSvc;
+	
+	@Autowired
+	ForumReplyService forumReplytSvc;
 	
 	@Autowired
 	UserService userSvc;

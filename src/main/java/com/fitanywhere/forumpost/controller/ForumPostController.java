@@ -27,12 +27,17 @@ import com.fitanywhere.forumpost.model.DefaultImage;
 import com.fitanywhere.forumpost.model.DefaultImage2;
 import com.fitanywhere.forumpost.model.ForumPostService;
 import com.fitanywhere.forumpost.model.ForumPostVO;
+import com.fitanywhere.forumreply.model.ForumReplyService;
+import com.fitanywhere.forumreply.model.ForumReplyVO;
 import com.fitanywhere.user.model.UserService;
 import com.fitanywhere.user.model.UserVO;
 
 @Controller
 @RequestMapping("/forumpost")
 public class ForumPostController {
+
+	@Autowired
+	ForumReplyService forumReplySvc;
 
 	@Autowired
 	ForumPostService forumPostSvc;
@@ -45,26 +50,30 @@ public class ForumPostController {
 	    if (forumPostVO == null) {
 	        forumPostVO = new ForumPostVO();
 	    }
-	    model.addAttribute("ForumPostVO", forumPostVO);
+	    model.addAttribute("forumPostVO", forumPostVO);
 	    return "front-end/forumpost/g2_blog_new_article";
 	}
 	
-	@GetMapping("/details/{fpId}")
-	public String getForumPostDetails(@PathVariable("fpId") int fpId, Model model) {
+	@GetMapping("/details")
+	public String getForumPostDetails(@RequestParam("fpId") int fpId, Model model) {
 	    ForumPostVO forumPostVO = forumPostSvc.getOneForumPost(Integer.valueOf(fpId));
-	    
-		if (forumPostVO != null) {
-			// 增加貼文觀看次數
-			forumPostVO.setFpViews(forumPostVO.getFpViews() + 1);
-			// 更新觀看次數
+	    if (forumPostVO != null) {
+	        // 增加貼文觀看次數
+	        forumPostVO.setFpViews(forumPostVO.getFpViews() + 1);
+	        // 更新觀看次數
 	        forumPostSvc.updateViews(forumPostVO.getFpId(), forumPostVO.getFpViews());
-		}
+	        
+	        List<ForumReplyVO> forumReplyVO = forumReplySvc.findReplyByFpId(fpId);
+	        model.addAttribute("forumReplyVO", forumReplyVO);
+	    }
 	    
+	    ForumReplyVO newForumReply = new ForumReplyVO();
+	    model.addAttribute("newForumReply", newForumReply);
 	    model.addAttribute("forumPostVO", forumPostVO);
-	    
+
 	    return "front-end/forumpost/g2_blog_details";
 	}
-
+	
 	@PostMapping("insert")
 	public String insert(@Valid ForumPostVO forumPostVO, BindingResult result, ModelMap model,
 	                     @RequestParam("fpPic") MultipartFile[] parts, RedirectAttributes redirectAttributes) throws IOException {
@@ -111,12 +120,6 @@ public class ForumPostController {
             forumPostVO.setFpPic(parts[0].getBytes());
         }
 
-//        if (result.hasErrors()) {
-//            // 將user輸入的數據保存到 Model 中
-//            model.addAttribute("forumPostVO", forumPostVO);
-//            // 返回到新增页面
-//            return "front-end/forumpost/addForumPost";
-//        }
         forumPostSvc.addForumPost(forumPostVO);
         /*************************** 3.新增完成,準備轉交(Send the Success view) **************/
         List<ForumPostVO> list = forumPostSvc.getAll();
@@ -131,7 +134,7 @@ public class ForumPostController {
 		ForumPostVO forumPostVO = forumPostSvc.getOneForumPost(Integer.valueOf(fpId));
 
 		/*************************** 3.查詢完成,準備轉交(Send the Success view) **************/
-		model.addAttribute("ForumPostVO", forumPostVO);
+		model.addAttribute("forumPostVO", forumPostVO);
 		return "front-end/forumpost/g2_blog_update_article"; 
 	}
 	
@@ -165,7 +168,7 @@ public class ForumPostController {
 
 	    model.addAttribute("success", "- (修改成功)");
 	    forumPostVO = forumPostSvc.getOneForumPost(Integer.valueOf(forumPostVO.getFpId()));
-	    model.addAttribute("ForumPostVO", forumPostVO);
+	    model.addAttribute("forumPostVO", forumPostVO);
 	    return "front-end/forumpost/listOneForumPost"; // 修改成功後轉交listOneUser.html
 	}
 
@@ -199,8 +202,8 @@ public class ForumPostController {
 	
     @GetMapping("listAllForumPost")
 	public String listAllForumPost(Model model) {
-    	 List<ForumPostVO> forumPosts = forumPostSvc.getAll();
-         model.addAttribute("forumPosts", forumPosts);
+    	 List<ForumPostVO> forumPostVO = forumPostSvc.getAll();
+         model.addAttribute("forumPostVO", forumPostVO);
 		return "front-end/forumpost/g2_blog_list";
 	}
     

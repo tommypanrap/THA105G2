@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,21 +15,19 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fitanywhere.forumpost.model.ForumPostService;
-import com.fitanywhere.forumpost.model.ForumPostVO;
 import com.fitanywhere.forumreply.model.ForumReplyService;
 import com.fitanywhere.forumreply.model.ForumReplyVO;
 import com.fitanywhere.user.model.UserService;
 import com.fitanywhere.user.model.UserVO;
 
 @Controller
-@RequestMapping("/forumreply")
 public class ForumReplyController {
 
 	@Autowired
@@ -38,34 +35,10 @@ public class ForumReplyController {
 
 	@Autowired
 	UserService userSvc;
-	
+
 	@Autowired
 	ForumPostService forumPostSvc;
 
-	 @GetMapping("addForumReply")
-	    public String addForumReply(@RequestParam("fpId") int fpId, ModelMap model) {
-	        ForumReplyVO forumReplyVO = new ForumReplyVO(); // 创建一个新的 ForumReplyVO 对象
-	        List<ForumPostVO> forumPostListData = forumPostSvc.getAll(); // 获取所有贴文数据
-	        model.addAttribute("forumReplyVO", forumReplyVO); // 将 ForumReplyVO 对象添加到模型中
-	        model.addAttribute("forumPostListData", forumPostListData); // 将所有贴文数据添加到模型中
-	        model.addAttribute("fpId", fpId); // 添加postId到模型中
-	        return "front-end/forumreply/addForumReply"; // 返回新增页面
-	    }
-
-
-	 @PostMapping("insert")
-		public String insert(@Valid ForumReplyVO forumReplyVO, BindingResult result, ModelMap model,
-		                     @RequestParam("frPic") MultipartFile[] parts, RedirectAttributes redirectAttributes) throws IOException {
-		    
-	     // 将留言信息保存到数据库中
-	     forumReplySvc.addForumReply(forumReplyVO);
-	     
-	     Integer fpId = forumReplyVO.getForumPostVO().getFpId();
-	     model.addAttribute("ForumReplyVO", forumReplyVO);
-
-	     // 重定向到留言所属的文章详情页面
-	     return "redirect:/forumpost/g2_blog_Details?postId=" + fpId;
-	 }
 	@PostMapping("getOne_For_Update")
 	public String getOne_For_Update(@RequestParam("frId") String frId, ModelMap model) {
 		/*************************** 2.開始查詢資料 *****************************************/
@@ -73,72 +46,58 @@ public class ForumReplyController {
 
 		/*************************** 3.查詢完成,準備轉交(Send the Success view) **************/
 		model.addAttribute("ForumReplyVO", forumReplyVO);
-		return "front-end/forumreply/update_forumreply_input"; 
+		return "front-end/forumreply/update_forumreply_input";
 	}
 	
-	@PostMapping("update")
-	public String update(@Valid ForumReplyVO forumReplyVO, BindingResult result, ModelMap model,
-	                     @RequestParam("frPic") MultipartFile[] parts, RedirectAttributes redirectAttributes) throws IOException {
+	@PostMapping("/details/{fpId}/reply")
+	 public String addForumReply(@RequestParam("fpId") int fpId, @ModelAttribute("newForumReply") ForumReplyVO newForumReply) {
+//		 int postId = Integer.parseInt(fpId);
+	     forumReplySvc.addForumReply(newForumReply, fpId);
 
-	    // 如果有圖片上傳，將其轉換成byte並設置ForumPostVO中
-	    if (!parts[0].isEmpty()) {
-	        byte[] frPic = parts[0].getBytes();
-	        forumReplyVO.setFrPic(frPic);
-	    }
+	     // 重定向到貼文詳細頁面，用戶可以看到新留言已經添加
+	     String redirectUrl = "redirect:/details?fpId=" + fpId;
+	     return redirectUrl;
+	 }
 
-	    forumReplyVO.setFrTime(forumReplySvc.getOriginalFrTime(forumReplyVO.getFrId()));
-        forumReplyVO.setFrPic(forumReplySvc.getOriginalFrPic(forumReplyVO.getFrId()));
-        
-	    forumReplySvc.updateForumReply(forumReplyVO);
+	@PostMapping("/details/{fpId}/updatereply")
+	public String update(@Valid ForumReplyVO forumReplyVO, BindingResult result, ModelMap model, RedirectAttributes redirectAttributes,
+			@PathVariable("fpId") int fpId) throws IOException {
 
-	    model.addAttribute("success", "- (修改成功)");
-	    forumReplyVO = forumReplySvc.getOneForumReply(Integer.valueOf(forumReplyVO.getFrId()));
-	    model.addAttribute("ForumReplyVO", forumReplyVO);
-	    return "front-end/forumreply/listOneForumReply"; 
+		forumReplyVO.setFrTime(forumReplySvc.getOriginalFrTime(forumReplyVO.getFrId()));
+
+		forumReplySvc.updateForumReply(forumReplyVO, fpId);
+
+		model.addAttribute("success", "- (修改成功)");
+		forumReplyVO = forumReplySvc.getOneForumReply(Integer.valueOf(forumReplyVO.getFrId()));
+		model.addAttribute("ForumReplyVO", forumReplyVO);
+		return "redirect:/details/" + fpId;
 	}
 
+	@PostMapping("/details/{fpId}/deletereply")
+	public String delete(@RequestParam("frId") String frId, @PathVariable("fpId") int fpId, ModelMap model) {
 
-	@PostMapping("delete")
-	public String delete(@RequestParam("frId") String frId, HttpSession session, ModelMap model) {
-	    // 1. 從 session 中獲取當前用戶身份信息
-	    UserVO currentUser = (UserVO) session.getAttribute("currentUser");
-	    if (currentUser == null) {
-	        // 如果用戶未登錄，重定向到登錄頁面或返回錯誤信息
-	        return "redirect:/login";
-	    }
+		ForumReplyVO forumReply = forumReplySvc.getOneForumReply(Integer.valueOf(frId));
 
-	    // 2. 獲取要刪除的貼文
-	    ForumReplyVO forumReply = forumReplySvc.getOneForumReply(Integer.valueOf(frId));
-
-	    // 3. 檢查用戶身份是否有權刪除貼文
-	    if (!currentUser.equals(forumReply.getUserVO())) {
-	        // 如果用戶不是貼文作者，則拒絕刪除操作
-	        model.addAttribute("error", "只有貼文作者才能刪除貼文");
-	        return "front-end/error"; // 返回一個錯誤頁面或重新導
-	    }
-
-	    // 4. 執行刪除操作
-	    forumReplySvc.deleteForumReply(Integer.valueOf(frId));
-
-	    // 5. 刪除完成後重定向或返回到合適的頁面
-	    return "redirect:/forumreply/listAllForumReply";
+		if (forumReply.getForumPostVO().getFpId() == fpId) {
+			forumReplySvc.deleteForumReply(Integer.valueOf(frId));
+		} else {
+			return "redirect:/forumreply/listAllForumReply";
+		}
+		return "redirect:/details/" + fpId;
 	}
 
-	
-    @GetMapping("listAllForumReply")
-	public String listAllForumReply(Model model) {
-    	 List<ForumReplyVO> forumReplys = forumReplySvc.getAll();
-         model.addAttribute("forumReplys", forumReplys);
-		return "front-end/forumreply/listAllForumReply";
+	@GetMapping("/listAllForumReplies")
+	public String listAllForumReplies(Model model) {
+		List<ForumReplyVO> forumReplyListData = forumReplySvc.getAll();
+		model.addAttribute("forumReplyListData", forumReplyListData);
+		return "forumreply/listAllForumReplies"; // 返回视图名称
 	}
-    
+
 	@GetMapping("select_page")
 	public String select_page(Model model) {
 		return "front-end/forumreply/select_page";
 	}
-	
-	
-	
+
 	// 去除BindingResult中某個欄位的FieldError紀錄
 	public BindingResult removeFieldError(ForumReplyVO forumReplyVO, BindingResult result, String removedFieldname) {
 		List<FieldError> errorsListToKeep = result.getFieldErrors().stream()
@@ -149,25 +108,23 @@ public class ForumReplyController {
 		}
 		return result;
 	}
-	
+
 //	====
-	
+
 	@ModelAttribute("forumReplyListData")
 	protected List<ForumReplyVO> forumReplyListData() {
 		List<ForumReplyVO> list = forumReplySvc.getAll();
 		return list;
 	}
-	
+
 	@ModelAttribute("userListData")
 	protected List<UserVO> referenceListData() {
 		List<UserVO> list = userSvc.getAll();
 		return list;
 	}
-	
+
 	@ModelAttribute("ForumReplyVO")
 	public ForumReplyVO getForumReplyVO() {
-	    return new ForumReplyVO(); 
+		return new ForumReplyVO();
 	}
-
-
 }

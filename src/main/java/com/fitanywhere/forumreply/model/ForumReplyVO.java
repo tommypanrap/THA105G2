@@ -56,20 +56,16 @@ public class ForumReplyVO implements Serializable {
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Timestamp frUpdate;
 
-	@Column(name = "fr_pic", columnDefinition = "longblob")
-	private byte[] frPic;
-
 	public ForumReplyVO(UserVO userVO, ForumPostVO forumPostVO, Integer frId, String frContent, Integer frStatus,
-			Timestamp fpTime, Timestamp frUpdate, byte[] frPic) {
+			Timestamp frTime, Timestamp frUpdate) {
 		super();
 		this.userVO = userVO;
 		this.forumPostVO = forumPostVO;
 		this.frId = frId;
 		this.frContent = frContent;
 		this.frStatus = frStatus;
-		this.frTime = fpTime;
+		this.frTime = frTime;
 		this.frUpdate = frUpdate;
-		this.frPic = frPic;
 	}
 
 	@PrePersist

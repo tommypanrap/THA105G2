@@ -22,8 +22,9 @@ public class FilterConfig {
 		// Joy 添加了"/order/*","/cart/*"
 		// Mok 添加"/course/my_courses/*"
 		// XiaoXin 添加了"/adCarousel/addAdCarousel/*"
-		registrationBean.addUrlPatterns("/opinion/user_opinion_list/*", "/user_create_opinion/*","/course/*",
-				"/opinion_api/user_create_opinion", "/socialpost/*", "/order/*", "/cart/*", "/course/my_courses/*","/adCarousel/addAdCarousel/*");
+		registrationBean.addUrlPatterns("/opinion/user_opinion_list/*", "/user_create_opinion/*",
+				"/opinion_api/user_create_opinion", "/socialpost/*", "/order/*", "/cart/*", "/course/my_courses/*","/adCarousel/addAdCarousel/*",
+				"/course/coach_course","/course/coach_dashboard","/course/settings","/course/course_announce","/course/course_announcement_update","/course/announcement","/course/create_course_video","/course/create_course","/course/update_course");
 		return registrationBean;
 	}
 

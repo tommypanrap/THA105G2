@@ -21,10 +21,29 @@ margin-top:20px;
 .ad-content{
 padding-bottom:20px;
 }
+
+.form-group {
+	display: flex;
+	align-items: center;
+}
+
+.form-group label {
+	margin-right: 10px; /* 或您需要的空間 */
+}
+
+.form-group input, .form-group select {
+	margin-right: 10px; /* 提供錯誤信息顯示的空間 */
+}
+
+.error {
+	color: red;
+	margin-left: 10px; /* 和輸入欄位保持一定間隔 */
+}
 </style>
 
 
 </head>
+
 
 
 <body>
@@ -59,51 +78,44 @@ padding-bottom:20px;
 
 
 						<div class="parent2">
-							<div>輸入方案文字說明</div>
 							<p>以下欄位皆為必填表格，輸入以創建新的廣告方案</p>
 						</div>
 						<div align="center">
 							<form th:action="@{insert}" method="post" th:object="${adVO}"
 								enctype="multipart/form-data">
 
-								<!-- 								<div> -->
-								<!-- 									<label>方案ID:</label> <input type="text" th:field="*{adId}" -->
-								<!-- 										onclick="hideContent('adId.errors');" /><br /> <span -->
-								<!-- 										th:if="${#fields.hasErrors('adId')}" th:errors="*{adId}" -->
-								<!-- 										class="error" id="adId.errors"></span> -->
-								<!-- 								</div> -->
-								</br>
-								<div>
-									<label>方案名稱:</label> <input type="text" th:field="*{adName}"
-										onclick="hideContent('adName.errors');" /><br /> <span
-										th:if="${#fields.hasErrors('adName')}" th:errors="*{adName}"
-										class="error" id="adName.errors"></span>
+								<div class="form-group">
+									<label>方案名稱:</label> <input type="text" th:field="*{adName}" />
+									<span th:if="${#fields.hasErrors('adName')}"
+										th:errors="*{adName}" class="error" id="adName.errors" 
+										style="	color: red; margin-left: 10px;"></span>
 								</div>
+
 								</br>
-								<div>
+								<div class="form-group">
 									<label>方案狀態:</label> <input type="radio" th:field="*{adStatus}"
-										value="1" onclick="hideContent('adStatus.errors');" />啟用 <input
-										type="radio" th:field="*{adStatus}" value="0"
-										onclick="hideContent('adStatus.errors');" />停用 <span
-										th:if="${#fields.hasErrors('adStatus')}"
-										th:errors="*{adStatus}" class="error" id="adStatus.errors"></span>
+										value="1" />啟用 <input type="radio" th:field="*{adStatus}"
+										value="0" />停用 <span th:if="${#fields.hasErrors('adStatus')}"
+										th:errors="*{adStatus}" class="error" id="adStatus.errors"
+										style="	color: red; margin-left: 10px;"></span>
 								</div>
 								</br>
 
 
-								<div>
+								<div class="form-group">
 									<label>每日廣告單價:</label> <input type="text"
-										th:field="*{adDayPrice}"
-										onclick="hideContent('adDayPrice.errors');" /><br /> <span
+										th:field="*{adDayPrice}" /> <span
 										th:if="${#fields.hasErrors('adDayPrice')}"
-										th:errors="*{adDayPrice}" class="error" id="adDayPrice.errors"></span>
+										th:errors="*{adDayPrice}" class="error" id="adDayPrice.errors"
+										style="	color: red; margin-left: 10px;"></span>
 								</div>
 
-								<div>
-									<label>廣告方案類別:</label> <input type="text" th:field="*{adType}"
-										onclick="hideContent('adType.errors');" /><br /> <span
-										th:if="${#fields.hasErrors('adType')}" th:errors="*{adType}"
-										class="error" id="adType.errors"></span>
+								<div class="form-group">
+									<label>廣告方案類別:</label> <select th:field="*{adType}">
+										<option value="carousel" selected="selected">Carousel</option>
+										<option value="homepage">Homepage</option>
+									</select><br /> <span th:if="${#fields.hasErrors('adType')}"
+										th:errors="*{adType}" class="error" id="adType.errors"></span>
 								</div>
 
 								<div>

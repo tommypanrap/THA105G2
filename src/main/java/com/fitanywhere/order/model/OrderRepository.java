@@ -31,6 +31,9 @@ public interface OrderRepository extends JpaRepository<OrderVO, Integer> {
 	@Query(value="FROM OrderVO WHERE uId = :uId")
 	List<OrderVO> findByuId(Integer uId);
 
+	// Mok 我的課程抓order
+	@Query(value = "SELECT u_id FROM `order` WHERE u_id = 1?", nativeQuery = true)
+	boolean existsByOrder(Integer uId, Integer crId);
 
+	}
 
-}

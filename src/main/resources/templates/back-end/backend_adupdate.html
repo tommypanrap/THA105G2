@@ -14,8 +14,8 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>方案資料修改 - update_ad_input.html</title>
-
-<head th:insert="~{/back-end/backend_included_head}"></head><style type="text/css">
+<head th:insert="~{/back-end/backend_included_head}"></head>
+<style type="text/css">
 button {
 	padding: 5px;
 }
@@ -48,13 +48,16 @@ form div div {
 	margin-right: auto;
 }
 
-.ad-wrapper{
-display:flex;
+.ad-wrapper {
+	display: flex;
 }
 
-.ad-wrapper .ad-container{
-	padding:100px;
-	width:100%;
+.ad-wrapper .ad-container {
+	padding: 100px;
+	width: 100%;
+}
+.error {
+    color: red;
 }
 </style>
 </head>
@@ -95,32 +98,33 @@ display:flex;
 					</div>
 
 					<div>
-						<label>方案名稱:</label> <input type="text" th:field="*{adName}"
-							onclick="hideContent('adName.errors');" /><br /> <span
-							th:if="${#fields.hasErrors('adName')}" th:errors="*{adName}"
-							class="error" id="adName.errors"></span>
+						<label>方案名稱:</label> <input type="text" th:field="*{adName}"/><br /> 
+						<span th:if="${#fields.hasErrors('adName')}"
+							  th:errors="*{adName}" class="error" id="adName.errors"></span>
 					</div>
 
 					<div>
 						<label>方案狀態:</label> <input type="radio" th:field="*{adStatus}"
 							value="1" onclick="hideContent('adStatus.errors');" />啟用 <input
-							type="radio" th:field="*{adStatus}" value="0"
-							onclick="hideContent('adStatus.errors');" />停用 <span
+							type="radio" th:field="*{adStatus}" value="0"/>停用 
+							<span
 							th:if="${#fields.hasErrors('adStatus')}" th:errors="*{adStatus}"
 							class="error" id="adStatus.errors"></span>
 					</div>
 
 					<div>
-						<label>方案單日價格:</label> <input type="text" th:field="*{adDayPrice}"
-							onclick="hideContent('adDayPrice.errors');" /><br /> <span
+						<label>方案單日價格:</label> <input type="text" th:field="*{adDayPrice}"/><br /> 
+						<span
 							th:if="${#fields.hasErrors('adDayPrice')}"
 							th:errors="*{adDayPrice}" class="error" id="adDayPrice.errors"></span>
 					</div>
 
 					<div>
-						<label>廣告方案類別:</label> <input type="text" th:field="*{adType}"
-							onclick="hideContent('adType.errors');" /><br /> <span
-							th:if="${#fields.hasErrors('adType')}"
+						<label>廣告方案類別:</label> <select th:field="*{adType}"
+							onclick="hideContent('adType.errors');">
+							<option value="carousel" selected="selected">Carousel</option>
+							<option value="homepage">Homepage</option>
+						</select><br /> <span th:if="${#fields.hasErrors('adType')}"
 							th:errors="*{adType}" class="error" id="adType.errors"></span>
 					</div>
 					<div>
@@ -131,15 +135,44 @@ display:flex;
 						<div></div>
 					</div>
 				</form>
-				<h3><a th:href="@{list}">返回檢視已存在方案</a></h3>
+				<h3>
+					<a th:href="@{list}">返回檢視已存在方案</a>
+				</h3>
 			</div>
 		</div>
 	</div>
+	
+	<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', function () {
+  var inputFields = document.querySelectorAll('input[type=text], input[type=radio], select, textarea');
+  inputFields.forEach(function(field) {
+    field.addEventListener('input', function() {
+      // 檢查是否有關聯的錯誤訊息並嘗試隱藏它
+      var fieldName = field.name;
+      var errorSpanId = fieldName + '.errors';
+      var errorSpan = document.getElementById(errorSpanId);
+      if (errorSpan) {
+        errorSpan.style.display = 'none';
+      }
+    });
+    // 對於 radio 按鈕，我們也需要偵測 'change' 事件
+    if(field.type === 'radio') {
+      field.addEventListener('change', function() {
+        var errorSpan = document.getElementById(errorSpanId);
+        if (errorSpan) {
+          errorSpan.style.display = 'none';
+        }
+      });
+    }
+  });
+});
+
+</script>
 </body>
 
-	<div class="footer_wrapper">
-		<footer>
-			<p class="f-b-title">FitAnyWhere Backstage</p>
-		</footer>
-	</div>
+<div class="footer_wrapper">
+	<footer>
+		<p class="f-b-title">FitAnyWhere Backstage</p>
+	</footer>
+</div>
 </html>

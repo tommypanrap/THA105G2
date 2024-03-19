@@ -1121,7 +1121,7 @@
 		<div class="container">
 			<!-- Start Card Area -->
 			<div class="row row-forum" th:each="forumPostVO:${forumPostListData}">
-				<div class="col-lg-10 offset-lg-1 mt_dec--30">
+    			<div class="col-lg-10 offset-lg-1 mt_dec--30" th:if="${forumPostVO.fpStatus == 1}">
 
 					<div
 						class="rbt-card card-list variation-02 rbt-hover mt--30 new-classname card-add-class rbt-card-forum">

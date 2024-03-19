@@ -1,9 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head th:insert="~{/back-end/backend_included_head}">
+<head th:insert="~{/back-end/backend_included_head}"></head>
+<!-- <head> -->
 <style>
-/* 在原有的樣式上添加 */
+.ad-text2{
+margin-left:40px;
+padding-top:20px;
+    margin-bottom: 15px;
+}
+.ad-text2 h3{
+font-size :25px;
+
+}
+
+button#submit{
+margin-top:20px;
+}
+
+.ad-content{
+padding-bottom:20px;
+}
+
 .form-group {
 	display: flex;
 	align-items: center;
@@ -22,7 +40,11 @@
 	margin-left: 10px; /* 和輸入欄位保持一定間隔 */
 }
 </style>
+
+
 </head>
+
+
 
 <body>
 	<!-- header -->
@@ -50,7 +72,7 @@
 
 					<table class="backstage_table">
 
-						<div cl-ass="ad-text2">
+						<div class="ad-text2">
 							<h3>廣告方案:首頁輪播廣告</h3>
 						</div>
 

@@ -19,6 +19,7 @@
 
 
 </head>
+<div th:replace="/front-end/cart/cartview.html"></div>
 
 <body class="rbt-header-sticky body-index">
 	<div th:insert="front-end/header.html"></div>
@@ -70,7 +71,7 @@
 			<p>加入最優惠</p>
 		</div>
 		<div class="post-right">
-			<a href="">更多 > </a>
+			<a href="/course/courses">更多 > </a>
 		</div>
 	</div>
 
@@ -101,10 +102,8 @@
 					
 						<div class="rbt-author-meta mb--10">
 							<div class="rbt-avater">
-								<a href="/course_details_2"> <img
-									class="userHeadshot" 
-									
-									alt="Coach Image"> 
+								<a href="/course_details_2"> 
+									 <img class="userHeadshot" th:data-user-id="${courseVO.userVO.uId}"  alt="Coach Image">
 									<!--   <img th:src="@{/assets/images/client/avatar-02.png}"-->
 								</a>
 							</div>
@@ -149,7 +148,7 @@
 			<p>每週為你嚴選系列文章</p>
 		</div>
 		<div class="post-right">
-			<a href="">更多 > </a>
+			<a href="/forumpost/listAllForumPost">更多 > </a>
 		</div>
 	</div>
 
@@ -354,6 +353,43 @@
 //     $(".mainmenu-sub").on("mouseenter mouseleave",function(){
 //         $(this).find("a").toggleClass("mainmenu-sub-active");
 //     });
+
+
+</script>
+
+<script>
+$(document).ready(function () {
+    let userIdList = [];
+
+    $('.userHeadshot').each(function () {
+        let data = $(this).data('user-id');
+
+        // fetch 可以直接處理二進制資料(如blob)
+        fetch('/user_api/user_headshot_test', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({u_id: data}),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('response error');
+                }
+                return response.blob();
+            })
+            .then(blob => {
+                let image_Url = URL.createObjectURL(blob);
+                ;
+                $(this).attr('src', image_Url);
+            })
+            .catch(error => {
+                console.error('找不到user image:', error);
+                $(this).attr('src', '/assets/images/client/avatar-02.png');
+            });
+    });
+});
+
 
 
 </script>

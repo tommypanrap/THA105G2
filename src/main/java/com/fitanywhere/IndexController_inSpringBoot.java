@@ -80,5 +80,10 @@ public class IndexController_inSpringBoot {
 	public List<ForumPostVO> forumPostListFour() {
 		return forumPostSvc.findFourCourses();
 	}
+	
+//	@GetMapping("/course_on_index")
+//	public string course_on_index() {
+//		return
+//	}
 
 }

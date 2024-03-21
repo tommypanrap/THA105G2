@@ -56,7 +56,7 @@ public interface CourseRepository extends JpaRepository<CourseVO, Integer> {
 	List<CourseVO> getCourseByUId(Integer uId); 
 	
 	// Tommy
-	@Query("SELECT c FROM CourseVO c")
+	@Query("SELECT c FROM CourseVO c WHERE c.crState = 1")
 	Page<CourseVO> findSixCourses(Pageable pageable);
 	
     }

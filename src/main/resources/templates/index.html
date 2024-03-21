@@ -15,6 +15,21 @@
 .chat-img {
 	background-color: transparent;
 }
+.chat-card-word{
+	min-width:400px;
+}
+.featger-user{
+	color:#f8de22;
+}
+
+@media (max-width: 1350px) {
+	.body-index .chat-card{
+		width:70%;
+		margin:0 auto;
+		justify-content:space-between;
+		margin-bottom:15px;
+	}
+ }
 </style>
 
 
@@ -88,26 +103,25 @@
 							<a href="single-product.html" th:text="${courseVO.crTitle}">魔鬼有氧2</a>
 						</h2>
 
-						<span class="team-form"> <span class="location"
-							th:text="${courseVO.userVO.uNickname}">By 吳永志</span>
-						</span>
+<!-- 						<span class="team-form"> <span class="location" -->
+<!-- 							th:text="${courseVO.userVO.uNickname}">By 吳永志</span> -->
+<!-- 						</span> -->
 					</div>
 					<div class="thumbnail">
-						<a href="single-product.html">
-<!-- 						<img -->
-<!-- 							th:if="${courseVO.base64CrCover != null}" -->
-<!-- 							th:src="'data:image/jpeg;base64,' + ${courseVO.base64CrCover}" -->
-<!-- 							alt="Card image"> -->
-							<img src="">
-							
-							</a>
+						<a href="single-product.html"> 
+												<img 							th:if="${courseVO.base64CrCover != null}"
+														th:src="'data:image/jpeg;base64,' + ${courseVO.base64CrCover}"
+														alt="Card image">
+<!-- 							 <img src=""> -->
+
+						</a>
 					</div>
 					<div class="content">
-					
+
 						<div class="rbt-author-meta mb--10">
 							<div class="rbt-avater">
-								<a href="/course_details_2"> 
-									 <img class="userHeadshot" th:data-user-id="${courseVO.userVO.uId}"  alt="Coach Image">
+								<a href="/course_details_2"> <img class="userHeadshot"
+									th:data-user-id="${courseVO.userVO.uId}" alt="Coach Image">
 									<!--   <img th:src="@{/assets/images/client/avatar-02.png}"-->
 								</a>
 							</div>
@@ -116,15 +130,15 @@
 								By <span th:text="${courseVO.userVO.uNickname}"></span>
 							</div>
 						</div>
-						
-						<div class="rbt-review justify-content-center">
-							<div class="rating">
-								<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-									class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-									class="fas fa-star"></i>
-							</div>
-							<span class="rating-count">台灣第一健身強人，科學化鍛鍊全書</span>
-						</div>
+
+<!-- 						<div class="rbt-review justify-content-center"> -->
+<!-- 							<div class="rating"> -->
+<!-- 								<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i -->
+<!-- 									class="fas fa-star"></i> <i class="fas fa-star"></i> <i -->
+<!-- 									class="fas fa-star"></i> -->
+<!-- 							</div> -->
+<!-- 							<span class="rating-count">台灣第一健身強人，科學化鍛鍊全書</span> -->
+<!-- 						</div> -->
 						<div class="rbt-price justify-content-center mt--10">
 							<span class="current-price theme-gradient"
 								th:text=" 'NT$' + ${courseVO.crPrice}">$60.50</span>
@@ -163,9 +177,9 @@
 					<div class="title-1">
 						<i class="feather-user"></i>
 						<p th:text="${forumPostVO.userVO.uNickname}">Joy老師</p>
-						<img src="./@{/images/calander.png" alt="">
+						<img th:src="@{/images/calander.png}" alt="">
 						<p th:text="${forumPostVO.fpTime}">2023/12/26</p>
-						<img src="./@{/images/eye.png" alt="">
+<!-- 						<img th:src="@{/images/eye.png}" alt=""> -->
 						<!-- 						<p >2,580</p> -->
 					</div>
 					<div class="title-2">
@@ -176,76 +190,12 @@
 					</div>
 				</div>
 				<div class="chat-img">
-					<img th:src="@{/forumpost/DBGifReader(fpId=${forumPostVO.fpId})}"
-						alt="Card image">
+					<img src="" alt="Card image" th:data-fpid="${forumPostVO.fpId}">
 				</div>
 			</div>
-			<!-- 			<div class="chat-card"> -->
-			<!-- 				<div class="chat-card-word"> -->
-			<!-- 					<div class="title-1"> -->
-			<!-- 						<i class="feather-user"></i> -->
-			<!-- 						<p>Joy老師</p> -->
-			<!-- 						<img src="./@{/images/calander.png" alt=""> -->
-			<!-- 						<p>2023/12/26</p> -->
-			<!-- 						<img src="./@{/images/eye.png" alt=""> -->
-			<!-- 						<p>2,580</p> -->
-			<!-- 					</div> -->
-			<!-- 					<div class="title-2"> -->
-			<!-- 						<h2>歐美超模的秘密：給零基礎的第一堂芭蕾雕塑</h2> -->
-			<!-- 					</div> -->
-			<!-- 					<div class="title-3"> -->
-			<!-- 						<p>奧黛麗赫本曾經說過：優美的姿態，來源於與知識同行而不是獨行。</p> -->
-			<!-- 					</div> -->
-			<!-- 				</div> -->
-			<!-- 				<div class="chat-img"> -->
-			<!-- 					<img src="" alt=""> -->
-			<!-- 				</div> -->
-			<!-- 			</div> -->
+			
 		</div>
-		<!-- 		<div class="chat-select-row"> -->
-		<!-- 			<div class="chat-card"> -->
-		<!-- 				<div class="chat-card-word"> -->
-		<!-- 					<div class="title-1"> -->
-		<!-- 						<i class="feather-user"></i> -->
-		<!-- 						<p>Joy老師</p> -->
-		<!-- 						<img src="./@{/images/calander.png" alt=""> -->
-		<!-- 						<p>2023/12/26</p> -->
-		<!-- 						<img src="./@{/images/eye.png" alt=""> -->
-		<!-- 						<p>2,580</p> -->
-		<!-- 					</div> -->
-		<!-- 					<div class="title-2"> -->
-		<!-- 						<h2>歐美超模的秘密：給零基礎的第一堂芭蕾雕塑</h2> -->
-		<!-- 					</div> -->
-		<!-- 					<div class="title-3"> -->
-		<!-- 						<p>奧黛麗赫本曾經說過：優美的姿態，來源於與知識同行而不是獨行。</p> -->
-		<!-- 					</div> -->
-		<!-- 				</div> -->
-		<!-- 				<div class="chat-img"> -->
-		<!-- 					<img src="" alt=""> -->
-		<!-- 				</div> -->
-		<!-- 			</div> -->
-		<!-- 			<div class="chat-card"> -->
-		<!-- 				<div class="chat-card-word"> -->
-		<!-- 					<div class="title-1"> -->
-		<!-- 						<i class="feather-user"></i> -->
-		<!-- 						<p>Joy老師</p> -->
-		<!-- 						<img src="./@{/images/calander.png" alt=""> -->
-		<!-- 						<p>2023/12/26</p> -->
-		<!-- 						<img src="./@{/images/eye.png" alt=""> -->
-		<!-- 						<p>2,580</p> -->
-		<!-- 					</div> -->
-		<!-- 					<div class="title-2"> -->
-		<!-- 						<h2>歐美超模的秘密：給零基礎的第一堂芭蕾雕塑</h2> -->
-		<!-- 					</div> -->
-		<!-- 					<div class="title-3"> -->
-		<!-- 						<p>奧黛麗赫本曾經說過：優美的姿態，來源於與知識同行而不是獨行。</p> -->
-		<!-- 					</div> -->
-		<!-- 				</div> -->
-		<!-- 				<div class="chat-img"> -->
-		<!-- 					<img src="" alt=""> -->
-		<!-- 				</div> -->
-		<!-- 			</div> -->
-		<!-- 		</div> -->
+		
 	</div>
 
 	<!-- Start Feature List Area  可用在 探索課程-->
@@ -361,8 +311,11 @@
 
 </script>
 
-<script>
+	<script th:inline="javascript">
 $(document).ready(function () {
+	$('a.recover').off('click');
+	
+	
     let userIdList = [];
 
     $('.userHeadshot').each(function () {
@@ -388,12 +341,35 @@ $(document).ready(function () {
                 $(this).attr('src', image_Url);
             })
             .catch(error => {
-                console.error('找不到user image:', error);
+//                 console.error('找不到user image:', error);
                 $(this).attr('src', '/assets/images/client/avatar-02.png');
             });
     });
 });
 
+$(document).ready(function() {
+    $('img[data-fpid]').each(function() {
+        var imgElement = $(this); 
+        var fpId = imgElement.data('fpid'); 
+		console.log(fpId);
+
+        $.ajax({
+            url: '/index/forumPost/DBGifReader?fpId=' + fpId, // 你的后端接口URL
+            type: 'GET', // 方法类型，根据实际情况调整
+            success: function(data) {
+                // 假设后端返回的data是图片的Base64编码或直接访问的URL
+                if (data && data !== 'null') {imgElement.attr('src', data);}
+                else{imgElement.attr('src', '/assets/images/client/avatar-02.png');}
+                 // 更新<img>的src属性
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+                // 可选：在加载图片失败时设置一个默认图片
+//                 imgElement.attr('src', '/assets/images/client/avatar-02.png');
+            }
+        });
+    });
+});
 
 
 </script>

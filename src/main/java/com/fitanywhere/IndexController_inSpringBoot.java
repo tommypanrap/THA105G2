@@ -43,27 +43,24 @@ public class IndexController_inSpringBoot {
     public String index(Model model)   {
 //		System.out.println(courseSvc.getAll());
 		List<CourseVO> list = courseSvc.getSixCourses();
-		
-		list.forEach(courseVO ->
-		{	
-			
-			
-
-				
-			byte[] crCover = courseVO.getCrCover();
-			if (crCover!=null){
-			String base64CrCover = Base64.getEncoder().encodeToString(crCover);
-			courseVO.setBase64CrCover(base64CrCover);
-			}
-		});
+//		
+//		list.forEach(courseVO ->
+//		{	
+//			
+//			
+//
+//				
+//			byte[] crCover = courseVO.getCrCover();
+//			if (crCover!=null){
+//			String base64CrCover = Base64.getEncoder().encodeToString(crCover);
+//			courseVO.setBase64CrCover(base64CrCover);
+//			}
+//		});
 		
 		
 		model.addAttribute("courseListData", list);
 		
-		 Map<String, String> userHeadshots = new HashMap<>();
-		// 大頭貼
-		// 假設你有一個用戶列表，並且想要為每個用戶加載頭像
-		
+
 
 
 

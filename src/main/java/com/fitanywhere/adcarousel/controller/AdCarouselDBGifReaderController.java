@@ -2,12 +2,14 @@
 package com.fitanywhere.adcarousel.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -24,6 +26,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Date;
 import java.util.Base64;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -59,16 +62,29 @@ public class AdCarouselDBGifReaderController {
 	
 	@GetMapping("/homePageAds")
 	public ResponseEntity<List<String>> getHomePageAds() {
-		List<AdCarouselVO> ads = AdCarSvc.getBaseHomePageAd();
-		if (ads.isEmpty()) {
-			return ResponseEntity.noContent().build();
-		}
-		
-		List<String> base64Images = ads.stream()
-				.map((AdCarouselVO ad) -> Base64.getEncoder().encodeToString(ad.getAdcUpdatePic()))
-				.collect(Collectors.toList());
-		
-		return ResponseEntity.ok(base64Images);
+	    List<AdCarouselVO> ads = AdCarSvc.getBaseHomePageAd();
+	    List<String> base64Images;
+
+	    if (ads.isEmpty()) {
+	        // 嘗試從資源文件夾加載預設圖片
+	        try {
+	            ClassPathResource imgFile = new ClassPathResource("static/assets/images/client/joinus.jpg");
+	            byte[] fileContent = StreamUtils.copyToByteArray(imgFile.getInputStream());
+	            String base64Image = Base64.getEncoder().encodeToString(fileContent);
+	            base64Images = Collections.singletonList(base64Image);
+	        } catch (IOException e) {
+	            // 無法加載預設圖片時，記錄錯誤並返回HTTP 500
+	            e.printStackTrace();
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	        }
+	    } else {
+	        // 將廣告列表的圖片轉換為Base64
+	        base64Images = ads.stream()
+	                .map(ad -> Base64.getEncoder().encodeToString(ad.getAdcUpdatePic()))
+	                .collect(Collectors.toList());
+	    }
+
+	    return ResponseEntity.ok(base64Images);
 	}
 }
 

@@ -31,6 +31,7 @@ import com.fitanywhere.user.model.UserVO;
 @Entity
 @Table(name = "ad_carousel_order")
 public class AdCarouselVO {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "adc_id")
@@ -181,3 +182,4 @@ public class AdCarouselVO {
 	}
 
 }
+

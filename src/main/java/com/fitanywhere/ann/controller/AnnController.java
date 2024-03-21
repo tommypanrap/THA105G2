@@ -1,33 +1,28 @@
 package com.fitanywhere.ann.controller;
 
+import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.validation.Valid;
 
-import org.springframework.validation.BeanPropertyBindingResult;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.*;
-import java.util.stream.Collectors;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fitanywhere.ann.model.AnnService;
 import com.fitanywhere.ann.model.AnnVO;
 import com.fitanywhere.course.model.CourseService;
-import com.fitanywhere.course.model.CourseVO;
+import com.google.gson.Gson;
 
 @Controller
 @RequestMapping("/ann")
@@ -45,14 +40,14 @@ public class AnnController {
 	 * This method will be called on addEmp.html form submission, handling POST request It also validates the user input
 	 */
 	@PostMapping("insert")
-	public ResponseEntity<String> insert(@Valid AnnVO annVO, BindingResult result, ModelMap model) throws IOException {
+	public ResponseEntity<String> insert( @Valid AnnVO annVO, BindingResult result, ModelMap model) throws IOException {
 		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
 		// 去除BindingResult中upFiles欄位的FieldError紀錄 --> 見第172行
 //		result = removeFieldError(annVO, result, "anId");
 
 		if (result.hasErrors() ) {
-			model.addAttribute("errors", result.getAllErrors());
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("錯誤訊息");
+			Gson gson = new Gson();
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(gson.toJson(result.getAllErrors()));
 		}
 		/*************************** 2.開始新增資料 *****************************************/
 		// EmpService empSvc = new EmpService();

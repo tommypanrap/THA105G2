@@ -30,6 +30,7 @@ display:none;
 <body class="rbt-header-sticky">
 	<header th:replace="front-end/header.html"></header>
 	<div th:insert="front-end/header_moblie.html"></div>
+<div th:replace="front-end/cart/cartview.html"></div>
 
 
 	<a class="close_side_menu" href="javascript:void(0);"></a>
@@ -65,7 +66,7 @@ display:none;
 							</div>
 							<div class="rbt-tutor-information-right">
 								<div class="tutor-btn">
-									<a class="rbt-btn btn-md hover-icon-reverse" href="#"> <span
+									<a class="rbt-btn btn-md hover-icon-reverse" href="/course/coach_course"> <span
 										class="icon-reverse-wrapper"> <span class="btn-text">教練模式</span>
 											<span class="btn-icon"><i class="feather-arrow-right"></i></span>
 											<span class="btn-icon"><i class="feather-arrow-right"></i></span>
@@ -207,7 +208,7 @@ display:none;
                                                         Support:</b> JPG, JPEG, PNG, GIF, WEBP</small> -->
 													</div>
 													<div class="feed-back-button">
-														<button type="button" class="confirm">發布</button>
+														<button type="button" class="confirm-post">發布</button>
 														<button type="button" class="btn_model_close">取消</button>
 													</div>
 												</div>
@@ -370,41 +371,41 @@ display:none;
 	<script th:src="@{/js/mok/mok_opinion.js}"></script>
 	<script>
 	//最新消息
-	$(document).ready(function() {
-	    var lastNewsCount = 0; 
-	    var isFirstRequest = true;
-	    var sessionUId = $(".sessionUId").text();
-	    var lastNewsCount = localStorage.getItem(newsCountKey) ? parseInt(localStorage.getItem(newsCountKey), 10) : 0; 
-// 	    console.log(sessionUId);
+// 	$(document).ready(function() {
+// 	    var lastNewsCount = 0; 
+// 	    var isFirstRequest = true;
+// 	    var sessionUId = $(".sessionUId").text();
+// // 	    var lastNewsCount = localStorage.getItem(newsCountKey) ? parseInt(localStorage.getItem(newsCountKey), 10) : 0; 
+// // 	    console.log(sessionUId);
 	    
-	    checkNewsUpdate();
-	    setInterval(checkNewsUpdate, 10000); 
+// 	    checkNewsUpdate();
+// 	    setInterval(checkNewsUpdate, 10000); 
 
-	    function checkNewsUpdate() {
-	        $.ajax({
-	            url: '/news/count',
-	            type: 'GET',
-	            success: function(count) {
-	                if(isFirstRequest) { 
-	                	 lastNewsCount = count;
-	                	 isFirstRequest = false;
+// 	    function checkNewsUpdate() {
+// 	        $.ajax({
+// 	            url: '/news/count',
+// 	            type: 'GET',
+// 	            success: function(count) {
+// 	                if(isFirstRequest) { 
+// 	                	 lastNewsCount = count;
+// 	                	 isFirstRequest = false;
 	                
-	                }else if(lastNewsCount < count) {
+// 	                }else if(lastNewsCount < count) {
 	 
-	                    alert('有最新消息');
-	                    lastNewsCount = count; 
+// 	                    alert('有最新消息');
+// 	                    lastNewsCount = count; 
 	                    
-	                }
-	                localStorage.setItem(newsCountKey, lastNewsCount);
-                    console.log("count:"+count);
+// 	                }
+// 	                localStorage.setItem(newsCountKey, lastNewsCount);
+//                     console.log("count:"+count);
 
-	            },
-	            error: function() {
-	                console.error('無法取得最新消息數量');
-	            }
-	        });
-	    }
-	});
+// 	            },
+// 	            error: function() {
+// 	                console.error('無法取得最新消息數量');
+// 	            }
+// 	        });
+// 	    }
+// 	});
 	
 	
 

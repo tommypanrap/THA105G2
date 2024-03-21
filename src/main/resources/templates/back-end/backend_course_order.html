@@ -11,20 +11,27 @@
     <link rel="stylesheet" th:href="@{/css/backend/backstage_user.css}">
     <link rel="stylesheet" th:href="@{/css/backend/backstage_social.css}">
     <link rel="stylesheet" th:href="@{/css/backend/backstage_receive_opinion.css}">
-<!--    <link rel="stylesheet" th:href="@{/css/backend/backstage_news.css}">-->
+    <link rel="stylesheet" th:href="@{/css/backend/backstage_news.css}">
     <link rel="stylesheet" th:href="@{/css/backend/backstage_manage_course.css}">
-<!--    <link rel="stylesheet" th:href="@{/css/backend/backstage_manage_course_order.css}">-->
-<!--    <link rel="stylesheet" th:href="@{/css/backend/backstage-ad.css}">-->
-<!--    <link rel="stylesheet" th:href="@{/css/backend/backstage_ad_list.css}">-->
-    <!--    <link th:href="@{/back-end/backend_included_head}" rel="stylesheet" type="text/css"/>-->
+    <link rel="stylesheet" th:href="@{/css/backend/backstage_manage_course_order.css}">
+    <link rel="stylesheet" th:href="@{/css/backend/backstage-ad.css}">
+    <link rel="stylesheet" th:href="@{/css/backend/backstage_ad_list.css}">
+    <!--        <link th:href="@{/back-end/backend_included_head}" rel="stylesheet" type="text/css"/>-->
     <!-- DataTables CSS -->
-<!--    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
-<!--    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css">-->
+    <!--    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">-->
+    <!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">-->
+    <!--    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css">-->
 
     <style>
         table {
-            width: 100%;
+            width: 90%;
+            margin: 0 auto;
+
+        }
+
+        tr {
+            text-align: center;
+
         }
 
         th:first-child, td:first-child {
@@ -35,7 +42,6 @@
             background-color: #8597e0;
             color: black;
         }
-
 
 
         .check_od_btn {
@@ -59,6 +65,11 @@
             background-color: hsla(0, 0%, 0%, .5);
 
             z-index: 10;
+        }
+
+        #lightbox2 tr {
+            height: 70px;
+
         }
 
         #lightbox2-content2 {
@@ -94,16 +105,20 @@
         .status-span {
             cursor: pointer;
         }
-        .content{
+
+        .content {
             padding-top: 0px;
             padding: 30px;
         }
-        .content h1{
+
+        .content h1 {
             margin-left: 30px;
         }
-        table.dataTable thead>tr>th.sorting{
+
+        table.dataTable thead > tr > th.sorting {
             text-align: center;
         }
+
         table.dataTable tbody tr:hover {
             background-color: #b6d4fe !important;
         }
@@ -171,7 +186,7 @@
 
                             <th:block th:each="orderVO : ${allOrders}">
 
-                                <tr  style="text-align: center;">
+                                <tr style="text-align: center;">
                                     <th class="odId" th:data-od-id="${orderVO.odId}" th:text="${orderVO.odId}"></th>
                                     <td th:text="${#dates.format(orderVO.odCreateDate, 'yyyy-MM-dd HH:mm')}"></td>
 
@@ -208,7 +223,7 @@
                     <div id="lightbox2" style="display: none;">
                         <div class="tab-pane fade" id="lightbox2-content2" role="tabpanel">
                             <div class="rbt-my-account-inner">
-                                <h3>訂單明細</h3>
+                                <h3 style="margin-bottom: 20px;margin-left: 40px;">訂單明細</h3>
 
                                 <div class="rbt-my-account-table table-responsive text-center">
                                     <table class="table table-bordered">

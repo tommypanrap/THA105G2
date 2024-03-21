@@ -14459,6 +14459,15 @@ span.transparent-button:hover i {
   margin-bottom: 0;
 }
 
+.rbt-title-style-welcome {
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.5;
+  margin-bottom: 0;
+}
+
 .rbt-title-style-3 {
   margin-bottom: 24px;
   font-size: 20px;

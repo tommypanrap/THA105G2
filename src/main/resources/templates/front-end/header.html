@@ -8,7 +8,7 @@
                     <div class="header-info">
                         <div class="logo">
                             <a href="/">
-                                <img th:src="@{/assets/images/logo/logo.png}" alt="Education Logo Images">
+                                <img th:src="@{/assets/images/logo/fitanywhere.png}" alt="Education Logo Images">
                             </a>
                         </div>
                     </div>
@@ -66,7 +66,7 @@
 
                             <a class="rbt-cart-sidenav-activation rbt-round-btn" onclick="getCartItems()" href="#">
                                 <i class="feather-shopping-cart"></i>
-                                <span class="rbt-cart-count">4</span>
+<!--                                <span class="rbt-cart-count">4</span>-->
                             </a>
                         </li>
 
@@ -77,12 +77,12 @@
                             </a>
                         </li>
 
-                        <li class="access-icon">
-                            <a class=" rbt-round-btn" href="#">
-                                <i class="feather-bell"></i>
-                                <span class="rbt-cart-count">4</span>
-                            </a>
-                        </li>
+<!--                        <li class="access-icon">-->
+<!--                            <a class=" rbt-round-btn" href="#">-->
+<!--                                <i class="feather-bell"></i>-->
+<!--                                <span class="rbt-cart-count">4</span>-->
+<!--                            </a>-->
+<!--                        </li>-->
 
 
 
@@ -95,7 +95,7 @@
                                             <img th:src="@{/assets/images/team/avatar.jpg}" alt="User Images">
                                         </div>
                                         <div class="admin-info">
-                                            <span class="name">Nipa Bali</span>
+                                            <span class="name" th:text="${session.uNickname}">Nipa Bali</span>
                                             <a class="rbt-btn-link color-primary" href="#">個人檔案</a>
                                         </div>
                                     </div>
@@ -134,6 +134,14 @@
                                     <hr class="mt--10 mb--10">
                                     <ul class="user-list-wrapper">
                                         <li>
+                                            <a href="/user/user_register">
+                                                <i class="feather-log-out" name="register-btn"></i>
+                                                <span>註冊</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <ul class="user-list-wrapper">
+                                        <li>
                                             <a href="/user/user_login">
                                                 <i class="feather-log-out" name="logout-in-btn"></i>
                                                 <span>登入</span>
@@ -161,7 +169,7 @@
                                             <img th:src="@{/assets/images/team/avatar.jpg}" alt="User Images">
                                         </div>
                                         <div class="admin-info">
-                                            <span class="name">Nipa Bali</span>
+                                            <span class="name" th:text="${session.uNickname}">Nipa Bali</span>
                                             <a class="rbt-btn-link color-primary" href="profile.html">View Profile</a>
                                         </div>
                                     </div>
@@ -552,6 +560,9 @@
         fetch('/cart/get')
             .then((res) => {
                 // 如果不成功 new Error
+                if (res.redirected){
+                    window.location.href = res.url;
+                }
                 if (!res.ok) {
                     throw new Error("Network response was not ok.")
                 }

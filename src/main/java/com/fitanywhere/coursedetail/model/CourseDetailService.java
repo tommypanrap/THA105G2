@@ -38,6 +38,10 @@ public class CourseDetailService {
 		return repository.findAll();
 	}
 	
+	public List<String> getCourseVideoPathByCourseId(Integer crId){
+		return repository.getCourseVideoPathByCourseId(crId);
+	}
+	
 //	public Integer getCourseCount(Integer uId) {
 //		return repository.getCourseCount(uId);
 //	}

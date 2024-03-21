@@ -270,7 +270,8 @@ $(document).ready(function() {
 
 
 	//建立貼文點擊
-	$(".confirm").on("click",function(e){
+	$(".confirm-post").on("click",function(e){
+		
 		if($(".post-draft").val().trim() ===""){
 			alert("你還沒填文章內容");
 			return false;

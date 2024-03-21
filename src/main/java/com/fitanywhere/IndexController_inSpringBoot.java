@@ -12,6 +12,12 @@ import com.fitanywhere.adcarousel.model.AdCarouselService;
 import com.fitanywhere.adcarousel.model.AdCarouselVO;
 import com.fitanywhere.course.model.CourseService;
 import com.fitanywhere.course.model.CourseVO;
+import com.fitanywhere.forumpost.model.ForumPostRepository;
+import com.fitanywhere.forumpost.model.ForumPostService;
+import com.fitanywhere.forumpost.model.ForumPostVO;
+import com.fitanywhere.user.model.UserHeadshotOnlyDTO;
+import com.fitanywhere.user.model.UserService;
+import com.fitanywhere.user.model.UserVO;
 
 import java.io.IOException;
 import java.util.*;
@@ -25,9 +31,13 @@ public class IndexController_inSpringBoot {
 	CourseService courseSvc;
 	
 	@Autowired
+	ForumPostService forumPostSvc;
+	
+	@Autowired
     private AdCarouselService AdCarSvc;
 	
-	
+	@Autowired
+	private UserService userSvc;
 	
 	@GetMapping("/")
     public String index(Model model)   {
@@ -35,7 +45,11 @@ public class IndexController_inSpringBoot {
 		List<CourseVO> list = courseSvc.getSixCourses();
 		
 		list.forEach(courseVO ->
-		{
+		{	
+			
+			
+
+				
 			byte[] crCover = courseVO.getCrCover();
 			if (crCover!=null){
 			String base64CrCover = Base64.getEncoder().encodeToString(crCover);
@@ -45,6 +59,13 @@ public class IndexController_inSpringBoot {
 		
 		
 		model.addAttribute("courseListData", list);
+		
+		 Map<String, String> userHeadshots = new HashMap<>();
+		// 大頭貼
+		// 假設你有一個用戶列表，並且想要為每個用戶加載頭像
+		
+
+
 
         return "index"; //view
         
@@ -56,6 +77,11 @@ public class IndexController_inSpringBoot {
 	@ModelAttribute("ads")
 	public List<AdCarouselVO> populateAds() {
 		return AdCarSvc.getBaseHomePageAd();
+	}
+	
+	@ModelAttribute("forumPostListFour")
+	public List<ForumPostVO> forumPostListFour() {
+		return forumPostSvc.findFourCourses();
 	}
 
 }

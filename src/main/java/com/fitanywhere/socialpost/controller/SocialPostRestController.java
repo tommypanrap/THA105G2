@@ -34,21 +34,20 @@ public class SocialPostRestController {
 	
 	@PostMapping("search_social_member")
     public ResponseEntity<Map<String, Object>> search_social_member(@RequestBody SocialPostSearchDTO searchDTO) throws IOException {
-//        System.out.println("有進來");
+
 		List<UserVO> matchingUsers = userSvc.searchUsersByNickname(searchDTO.getSearchValue(), searchDTO.getuId());
 
         List<Map<String, Object>> usersInfo = new ArrayList<>();
         for (UserVO user : matchingUsers) {
             UserHeadshotOnlyDTO headshotDTO = userSvc.getUserHeadshotDTOById(user.getuId());
-//            System.out.println("headshotDTO:"+headshotDTO);
+
             Map<String, Object> userInfo = new HashMap<>();
             userInfo.put("nickname", user.getuNickname()); 
             userInfo.put("uId", user.getuId()); 
-//            System.out.println(user.getuNickname());
-//            System.out.println(user.getuId());
+
             if (headshotDTO != null && headshotDTO.getuHeadshot() != null) {
                 byte[] photoBytes = headshotDTO.getuHeadshot();
-//                System.out.println("headshotDTO:"+photoBytes);
+
                 String base64Encoded = Base64.getEncoder().encodeToString(photoBytes);
                 userInfo.put("headshot", base64Encoded);
                 

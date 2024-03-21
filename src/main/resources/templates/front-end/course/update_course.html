@@ -815,6 +815,7 @@
                 <div class="row g-5">
 
                     <div class="col-lg-8">
+                    <!-- form表單 -->
                         <form th:action="@{updatecourse}" method="post" th:object="${courseVO}" enctype="multipart/form-data">
                         <div class="rbt-accordion-style rbt-accordion-01 rbt-accordion-06 accordion">
                             <div class="accordion" id="tutionaccordionExamplea1">
@@ -941,16 +942,14 @@
                                                     <h6>課程封面縮圖</h6>
                                                     <div class="rbt-create-course-thumbnail upload-area">
                                                         <div class="upload-area">
-                                                            <div class="brows-file-wrapper" data-black-overlay="9">
-                                                                <!-- actual upload which is hidden -->
-                                                                <input name="createinputfile" id="crCover" type="file" class="inputfile" />
-                                                                <img id="putfile" th:src="@{/assets/images/others/thumbnail-placeholder.svg}" alt="file image">
-                                                                <!-- our custom upload button -->
-                                                                <label class="d-flex" for="createinputfile" title="No File Choosen">
+                                                                <img id="file" th:src="'data:image/jpeg;base64,' + ${Cover}" alt="file image">
+                                                            <!-- <div class="brows-file-wrapper" data-black-overlay="9"> -->
+                                                                <input name="crCover" id="crCover" type="file"  class="inputfile" />
+                                                                <!-- <label class="d-flex" for="createinputfile" title="No File Choosen">
                                                                     <i class="feather-upload"></i>
                                                                     <span class="text-center">選擇上傳</span>
-                                                                </label>
-                                                            </div>
+                                                                </label> -->
+                                                            <!-- </div> -->
                                                         </div>
                                                     </div>
 
@@ -964,45 +963,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- <div class="accordion-item card">
-                                    <h2 class="accordion-header card-header" id="accTwo">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accCollapseTwo" aria-expanded="false" aria-controls="accCollapseTwo">
-                                            課程影片
-                                        </button>
-                                    </h2>
-                                    <div id="accCollapseTwo" class="accordion-collapse collapse" aria-labelledby="accTwo" data-bs-parent="#tutionaccordionExamplea1">
-                                        <form th:action="uploadVideo" th:object="${coursedetailVO}" method="post" enctype="multipart/form-data">
-											<input id="cdVideo" name="cdVideo" type="file" >
-											<button type="submit">上傳</button>
-										</form>
-                                        <div class="accordion-body card-body rbt-course-field-wrapper rbt-default-form" >
-	
-                                           <div class="course-field mb--20">
-                                                <div class="rbt-modern-select bg-transparent height-45 mb--10">
-                                                <input type="file" id="cdVideo">
-                                                    <select class="w-100" id="field-5">
-                                                        <option value="" disabled selected>Select Video Sources</option>
-                                                        <option value="youtube">Youtube</option>
-                                                        <option value="vimeo">Vimeo</option>
-                                                        <option value="local">Local</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="course-field mb--15">
-                                                <label for="videoUrl">Add Your Video URL</label>
-                                                <input id="videoUrl" type="text" placeholder="Add Your Video URL here.">
-                                                <small class="d-block mt_dec--5">Example: <a href="https://www.youtube.com/watch?v=yourvideoid">https://www.youtube.com/watch?v=yourvideoid</a></small>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div> -->
-
-                                
-
-
                                 <div class="accordion-item card rbt-course-field-wrapper">
                                     <h2 class="accordion-header card-header" id="accSix">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accCollapseSix" aria-expanded="false" aria-controls="accCollapseSix">
@@ -1098,7 +1058,7 @@
                                                 </div>
                                             </div>
                                             <input id="crId" type="hidden" th:field="*{crId}" >
-                                            <input id="uId" type="hidden" th:field="*{uId}" >
+                                            <input id="uId" type="hidden" th:field="*{userVO.uId}" >
                                             <input id="crState" type="hidden" th:field="*{crState}" >
                                             <input id="crCmQuan" type="hidden" th:field="*{crCmQuan}" >
                                             <input id="crTotStar" type="hidden" th:field="*{crTotStar}" >
@@ -1113,7 +1073,7 @@
                             <div class="col-lg-8">
                                 <button class="rbt-btn btn-gradient hover-icon-reverse w-100 text-center" href="#" type="submit" id="submit">
                                     <span class="icon-reverse-wrapper">
-                                        <span class="btn-text">完成創建課程</span>
+                                        <span class="btn-text">更改課程內容</span>
                                         <span class="btn-icon"><i class="feather-arrow-right"></i></span>
                                         <span class="btn-icon"><i class="feather-arrow-right"></i></span>
                                     </span>
@@ -1126,7 +1086,7 @@
                         <div class="rbt-create-course-sidebar course-sidebar sticky-top rbt-shadow-box rbt-gradient-border">
                             <div class="inner">
                                 <div class="section-title mb--30">
-                                    <h4 class="title">創建課程引導</h4>
+                                    <h4 class="title">更改課程內容</h4>
                                 </div>
                                 <div class="rbt-course-upload-tips">
                                     <ul class="rbt-list-style-1">
@@ -1135,9 +1095,9 @@
                                         <li><i class="feather-check"></i>課程其他資訊會顯示在課程頁面上</li>
                                         <li><i class="feather-check"></i>寫下給學員的訊息</li>
                                         <li><i class="feather-check"></i>完成創建課程後到下一頁上傳影片吧！</li>
-                                        <a class="rbt-btn bt hover-icon-reverse" th:href="@{coach_dashboard}">
+                                        <a class="rbt-btn bt hover-icon-reverse" th:href="@{coach_course}">
                                             <span class="icon-reverse-wrapper" >
-                            <span class="btn-text" >返回主頁</span>
+                            <span class="btn-text" >返回課程管理</span>
                                             <span class="btn-icon"><i class="feather-arrow-right"></i></span>
                                             <span class="btn-icon"><i class="feather-arrow-right"></i></span>
                                             </span>

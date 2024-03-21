@@ -110,9 +110,11 @@ display:none;
 										th:each="user : ${matchingUsers}">
 										<img
 											th:src="@{/socialpost/UserPhotoDBGifReader} + '?uId=' + ${user.uId}"
-											alt=""> <a
+											alt=""> 
+											<a
 											th:href="@{'/socialpost/nav_to_social_member/' + ${user.uId}}"><p
-												th:text="${user.uNickname}">王小明</p></a> <span
+												th:text="${user.uNickname}">王小明</p></a> 
+												<span
 											th:text="${user.uId}" class="user-uid"></span>
 									</div>
 

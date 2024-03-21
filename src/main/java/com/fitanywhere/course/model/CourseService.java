@@ -128,6 +128,15 @@ public class CourseService {
 	}
 	
 	// Tommy
+//	public List<CourseVO> getSixCourses() {
+//		
+//		Pageable firstPageWithSixCourses = PageRequest.of(0, 6);
+//		Page<CourseVO> courses = repository.findSixCourses(firstPageWithSixCourses);
+//		List<CourseVO> courseListSix = courses.getContent();
+//		
+//		return courseListSix;
+//	}
+	
 	public List<CourseVO> getSixCourses() {
 		
 		Pageable firstPageWithSixCourses = PageRequest.of(0, 6);

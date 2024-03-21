@@ -157,7 +157,7 @@ public class AdCarouselVO {
 	}
 
 	public byte[] getAdcUpdatePic() {
-		return adcUpdatePic;
+		return this.adcUpdatePic;
 	}
 
 	public void setAdcUpdatePic(byte[] adcUpdatePic) {

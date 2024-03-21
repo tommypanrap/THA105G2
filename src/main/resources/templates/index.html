@@ -824,28 +824,16 @@
 	<!-- 廣告輪播 課程 -->
 	<!-- 要把jquery的物件可能要塞回來 -->
 	<!-- 縮小到一定尺寸 RWD就壞掉了 -->
-	<div
-		class="rbt-splash-testimonial-area bg-color-white overflow-hidden position-relative">
-		<div class=" pt--90">
-			<div class="scroll-animation-wrapper no-overlay mt--50">
-				<div class="scroll-animation scroll-right-left">
+<div class="rbt-splash-testimonial-area bg-color-white overflow-hidden position-relative">
+    <div class=" pt--90">
+        <div class="scroll-animation-wrapper no-overlay mt--50">
+            <div class="scroll-animation scroll-right-left">
+                <!-- 圖片容器將在這裡動態生成 -->
+            </div>
+        </div>
+    </div>
+</div>
 
-					<div th:each="ad : ${ads}"
-						class="single-column-20 bg-theme-gradient-odd"
-						style="background-size: contain;">
-						<div class="rbt-testimonial-box style-2"
-							style="width: 470px; height: 450px; background-size: contain; background-repeat: no-repeat; background-position: center center;">
-							<div class="img-test">
-								<!-- 使用Thymeleaf設置圖片的src -->
-								<img th:src="@{/adCarousel/DBGifReader(adcId=${ad.adcId})}"
-									style="width: 470px; height: 450px;" />
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 	<!-- 廣告輪播 課程 結束 -->
 
 	<!-- 近期熱門課程 -->
@@ -1125,6 +1113,33 @@
         });
         // 可以在這邊寫這一個頁面的jquery
     </script>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+// 預設照片是JPEG,如是別種形式的照片，需更改:data:image/jpeg;base64,
+$(document).ready(function() {
+    // 發送AJAX請求到後端的API端點
+    $.ajax({
+        url: '/adCarousel/homePageAds',
+        type: 'GET',
+        success: function(base64Images) {
+            var container = $('.scroll-animation.scroll-right-left');
+            base64Images.forEach(function(base64Image) {
+                var adHtml = '<div class="single-column-20 bg-theme-gradient-odd" style="background-size: contain;">' +
+                             '<div class="rbt-testimonial-box style-2" style="width: 470px; height: 450px; background-size: contain; background-repeat: no-repeat; background-position: center center;">' +
+                             '<div class="img-test">' +
+                             '<img src="data:image/jpeg;base64,' + base64Image + '" style="width: 470px; height: 450px;" />' +
+                             '</div></div></div>';
+                container.append(adHtml);
+            });
+        },
+        error: function() {
+            alert("無法加載廣告輪播圖片");
+        }
+    });
+});
+</script>
+    
 
 
 	<script>

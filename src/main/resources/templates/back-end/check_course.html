@@ -1,7 +1,29 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:insert="~{/back-end/backend_included_head}">
+<style>
+        .container {
+            display: grid;
+            grid-template-columns: auto auto; /* 两列布局 */
+            gap: 10px; /* 间距 */
+            border: 1px solid #ccc; /* 边框样式 */
+            padding: 10px; /* 内边距 */
+        }
 
+        .label {
+            text-align: right; /* 标签右对齐 */
+        }
+
+        .value {
+            font-weight: bold; /* 值加粗 */
+        }
+        .video-wrapper{
+        	overflow:hidden;
+        	aspect-ratio : 1;
+        	max-width:300px;
+        	max-height :100px;
+        }
+    </style>
 <!-- <link rel="stylesheet" th:href="@{/assets/css/vendor/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/assets/css/vendor/slick.css}">
     <link rel="stylesheet" th:href="@{/assets/css/vendor/slick-theme.css}">
@@ -35,57 +57,94 @@
         <div th:replace="~{/back-end/backend_included_sidebar}"></div>
         
 
-        <div class="content">
-            <h1>買賣課程管理</h1>
-            <div class="content-row">
-                <input type="text" class="search" placeholder="關鍵字搜尋">
-                <button class="search-action">搜尋</button>
-                <select name="" id="" value="" class="filter-state">
-                    <option value="none" selected hidden>篩選課程狀態</option>
-                    <option value="all">全部</option>
-                    <option value="on">上架中</option>
-                    <option value="off">已下架</option>
-                    <option value="off">未上架</option>
-                </select>
-            </div>
-            <table id="coursemanaage" class="backstage_table" >
-            	<thead>
-	                <tr>
-	                    <th>課程編號</th>
-	                    <th>教練名稱</th>
-	                    <th>課程分類</th>
-	                    <th>課程標題</th>
-	                    <th>課程副標題</th>
-	                    <th>課程價錢</th>
-	                    <th>評論</th>
-	                    <th>困難度</th>
-	                    <th>狀態</th>
-	                    <th>更改</th>
-	                </tr>
-                </thead>
-                <tbody>
-                	<tr th:each="list : ${courseList}">
-                		<td th:text="${list.crId}"></td>
-                		<td th:text="${list.userVO.uId}"></td>
-                		<td th:text="${list.crClass}"></td>
-                		<td th:text="${list.crTitle}"></td>
-                		<td th:text="${list.crSubtitle}"></td>
-                		<td th:text="${list.crPrice}"></td>
-                		<td th:text="${list.crCmQuan}"></td>
-                		<td th:text="${list.crLevel}"></td>
-                		<td>
-                		<span th:if="${list.crState == 0}">未審核</span>
-    					<span th:if="${list.crState == 1}">上架中</span>
-    					<span th:if="${list.crState == 2}">已下架</span>
-                		</td>
-                		<td style="padding: 30px;">
-						  	<form method="post" th:action="@{check_course}" style="margin-bottom: 0px;">
-						     <input type="submit" value="修改">
-						     <input type="hidden" name="crId" th:value="${list.crId}"></form>
-						</td>
-                	</tr>
-                </tbody>
-            </table>
+        <div class="container">
+            <h1>審核課程</h1>
+            <form th:action="@{approval}" method="post" th:object="${courseVO}" enctype="multipart/form-data">
+	            <div>
+		            <label for="field-1" >課程ID ：</label>
+		            <span id="crId" th:text="${courseVO.crId}"></span>
+		            <input type="hidden" id="crIdcheck" th:field="*{crId}" />
+	            </div>
+	            <div>
+		            <label for="field-1" >教練名稱 ：</label>
+		            <span id="uId" th:text="${courseVO.userVO.uId}"></span>
+	            </div>
+	            <div>
+		            <label for="field-1" >類別 ：</label>
+		            <span id="crClass" th:text="${courseVO.crClass}"></span>
+	            </div>
+	            <div>
+		            <label for="field-1" >課程標題 ：</label>
+		            <span id="crTitle" th:text="${courseVO.crTitle}"></span>
+	            </div>
+	            <div>
+		            <label for="field-1" >課程副標題 ：</label>
+		            <span id="crSubtitle" th:text="${courseVO.crSubtitle}"></span>
+	            </div>
+	            <div>
+		            <label for="field-1" >課程介紹 ：</label>
+		            <span id="crIntro" th:text="${courseVO.crIntro}"></span>
+	            </div>
+	            <div>
+		            <label for="field-1" >課程封面縮圖 ：</label>
+		            <img th:src="'data:image/png;base64,' + ${base64Cover}" alt="Decoded Image">
+	            </div>
+	            <div>
+		            <label for="field-1" >課程價錢 ：</label>
+		            <span id="crPrice" th:text="${courseVO.crPrice}"></span>
+	            </div>
+	            <div>
+		            <label for="field-1" >學習目標1 ：</label>
+		            <span id="crPurpose1" th:text="${courseVO.crPurpose1}"></span>
+	            </div>
+	            <div>
+		            <label for="field-1" >學習目標2 ：</label>
+		            <span id="crPurpose2" th:text="${courseVO.crPurpose2}"></span>
+	            </div>
+	            <div>
+		            <label for="field-1" >學習目標3 ：</label>
+		            <span id="crPurpose3" th:text="${courseVO.crPurpose3}"></span>
+	            </div>
+	            <div>
+		            <label for="field-1" >目標學習先決條件 ：</label>
+		            <span id="crPre" th:text="${courseVO.crPre}"></span>
+	            </div>
+	            <div>
+		            <label for="field-1" >目標學習適合對象 ：</label>
+		            <span id="crTarget1" th:text="${courseVO.crTarget1}"></span>
+	            </div>
+	            <div>
+		            <label for="field-1" >歡迎訊息 ：</label>
+		            <span id="crHelloMsg" th:text="${courseVO.crHelloMsg}"></span>
+	            </div>
+	            <div>
+		            <label for="field-1" >祝賀訊息 ：</label>
+		            <span id="crCong" th:text="${courseVO.crCong}"></span>
+	            </div>
+	            <div>
+		            <label for="field-1" >困難度 ：</label>
+		            <span id="crLevel" th:text="${courseVO.crLevel}"></span>
+	            </div>
+	            <div>
+		            <label for="field-1" >課程影片 ：</label>
+		            <div id="cdVideo" th:each="list : ${cdVideosList}">
+		            	<div th:text="${list}" class="video-wrapper"></div>
+		            	<video loop style="width: auto; height: 250px;"
+		            	th:src="@{/course/cdVideo(videoId=${list})}" controls></video>
+		            	</div>
+	            </div>
+	            <div>
+		            <label for="field-1">課程狀態：</label>
+				    <select id="crState" th:field="*{crState}">
+				        <option value="0" th:selected="${courseVO.crState == 0}">未審核</option>
+				        <option value="1" th:selected="${courseVO.crState == 1}">上架中</option>
+				        <option value="2" th:selected="${courseVO.crState == 2}">已下架</option>
+				    </select>
+	            </div>
+	            <div>
+	            	<button type="submit">送出</button>
+	            </div>
+            </form>
         </div>
     </div>
 

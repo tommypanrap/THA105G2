@@ -23,7 +23,8 @@ public class FilterConfig {
 		// Mok 添加"/course/my_courses/*"
 		// XiaoXin 添加了"/adCarousel/addAdCarousel/*"
 		registrationBean.addUrlPatterns("/opinion/user_opinion_list/*", "/user_create_opinion/*",
-				"/opinion_api/user_create_opinion", "/socialpost/*", "/order/*", "/cart/*", "/course/my_courses/*","/adCarousel/addAdCarousel/*");
+				"/opinion_api/user_create_opinion", "/socialpost/*", "/order/*", "/cart/*", "/course/my_courses/*","/adCarousel/addAdCarousel/*",
+				"/course/coach_course","/course/coach_dashboard","/course/settings","/course/course_announce","/course/course_announcement_update","/course/announcement","/course/create_course_video","/course/create_course","/course/update_course");
 		return registrationBean;
 	}
 
@@ -39,7 +40,7 @@ public class FilterConfig {
 		// Eugen添加了"/backend_userlist/*", "/backend_userlist_searchByEmail/*",
 		// "/backend_userlist_api/*", "/backend_opinion/*"
 		// Joy 添加了"/backend/order-get"
-		registrationBean.addUrlPatterns("/backend_userlist/*", "/backend_userlist_searchByEmail/*",
+		registrationBean.addUrlPatterns("/backend_userlist/*", "/backend_userlist_searchByEmail/*","/backend_course",
 				"/backend_userlist_api/*", "/backend_opinion/*", "/update_opinion_reply/*", "/backend/*","/backend_ad/addAd/*","/backend_ad/getOne_For_Update/*","/adCarousel/getOne_For_Updateadcarousel/*");
 		return registrationBean;
 	}

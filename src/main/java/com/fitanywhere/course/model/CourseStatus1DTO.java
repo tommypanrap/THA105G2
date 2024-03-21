@@ -1,5 +1,6 @@
 package com.fitanywhere.course.model;
 
+import java.sql.Timestamp;
 import java.util.Base64;
 
 public class CourseStatus1DTO {
@@ -9,14 +10,16 @@ public class CourseStatus1DTO {
 	private Integer crTotStar;
 	private Integer crCmQuan;
 	private Integer crPrice;
+	private Timestamp crCreateDate;
 	
 	public CourseStatus1DTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+	
 	public CourseStatus1DTO(String crTitle, String crClass, byte[] crCover, Integer crTotStar, Integer crCmQuan,
-			Integer crPrice) {
+			Integer crPrice, Timestamp crCreateDate) {
 		super();
 		this.crTitle = crTitle;
 		this.crClass = crClass;
@@ -24,8 +27,10 @@ public class CourseStatus1DTO {
 		this.crTotStar = crTotStar;
 		this.crCmQuan = crCmQuan;
 		this.crPrice = crPrice;
+		this.crCreateDate = crCreateDate;
 	}
-	
+
+
 	public String getBase64Image() {
         // 將 byte[] 格式的圖片轉換為 base64 字串
         String base64Image = Base64.getEncoder().encodeToString(this.crCover);
@@ -78,6 +83,16 @@ public class CourseStatus1DTO {
 
 	public void setCrPrice(Integer crPrice) {
 		this.crPrice = crPrice;
+	}
+
+
+	public Timestamp getCrCreateDate() {
+		return crCreateDate;
+	}
+
+
+	public void setCrCreateDate(Timestamp crCreateDate) {
+		this.crCreateDate = crCreateDate;
 	}
 	
 	

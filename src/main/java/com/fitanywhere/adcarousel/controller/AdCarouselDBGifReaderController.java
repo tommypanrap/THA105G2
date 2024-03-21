@@ -1,3 +1,4 @@
+
 package com.fitanywhere.adcarousel.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,4 +70,5 @@ public class AdCarouselDBGifReaderController {
 		
 		return ResponseEntity.ok(base64Images);
 	}
-	}
+}
+

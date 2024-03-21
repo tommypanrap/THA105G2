@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Course Filter Toggle - Online Courses & Education Bootstrap5 Template</title>
+    <title>Single Course</title>
     <meta name="robots" content="noindex, follow"/>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -47,7 +47,7 @@
 
 <body>
 <!-- Start Header Area -->
-<div th:insert="front-end/header.html"></div>
+<div th:replace="/front-end/header.html"></div>
 <!-- Mobile Menu Section -->
 <div class="popup-mobile-menu">
     <div class="inner-wrapper">
@@ -782,7 +782,7 @@
     </div>
 </div>
 <!-- Start Side Vav -->
-<div th:replace="front-end/cart/cartview.html"></div>
+<div th:replace="/front-end/cart/cartview.html"></div>
 <!-- End Side Vav -->
 <a class="close_side_menu" href="javascript:void(0);"></a>
 
@@ -805,7 +805,8 @@
                                 </div>
 
                             </div>
-                            <h2 class="title theme-gradient" id="session-uid" th:data-uid="${session.uId}"><span th:text="${courseVO.crTitle}"></span></h2>
+                            <h2 class="title theme-gradient" id="session-uid" th:data-uid="${session.uId}"><span
+                                    th:text="${courseVO.crTitle}"></span></h2>
 
                             <div class="rbt-author-meta mb--20 justify-content-center">
                                 <div class="rbt-avater">
@@ -937,14 +938,13 @@
                                                     <li>
                                                         <a href="javascript:void(0);"
                                                            th:data-video-url="'/course/single_course/video/' + ${video.cdId} +'/2'"
-                                                           class="video-link">
+                                                           class="video-link" th:data-cdid="${video.cdId}">
                                                             <div class="course-content-left">
                                                                 <i class="feather-play-circle"></i> <span
                                                                     class="text"
                                                                     th:text="${video.getCdUnit()}">小單元名稱</span>
                                                             </div>
                                                             <div class="course-content-right">
-                                                                <!--                                                                    <span class="min-lable ">影片時長</span>-->
                                                                 <span class="rbt-badge variation-03 bg-primary-opacity"><i
                                                                         class="feather-eye"></i> Preview</span>
                                                             </div>
@@ -1038,7 +1038,6 @@
                                     <!-- End Intructor Area  -->
 
 
-
                                 </div>
                                 <!-- End Course Details  -->
 
@@ -1077,30 +1076,30 @@
                                                         </a>
                                                     </div>
                                                     <div class="rbt-card-body">
-                                                        <div class="rbt-card-top">
-                                                            <div class="rbt-review">
-                                                                <div class="rating">
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                </div>
-                                                                <span class="rating-count"> (5 Reviews)</span>
-                                                            </div>
-                                                            <div class="rbt-bookmark-btn">
-                                                                <a class="rbt-round-btn" title="Bookmark"
-                                                                   th:href="@{#}"><i
-                                                                        class="feather-bookmark"></i></a>
-                                                            </div>
-                                                        </div>
-                                                        <h4 class="rbt-card-title"><a href="course-details.html"
-                                                                                      th:text="${re_courses.crTitle}"></a>
+<!--                                                        <div class="rbt-card-top">-->
+<!--                                                            <div class="rbt-review">-->
+<!--                                                                <div class="rating">-->
+<!--                                                                    <i class="fas fa-star"></i>-->
+<!--                                                                    <i class="fas fa-star"></i>-->
+<!--                                                                    <i class="fas fa-star"></i>-->
+<!--                                                                    <i class="fas fa-star"></i>-->
+<!--                                                                    <i class="fas fa-star"></i>-->
+<!--                                                                </div>-->
+<!--                                                                <span class="rating-count"> (5 Reviews)</span>-->
+<!--                                                            </div>-->
+<!--                                                            <div class="rbt-bookmark-btn">-->
+<!--                                                                <a class="rbt-round-btn" title="Bookmark"-->
+<!--                                                                   th:href="@{#}"><i-->
+<!--                                                                        class="feather-bookmark"></i></a>-->
+<!--                                                            </div>-->
+<!--                                                        </div>-->
+                                                        <h4 class="rbt-card-title"><a th:href="@{'/course/single_course/' + ${re_courses.crId}}"
+                                                                                      th:text="${re_courses.crTitle}"> </a>
                                                         </h4>
-                                                        <ul class="rbt-meta">
-                                                            <li><i class="feather-book"></i>8 Lessons</li>
-                                                            <li><i class="feather-users"></i>30 Students</li>
-                                                        </ul>
+<!--                                                        <ul class="rbt-meta">-->
+<!--                                                            <li><i class="feather-book"></i>8 Lessons</li>-->
+<!--                                                            <li><i class="feather-users"></i>30 Students</li>-->
+<!--                                                        </ul>-->
                                                         <p class="rbt-card-text" th:text="${re_courses.crSubtitle}"></p>
 
                                                         <div class="rbt-author-meta mb--20">
@@ -1155,7 +1154,8 @@
                             </div>
 
                             <div class="add-to-card-button mt--15">
-                                <a class="rbt-btn btn-gradient icon-hover w-100 d-block text-center" href="javascript:void(0);"
+                                <a class="rbt-btn btn-gradient icon-hover w-100 d-block text-center"
+                                   href="javascript:void(0);"
                                    th:onclick="'add2Cart(' + ${courseVO.crId} + ');'">
                                     <span class="btn-text">加入購物車</span>
                                     <span class="btn-icon"><i class="feather-arrow-right"></i></span>
@@ -1230,22 +1230,22 @@
                                     </a>
                                 </div>
                                 <div class="rbt-card-body">
-                                    <div class="rbt-card-top">
-                                        <div class="rbt-review">
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                            <span class="rating-count"> (5 Reviews)</span>
-                                        </div>
-                                        <div class="rbt-bookmark-btn">
-                                            <a class="rbt-round-btn" title="Bookmark" th:href="@{#}"><i
-                                                    class="feather-bookmark"></i></a>
-                                        </div>
-                                    </div>
+<!--                                    <div class="rbt-card-top">-->
+<!--                                        <div class="rbt-review">-->
+<!--                                            <div class="rating">-->
+<!--                                                <i class="fas fa-star"></i>-->
+<!--                                                <i class="fas fa-star"></i>-->
+<!--                                                <i class="fas fa-star"></i>-->
+<!--                                                <i class="fas fa-star"></i>-->
+<!--                                                <i class="fas fa-star"></i>-->
+<!--                                            </div>-->
+<!--                                            <span class="rating-count"> (5 Reviews)</span>-->
+<!--                                        </div>-->
+<!--                                        <div class="rbt-bookmark-btn">-->
+<!--                                            <a class="rbt-round-btn" title="Bookmark" th:href="@{#}"><i-->
+<!--                                                    class="feather-bookmark"></i></a>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
                                     <h4 class="rbt-card-title"><a href="course-details.html"
                                                                   th:text="${courses.crTitle}"></a>
                                     </h4>
@@ -1302,188 +1302,373 @@
         </div>
     </div>
 </div>
-        <!-- JS
-        ============================================ -->
-        <!-- Modernizer JS -->
-        <script th:src="@{/assets/js/vendor/modernizr.min.js}"></script>
-        <!-- jQuery JS -->
-        <script th:src="@{/assets/js/vendor/jquery.js}"></script>
-        <!-- Bootstrap JS -->
-        <script th:src="@{/assets/js/vendor/bootstrap.min.js}"></script>
-        <!-- sal.js -->
-        <script th:src="@{/assets/js/vendor/sal.js}"></script>
-        <script th:src="@{/assets/js/vendor/swiper.js}"></script>
-        <script th:src="@{/assets/js/vendor/magnify.min.js}"></script>
-        <script th:src="@{/assets/js/vendor/jquery-appear.js}"></script>
-        <script th:src="@{/assets/js/vendor/odometer.js}"></script>
-        <script th:src="@{/assets/js/vendor/backtotop.js}"></script>
-        <script th:src="@{/assets/js/vendor/isotop.js}"></script>
-        <script th:src="@{/assets/js/vendor/imageloaded.js}"></script>
+<!-- JS
+============================================ -->
+<!-- Modernizer JS -->
+<script th:src="@{/assets/js/vendor/modernizr.min.js}"></script>
+<!-- jQuery JS -->
+<script th:src="@{/assets/js/vendor/jquery.js}"></script>
+<!-- Bootstrap JS -->
+<script th:src="@{/assets/js/vendor/bootstrap.min.js}"></script>
+<!-- sal.js -->
+<script th:src="@{/assets/js/vendor/sal.js}"></script>
+<script th:src="@{/assets/js/vendor/swiper.js}"></script>
+<script th:src="@{/assets/js/vendor/magnify.min.js}"></script>
+<script th:src="@{/assets/js/vendor/jquery-appear.js}"></script>
+<script th:src="@{/assets/js/vendor/odometer.js}"></script>
+<script th:src="@{/assets/js/vendor/backtotop.js}"></script>
+<script th:src="@{/assets/js/vendor/isotop.js}"></script>
+<script th:src="@{/assets/js/vendor/imageloaded.js}"></script>
 
-        <script th:src="@{/assets/js/vendor/wow.js}"></script>
-        <script th:src="@{/assets/js/vendor/waypoint.min.js}"></script>
-        <script th:src="@{/assets/js/vendor/easypie.js}"></script>
-        <script th:src="@{/assets/js/vendor/text-type.js}"></script>
-        <script th:src="@{/assets/js/vendor/jquery-one-page-nav.js}"></script>
-        <script th:src="@{/assets/js/vendor/bootstrap-select.min.js}"></script>
-        <script th:src="@{/assets/js/vendor/jquery-ui.js}"></script>
-        <script th:src="@{/assets/js/vendor/magnify-popup.min.js}"></script>
-        <script th:src="@{/assets/js/vendor/paralax-scroll.js}"></script>
-        <script th:src="@{/assets/js/vendor/paralax.min.js}"></script>
-        <script th:src="@{/assets/js/vendor/countdown.js}"></script>
-        <script th:src="@{/assets/js/vendor/plyr.js}"></script>
-        <!-- Main JS -->
-        <script th:src="@{/assets/js/main.js}"></script>
+<script th:src="@{/assets/js/vendor/wow.js}"></script>
+<script th:src="@{/assets/js/vendor/waypoint.min.js}"></script>
+<script th:src="@{/assets/js/vendor/easypie.js}"></script>
+<script th:src="@{/assets/js/vendor/text-type.js}"></script>
+<script th:src="@{/assets/js/vendor/jquery-one-page-nav.js}"></script>
+<script th:src="@{/assets/js/vendor/bootstrap-select.min.js}"></script>
+<script th:src="@{/assets/js/vendor/jquery-ui.js}"></script>
+<script th:src="@{/assets/js/vendor/magnify-popup.min.js}"></script>
+<script th:src="@{/assets/js/vendor/paralax-scroll.js}"></script>
+<script th:src="@{/assets/js/vendor/paralax.min.js}"></script>
+<script th:src="@{/assets/js/vendor/countdown.js}"></script>
+<script th:src="@{/assets/js/vendor/plyr.js}"></script>
+<!-- Main JS -->
+<script th:src="@{/assets/js/main.js}"></script>
 
-        <!--course_single_course JS-->
-        <script>
-            // video view
-            function open_video(videoUrl) {
-                // console.log(videoUrl);
+<!--course_single_course JS-->
+<script>
+    // video view
+    function open_video(videoUrl) {
+        // console.log(videoUrl);
 
-                let target = $(".video-content");
-                let existingIframe = target.find('iframe');
+        let target = $(".video-content");
+        let existingIframe = target.find('iframe');
 
-                if (existingIframe.length > 0) {
-                    existingIframe.attr("src", videoUrl);
+        if (existingIframe.length > 0) {
+            existingIframe.attr("src", videoUrl);
 
-                } else {
-                    let iframe = document.createElement('iframe');
-                    iframe.src = videoUrl;
-                    iframe.style.width = '1125px';
-                    iframe.style.height = '633.3px';
-                    iframe.style.borderRadius = '6px';
+        } else {
+            let iframe = document.createElement('iframe');
+            iframe.src = videoUrl;
+            iframe.style.width = '1125px';
+            iframe.style.height = '633.3px';
+            iframe.style.borderRadius = '6px';
 
-                    iframe.onload = function () {
-                        let iframeDocument = iframe.contentWindow.document;
-                        let videoElement = iframeDocument.querySelector('video');
-                        if (videoElement) {
-                            videoElement.style.width = '100%';
-                            videoElement.style.height = '100%';
+            iframe.onload = function () {
+                let iframeDocument = iframe.contentWindow.document;
+                let videoElement = iframeDocument.querySelector('video');
+                if (videoElement) {
+                    videoElement.style.width = '100%';
+                    videoElement.style.height = '100%';
 
-                            // 抓上次觀看紀錄點
-                            let lastWatchedTime = localStorage.getItem('lastWatchedTime');
-                            if (lastWatchedTime !== null) {
-                                videoElement.currentTime = lastWatchedTime;
-                                videoElement.play();
-                            }
+                    // 抓上次觀看紀錄點
+                    let lastWatchedTime = localStorage.getItem('lastWatchedTime');
+                    if (lastWatchedTime !== null) {
+                        videoElement.currentTime = lastWatchedTime;
+                        videoElement.play();
+                    }
 
-                            videoElement.addEventListener('timeupdate', function () {
-                                // 紀錄觀看時間
-                                localStorage.setItem('lastWatchedTime', videoElement.currentTime);
-                            });
+                    videoElement.addEventListener('timeupdate', function () {
+                        // 紀錄觀看時間
+                        localStorage.setItem('lastWatchedTime', videoElement.currentTime);
+                    });
+                }
+            };
+
+            $(".video-content").prepend(iframe);
+            $("#hide-video-icon").hide();
+            $("#video_images").hide();
+
+        }
+    }
+
+    $(document).ready(function () {
+        $(document).on("click", ".video-link", function () {
+            let videoUrl = $(this).data('video-url');
+            open_video(videoUrl);
+        });
+    });
+
+
+    // ------------------------ redis失敗區 ---------------------------------
+
+    // 存紀錄
+    // function saveProgress(uId, cdId, progress) {
+    //     console.log(`Sending progress for uId: ${uId}, cdId: ${cdId}, progress: ${progress}`);
+    //
+    //     let requestUrl = `/api/video/progress/save`;
+    //
+    //     let body = {
+    //         uId: uId,
+    //         cdId: cdId,
+    //         progress: progress
+    //     };
+    //
+    //     fetch(requestUrl, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify(body)
+    //     })
+    //         .then(response => {
+    //             if (response.ok) {
+    //                 console.log('Progress 儲存成功');
+    //             } else {
+    //                 console.error('progress 儲存失敗');
+    //             }
+    //         })
+    //         .catch(error => console.error('Error:', error));
+    // }
+    //
+    //
+    // // 取出紀錄
+    // function getVideoProgress(uId, cdId) {
+    //     fetch(`/api/video/progress/get?uId=${uId}&cdId=${cdId}`)
+    //         .then(response => {
+    //             // Check if the response is OK and has content
+    //             if (response.ok) {
+    //                 // Only attempt to parse the response as JSON if it's not empty
+    //                 return response.text().then(text => text ? JSON.parse(text) : {});
+    //             } else {
+    //                 // Handle HTTP errors
+    //                 throw new Error('Failed to fetch video progress');
+    //             }
+    //         })
+    //         .then(data => {
+    //             console.log('Progress:', data);
+    //             // Your logic to handle the progress data
+    //         })
+    //         .catch(error => console.error('Error:', error));
+    // }
+    //
+    // $(document).ready(function () {
+    //
+    //     $(document).on("click", ".video-link", function () {
+    //         let videoUrl = $(this).data('video-url');
+    //         console.log(videoUrl);
+    //
+    //         let cdId = $(this).data('cdid');
+    //         console.log(cdId);
+    //
+    //         let uId = $('#session-uid').data('uid') || generateId();
+    //
+    //         open_video(videoUrl, uId, cdId);
+    //     });
+    //
+    //     // 產生臨時id
+    //     function generateId() {
+    //         let tempId = localStorage.getItem('tempId');
+    //         if (!tempId) {
+    //             tempId = 'temp_' + Math.random().toString(36).substring(2, 9);
+    //             localStorage.setItem('tempId', tempId);
+    //         }
+    //         return tempId;
+    //     }
+    //
+    //     // 開啟影片
+    //     function open_video(videoUrl, uId, cdId) {
+    //         let target = $(".video-content");
+    //         let existingIframe = target.find('iframe');
+    //
+    //         if (existingIframe.length > 0) {
+    //             console.log("不重抓" + cdId);
+    //             existingIframe.onload = function () {
+    //                 videoDra(existingIframe, uId, cdId);
+    //             }
+    //             existingIframe.attr("src", videoUrl);
+    //
+    //         } else {
+    //
+    //             let iframe = document.createElement('iframe');
+    //             iframe.src = videoUrl;
+    //             iframe.style.width = '1125px';
+    //             iframe.style.height = '633.3px';
+    //             iframe.style.borderRadius = '6px';
+    //
+    //             iframe.onload = function () {
+    //                 videoDra(iframe, uId, cdId);
+    //             }
+    //
+    //             $(".video-content").prepend(iframe);
+    //             $("#hide-video-icon").hide();
+    //             $("#video_images").hide();
+    //         }
+    //
+    //     }
+    // });
+    //
+    // function videoDra(iframe, u_Id, cd_Id) {
+    //     console.log("onload接的cdId:" + cd_Id);
+    //     console.log("onload接的uId:" + u_Id)
+    //     let iframeDocument = iframe.contentWindow.document;
+    //     let videoElement = iframeDocument.querySelector('video');
+    //     if (videoElement) {
+    //         videoElement.style.width = '100%';
+    //         videoElement.style.height = '100%';
+    //
+    //         console.log("onload的cdId:" + cd_Id);
+    //         console.log("onload的uId:" + u_Id)
+    //
+    //         videoElement.addEventListener('timeupdate', function () {
+    //             let progress = videoElement.currentTime;
+    //             saveProgress(u_Id, cd_Id, progress);
+    //         });
+    //
+    //         getVideoProgress(u_Id, cd_Id).then(progress => {
+    //             if (progress) {
+    //                 // 載入時，獲取進度並設置當前時間
+    //                 videoElement.currentTime = progress;
+    //             }
+    //         });
+    //     } else {
+    //         console.log("onload else的cdId:" + cd_Id);
+    //         console.log("onload else的uId:" + u_Id)
+    //
+    //         videoElement.addEventListener('timeupdate', function () {
+    //             let progress = videoElement.currentTime;
+    //             saveProgress(u_Id, cd_Id, progress);
+    //         });
+    //
+    //         getVideoProgress(u_Id, cd_Id).then(progress => {
+    //             if (progress) {
+    //                 // 載入時，獲取進度並設置當前時間
+    //                 videoElement.currentTime = progress;
+    //             }
+    //         });
+    //     }
+    // };
+
+    // ---------------------------------------------------------
+
+    //userRestController getUserHeadshot
+    $(document).ready(function () {
+        let userIdList = [];
+
+        $('.userHeadshot').each(function () {
+            let data = $(this).data('user-id');
+
+            // fetch 可以直接處理二進制資料(如blob)
+            fetch('/user_api/user_headshot_test', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({u_id: data}),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('response error');
+                    }
+                    return response.blob();
+                })
+                .then(blob => {
+                    let image_Url = URL.createObjectURL(blob);
+
+                    let this_e = $(this);
+                    $(this).attr('src', image_Url);
+                })
+                .catch(error => {
+                    $(this).attr('src', '/assets/images/client/avatar-02.png');
+                });
+        });
+    });
+
+    // StudentCourseRestController getcrCover
+    $(document).ready(function () {
+        let courseIdList = [];
+        $('.courseCover').each(function () {
+            // console.log($(this))
+            let data = $(this).data('course-id');
+
+            fetch('/cr_cover/course_image', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({cr_id: data}),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('response error');
+                    }
+                    return response.blob();
+                })
+                .then(blob => {
+                    let image_cover = URL.createObjectURL(blob);
+                    // console.log(image_cover);
+                    let this_e = $(this);
+                    // console.log(this_e)
+                    $(this).attr('src', image_cover);
+                })
+                .catch(error => {
+                    $(this).attr('src', '/assets/images/client/avatar-02.png');
+                });
+        });
+    });
+
+    // 抓取歷史瀏覽紀錄
+    $(document).ready(function () {
+        let crId = $('#video_images').data('course-id');
+        console.log("目前課程id: " + crId);
+        recordHistory(crId);
+
+        function recordHistory(crId) {
+            let uId = $('#session-uid').data('uid');
+            console.log("目前用戶id: " + uId);
+            if (uId) {
+                let requestUrl = `/api/history/add?uId=${uId}&crId=${crId}`;
+
+                fetch(requestUrl, {method: 'POST'})
+                    .then(response => {
+                        if (response.ok) {
+                            console.log("歷史紀錄添加成功");
+                        } else {
+                            console.error('添加歷史紀錄失敗');
                         }
-                    };
-
-                    $(".video-content").prepend(iframe);
-                    $("#hide-video-icon").hide();
-                    $("#video_images").hide();
-
-                }
+                    })
+                    .catch(error => console.error('錯誤:', error));
+            } else {
+                console.error('用戶未登入或用戶ID未存儲session');
             }
+        }
+    });
 
-            $(document).ready(function () {
-                $(document).on("click", ".video-link", function () {
-                    let videoUrl = $(this).data('video-url');
-                    open_video(videoUrl);
-                });
-            });
-
-
-            //userRestController getUserHeadshot
-            $(document).ready(function () {
-                let userIdList = [];
-
-                $('.userHeadshot').each(function () {
-                    let data = $(this).data('user-id');
-
-                    // fetch 可以直接處理二進制資料(如blob)
-                    fetch('/user_api/user_headshot_test', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({u_id: data}),
-                    })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('response error');
-                            }
-                            return response.blob();
-                        })
-                        .then(blob => {
-                            let image_Url = URL.createObjectURL(blob);
-
-                            let this_e = $(this);
-                            $(this).attr('src', image_Url);
-                        })
-                        .catch(error => {
-                            $(this).attr('src', '/assets/images/client/avatar-02.png');
-                        });
-                });
-            });
-
-            // StudentCourseRestController getcrCover
-            $(document).ready(function () {
-                let courseIdList = [];
-                $('.courseCover').each(function () {
-                    // console.log($(this))
-                    let data = $(this).data('course-id');
-
-                    fetch('/cr_cover/course_image', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({cr_id: data}),
-                    })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('response error');
-                            }
-                            return response.blob();
-                        })
-                        .then(blob => {
-                            let image_cover = URL.createObjectURL(blob);
-                            // console.log(image_cover);
-                            let this_e = $(this);
-                            // console.log(this_e)
-                            $(this).attr('src', image_cover);
-                        })
-                        .catch(error => {
-                            $(this).attr('src', '/assets/images/client/avatar-02.png');
-                        });
-                });
-            });
-
-            // 抓取歷史瀏覽紀錄
-            $(document).ready(function () {
-            let crId = $('#video_images').data('course-id');
-            console.log("目前課程id: " + crId);
-            recordHistory(crId);
-            function recordHistory(crId) {
-                let uId = $('#session-uid').data('uid');
-                console.log("目前用戶id: " + uId);
-                if (uId) {
-                    let requestUrl = `/api/history/add?uId=${uId}&crId=${crId}`;
-
-                    fetch(requestUrl, { method: 'POST' })
-                        .then(response => {
-                            if (response.ok) {
-                                console.log("歷史紀錄添加成功");
-                            } else {
-                                console.error('添加歷史紀錄失敗');
-                            }
-                        })
-                        .catch(error => console.error('錯誤:', error));
-                } else {
-                    console.error('用戶未登錄或用戶ID未存儲session');
-                 }
-                }
-            });
+    // cart
+    const add2Cart = (crId) => {
+        fetch('/cart/add', {
+            method: 'POST',
+            body: crId,
+            headers: {
+                "content-type": "application/json",
+            }
+        }).then((res) => {
+            if (res.redirected){
+                window.location.href = res.url;
+            }
+            if (res.status === 401) {
+                // 未登入回到登入頁面
+                alert('請先登入！')
+                window.location.href = '/user/force_user_login';
+            } else {
+                return res.text();
+            }
+        }).then((data) => {
+            if (data === '您已擁有該課程！') {
+                alert(data);
+            } else if (data === '成功添加至購物車！')
+                console.log(data);
+        }).catch((error) => {
+            console.error("發生錯誤:" + error);
+        });
+        // getCartItems();
+    }
 
 
-        </script>
+
+
+
+</script>
 </body>
 
 </html>

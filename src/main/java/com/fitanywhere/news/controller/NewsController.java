@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+import org.springframework.data.redis.core.RedisTemplate;
 import com.fitanywhere.news.model.NewsService;
 
 import java.util.List;
@@ -36,6 +36,12 @@ public class NewsController {
 	@Autowired
 	UserService userSvc;
 	
+	@Autowired
+	private RedisTemplate<String, Integer> redisTemplate;
+	
+	
+//	private final RedisTemplate<String, Integer> redisTemplate;
+	
 	
 	@GetMapping("/backend_news")
 	public String backend_news(Model model)  {
@@ -52,9 +58,11 @@ public class NewsController {
 	public String add_news(@Valid NewsVO newsVO,BindingResult result,  ModelMap model) {
 		
 		
-
-		newsSvc.addNews(newsVO);
-
+		
+	        newsSvc.addNews(newsVO);
+	   
+//	        String newsCountKey = "news:count";
+//	        redisTemplate.opsForValue().increment(newsCountKey);
 		
 		return "redirect:/backend_news";
 	}

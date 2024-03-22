@@ -804,28 +804,29 @@
                                     <div class="tab-content">
                                         <div class="tab-pane fade active show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                             <div class="rbt-dashboard-content-wrapper">
-<!--                                                 <div class="tutor-bg-photo bg_image bg_image--22 height-245"></div> -->
+                                                <div class="tutor-bg-photo bg_image bg_image--22 height-245"></div>
                                                 <!-- Start Tutor Information  -->
-<!--                                                 <form id="updateAvatarForm" th:action="@{update_uHeadshot}" method="post" enctype="multipart/form-data"> -->
-<!--                                                 <div class="rbt-tutor-information"> -->
-<!--                                                     <div class="rbt-tutor-information-left"> -->
-<!--                                                         <div class="thumbnail rbt-avatars size-lg position-relative"> -->
-<!--                                                             <img src="" th:data-user-id="${session.uId}" alt="Instructor" class="userHeadshot"> -->
-<!--                                                             <div class="rbt-edit-photo-inner"> -->
-<!--                                                                 <button class="rbt-edit-photo" title="Upload Photo" type="button"> -->
-<!--                                                                     <i class="feather-camera"></i> -->
-<!--                                                                 </button> -->
-<!--                                                             </div> -->
-<!--                                                             <input type="file" id="fileInput" style="display: none;" accept="image/*"> -->
-<!--                                                         </div> -->
-<!--                                                     </div> -->
-<!--                                                     <div class="rbt-tutor-information-right"> -->
-<!--                                                         <div class="tutor-btn"> -->
-<!--                                                            <button id="updateAvatarBtn" class="rbt-btn btn-sm btn-border color-white radius-round-10" type="submit">更換大頭照</button> -->
-<!--                                                         </div> -->
-<!--                                                     </div> -->
-<!--                                                 </div> -->
-<!--                                                 </form> -->
+                                                <form id="updateAvatarForm" th:action="@{/uHeadshot/update}" method="post" enctype="multipart/form-data">
+                                                <div class="rbt-tutor-information">
+                                                    <div class="rbt-tutor-information-left">
+                                                        <div class="thumbnail rbt-avatars size-lg position-relative">
+                                                        	<input type="hidden" name="userId" th:value="${session.uId}">
+                                                            <img src="" th:data-user-id="${session.uId}" alt="Instructor" class="userHeadshot">
+                                                            <div class="rbt-edit-photo-inner">
+                                                                <button class="rbt-edit-photo" title="Upload Photo" type="button">
+                                                                    <i class="feather-camera"></i>
+                                                                </button>
+                                                            </div>
+                                                            <input type="file" id="fileInput" style="display: none;" accept="image/*">
+                                                        </div>
+                                                    </div>
+                                                    <div class="rbt-tutor-information-right">
+                                                        <div class="tutor-btn">
+                                                           <button id="updateAvatarBtn" class="rbt-btn btn-sm btn-border color-white radius-round-10" type="button">更換大頭照</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                </form>
                                                 <!-- End Tutor Information  -->
                                             </div>
                                             <!-- Start Profile Row  -->

@@ -852,32 +852,33 @@
                         </div>
                     </div>
                     <div class="col-xl-7 col-lg-12 col-md-12">
-<!--                        <div class="rbt-sorting-list d-flex flex-wrap align-items-end justify-content-start justify-content-xl-end">-->
-<!--                            <div class="rbt-short-item">-->
-<!--                                <form action="#" class="rbt-search-style me-0">-->
-<!--                                    <input type="text" placeholder="搜尋你想找的課程..">-->
-<!--                                    <button type="submit" class="rbt-search-btn rbt-round-btn">-->
-<!--                                        <i class="feather-search"></i>-->
-<!--                                    </button>-->
-<!--                                </form>-->
-<!--                            </div>-->
-<!--                            <div class="rbt-short-item">-->
-<!--                                <div class="filter-select">-->
-<!--                                    <span class="select-label d-block">排序</span>-->
-<!--                                    <div class="filter-select rbt-modern-select search-by-category">-->
-<!--                                        <select data-size="7">-->
-<!--                                            <option>預設</option>-->
-<!--                                            <option>Latest</option>-->
-<!--                                            <option>Popularity</option>-->
-<!--                                            <option>Trending</option>-->
-<!--                                            <option>價格: 低到高</option>-->
-<!--                                            <option>價格: 高到低</option>-->
-<!--                                        </select>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
+                        <div class="rbt-sorting-list d-flex flex-wrap align-items-end justify-content-start justify-content-xl-end">
+                            <div class="rbt-short-item">
+                                <form action="/course/courses" method="get" class="rbt-search-style me-0">
+                                    <input class="searchBar" type="text" placeholder="搜尋你想找的課程.." name="crTitle"
+                                    th:data-currentPage="${currentPage}">
+                                    <button type="submit" class="rbt-search-btn rbt-round-btn">
+                                        <i class="feather-search"></i>
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="rbt-short-item">
+                                <div class="filter-select">
+                                    <span class="select-label d-block">排序</span>
+                                    <div class="filter-select rbt-modern-select search-by-category">
+                                        <select id="sortSelect" data-size="7">
+                                            <option>預設</option>
+                                            <!--                                            <option>Latest</option>-->
+                                            <!--                                            <option>Popularity</option>-->
+                                            <!--                                            <option>Trending</option>-->
+                                            <option>價格 由低至高</option>
+                                            <option>價格 由高至低</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
 
-<!--                        </div>-->
+                        </div>
                     </div>
                 </div>
 
@@ -1153,21 +1154,23 @@
                                 <div class="rbt-card-body">
 
 
-                                    <h4 class="rbt-card-title"><a th:href="@{'/course/single_course/' + ${courseData.crId}}"
-                                                                  th:text="${courseData.crTitle}"></a>
+                                    <h4 class="rbt-card-title"><a
+                                            th:href="@{'/course/single_course/' + ${courseData.crId}}"
+                                            th:text="${courseData.crTitle}"></a>
                                     </h4>
 
                                     <p class="rbt-card-text" th:text="${courseData.crSubtitle}"></p>
                                     <div class="rbt-author-meta mb--10">
                                         <div class="rbt-avater">
                                             <a th:href="@{'/course_details_2'}">
-                                                   <img class="userHeadshot" th:data-user-id="${courseData.uId}"  alt="Coach Image">
+                                                <img class="userHeadshot" th:data-user-id="${courseData.uId}"
+                                                     alt="Coach Image">
                                                 <!--   <img th:src="@{/assets/images/client/avatar-02.png}"-->
                                             </a>
                                         </div>
                                         <div class="rbt-author-info">
 
-                                                 By <span th:text="${courseData.uNickName}"></span>
+                                            By <span th:text="${courseData.uNickName}"></span>
                                         </div>
                                     </div>
                                     <div class="rbt-card-bottom">
@@ -1189,46 +1192,31 @@
                     <div class="col-lg-12 mt--60">
                         <nav>
                             <ul class="rbt-pagination">
-                                <li th:if="${currentPage > 0}"><a th:href="@{/course/courses(page=${currentPage - 1})}"
-                                                                  aria-label="Previous"><i
-                                        class="feather-chevron-left"></i></a></li>
-                                <li th:unless="${currentPage > 0}"><a href="javascript:void(0);"
-                                                                      aria-label="Previous"><i
-                                        class="feather-chevron-left"></i></a></li>
+                                <!-- 上一頁按鈕 -->
+                                <li th:if="${currentPage > 0}">
+                                    <a th:href="@{/course/courses(page=${currentPage - 1},crTitle=${param.crTitle})}"
+                                       aria-label="Previous">
+                                        <i class="feather-chevron-left"></i></a></li>
 
 
-                                <li th:if="${currentPage == 0}" class="active"><a href="javascript:void(0);"
-                                                                                  th:text="${currentPage+1}"></a></li>
-                                <li th:if="${currentPage == 0}"><a th:href="@{/course/courses(page=${currentPage + 1})}"
-                                                                   th:text="${currentPage+2}"></a></li>
-                                <li th:if="${currentPage == 0}"><a th:href="@{/course/courses(page=${currentPage + 2})}"
-                                                                   th:text="${currentPage+3}"></a></li>
+                                <!-- 中間頁按鈕 -->
+                                <th:block th:with="startPage=${currentPage - 1 > 0 ? currentPage - 1 : 0},
+                                          endPage=${currentPage + 1 < totalPages -1 ? currentPage + 1 : totalPages -1}">
 
-                                <li th:if="${currentPage > 0 && currentPage < totalPages}"><a
-                                        th:href="@{/course/courses(page=${currentPage - 1})}"
-                                        th:text="${currentPage}"></a></li>
-                                <li th:if="${currentPage > 0 && currentPage < totalPages}" class="active"><a
-                                        href="javascript:void(0);" th:text="${currentPage + 1}"></a></li>
-                                <li th:if="${currentPage > 0 && currentPage < totalPages}"><a
-                                        th:href="@{/course/courses(page=${currentPage + 1})}"
-                                        th:text="${currentPage + 2}"></a></li>
+                                <li th:each="pageNum : ${#numbers.sequence(startPage, endPage)}"
+                                    th:class="${pageNum == currentPage} ? 'active' ">
+                                    <a th:href="@{/course/courses(page=${pageNum}, crTitle=${param.crTitle})}"
 
-                                <li th:if="${currentPage > 0 && currentPage == totalPages}"><a
-                                        th:href="@{/course/courses(page=${currentPage - 2})}"
-                                        th:text="${currentPage - 1}"></a></li>
-                                <li th:if="${currentPage > 0 && currentPage == totalPages}"><a
-                                        th:href="@{/course/courses(page=${currentPage - 1})}"
-                                        th:text="${currentPage}"></a></li>
-                                <li th:if="${currentPage > 0 && currentPage == totalPages}" class="active"><a
-                                        href="javascript:void(0);" th:text="${currentPage + 1}"></a></li>
+                                       th:text="${pageNum + 1}"></a>
+                                </li>
+                                </th:block>
 
 
-                                <li th:if="${currentPage < totalPages}"><a
-                                        th:href="@{/course/courses(page=${currentPage + 1})}" aria-label="Next"><i
-                                        class="feather-chevron-right"></i></a></li>
-                                <li th:unless="${currentPage < totalPages}"><a href="javascript:void(0);"
-                                                                               aria-label="Next"><i
-                                        class="feather-chevron-right"></i></a></li>
+                                <!-- 下一頁按鈕 -->
+                                <li th:if="${currentPage < totalPages - 1}">
+                                    <a th:href="@{/course/courses(page=${currentPage + 1},crTitle=${param.crTitle})}"
+                                       aria-label="Next">
+                                        <i class="feather-chevron-right"></i></a></li>
                             </ul>
                         </nav>
                     </div>
@@ -1287,6 +1275,7 @@
 
 
 <script>
+    // 加入購物車
     const add2Cart = (courseData) => {
         let crId = courseData.crId;
 
@@ -1297,7 +1286,7 @@
                 "content-type": "application/json",
             }
         }).then((res) => {
-            if (res.redirected){
+            if (res.redirected) {
                 window.location.href = res.url;
             }
             if (res.status === 401) {
@@ -1319,7 +1308,7 @@
     }
 
 
-    //userRestController getUserHeadshot
+    // userRestController getUserHeadshot
     $(document).ready(function () {
         let userIdList = [];
 
@@ -1342,7 +1331,7 @@
                 })
                 .then(blob => {
                     let image_Url = URL.createObjectURL(blob);
-                    ;
+
                     $(this).attr('src', image_Url);
                 })
                 .catch(error => {
@@ -1352,7 +1341,7 @@
         });
     });
 
-
+    // 加載圖片
     $(document).ready(function () {
         $('.defaultCrCover').each(function () {
             const realSrc = $(this).data('src');
@@ -1367,6 +1356,57 @@
 
         })
     })
+
+    // 排序選擇
+    $(document).ready(function () {
+        $('#sortSelect').on('change', function () {
+            let selectedOption = $(this).val();
+            let crTitle = $('.searchBar').val();
+            let  url = '/course/courses';
+
+            if (selectedOption === "價格 由低至高"){
+                selectedOption = 1;
+                url += "?priceSort=" + selectedOption;
+            }else if(selectedOption === "價格 由高至低") {
+                selectedOption = 2;
+                url += "?priceSort=" + selectedOption;
+            }else if (selectedOption === "預設"){
+                selectedOption = 0;
+                url+="?"
+
+            }
+
+            if (crTitle){
+                url +='&crTitle='+crTitle
+            }
+
+            window.location.href = url;
+
+        })
+    })
+
+    // 重新加載時
+    $(document).ready(function () {
+        // 解析 URL，獲取選項值
+        let params = new URLSearchParams(window.location.search);
+
+        let selectedOption = params.get('priceSort');
+        let crTitle = params.get('crTitle');
+
+
+        // 設置對應的選項為選中狀態
+        if (selectedOption === "1"){
+            $('.filter-option-inner-inner').text("價格 由低至高");
+        }else if (selectedOption === "2"){
+            $('.filter-option-inner-inner').text("價格 由高至低");
+        }
+
+        if (crTitle){
+            $('.searchBar').val(crTitle);
+        }
+
+    });
+
 </script>
 </body>
 

@@ -368,21 +368,32 @@ $(document).ready(function() {
         var fpId = imgElement.data('fpid'); 
 		console.log(fpId);
 
-        $.ajax({
-            url: '/index/forumPost/DBGifReader?fpId=' + fpId, // 你的后端接口URL
-            type: 'GET', // 方法类型，根据实际情况调整
-            success: function(data) {
-                // 假设后端返回的data是图片的Base64编码或直接访问的URL
-                if (data && data !== 'null') {imgElement.attr('src', data);}
-                else{imgElement.attr('src', '/assets/images/client/avatar-02.png');}
-                 // 更新<img>的src属性
+		
+		fetch('/index/forumPost/img', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
             },
-            error: function(xhr, status, error) {
-                console.error('Error:', error);
-                // 可选：在加载图片失败时设置一个默认图片
-//                 imgElement.attr('src', '/assets/images/client/avatar-02.png');
-            }
-        });
+            body: JSON.stringify({fp_id: fpId}),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('response error');
+                }
+                return response.blob();
+            })
+            .then(blob => {
+                let image_cover = URL.createObjectURL(blob);
+                // console.log(image_cover);
+                let this_e = $(this);
+                // console.log(this_e)
+                $(this).attr('src', image_cover);
+            })
+            .catch(error => {
+                $(this).attr('src', '/assets/images/client/avatar-02.png');
+            });
+		
+       
     });
 });
 

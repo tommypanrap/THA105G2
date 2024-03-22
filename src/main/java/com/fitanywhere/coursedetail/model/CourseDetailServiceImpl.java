@@ -66,5 +66,9 @@ public class CourseDetailServiceImpl {
         }
     }
 
+    public Integer findCrIdByCdId(Integer cdId){
+        return repository.findCrIdByCdId(cdId);
+    }
+
 
 }

@@ -33,4 +33,7 @@ public interface CourseDetailRepository extends JpaRepository<CourseDetailVO, In
     // 計算單元數量
     @Query(value = "SELECT COUNT(cd_unit) FROM course_detail WHERE cr_id = :crId", nativeQuery = true)
     Integer getunitCount(Integer crId);
+
+    @Query(value = "SELECT cr_id FROM course_detail WHERE cd_id = :cdId", nativeQuery = true)
+    Integer findCrIdByCdId(Integer cdId);
 }

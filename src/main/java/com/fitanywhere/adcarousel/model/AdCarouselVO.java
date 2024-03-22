@@ -31,6 +31,7 @@ import com.fitanywhere.user.model.UserVO;
 @Entity
 @Table(name = "ad_carousel_order")
 public class AdCarouselVO {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "adc_id")
@@ -157,7 +158,7 @@ public class AdCarouselVO {
 	}
 
 	public byte[] getAdcUpdatePic() {
-		return adcUpdatePic;
+		return this.adcUpdatePic;
 	}
 
 	public void setAdcUpdatePic(byte[] adcUpdatePic) {
@@ -181,3 +182,4 @@ public class AdCarouselVO {
 	}
 
 }
+

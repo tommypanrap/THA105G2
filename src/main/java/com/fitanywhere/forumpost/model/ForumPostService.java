@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fitanywhere.course.model.CourseCrCoverDTO;
 import com.fitanywhere.course.model.CourseVO;
 import com.fitanywhere.user.model.UserService;
 
@@ -101,5 +102,10 @@ public class ForumPostService {
     		return forumPostListFour;
 
     	}
-   
+        
+        @Transactional(readOnly = true)
+    	public ForumPostGetCoverDTO getForumPostCoverById(Integer fpId){
+    		return  repository.findForumPostCoverById(fpId);
+    	}
 }
+

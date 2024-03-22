@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fitanywhere.course.model.CourseCrCoverDTO;
 import com.fitanywhere.course.model.CourseVO;
 
 public interface ForumPostRepository extends JpaRepository<ForumPostVO, Integer> {
@@ -33,5 +34,10 @@ public interface ForumPostRepository extends JpaRepository<ForumPostVO, Integer>
 	// Tommy
 	@Query("SELECT f FROM ForumPostVO f")
 	Page<ForumPostVO> getFourCourses(Pageable pageable);
+	
+	@Query("SELECT new com.fitanywhere.forumpost.model.ForumPostGetCoverDTO(f.fpId, f.fpPic) FROM ForumPostVO f WHERE f.fpId = :fpId")
+	ForumPostGetCoverDTO findForumPostCoverById(@Param("fpId") Integer fpId);
+	
+	
 
 }

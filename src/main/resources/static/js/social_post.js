@@ -108,10 +108,13 @@ $(document).ready(function() {
 
 					// 遍歷返回的用戶數據並更新HTML
 					responseData.users.forEach(function(user) {
+						
+						 let imageSrc = user.headshot ? `data:image/jpeg;base64,${user.headshot}` : '/assets/images/client/avatar-02.png';
+						
 						let userElement = `
                         <div class="search-result-list-one">
                             
-                            <img src="data:image/jpeg;base64,${user.headshot}" alt="User Headshot" />
+                            <img src="${imageSrc}" alt="User Headshot" />
                             <a href="/socialpost/${user.uId}"><p>${user.nickname}</p></a>
                         </div>
                     `;
@@ -270,7 +273,8 @@ $(document).ready(function() {
 
 
 	//建立貼文點擊
-	$(".confirm").on("click",function(e){
+	$(".confirm-post").on("click",function(e){
+		
 		if($(".post-draft").val().trim() ===""){
 			alert("你還沒填文章內容");
 			return false;

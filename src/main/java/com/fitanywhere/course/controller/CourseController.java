@@ -1,5 +1,24 @@
 package com.fitanywhere.course.controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Base64;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
 import com.fitanywhere.ann.model.AnnService;
 import com.fitanywhere.ann.model.AnnVO;
 import com.fitanywhere.coach.model.CoachService;
@@ -11,16 +30,40 @@ import com.fitanywhere.user.model.UserService;
 import com.fitanywhere.user.model.UserVO;
 import com.fitanywhere.usercourse.model.UserCourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
+import com.fitanywhere.ann.model.AnnService;
+import com.fitanywhere.ann.model.AnnVO;
+import com.fitanywhere.coach.model.CoachService;
+import com.fitanywhere.coach.model.CoachVO;
+import com.fitanywhere.course.model.CourseService;
+import com.fitanywhere.course.model.CourseStatus0DTO;
+import com.fitanywhere.course.model.CourseStatus1DTO;
+import com.fitanywhere.course.model.CourseStatus2DTO;
+import com.fitanywhere.course.model.CourseVO;
+import com.fitanywhere.course.model.VideoServiceImpl;
+import com.fitanywhere.coursedetail.model.CourseDetailService;
+import com.fitanywhere.coursedetail.model.CourseDetailVO;
+import com.fitanywhere.user.model.UserHeadshotOnlyDTO;
+import com.fitanywhere.user.model.UserService;
+import com.fitanywhere.user.model.UserVO;
+import com.fitanywhere.usercourse.model.UserCourseService;
+import com.google.gson.Gson;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.*;
@@ -53,9 +96,9 @@ public class CourseController {
 
 	@Autowired
 	private VideoServiceImpl videoSvc;
-
-
-
+	
+	UserVO userVO;
+	
 	@GetMapping("test")
 	public String test(ModelMap model) {
 		return "front-end/course/test123";
@@ -84,7 +127,11 @@ public class CourseController {
 	@GetMapping("update_course")
 	public String updateCourse(ModelMap model,Integer crId) {
 		CourseVO courseVO = courseSvc.getOneCourse(crId);
+		byte[] crCover = courseVO.getCrCover();
+		String Cover = Base64.getEncoder().encodeToString(crCover);
+		
 		model.addAttribute("courseVO", courseVO);
+		model.addAttribute("Cover", Cover);
 		return "front-end/course/update_course";
 	}
 	@GetMapping("create_course_video")
@@ -93,8 +140,8 @@ public class CourseController {
 	}
 	@GetMapping("coach_dashboard")
 	public String dashboard(ModelMap model,HttpSession session) {
-		Integer uId = 10001;//先寫死等登入
-//		Integer uId = (Integer)session.getAttribute("uId");
+//		Integer uId = 10001;//先寫死等登入
+		Integer uId = (Integer)session.getAttribute("uId");
 		Integer coursecount = courseSvc.getCourseCount(uId);
 		Integer studentcount = ucSvc.getStudentCount(uId);
 		Integer starcount = courseSvc.getStarCount(uId);
@@ -108,7 +155,7 @@ public class CourseController {
 	}
 	@GetMapping("course_announcement")
 	public String announcement(ModelMap model,HttpSession session) {
-		Integer uId = 10001;//先寫死等登入
+//		Integer uId = 10001;//先寫死等登入
 //		Integer uId = (Integer)session.getAttribute("uId");
 		List<AnnVO> announcementList = annSvc.getAll();
 		
@@ -117,15 +164,16 @@ public class CourseController {
 	}
 	@GetMapping("course_announce")
 	public String announce(ModelMap model) {
-		Integer uId = 10001;//先寫死等登入
+//		Integer uId = 10001;//先寫死等登入
 
 		List<CourseVO> list2 = courseSvc.getAll();
 		model.addAttribute("courseListData", list2);
 		return "front-end/course/course_announce";
 	}
 	@GetMapping("coach_settings")
-	public String settings(ModelMap model) {
-		Integer uId = 10001 ;//先寫死等登入uId
+	public String settings(ModelMap model ,HttpSession session) {
+//		Integer uId = 10001 ;//先寫死等登入uId
+		Integer uId = (Integer)session.getAttribute("uId");
 		CoachVO coachVO = coachSvc.getOneCoach(uId);
 		model.addAttribute("coachVO", coachVO);
 		return "front-end/course/coach_settings";
@@ -135,29 +183,26 @@ public class CourseController {
 	 * This method will be called on addEmp.html form submission, handling POST request It also validates the user input
 	 */
 	@PostMapping("uploadVideo")
-    public String handleFileUpload(@RequestParam("cdVideo") MultipartFile file, @RequestParam("crId") Integer crId, ModelMap model) {
+    public String handleFileUpload(@RequestParam("cdVideo") MultipartFile file ,@RequestParam("cdSaleVideo") MultipartFile salefile,String cdTitle,String cdUnit, @RequestParam("crId") CourseVO courseVO, ModelMap model,HttpSession session) {
 		String cdVideo = null;
-		Map<String, Integer> response = new HashMap<>();
-		Integer uId = 10001;
-//		Integer crId=1;
+		String cdSaleVideo = null;
+		Integer uId = (Integer)session.getAttribute("uId");
+//		Integer uId = 10001;
 		CourseDetailVO coursedetailVO = new CourseDetailVO();
-//		coursedetailVO.cousrsetCrId(crId);
-		coursedetailVO.getCourseVO().setCrId(crId);
-		// 在这里处理上传的文件
-        if (!file.isEmpty()) {
+		coursedetailVO.setCourseVO(courseVO);
+		coursedetailVO.setCdTitle(cdTitle);
+		coursedetailVO.setCdUnit(cdUnit);
+		
+        if (!salefile.isEmpty()) {
             try {
             	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-hh:mm:ss");
 	    		String dataStr = sdf.format(new Date());
 	    		String userHome = System.getProperty("user.home");
-	    		cdVideo = userHome+"/Desktop/cdVideo/"+dataStr+".mp4";
-	    		coursedetailVO.setCdVideo(cdVideo);
-	    		boolean isaddCDsuccess = cdSvc.addCourseDetail(coursedetailVO);
-	    		if(isaddCDsuccess) {
-	    			model.addAttribute("work", true);
-	    		}
+	    		cdSaleVideo = userHome+"/Desktop/cdVideo/"+dataStr+".mp4";
+	    		coursedetailVO.setCdSaleVideo(cdSaleVideo);
             	InputStream inputStream = file.getInputStream();
             	BufferedInputStream bis = new BufferedInputStream(inputStream);
-            	FileOutputStream fos = new FileOutputStream(cdVideo);
+            	FileOutputStream fos = new FileOutputStream(cdSaleVideo);
             	BufferedOutputStream bos = new BufferedOutputStream(fos);
             	
                 int bytesRead;
@@ -175,6 +220,37 @@ public class CourseController {
 				e.printStackTrace();
 			}
         }
+        if (!file.isEmpty()) {
+        	try {
+        		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-hh:mm:ss");
+        		String dataStr = sdf.format(new Date());
+        		String userHome = System.getProperty("user.home");
+        		cdVideo = userHome+"/Desktop/cdVideo/"+dataStr+".mp4";
+        		coursedetailVO.setCdVideo(cdVideo);
+        		boolean isaddCDsuccess = cdSvc.addCourseDetail(coursedetailVO);
+        		if(isaddCDsuccess) {
+        			model.addAttribute("work", true);
+        		}
+        		InputStream inputStream = file.getInputStream();
+        		BufferedInputStream bis = new BufferedInputStream(inputStream);
+        		FileOutputStream fos = new FileOutputStream(cdVideo);
+        		BufferedOutputStream bos = new BufferedOutputStream(fos);
+        		
+        		int bytesRead;
+        		while ((bytesRead = bis.read()) != -1) {
+        			bos.write(bytesRead);
+        		}
+        		
+        		bos.close();
+        		fos.close();
+        		bis.close();
+        		inputStream.close();
+        		
+        	} catch (IOException e) {
+        		// TODO Auto-generated catch block
+        		e.printStackTrace();
+        	}
+        }
 		Integer coursecount = courseSvc.getCourseCount(uId);
 		List<CourseVO> courseList = courseSvc.getAllCourseByuId(uId);
 		/*************************** 3.新增完成,準備轉交(Send the Success view) **************/
@@ -184,10 +260,16 @@ public class CourseController {
         return "front-end/course/create_course_video";
     }
 	@PostMapping("insert")
-	public ResponseEntity<Map<String, Integer>> insertcourse(@Valid CourseVO courseVO,@RequestParam("crCoverfile") MultipartFile file , BindingResult result, ModelMap model) throws IOException {
+	public ResponseEntity<String> insertcourse(@Valid CourseVO courseVO,@RequestParam("crCoverfile") MultipartFile file ,BindingResult result, ModelMap model) throws IOException {
 		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
+		Gson gson = new Gson();
 		if( file != null) {
 			courseVO.setCrCover(file.getBytes());
+		}
+		
+		if (result.hasErrors() ) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(gson.toJson(result.getAllErrors()));
+//			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(gson.toJson(result.getAllErrors()));
 		}
 		// 去除BindingResult中upFiles欄位的FieldError紀錄 --> 見第172行
 //		result = removeFieldError(courseVO, result, "crId");
@@ -214,18 +296,20 @@ public class CourseController {
 //		String dataStr = sdf.format(new Date());
 //
 //
-//
 		/*************************** 2.開始新增資料 *****************************************/
 		long currentTimeMillis = System.currentTimeMillis();
 		Timestamp currentTimestamp = new Timestamp(currentTimeMillis);
 		courseVO.setCrCreateDate(currentTimestamp);
 		courseVO.setCrEditDate(currentTimestamp);
 		Integer crId = courseSvc.addCourse(courseVO);
-		Map<String, Integer> response = new HashMap<>();
-	    response.put("crId", crId);
 		/*************************** 3.新增完成,準備轉交(Send the Success view) **************/
 		model.addAttribute("crId", crId);
-		return ResponseEntity.ok(response); // 新增成功後重導至IndexController_inSpringBoot.java的第50行@GetMapping("/emp/listAllEmp")
+		Map<String, Integer> response = new HashMap<>();
+		response.put("status", HttpStatus.OK.value());
+		response.put("crId", crId);
+		return ResponseEntity.ok().body(new Gson().toJson(response));
+
+//		return ResponseEntity.ok(response); // 新增成功後重導至IndexController_inSpringBoot.java的第50行@GetMapping("/emp/listAllEmp")
 	}
 
 	/*
@@ -250,7 +334,7 @@ public class CourseController {
 		Integer crId = annVO.getCrId();
 		CourseVO courseVO = courseSvc.getOneCourse(crId);
 		String crTitle = courseVO.getCrTitle();
-		Integer uId = 10001;//先寫死等登入
+//		Integer uId = 10001;//先寫死等登入
 
 		/*************************** 3.查詢完成,準備轉交(Send the Success view) **************/
 		model.addAttribute("anId", anId);
@@ -281,7 +365,7 @@ public class CourseController {
 //		if (result.hasErrors()) {
 //			return "back-end/course/update_course_input";
 //		}
-		Integer uId = 10001;
+//		Integer uId = 10001;
 		long currentTimeMillis = System.currentTimeMillis();
 		Timestamp currentTimestamp = new Timestamp(currentTimeMillis);
 		/*************************** 2.開始修改資料 *****************************************/
@@ -349,7 +433,7 @@ public class CourseController {
 //		}
 		/*************************** 2.開始修改資料 *****************************************/
 		boolean iscoachSuccess = coachSvc.updateCoach(coachVO);
-		Integer uId = coachVO.getuId();
+//		Integer uId = coachVO.getuId();
 		/*************************** 3.修改完成,準備轉交(Send the Success view) **************/
 		model.addAttribute("iscoachSuccess", iscoachSuccess);
 		model.addAttribute("coachVO", coachVO);
@@ -357,8 +441,18 @@ public class CourseController {
 		return "front-end/course/coach_settings"; // 修改成功後轉交listOneEmp.html
 	}
 	@PostMapping("updatecourse")
-	public String updatecourse(@Valid CourseVO courseVO, BindingResult result, ModelMap model,@RequestParam("crCreateDate") String crCreateDate) throws IOException {
+	public String updatecourse( @RequestParam("crCover") MultipartFile file ,@Valid CourseVO courseVO, BindingResult result, ModelMap model,@RequestParam("crCreateDate") String crCreateDate) throws IOException {
 		
+		if (!file.isEmpty()) {
+			//如果有上傳新的圖片直接送進資料庫
+	        byte[] fileData = file.getBytes();
+	        courseVO.setCrCover(fileData);
+	    } else {
+	        // 如果没有上傳新的圖片，則保持原本的 crCover
+	    	Integer crId = courseVO.getCrId();
+	        CourseVO Course = courseSvc.getOneCourse(crId);
+	        courseVO.setCrCover(Course.getCrCover());
+	    }
 		/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
 		// 去除BindingResult中upFiles欄位的FieldError紀錄 --> 見第172行
 //		result = removeFieldError(courseVO, result, "upFiles");
@@ -420,11 +514,31 @@ public class CourseController {
 		return "front-end/course/coach_settings";
     }
 	
+	@PostMapping("update_uHeadshot")
+	public String updateUserHeadshot(ModelMap model ,@RequestParam("fileInput") MultipartFile fileInput, @RequestParam("uId") Integer uId) {
+		
+		String desktopPath = System.getProperty("user.home") + "/Desktop/";
+
+        try (FileOutputStream fos = new FileOutputStream(desktopPath + "uHeadshot.jpg")) {
+        	byte[] uHeadshot = fileInput.getBytes();
+        	
+            fos.write(uHeadshot);
+            UserHeadshotOnlyDTO headshotDTO = new UserHeadshotOnlyDTO(uId,uHeadshot);
+            userSvc.updateUserHeadshot(headshotDTO);
+            System.out.println("Byte array written to file successfully!");
+        } catch (IOException e) {
+            System.out.println("Error writing byte array to file: " + e.getMessage());
+        }
+        
+		
+		return "front-end/course/coach_settings";
+	}
+	
 	// 可再自行添加需要的查詢PathVariable
-		@GetMapping(value = "cdVideo")
-		public ResponseEntity<StreamingResponseBody> sendStreamingVideo(String videoId,
+		@GetMapping("cdVideo")
+		public ResponseEntity<StreamingResponseBody> sendStreamingVideo(@RequestParam("videoId") String videoId,
 				@RequestHeader(value = "Range", required = false) String rangeHeader) {
-			videoId = "/Users/andy/Desktop/cdVideo/2024-03-08-12:45:07.mp4";
+//			videoId = "/Users/andy/Desktop/cdVideo/2024-03-08-12:45:07.mp4";
 			ResponseEntity<StreamingResponseBody> response = null;
 			try {
 				response = videoSvc.getPartialVideo(rangeHeader, videoId);
@@ -475,51 +589,66 @@ public class CourseController {
 	
 	/*=================取值========================*/
 	@ModelAttribute("uName")
-	public String getuName(Integer uId) {
-		uId = 10001 ;
+	public String getuName(HttpSession session) {
+//		 Integer uId = 10001 ;
+		Integer uId = (Integer)session.getAttribute("uId");
 		String uName = userSvc.getUser(uId).getuName();
 		return uName;
 	}
 	
 	@ModelAttribute("userVO")
-	public UserVO getUser(Integer uId) {
-		uId = 10001 ;
+	public UserVO getUser(HttpSession session) {
+//		Integer uId = 10001 ;
+		Integer uId = (Integer)session.getAttribute("uId");
 		UserVO userVO = userSvc.getUser(uId);
 		return userVO;
 	}
 	
 	@ModelAttribute("uHeadshot")
-	public String getuHeadshot(Integer uId) {
-		uId = 10001 ;
+	public String getuHeadshot(HttpSession session) {
+//		Integer uId = 10001 ;
+		Integer uId = (Integer)session.getAttribute("uId");
 		byte [] uHeadshot = userSvc.getUserHeadshot(uId);
+		String defaultImagePath = "/Users/andy/Desktop/THA105/THA105G2/src/main/resources/static/images/andy/Test.png";
+		byte[] defaultImageBytes = null;
+		try {
+			// 读取默认图片的字节数组
+			 defaultImageBytes = Files.readAllBytes(Paths.get(defaultImagePath));
+			// 将默认图片的字节数组转换为Base64字符串并返回
+		} catch (IOException e) {
+			e.printStackTrace();
+//			/Users/andy/Desktop/THA105/THA105G2/src/main/resources/static/images/andy/Test.png
+		}
+		if(uHeadshot == null) {
+			return Base64.getEncoder().encodeToString(defaultImageBytes);
+		}else {
 		return Base64.getEncoder().encodeToString(uHeadshot);
+		}
 	}
 	
 	@ModelAttribute("course0")
-	public List<CourseStatus0DTO> getcourse0(Integer uId) {
-		uId = 10001 ;
+	public List<CourseStatus0DTO> getcourse0(HttpSession session) {
+//		Integer uId = 10001 ;
+		Integer uId = (Integer)session.getAttribute("uId");
 		List<CourseStatus0DTO> CourseStatus0DTO = courseSvc.getCourseByStatus0(uId);
 		return CourseStatus0DTO;
 	}
 	
 	@ModelAttribute("course1")
-	public List<CourseStatus1DTO> getcourse1(Integer uId) {
-		uId = 10001 ;
+	public List<CourseStatus1DTO> getcourse1(HttpSession session) {
+//		Integer uId = 10001 ;
+		Integer uId = (Integer)session.getAttribute("uId");
 		List<CourseStatus1DTO> CourseStatus1DTO = courseSvc.getCourseByStatus1(uId);
 		return CourseStatus1DTO;
 	}
 	
 	@ModelAttribute("course2")
-	public List<CourseStatus2DTO> getcourse2(Integer uId) {
-		uId = 10001 ;
+	public List<CourseStatus2DTO> getcourse2(HttpSession session) {
+//		Integer uId = 10001 ;
+		Integer uId = (Integer)session.getAttribute("uId");
 		List<CourseStatus2DTO> CourseStatus2DTO = courseSvc.getCourseByStatus2(uId);
 		return CourseStatus2DTO;
 	}
 	
-	@ModelAttribute()
-	public String getVideo(Integer crId) {
-		
-		return "";
-	}
 
 }

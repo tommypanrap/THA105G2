@@ -144,32 +144,6 @@ public class SocialPostController {
 		
 		return "front-end/socialpost/student_socialpost";
 		
-		
-		
-//應該是廢code	
-//		model.addAttribute("matchingUsers", matchingUsers);
-//		SocialReplyVO socialReplyVO = new SocialReplyVO();
-//		model.addAttribute("SocialReplyVO", socialReplyVO);
-		
-		
-//		測試資料印出用
-//		for (SocialPostVO socialPost : userVO.getSocialposts()) {
-//			if (socialPost.getSpstatus().equals(1)) {
-//				System.out.println("SocialPost Spid: " + socialPost.getSpid());
-//				System.out.println("SocialPost Title: " + socialPost.getSptitle());
-//				System.out.println("SocialPost Content: " + socialPost.getSpcontent());
-//
-//				for (SocialReplyVO socialReply : socialPost.getSocialReplys()) {
-//					System.out.println("123 SocialReply Content: " + socialReply.getSrContent());
-//				}
-//			}
-//		}
-		
-		// 廢 code
-//		List<UserVO> matchingUsers = (List<UserVO>) req.getSession().getAttribute("matchingUsers");
-//		if (matchingUsers != null && !matchingUsers.isEmpty()) {
-//			model.addAttribute("matchingUsers", matchingUsers);
-//		}
 	    
 		
 	}
@@ -216,7 +190,7 @@ public class SocialPostController {
 //		
 //		return "redirect:/socialpost/student_socialpost";
 //	}
-	
+//	
 	
 	// 新增貼文
 	@PostMapping("insert")
@@ -396,12 +370,7 @@ public class SocialPostController {
 		return userVO;
 	}
 	
-	@ModelAttribute("uHeadshot")
-	public String getuHeadshot(Integer uId) {
-		uId = 10001 ;
-		byte [] uHeadshot = userSvc.getUserHeadshot(uId);
-		return Base64.getEncoder().encodeToString(uHeadshot);
-	}
+
 	
 
 

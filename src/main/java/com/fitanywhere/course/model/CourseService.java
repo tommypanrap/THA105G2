@@ -1,5 +1,6 @@
 package com.fitanywhere.course.model;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,10 @@ public class CourseService {
 	@Autowired
 	CourseRepository repository;
 
+	public void checkCourse(Integer crId,Integer crState) {
+		repository.checkCourse(crId, crState);
+	}
+	
 	@Autowired
 	CoursePagingRepository pagingRepository;
 
@@ -90,6 +95,7 @@ public class CourseService {
 	            dto.setCrTitle((String) result[3]);
 	            dto.setCrCover((byte[]) result[4]);
 	            dto.setCrPrice((Integer) result[5]);
+	            dto.setCrCreateDate((Timestamp) result[6]);
 	            CourseStatus1DTO.add(dto);
 	        }
 	        return CourseStatus1DTO;
@@ -122,6 +128,15 @@ public class CourseService {
 	}
 	
 	// Tommy
+//	public List<CourseVO> getSixCourses() {
+//		
+//		Pageable firstPageWithSixCourses = PageRequest.of(0, 6);
+//		Page<CourseVO> courses = repository.findSixCourses(firstPageWithSixCourses);
+//		List<CourseVO> courseListSix = courses.getContent();
+//		
+//		return courseListSix;
+//	}
+	
 	public List<CourseVO> getSixCourses() {
 		
 		Pageable firstPageWithSixCourses = PageRequest.of(0, 6);

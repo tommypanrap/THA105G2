@@ -7,12 +7,16 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import com.fitanywhere.course.model.CourseVO;
 
 /*
- *在spring boot
- * @Data 等於自動加上Getter/Setter、ToString、EqualsAndHashCode、RequiredArgsConstructor
- * @NoArgsConstructor 加上一個無參建構子 JavaBean基礎知識
- * */
+*在spring boot
+* @Data 等於自動加上Getter/Setter、ToString、EqualsAndHashCode、RequiredArgsConstructor
+* @NoArgsConstructor 加上一個無參建構子 JavaBean基礎知識
+* */
+
 
 @Data
 @NoArgsConstructor

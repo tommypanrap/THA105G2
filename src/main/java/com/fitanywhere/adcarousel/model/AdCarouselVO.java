@@ -31,153 +31,155 @@ import com.fitanywhere.user.model.UserVO;
 @Entity
 @Table(name = "ad_carousel_order")
 public class AdCarouselVO {
- @Id
- @GeneratedValue(strategy = GenerationType.IDENTITY)
- @Column(name = "adc_id")
- private Integer adcId;
- 
- @Column(name = "adc_start_date")
- private Date adcStartDate;
- 
- @Column(name = "adc_end_date")
- private Date adcEndDate;
- 
- @Column(name = "adc_total_price")
-// @NotNull(message="總價: 請勿空白")
- private Integer adcTotalPrice;
- 
- @Column(name = "adc_update_pic" ,columnDefinition = "longblob")
-// @NotEmpty(message="輪播廣告照片: 請上傳照片") 
- private byte[] adcUpdatePic;
- 
- @Column(name = "adc_status")
-// @NotNull(message="狀態: 請勿空白")
- private Integer adcStatus;
- 
- @Column(name = "adc_order_enddate")
- private Timestamp adcOrderEnddate = Timestamp.valueOf(LocalDateTime.now());
- 
- @ManyToOne
- @JoinColumn(name = "ad_id", referencedColumnName = "ad_id")
-// @NotNull(message="方案id: 請勿空白")
- private AdVO adVO;
- 
- @ManyToOne(fetch = FetchType.LAZY) 
- @JoinColumn(name = "u_id", referencedColumnName = "u_id")
-// @NotNull(message="教練id: 請勿空白")
- private UserVO userVO;
- 
- @ManyToOne
- @JoinColumn(name = "cr_id", referencedColumnName = "cr_id")
-// @NotNull(message="課程id: 請勿空白")
- private CourseVO courseVO;
- 
 
- public AdVO getAdVO() {
-  return adVO;
- }
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "adc_id")
+	private Integer adcId;
+	
+	@Column(name = "adc_start_date")
+	private Date adcStartDate;
+	
+	@Column(name = "adc_end_date")
+	private Date adcEndDate;
+	
+	@Column(name = "adc_total_price")
+//	@NotNull(message="總價: 請勿空白")
+	private Integer adcTotalPrice;
+	
+	@Column(name = "adc_update_pic" ,columnDefinition = "longblob")
+//	@NotEmpty(message="輪播廣告照片: 請上傳照片") 
+	private byte[] adcUpdatePic;
+	
+	@Column(name = "adc_status")
+//	@NotNull(message="狀態: 請勿空白")
+	private Integer adcStatus;
+	
+	@Column(name = "adc_order_enddate")
+	private Timestamp adcOrderEnddate = Timestamp.valueOf(LocalDateTime.now());
+	
+	@ManyToOne
+	@JoinColumn(name = "ad_id", referencedColumnName = "ad_id")
+//	@NotNull(message="方案id: 請勿空白")
+	private AdVO adVO;
+	
+	@ManyToOne(fetch = FetchType.LAZY)	
+	@JoinColumn(name = "u_id", referencedColumnName = "u_id")
+//	@NotNull(message="教練id: 請勿空白")
+	private UserVO userVO;
+	
+	@ManyToOne
+	@JoinColumn(name = "cr_id", referencedColumnName = "cr_id")
+//	@NotNull(message="課程id: 請勿空白")
+	private CourseVO courseVO;
+	
 
- public void setAdVO(AdVO adVO) {
-  this.adVO = adVO;
- }
+	public AdVO getAdVO() {
+		return adVO;
+	}
 
- public AdCarouselVO() {
-  super();
- }
- 
- public AdCarouselVO(Integer adcId, Date adcStartDate, Date adcEndDate, Integer adcTotalPrice,
-   byte[] adcUpdatePic, Integer adcStatus, Timestamp adcOrderEnddate) {
-  super();
-  this.adcId = adcId;
-  this.adcStartDate = adcStartDate;
-  this.adcEndDate = adcEndDate;
-  this.adcTotalPrice = adcTotalPrice;
-  this.adcUpdatePic = adcUpdatePic;
-  this.adcStatus = adcStatus;
-  this.adcOrderEnddate = adcOrderEnddate;
- }
- 
- 
+	public void setAdVO(AdVO adVO) {
+		this.adVO = adVO;
+	}
 
- public UserVO getUserVO() {
-  return this.userVO;
- }
+	public AdCarouselVO() {
+		super();
+	}
+	
+	public AdCarouselVO(Integer adcId, Date adcStartDate, Date adcEndDate, Integer adcTotalPrice,
+			byte[] adcUpdatePic, Integer adcStatus, Timestamp adcOrderEnddate) {
+		super();
+		this.adcId = adcId;
+		this.adcStartDate = adcStartDate;
+		this.adcEndDate = adcEndDate;
+		this.adcTotalPrice = adcTotalPrice;
+		this.adcUpdatePic = adcUpdatePic;
+		this.adcStatus = adcStatus;
+		this.adcOrderEnddate = adcOrderEnddate;
+	}
+	
+	
 
- public void setUserVO(UserVO userVO) {
-  this.userVO = userVO;
- }
- 
- 
+	public UserVO getUserVO() {
+		return this.userVO;
+	}
 
- public CourseVO getCourseVO() {
-  return this.courseVO;
- }
+	public void setUserVO(UserVO userVO) {
+		this.userVO = userVO;
+	}
+	
+	
 
- public void setCourseVO(CourseVO courseVO) {
-  this.courseVO = courseVO;
- }
+	public CourseVO getCourseVO() {
+		return this.courseVO;
+	}
 
-// @Override
-// public String toString() {
-//  return "AdCarouselOrderVO [adcId=" + adcId + ", adcStartDate=" + adcStartDate + ", adcEndDate=" + adcEndDate
-//    + ", adcTotalPrice=" + adcTotalPrice + ", adcUpdatePic=" + Arrays.toString(adcUpdatePic)
-//    + ", adcStatus=" + adcStatus + ", adcOrderEnddate=" + adcOrderEnddate + "]";
-// }
+	public void setCourseVO(CourseVO courseVO) {
+		this.courseVO = courseVO;
+	}
 
- public Integer getAdcId() {
-  return adcId;
- }
+//	@Override
+//	public String toString() {
+//		return "AdCarouselOrderVO [adcId=" + adcId + ", adcStartDate=" + adcStartDate + ", adcEndDate=" + adcEndDate
+//				+ ", adcTotalPrice=" + adcTotalPrice + ", adcUpdatePic=" + Arrays.toString(adcUpdatePic)
+//				+ ", adcStatus=" + adcStatus + ", adcOrderEnddate=" + adcOrderEnddate + "]";
+//	}
 
- public void setAdcId(Integer adcId) {
-  this.adcId = adcId;
- }
+	public Integer getAdcId() {
+		return adcId;
+	}
 
- public Date getAdcStartDate() {
-  return adcStartDate;
- }
+	public void setAdcId(Integer adcId) {
+		this.adcId = adcId;
+	}
 
- public void setAdcStartDate(Date adcStartDate) {
-  this.adcStartDate = adcStartDate;
- }
+	public Date getAdcStartDate() {
+		return adcStartDate;
+	}
 
- public Date getAdcEndDate() {
-  return adcEndDate;
- }
+	public void setAdcStartDate(Date adcStartDate) {
+		this.adcStartDate = adcStartDate;
+	}
 
- public void setAdcEndDate(Date adcEndDate) {
-  this.adcEndDate = adcEndDate;
- }
+	public Date getAdcEndDate() {
+		return adcEndDate;
+	}
 
- public Integer getAdcTotalPrice() {
-  return adcTotalPrice;
- }
+	public void setAdcEndDate(Date adcEndDate) {
+		this.adcEndDate = adcEndDate;
+	}
 
- public void setAdcTotalPrice(Integer adcTotalPrice) {
-  this.adcTotalPrice = adcTotalPrice;
- }
+	public Integer getAdcTotalPrice() {
+		return adcTotalPrice;
+	}
 
- public byte[] getAdcUpdatePic() {
-  return adcUpdatePic;
- }
+	public void setAdcTotalPrice(Integer adcTotalPrice) {
+		this.adcTotalPrice = adcTotalPrice;
+	}
 
- public void setAdcUpdatePic(byte[] adcUpdatePic) {
-  this.adcUpdatePic = adcUpdatePic;
- }
+	public byte[] getAdcUpdatePic() {
+		return this.adcUpdatePic;
+	}
 
- public Integer getAdcStatus() {
-  return adcStatus;
- }
+	public void setAdcUpdatePic(byte[] adcUpdatePic) {
+		this.adcUpdatePic = adcUpdatePic;
+	}
 
- public void setAdcStatus(Integer adcStatus) {
-  this.adcStatus = adcStatus;
- }
+	public Integer getAdcStatus() {
+		return adcStatus;
+	}
 
- public Timestamp getAdcOrderEnddate() {
-  return adcOrderEnddate;
- }
+	public void setAdcStatus(Integer adcStatus) {
+		this.adcStatus = adcStatus;
+	}
 
- public void setAdcOrderEnddate(Timestamp adcOrderEnddate) {
-  this.adcOrderEnddate = adcOrderEnddate;
- }
+	public Timestamp getAdcOrderEnddate() {
+		return adcOrderEnddate;
+	}
+
+	public void setAdcOrderEnddate(Timestamp adcOrderEnddate) {
+		this.adcOrderEnddate = adcOrderEnddate;
+	}
 
 }
+

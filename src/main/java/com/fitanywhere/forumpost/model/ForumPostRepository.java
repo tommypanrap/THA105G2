@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fitanywhere.course.model.CourseCrCoverDTO;
 import com.fitanywhere.course.model.CourseVO;
 
 public interface ForumPostRepository extends JpaRepository<ForumPostVO, Integer> {
@@ -23,17 +24,6 @@ public interface ForumPostRepository extends JpaRepository<ForumPostVO, Integer>
 	@Query(value = "update forum_post set fp_status = 0 where fp_id = ?1", nativeQuery = true)
 	void deleteByFpStatus(int FpId);
 
-	// 使用 LEFT JOIN 來聯合 ForumPostVO 和 ForumReplyVO 表格
-	// 如果您要找到包含標題、作者或內容的結果，我們將使用 OR 邏輯運算符來組合不同的條件
-	// 您可以將關鍵字參數傳遞給此查詢以查找包含該關鍵字的結果
-	@Query("SELECT DISTINCT fp FROM ForumPostVO fp LEFT JOIN ForumReplyVO r " + "ON fp.fpId = r.forumPostVO.fpId " + // 左外部連接
-																														// ForumReplyVO
-																														// 表格
-			"WHERE fp.fpTitle LIKE %:keyword% OR " + // 標題包含關鍵字
-			"fp.fpContent LIKE %:keyword% OR " + // 內容包含關鍵字
-			"r.frContent LIKE %:keyword%") // 回覆的內容包含關鍵字
-	List<ForumPostVO> findByKeyword(@Param("keyword") String keyword);
-
 	boolean existsByFpTitle(String fpTitle);
 	
 	@Modifying
@@ -44,5 +34,10 @@ public interface ForumPostRepository extends JpaRepository<ForumPostVO, Integer>
 	// Tommy
 	@Query("SELECT f FROM ForumPostVO f")
 	Page<ForumPostVO> getFourCourses(Pageable pageable);
+	
+	@Query("SELECT new com.fitanywhere.forumpost.model.ForumPostGetCoverDTO(f.fpId, f.fpPic) FROM ForumPostVO f WHERE f.fpId = :fpId")
+	ForumPostGetCoverDTO findForumPostCoverById(@Param("fpId") Integer fpId);
+	
+	
 
 }

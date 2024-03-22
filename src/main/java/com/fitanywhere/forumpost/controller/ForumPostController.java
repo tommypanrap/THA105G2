@@ -63,6 +63,45 @@ public class ForumPostController {
 	    return "front-end/forumpost/g2_blog_new_article";
 	}
 	
+	@PostMapping("addForumReply")
+	public String addForumComment(ModelMap model, @ModelAttribute("forumReplyVO") ForumReplyVO forumReplyVO, HttpSession session, @RequestParam("fpId") Integer fpId) {
+	    if (!isUserLoggedIn(session)) {
+	        // 如果未登录，重定向到登录页面或其他处理方式
+	        return "redirect:/user/force_user_login";
+	    }
+	    
+	    Integer userId = (Integer) session.getAttribute("userId");
+	    UserVO userVO = userSvc.getUserDataByID(userId);
+	    
+	    ForumPostVO forumPostVO = forumPostSvc.getOneForumPost(fpId);
+	    
+	    if (forumReplyVO == null) {
+	        forumReplyVO = new ForumReplyVO();
+	    }
+	    model.addAttribute("forumReplyVO", forumReplyVO);
+	    model.addAttribute("userVO", userVO);
+	    model.addAttribute("forumPostVO", forumPostVO); // 将文章信息添加到模型中，以便在前端使用
+	    model.addAttribute("fpId", fpId);
+
+	    return "front-end/forumpost/g2_blog_new_reply";
+	}
+	
+	@PostMapping("/insertreply")
+	public String insertreply(@ModelAttribute("forumReplyVO") ForumReplyVO forumReplyVO,
+	                          RedirectAttributes redirectAttributes, HttpSession session,
+	                          @RequestParam("fpId") Integer fpId) {
+	    if (!isUserLoggedIn(session)) {
+	        return "redirect:/user/force_user_login";
+	    }
+
+	    Integer uId = (Integer) session.getAttribute("uId");
+	    UserVO userVO = userSvc.getUserDataByID(uId);
+	    
+	    forumReplyVO.setUserVO(userVO);
+	    forumReplySvc.addForumReply(forumReplyVO, fpId);
+	    return "redirect:/forumpost/details?fpId=" + fpId ;
+	}
+	
 	@GetMapping("/details")
 	public String getForumPostDetails(@RequestParam("fpId") int fpId, Model model) {
 	    ForumPostVO forumPostVO = forumPostSvc.getOneForumPost(Integer.valueOf(fpId));
@@ -171,6 +210,10 @@ public class ForumPostController {
 	        model.addAttribute("error", "您無權修改此貼文");
 	        return "front-end/error";
 	    }
+	    
+	    UserVO userVO = new UserVO();
+	    userVO.setuId(uId);
+	    forumPostVO.setUserVO(userVO);
 
 	    // 檢查中是否存在相同標題文章
 	    boolean titleExists = forumPostSvc.existsByFpTitle(forumPostVO.getFpTitle());
@@ -178,15 +221,19 @@ public class ForumPostController {
 	        result.addError(new FieldError("ForumPostVO", "fpTitle", "文章标题已存在"));
 	    }
 
-	    // 如果有圖片上傳，將其轉換成byte並設置ForumPostVO中
+	 // 如果有圖片上傳，將其轉換成byte並設置ForumPostVO中
 	    if (!parts[0].isEmpty()) {
 	        byte[] fpPic = parts[0].getBytes();
 	        forumPostVO.setFpPic(fpPic);
+	    } else {
+	        // 如果沒有上傳圖片，檢查原始貼文是否有既存圖片，如果有則保留原始圖片
+	        if (originalPost.getFpPic() != null && originalPost.getFpPic().length > 0) {
+	            forumPostVO.setFpPic(originalPost.getFpPic());
+	        }
 	    }
 
 	    forumPostVO.setFpTime(originalPost.getFpTime());
 	    forumPostVO.setFpViews(originalPost.getFpViews());
-	    forumPostVO.setFpPic(originalPost.getFpPic());
 
 	    forumPostSvc.updateForumPost(forumPostVO);
 
@@ -220,7 +267,6 @@ public class ForumPostController {
 	    // 刪除完成後重定向或返回到合適的頁面
 	    return "redirect:/forumpost/listAllForumPost";
 	}
-
 	
     @GetMapping("listAllForumPost")
 	public String listAllForumPost(Model model) {

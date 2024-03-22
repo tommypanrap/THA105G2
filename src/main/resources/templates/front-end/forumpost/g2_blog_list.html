@@ -131,7 +131,7 @@
 </head>
 
 <body class="rbt-header-sticky">
-<!-- 	<header th:insert="~{/front-end/included-header}"></header> -->
+	<!-- 	<header th:insert="~{/front-end/included-header}"></header> -->
 	<header th:insert="~{/front-end/header}"></header>
 
 	<!-- Mobile Menu Section -->
@@ -1088,19 +1088,22 @@
 							<div class="title-wrapper">
 								<h1 class="title mb--0 member-forum-title">會員討論區</h1>
 								<div class="eugen-search-container">
-									<input type="text" class="eugen-search-input"
+									<input type="text" id="keyword" class="eugen-search-input"
 										placeholder="搜尋...">
-									<button class="eugen-search-button">搜尋</button>
+									<button type="submit" class="eugen-search-button">搜尋</button>
 									<a href='addForumPost'>
-									<button class="eugen-search-button write">發布文章</button>
+										<button class="eugen-search-button write">發布文章</button>
 									</a>
 								</div>
 								<div class="chat-tag-wrapper tag-wrapper-add">
-									<a href="#" class="rbt-badge-2 filter-tag" data-tag="全部文章"> 全部文章 </a> <a href="#"
-										class="rbt-badge-2 filter-tag" data-tag="重量訓練"> 重量訓練 </a> <a href="#" class="rbt-badge-2 filter-tag" data-tag="皮拉提斯">
-										皮拉提斯 </a> <a href="#" class="rbt-badge-2 filter-tag" data-tag="有氧訓練"> 有氧訓練 </a> <a href="#"
-										class="rbt-badge-2 filter-tag" data-tag="徒手健身"> 徒手健身 </a> <a href="#" class="rbt-badge-2 filter-tag" data-tag="飲食分享">
-										飲食分享 </a>
+									<a href="#" class="rbt-badge-2 filter-tag" data-tag="全部文章">
+										全部文章 </a> <a href="#" class="rbt-badge-2 filter-tag"
+										data-tag="重量訓練"> 重量訓練 </a> <a href="#"
+										class="rbt-badge-2 filter-tag" data-tag="皮拉提斯"> 皮拉提斯 </a> <a
+										href="#" class="rbt-badge-2 filter-tag" data-tag="有氧訓練">
+										有氧訓練 </a> <a href="#" class="rbt-badge-2 filter-tag"
+										data-tag="徒手健身"> 徒手健身 </a> <a href="#"
+										class="rbt-badge-2 filter-tag" data-tag="飲食分享"> 飲食分享 </a>
 								</div>
 							</div>
 							<!-- 搜尋欄位部分結束 -->
@@ -1121,13 +1124,13 @@
 		<div class="container">
 			<!-- Start Card Area -->
 			<div class="row row-forum" th:each="forumPostVO:${forumPostListData}">
-    			<div class="col-lg-10 offset-lg-1 mt_dec--30" th:if="${forumPostVO.fpStatus == 1}">
+				<div class="col-lg-10 offset-lg-1 mt_dec--30"
+					th:if="${forumPostVO.fpStatus == 1}">
 
 					<div
 						class="rbt-card card-list variation-02 rbt-hover mt--30 new-classname card-add-class rbt-card-forum">
 						<div class="rbt-card-img">
-							<a
-								th:href="@{/forumpost/details(fpId=${forumPostVO.fpId})}">
+							<a th:href="@{/forumpost/details(fpId=${forumPostVO.fpId})}">
 								<img
 								th:src="@{/forumpost/DBGifReader(fpId=${forumPostVO.fpId})}"
 								alt="Card image">
@@ -1139,34 +1142,35 @@
 								class="rbt-badge-2"><span
 								th:text="${forumPostVO.fpCategory}" class="forumTag"></span> </a>
 							<h5 class="rbt-card-title">
-								<a
-									th:href="@{/forumpost/details(fpId=${forumPostVO.fpId})}"
+								<a th:href="@{/forumpost/details(fpId=${forumPostVO.fpId})}"
 									th:text="${forumPostVO.fpTitle}"></a>
 								<p th:text="${forumPostVO.fpContent}"></p>
 							</h5>
 							<div class="rbt-card-bottom">
 								<a class="transparent-button"
-									th:href="@{'/forumpost/details/' + ${forumPostVO.fpId}}">閱讀內文
-								</a>
+									th:href="@{/forumpost/details(fpId=${forumPostVO.fpId})}">閱讀內文
+								</a> <span>觀看數: <span th:utext="${forumPostVO.fpViews}"></span></span>
+
 							</div>
 							<div class="rbt-card-bottom">
 								<div></div>
 								<div class="rbt-card-bottom">
-								    <div class="info-line">
-								        <span>作者：<a href="<作者連結的URL>"><span th:text="${forumPostVO.userVO.uName}"></span></a></span>
-								        <span>文章發布時間：<span th:text="${forumPostVO.fpTime}"></span></span>
-								    </div>
-								    <div class="info-line">
-								        <span>最後回覆者：<a href="<最後回覆者連結的URL>"><span th:text="${forumPostVO.userVO.uName}"></span></a></span>
-								        <span>最後回文時間：<span th:text="${forumPostVO.fpUpdate}"></span></span>
-								    </div>
+									<div class="info-line">
+										<span>作者<span th:text="${forumPostVO.userVO.uName}"></span><span>在</span></span>
+										<span
+											th:text="${#dates.format(forumPostVO.fpTime, 'yyyy-MM-dd HH:mm')}"></span><span>發布</span>
+									</div>
+									<div class="info-line">
+										<span>最新留言<span th:text="${forumPostVO.userVO.uName}"></span><span>在</span></span>
+										<span
+											th:text="${#dates.format(forumPostVO.fpUpdate, 'yyyy-MM-dd HH:mm')}"></span><span>留下</span>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-
 			<div class="row">
 				<div class="col-lg-12 mt--60">
 					<nav>
@@ -1232,48 +1236,35 @@
 	<!-- Main JS -->
 	<script th:src="@{/js/main.js}"></script>
 	<script th:src="@{/js/mok/mok_opinion.js}"></script>
-	
-<script>
-
-document.addEventListener('DOMContentLoaded', function () {
-    const filterTags = document.querySelectorAll('.filter-tag');
-
-    filterTags.forEach(tag => {
-        tag.addEventListener('click', function (event) {
-            const selectedTag = event.target.getAttribute('data-tag');
-            filterPosts(selectedTag);
-        });
-    });
-
-    function filterPosts(selectedTag) {
-    	
-//         const allPosts = document.querySelectorAll('.rbt-card-forum');
-        const allPosts = document.querySelectorAll('.row-forum');
-
-		
-        allPosts.forEach(post => {
-
-            const postTags = post.querySelector('.rbt-badge-2').textContent.trim();
-            const postBody = post.querySelector('.rbt-card-body');
-            if (postTags !== selectedTag && selectedTag !== '全部文章') {
-                post.style.display = 'none';
-                if (postBody) { // 確保存在文章內容元素
-                    postBody.style.display = 'none'; // 隱藏文章內容
-                }
-            } else {
-                post.style.display = 'flex';
-                if (postBody) { // 確保存在文章內容元素
-                    postBody.style.display = 'flex'; // 顯示文章內容
-                }
-            }
-        });
-    }
-});
-
-</script>
-
-
 
 
 </body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+//標籤篩選
+$('.filter-tag').on('click', function() {
+    var selectedTag = $(this).data('tag'); 
+    
+    if (selectedTag === "全部文章") {
+        $('.rbt-card-forum').show(); 
+    } else {
+        $('.rbt-card-forum').hide(); 
+        $('.rbt-card-forum').filter(function() {
+            return $(this).find('.forumTag').text() === selectedTag; 
+        }).show();
+    }
+});
+// 搜索功能
+$('.eugen-search-button').on('click', function() {
+    var keyword = $('#keyword').val().toLowerCase();
+    $('.rbt-card-forum').hide(); 
+    $('.rbt-card-forum').filter(function() {
+        var title = $(this).find('.rbt-card-title a').text().toLowerCase(); 
+        var content = $(this).find('p').text().toLowerCase(); 
+        return title.includes(keyword) || content.includes(keyword); 
+    }).show();
+});
+</script>
+
 </html>

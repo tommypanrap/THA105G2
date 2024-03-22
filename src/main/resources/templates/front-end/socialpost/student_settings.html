@@ -83,7 +83,7 @@
                                         <div class="demo-single">
                                             <div class="inner">
                                                 <div class="thumbnail">
-                                                    <a href="01-main-demo.html"><img src="assets/images/splash/demo/h1.jpg" alt="Demo Images"></a>
+                                                    <a href="01-main-demo.html"><img src="assets/images/splash/demo/h1.jpg"  alt="Demo Images"></a>
                                                 </div>
                                                 <div class="content">
                                                     <h4 class="title"><a href="01-main-demo.html">Home Demo <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
@@ -731,20 +731,20 @@
                         <div class="rbt-tutor-information">
                             <div class="rbt-tutor-information-left">
                                 <div class="thumbnail rbt-avatars size-lg">
-                                    <img th:src="'data:image/jpeg;base64,' + ${uHeadshot}" alt="Instructor">
+                                    <img th:data-user-id="${session.uId}" class="userHeadshot" alt="Instructor">
                                 </div>
                                 <div class="tutor-content">
                                 <h5 class="title" th:text="${uName}"></h5>
-                                    <div class="rbt-review">
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                        </div>
-                                        <span class="rating-count"> (15 Reviews)</span>
-                                    </div>
+<!--                                     <div class="rbt-review"> -->
+<!--                                         <div class="rating"> -->
+<!--                                             <i class="fas fa-star"></i> -->
+<!--                                             <i class="fas fa-star"></i> -->
+<!--                                             <i class="fas fa-star"></i> -->
+<!--                                             <i class="fas fa-star"></i> -->
+<!--                                             <i class="fas fa-star"></i> -->
+<!--                                         </div> -->
+<!--                                         <span class="rating-count"> (15 Reviews)</span> -->
+<!--                                     </div> -->
                                 </div>
                             </div>
                             <div class="rbt-tutor-information-right">
@@ -809,7 +809,7 @@
                                                 <div class="rbt-tutor-information">
                                                     <div class="rbt-tutor-information-left">
                                                         <div class="thumbnail rbt-avatars size-lg position-relative">
-                                                            <img th:src="'data:image/jpeg;base64,' + ${uHeadshot}" th:data-user-id="${session.uId}" alt="Instructor">
+                                                            <img src="" th:data-user-id="${session.uId}" alt="Instructor" class="userHeadshot">
                                                             <div class="rbt-edit-photo-inner">
                                                                 <button class="rbt-edit-photo" title="Upload Photo">
                                                                     <i class="feather-camera"></i>
@@ -1210,7 +1210,40 @@
     <script th:src="@{/assets/js/main.js}"></script>
     
     <script>
+    $(document).ready(function () {
+//     	$('a.recover').off('click');
     	
+    	
+        let userIdList = [];
+
+        $('.userHeadshot').each(function () {
+            let data = $(this).data('user-id');
+
+            // fetch 可以直接處理二進制資料(如blob)
+            fetch('/user_api/user_headshot_test', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({u_id: data}),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('response error');
+                    }
+                    return response.blob();
+                })
+                .then(blob => {
+                    let image_Url = URL.createObjectURL(blob);
+                    ;
+                    $(this).attr('src', image_Url);
+                })
+                .catch(error => {
+//                     console.error('找不到user image:', error);
+                    $(this).attr('src', '/assets/images/client/avatar-02.png');
+                });
+        });
+    });
     
     </script>
 </body>

@@ -30,6 +30,13 @@
     <link rel="stylesheet" th:href="@{/assets/css/plugins/magnigy-popup.min.css}">
     <link rel="stylesheet" th:href="@{/assets/css/plugins/plyr.css}">
     <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+    
+    <style>
+    	.bg_image--22{
+    		background-image:url("../images/bg/bbyoda.jpg");
+    	}
+    
+    </style>
 </head>
 
 <body>
@@ -802,7 +809,7 @@
                                                 <div class="rbt-tutor-information">
                                                     <div class="rbt-tutor-information-left">
                                                         <div class="thumbnail rbt-avatars size-lg position-relative">
-                                                            <img th:src="'data:image/jpeg;base64,' + ${uHeadshot}" alt="Instructor">
+                                                            <img th:src="'data:image/jpeg;base64,' + ${uHeadshot}" th:data-user-id="${session.uId}" alt="Instructor">
                                                             <div class="rbt-edit-photo-inner">
                                                                 <button class="rbt-edit-photo" title="Upload Photo">
                                                                     <i class="feather-camera"></i>
@@ -1201,6 +1208,11 @@
     <script th:src="@{/assets/js/vendor/plyr.js}"></script>
     <!-- Main JS -->
     <script th:src="@{/assets/js/main.js}"></script>
+    
+    <script>
+    	
+    
+    </script>
 </body>
 
 </html>

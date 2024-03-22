@@ -50,21 +50,17 @@ public class SocialPostController {
 
 	@Autowired
 	SocialPostService socialPostSvc;
-	
+
 	@Autowired
 	SocialReplyService socialReplySvc;
 
 	@Autowired
 	UserService userSvc;
-	
-
 
 	@GetMapping("/socialpost/add_socialpost")
 	public String addSocialPost(Model model) {
 		return "front-end/socialpost/add_socialpost";
 	}
-	
-
 
 	@ModelAttribute("socialPostListData")
 	protected List<SocialPostVO> referenceListData(Model model) {
@@ -91,78 +87,64 @@ public class SocialPostController {
 		model.addAttribute("socialPostVO", socialPostVO);
 		return "front-end/socialpost/show_login_socialpost_test";
 	}
-	
-	
-	// 主要的mapping 
+
+	// 主要的mapping
 	@GetMapping("")
 	public String social_post_member(HttpServletRequest req, ModelMap model) {
-		
+
 		HttpSession newSession = req.getSession(true);
-		
-		int sessionUId =  Integer.valueOf(newSession.getAttribute("uId").toString());
+
+		int sessionUId = Integer.valueOf(newSession.getAttribute("uId").toString());
 //		System.out.println("sessionUId:"+sessionUId);
-		
+
 		model.addAttribute("sessionUId", sessionUId);
 
 		UserVO sessionUserVO = userSvc.getUserDataByID(sessionUId);
 		model.addAttribute("userVO", sessionUserVO);
-		
+
 		UserVO userShowVO = userSvc.getUserDataByID(sessionUId);
 		model.addAttribute("userShowVO", userShowVO);
-		
 
 		SocialPostVO socialPostVO = new SocialPostVO();
 		model.addAttribute("socialPostVO", socialPostVO);
-		
+
 		return "front-end/socialpost/student_socialpost";
 	}
-	
-	
+
 	// 主要的mapping 後面帶上 userId
 	@GetMapping("{userId}")
-	public String social_post_member_id(HttpServletRequest req, ModelMap model, @PathVariable("userId") Integer userId) {
+	public String social_post_member_id(HttpServletRequest req, ModelMap model,
+			@PathVariable("userId") Integer userId) {
 
 		HttpSession newSession = req.getSession(true);
-				
+
 //		UserVO userVO2 = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
-		int sessionUId =  Integer.valueOf(newSession.getAttribute("uId").toString());
+		int sessionUId = Integer.valueOf(newSession.getAttribute("uId").toString());
 //		System.out.println("sessionUId:"+sessionUId);
-		
+
 		model.addAttribute("sessionUId", sessionUId);
 
 		UserVO sessionUserVO = userSvc.getUserDataByID(sessionUId);
 		model.addAttribute("userVO", sessionUserVO);
-		
+
 		UserVO userShowVO = userSvc.getUserDataByID(userId);
 		model.addAttribute("userShowVO", userShowVO);
 
 		SocialPostVO socialPostVO = new SocialPostVO();
 		model.addAttribute("socialPostVO", socialPostVO);
 
-
-		
-		
 		return "front-end/socialpost/student_socialpost";
-		
-	    
-		
-	}
-	
-	
-	
-	
 
-	
+	}
+
 	@PostMapping("/{spid}/replies")
-	public ResponseEntity<Void> add_social_reply(HttpServletRequest req,@RequestParam String replyValue, @RequestParam String spid, @RequestParam Integer uId, ModelMap model)   {
-		
-		
+	public ResponseEntity<Void> add_social_reply(HttpServletRequest req, @RequestParam String replyValue,
+			@RequestParam String spid, @RequestParam Integer uId, ModelMap model) {
+
 		HttpSession newSession = req.getSession(true);
 
-
-		
 		UserVO userVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
-		
+
 		SocialPostVO socialPostVOforAddReply = socialPostSvc.getOneSocialPost(Integer.parseInt(spid));
 		SocialReplyVO socialReplyVO = new SocialReplyVO();
 		socialReplyVO.setSocialPostVO(socialPostVOforAddReply);
@@ -171,27 +153,12 @@ public class SocialPostController {
 		socialReplyVO.setSrStatus(1);
 		socialReplyVO.setUserVO(userVO);
 		socialReplyVO.setSrContent(replyValue);
-		
+
 		socialReplySvc.addSocialReply(socialReplyVO);
-		
 
-
-		
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 
-//	@GetMapping("nav_to_social_member/{uId}")
-//	public String nav_to_social_member(@PathVariable String uId, ModelMap model, RedirectAttributes redirectAttributes ) {
-//		
-////		System.out.println("uId:"+uId);
-//		
-//		 redirectAttributes.addFlashAttribute("navUId", uId);
-//		 model.addAttribute("navUId",uId);
-//		
-//		return "redirect:/socialpost/student_socialpost";
-//	}
-//	
-	
 	// 新增貼文
 	@PostMapping("insert")
 	public String insert(HttpServletRequest req, @Valid SocialPostVO socialPostVO, BindingResult result, ModelMap model,
@@ -205,7 +172,7 @@ public class SocialPostController {
 		result = removeFieldError(socialPostVO, result, "sppic");
 
 		if (parts[0].isEmpty()) {
-			model.addAttribute("errorMessage", "員工照片: 請上傳照片");
+			model.addAttribute("errorMessage", "社群貼文: 請上傳圖片");
 		} else {
 			for (MultipartFile multipartFile : parts) {
 				byte[] buf = multipartFile.getBytes();
@@ -226,12 +193,10 @@ public class SocialPostController {
 		return "redirect:/socialpost/";
 	}
 
-
-
 	// 更新貼文
 	@PostMapping("update_social_post/{uId}")
-	public String update_social_post(@PathVariable("uId") Integer uId, @Valid SocialPostVO socialPostVO, BindingResult result, ModelMap model,
-			@RequestParam("sppic") MultipartFile[] parts) throws IOException {
+	public String update_social_post(@PathVariable("uId") Integer uId, @Valid SocialPostVO socialPostVO,
+			BindingResult result, ModelMap model, @RequestParam("sppic") MultipartFile[] parts) throws IOException {
 
 		result = removeFieldError(socialPostVO, result, "sppic");
 
@@ -262,7 +227,7 @@ public class SocialPostController {
 
 		return "redirect:/socialpost/" + uId;
 	}
-	
+
 	// 更新使用者資料
 	@PostMapping("updateUserProfile")
 	public String updateUserProfile(@Valid UserVO userVO, BindingResult result, ModelMap model) throws IOException {
@@ -291,7 +256,7 @@ public class SocialPostController {
 		/*************************** 3.修改完成,準備轉交(Send the Success view) **************/
 //		model.addAttribute("isprofileSuccess", userVO);
 //		model.addAttribute("coachVO", coachVO);
-		model.addAttribute("isprofileSuccess",isprofileSuccess);
+		model.addAttribute("isprofileSuccess", isprofileSuccess);
 		return "front-end/socialpost/student_settings"; // 修改成功後轉交listOneEmp.html
 	}
 
@@ -310,7 +275,6 @@ public class SocialPostController {
 
 		return "redirect:/socialpost/";
 	}
-
 
 	@PostMapping("delete")
 	public String delete(@RequestParam("spid") String spid, ModelMap model) {
@@ -348,30 +312,58 @@ public class SocialPostController {
 
 		return list;
 	}
-	
+
+//	@PostMapping("/uHeadshot/update")
+//	public String updateHeadshot(@RequestParam("file") MultipartFile file, @RequestParam("userId") Integer userId,
+//			RedirectAttributes redirectAttributes) {
+//
+//		if(!file.isEmpty()) {
+//			
+//				try {
+//					byte[] bytes = file.getBytes();
+//					UserVO user = userSvc.getUser(userId);
+//					if(user != null) {
+//						user.setuHeadshot(bytes);
+//						userSvc.updateUserHeadshot(null)
+//						
+//					}else {
+//						redirectAttributes.addFlashAttribute("message","找不到用戶!");
+//					}
+//					
+//					
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				
+//		}else {
+//			redirectAttributes.addFlashAttribute("message","沒有收到更新頭貼");
+//			
+//		}
+//		
+//		
+//		return "redirect:/socialpost/student_settings";
+//	}
+
 	@GetMapping("/settings")
 	public String user_settings() {
-		
+
 		return "front-end/socialpost/student_settings";
 	}
-	
-	/*=================取值========================*/
+
+	/* =================取值======================== */
 	@ModelAttribute("uName")
 	public String getuName(Integer uId) {
-		uId = 10001 ;
+		uId = 10001;
 		String uName = userSvc.getUser(uId).getuName();
 		return uName;
 	}
-	
+
 	@ModelAttribute("userVO")
 	public UserVO getUser(Integer uId) {
-		uId = 10001 ;
+		uId = 10001;
 		UserVO userVO = userSvc.getUser(uId);
 		return userVO;
 	}
-	
-
-	
-
 
 }

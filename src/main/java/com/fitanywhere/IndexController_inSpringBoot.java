@@ -2,18 +2,22 @@ package com.fitanywhere;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fitanywhere.adcarousel.model.AdCarouselService;
 import com.fitanywhere.adcarousel.model.AdCarouselVO;
 import com.fitanywhere.course.model.CourseService;
 import com.fitanywhere.course.model.CourseVO;
+import com.fitanywhere.forumpost.model.ForumPostGetCoverDTO;
 import com.fitanywhere.forumpost.model.ForumPostRepository;
 import com.fitanywhere.forumpost.model.ForumPostService;
 import com.fitanywhere.forumpost.model.ForumPostVO;
@@ -48,7 +52,7 @@ public class IndexController_inSpringBoot {
 	public String index(Model model) {
 //		System.out.println(courseSvc.getAll());
 		List<CourseVO> list = courseSvc.getSixCourses();
-	
+//	
 		list.forEach(courseVO ->
 		{	
 			
@@ -61,7 +65,7 @@ public class IndexController_inSpringBoot {
 			courseVO.setBase64CrCover(base64CrCover);
 			}
 		});
-
+//
 		model.addAttribute("courseListData", list);
 
 		return "index"; // view
@@ -85,29 +89,27 @@ public class IndexController_inSpringBoot {
 //		return
 //	}
 
-	@GetMapping("/index/forumPost/DBGifReader")
-	public ResponseEntity<String> dBGifReader(@RequestParam("fpId") String fpId, HttpServletRequest req,
-			HttpServletResponse res) throws IOException {
-
-
-		try {
+	@PostMapping("/index/forumPost/img")
+	public ResponseEntity<byte[]> getOriginalFpPic(@RequestBody Map<String, Integer> fpCover) {
+		Integer fpId= fpCover.get("fp_id");
+		ForumPostGetCoverDTO forumPostGetCoverDTO = forumPostSvc.getForumPostCoverById(fpId);
+		
 			byte[] imageBytes = forumPostSvc.getOneForumPost(Integer.valueOf(fpId)).getFpPic();
 
-			if (imageBytes != null && imageBytes.length > 0) {
+			if (forumPostGetCoverDTO != null && forumPostGetCoverDTO.getFpPic() != null) {
 
-				String base64Image = Base64.getEncoder().encodeToString(imageBytes);
-				String base64Src = "data:image/gif;base64," + base64Image;
-				return ResponseEntity.ok(base64Src);
+				byte[] photoBytes = forumPostGetCoverDTO.getFpPic();
+
+	            HttpHeaders headers = new HttpHeaders();
+	            headers.add(HttpHeaders.CONTENT_TYPE, "image/jpeg");
+
+	            return new ResponseEntity<>(photoBytes, headers, HttpStatus.OK);
 			} else {
-				return ResponseEntity.noContent().build();
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
 			}
 
-		} catch (Exception e) {
-
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-
-		}
+		
 
 	}
 

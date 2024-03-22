@@ -747,17 +747,17 @@
 <!--                                     </div> -->
                                 </div>
                             </div>
-                            <div class="rbt-tutor-information-right">
-                                <div class="tutor-btn">
-                                    <a class="rbt-btn btn-md hover-icon-reverse" th:href="@{create_course}">
-                                        <span class="icon-reverse-wrapper">
-                        <span class="btn-text">創建課程</span>
-                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
+<!--                             <div class="rbt-tutor-information-right"> -->
+<!--                                 <div class="tutor-btn"> -->
+<!--                                     <a class="rbt-btn btn-md hover-icon-reverse" th:href="@{create_course}"> -->
+<!--                                         <span class="icon-reverse-wrapper"> -->
+<!--                         <span class="btn-text">創建課程</span> -->
+<!--                                         <span class="btn-icon"><i class="feather-arrow-right"></i></span> -->
+<!--                                         <span class="btn-icon"><i class="feather-arrow-right"></i></span> -->
+<!--                                         </span> -->
+<!--                                     </a> -->
+<!--                                 </div> -->
+<!--                             </div> -->
                         </div>
                         <!-- End Tutor Information  -->
                     </div>
@@ -791,11 +791,11 @@
 <!--                                                     <span class="title">教練資料</span> -->
 <!--                                                 </a> -->
 <!--                                             </li> -->
-                                            <li role="presentation">
-                                                <a href="#" class="tab-button" id="password-tab" data-bs-toggle="tab" data-bs-target="#password" role="tab" aria-controls="password" aria-selected="false">
-                                                    <span class="title">密碼設定</span>
-                                                </a>
-                                            </li>
+<!--                                             <li role="presentation"> -->
+<!--                                                 <a href="#" class="tab-button" id="password-tab" data-bs-toggle="tab" data-bs-target="#password" role="tab" aria-controls="password" aria-selected="false"> -->
+<!--                                                     <span class="title">密碼設定</span> -->
+<!--                                                 </a> -->
+<!--                                             </li> -->
                                             
                                             
                                         </ul>
@@ -804,25 +804,28 @@
                                     <div class="tab-content">
                                         <div class="tab-pane fade active show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                             <div class="rbt-dashboard-content-wrapper">
-                                                <div class="tutor-bg-photo bg_image bg_image--22 height-245"></div>
+<!--                                                 <div class="tutor-bg-photo bg_image bg_image--22 height-245"></div> -->
                                                 <!-- Start Tutor Information  -->
-                                                <div class="rbt-tutor-information">
-                                                    <div class="rbt-tutor-information-left">
-                                                        <div class="thumbnail rbt-avatars size-lg position-relative">
-                                                            <img src="" th:data-user-id="${session.uId}" alt="Instructor" class="userHeadshot">
-                                                            <div class="rbt-edit-photo-inner">
-                                                                <button class="rbt-edit-photo" title="Upload Photo">
-                                                                    <i class="feather-camera"></i>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="rbt-tutor-information-right">
-                                                        <div class="tutor-btn">
-                                                            <button class="rbt-btn btn-sm btn-border color-white radius-round-10" type="submit" >編輯大頭照</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
+<!--                                                 <form id="updateAvatarForm" th:action="@{update_uHeadshot}" method="post" enctype="multipart/form-data"> -->
+<!--                                                 <div class="rbt-tutor-information"> -->
+<!--                                                     <div class="rbt-tutor-information-left"> -->
+<!--                                                         <div class="thumbnail rbt-avatars size-lg position-relative"> -->
+<!--                                                             <img src="" th:data-user-id="${session.uId}" alt="Instructor" class="userHeadshot"> -->
+<!--                                                             <div class="rbt-edit-photo-inner"> -->
+<!--                                                                 <button class="rbt-edit-photo" title="Upload Photo" type="button"> -->
+<!--                                                                     <i class="feather-camera"></i> -->
+<!--                                                                 </button> -->
+<!--                                                             </div> -->
+<!--                                                             <input type="file" id="fileInput" style="display: none;" accept="image/*"> -->
+<!--                                                         </div> -->
+<!--                                                     </div> -->
+<!--                                                     <div class="rbt-tutor-information-right"> -->
+<!--                                                         <div class="tutor-btn"> -->
+<!--                                                            <button id="updateAvatarBtn" class="rbt-btn btn-sm btn-border color-white radius-round-10" type="submit">更換大頭照</button> -->
+<!--                                                         </div> -->
+<!--                                                     </div> -->
+<!--                                                 </div> -->
+<!--                                                 </form> -->
                                                 <!-- End Tutor Information  -->
                                             </div>
                                             <!-- Start Profile Row  -->
@@ -1243,9 +1246,34 @@
                     $(this).attr('src', '/assets/images/client/avatar-02.png');
                 });
         });
+        
+        
+        $(".rbt-edit-photo").on("click",function(){
+        	$('#fileInput').click();
+        });
+        
+        $('#fileInput').change(function() {
+        	if (this.files && this.files[0]) {
+                var reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    $('.userHeadshot').attr('src', e.target.result);
+                }
+                
+                reader.readAsDataURL(this.files[0]);
+            }
+        	
+        	
+        	
+        });
+        
+        
+        
     });
     
     </script>
+    
+    
 </body>
 
 </html>

@@ -81,7 +81,6 @@ public class ForumPostService {
         public void updateViews(int fpId, int fpViews) {
             repository.updateViews(fpId, fpViews);
         }
-        
 
      // 更新社群貼文狀態 上下架 目前只用於後台
         @Transactional
@@ -102,6 +101,5 @@ public class ForumPostService {
     		return forumPostListFour;
 
     	}
-
    
 }

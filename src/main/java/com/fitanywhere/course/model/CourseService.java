@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +27,12 @@ public class CourseService {
 	
 	@Autowired
 	CoursePagingRepository pagingRepository;
+
+
+	// 模糊查詢課程
+	public Page<CoursesDTO> getCoursesContaining(Pageable pageable , String crTitle){
+		return pagingRepository.findByCrTitleContaining(pageable,crTitle);
+	}
 
 	// 獲取所有課程DTO
 	public Page<CoursesDTO> getAllCourses(Pageable pageable){
@@ -128,6 +135,15 @@ public class CourseService {
 	}
 	
 	// Tommy
+//	public List<CourseVO> getSixCourses() {
+//		
+//		Pageable firstPageWithSixCourses = PageRequest.of(0, 6);
+//		Page<CourseVO> courses = repository.findSixCourses(firstPageWithSixCourses);
+//		List<CourseVO> courseListSix = courses.getContent();
+//		
+//		return courseListSix;
+//	}
+	
 	public List<CourseVO> getSixCourses() {
 		
 		Pageable firstPageWithSixCourses = PageRequest.of(0, 6);

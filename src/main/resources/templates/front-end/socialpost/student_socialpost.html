@@ -25,7 +25,13 @@ display:none;
 .bg_image--23 {
 	background-image: url(../images/member_banner.png);
 }
+.tutor-bg-photo{
+z-index:0;
+}
 
+.rbt-avatars img{
+aspect-ratio:1;
+}
 </style>
 <body class="rbt-header-sticky">
 	<header th:replace="front-end/header.html"></header>
@@ -110,9 +116,11 @@ display:none;
 										th:each="user : ${matchingUsers}">
 										<img
 											th:src="@{/socialpost/UserPhotoDBGifReader} + '?uId=' + ${user.uId}"
-											alt=""> <a
-											th:href="@{'/socialpost/nav_to_social_member/' + ${user.uId}}"><p
-												th:text="${user.uNickname}">王小明</p></a> <span
+											alt=""> 
+											<a
+											th:href="@{'/socialpost/' + ${user.uId}}"><p
+												th:text="${user.uNickname}">王小明</p></a> 
+												<span
 											th:text="${user.uId}" class="user-uid"></span>
 									</div>
 
@@ -233,7 +241,7 @@ display:none;
 												alt="">
 
 											<div class="title-info">
-												<p th:text="${userVO.uNickname}"></p>
+												<p th:text="${userShowVO.uNickname}"></p>
 												<p
 													th:text="${#dates.format(socialPost.sptime, 'yyyy年MM月dd日')}"></p>
 											</div>
@@ -370,12 +378,12 @@ display:none;
 	<script th:src="@{/js/social_post.js}"></script>
 	<script th:src="@{/js/mok/mok_opinion.js}"></script>
 	<script>
-	//最新消息
+// 	最新消息
 // 	$(document).ready(function() {
 // 	    var lastNewsCount = 0; 
 // 	    var isFirstRequest = true;
 // 	    var sessionUId = $(".sessionUId").text();
-// // 	    var lastNewsCount = localStorage.getItem(newsCountKey) ? parseInt(localStorage.getItem(newsCountKey), 10) : 0; 
+// 	    var lastNewsCount = localStorage.getItem(newsCountKey) ? parseInt(localStorage.getItem(newsCountKey), 10) : 0; 
 // // 	    console.log(sessionUId);
 	    
 // 	    checkNewsUpdate();

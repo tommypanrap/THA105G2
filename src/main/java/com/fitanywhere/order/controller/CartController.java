@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import java.util.Base64;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -129,4 +131,13 @@ public class CartController {
 
         return modelAndView;
     }
+
+    // Mok 新增使用者是否已擁有該課程
+    @GetMapping("/ownership/{uId}/{crId}")
+    public ResponseEntity<Map<String, Boolean>> isCourseOwned(@PathVariable Integer uId, @PathVariable Integer crId) {
+        boolean isOwned = cartService.isCourseOwned(uId, crId);
+        Map<String, Boolean> response = Collections.singletonMap("hasAccess", isOwned);
+        return ResponseEntity.ok(response);
+    }
+
 }

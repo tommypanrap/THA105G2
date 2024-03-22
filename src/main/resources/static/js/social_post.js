@@ -43,10 +43,10 @@ $(document).ready(function() {
 
 	$(".delete-socialpost").on("click", function() {
 
-		alert("delete");
+		alert("刪除文章");
 
-		let innerHTMLContent = $(".spid").html();
-		var spid = parseInt(innerHTMLContent, 10);
+		
+		var spid = parseInt($(this).data('spid'), 10);
 
 		var data = {
 			spStatus: 0,
@@ -67,7 +67,7 @@ $(document).ready(function() {
 			processData: false, // 必須為 false，告訴 jQuery 不要處理數據
 			success: function(responseData) {
 				window.alert("已刪除貼文");
-				window.location.href = 'student_socialpost';
+				location.reload();
 			},
 			error: function(error) {
 				console.error('Error:', error);

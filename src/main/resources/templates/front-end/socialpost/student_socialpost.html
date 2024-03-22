@@ -3,40 +3,46 @@
 
 <head th:insert="~{/front-end/included-head}"></head>
 <style>
+.uId {
+	display: none;
+}
 
-.uId{
-display:none; 
+.uNickname {
+	display: none;
 }
-.uNickname{
-display:none;
+
+.uHeadshot {
+	display: none;
 }
-.uHeadshot{
-display:none;
+
+#resultsContainer {
+	display: none;
 }
-#resultsContainer{
-display:none;
+
+#resultsContainer.show {
+	display: block;
 }
-#resultsContainer.show{
-display:block;
+
+.sessionUId {
+	display: none;
 }
-.sessionUId{
-display:none;
-}
+
 .bg_image--23 {
 	background-image: url(../images/member_banner.png);
 }
-.tutor-bg-photo{
-z-index:0;
+
+.tutor-bg-photo {
+	z-index: 0;
 }
 
-.rbt-avatars img{
-aspect-ratio:1;
+.rbt-avatars img {
+	aspect-ratio: 1;
 }
 </style>
 <body class="rbt-header-sticky">
 	<header th:replace="front-end/header.html"></header>
 	<div th:insert="front-end/header_moblie.html"></div>
-<div th:replace="front-end/cart/cartview.html"></div>
+	<div th:replace="front-end/cart/cartview.html"></div>
 
 
 	<a class="close_side_menu" href="javascript:void(0);"></a>
@@ -63,7 +69,8 @@ aspect-ratio:1;
 										alt="">
 								</div>
 								<div class="tutor-content">
-									<h5 class="title" th:text="${userVO.uNickname}">Emily Hannah</h5>
+									<h5 class="title" th:text="${userVO.uNickname}">Emily
+										Hannah</h5>
 									<ul class="rbt-meta rbt-meta-white mt--5">
 										<li><i class="feather-book"></i>5 Courses Enroled</li>
 										<li><i class="feather-award"></i>4 Certificate</li>
@@ -72,7 +79,8 @@ aspect-ratio:1;
 							</div>
 							<div class="rbt-tutor-information-right">
 								<div class="tutor-btn">
-									<a class="rbt-btn btn-md hover-icon-reverse" href="/course/coach_course"> <span
+									<a class="rbt-btn btn-md hover-icon-reverse"
+										href="/course/coach_course"> <span
 										class="icon-reverse-wrapper"> <span class="btn-text">教練模式</span>
 											<span class="btn-icon"><i class="feather-arrow-right"></i></span>
 											<span class="btn-icon"><i class="feather-arrow-right"></i></span>
@@ -95,9 +103,9 @@ aspect-ratio:1;
 
 						<div class="col-lg-9">
 							<div class="rbt-dashboard-content ">
-								<span th:text="${userShowVO.uId}" class="uId"></span>
-								<span th:text="${userShowVO.uNickname}" class="uNickname"></span>
-								<span th:text="${userShowVO.uHeadshot}" class="uHeadshot"></span>
+								<span th:text="${userShowVO.uId}" class="uId"></span> <span
+									th:text="${userShowVO.uNickname}" class="uNickname"></span> <span
+									th:text="${userShowVO.uHeadshot}" class="uHeadshot"></span>
 								<div class="input-wrapper">
 									<input type="text" placeholder="搜尋其他用戶"
 										class="search-member-social"> <img
@@ -107,20 +115,17 @@ aspect-ratio:1;
 								<!-- 									<li th:each="user : ${matchingUsers}"><span -->
 								<!-- 										th:text="${user.uNickname}"></span></li> -->
 								<!-- 								</ul> -->
-<!-- 								暫時加的 -->
+								<!-- 								暫時加的 -->
 								<div class="search-result" id="resultsContainer"></div>
-								
+
 								<div class="search-result"
 									th:if="${matchingUsers != null and not #lists.isEmpty(matchingUsers)}">
 									<div class="search-result-list-one"
 										th:each="user : ${matchingUsers}">
 										<img
 											th:src="@{/socialpost/UserPhotoDBGifReader} + '?uId=' + ${user.uId}"
-											alt=""> 
-											<a
-											th:href="@{'/socialpost/' + ${user.uId}}"><p
-												th:text="${user.uNickname}">王小明</p></a> 
-												<span
+											alt=""> <a th:href="@{'/socialpost/' + ${user.uId}}"><p
+												th:text="${user.uNickname}">王小明</p></a> <span
 											th:text="${user.uId}" class="user-uid"></span>
 									</div>
 
@@ -162,27 +167,29 @@ aspect-ratio:1;
 
 								<div class="row g-5 member-post">
 
-<!-- 									測試	 -->
-<span th:text="${sessionUId}" class="sessionUId"></span>
-									<input type="text" placeholder="在想甚麼呢?"
-										class="member-post-input" th:if="${userShowVO.uId != null and sessionUId != null and userShowVO.uId == sessionUId}">
-										
+									<!-- 									測試	 -->
+									<span th:text="${sessionUId}" class="sessionUId"></span> <input
+										type="text" placeholder="在想甚麼呢?" class="member-post-input"
+										th:if="${userShowVO.uId != null and sessionUId != null and userShowVO.uId == sessionUId}">
 
-									<p class="add-post" th:if="${userShowVO.uId != null and sessionUId != null and userShowVO.uId == sessionUId}">新增貼文</p>
+
+									<p class="add-post"
+										th:if="${userShowVO.uId != null and sessionUId != null and userShowVO.uId == sessionUId}">新增貼文</p>
 
 
 
 
 									<div id="lightbox" class="none lightbox-add-post">
 										<form th:action="@{insert}" method="post"
-											th:object="${socialPostVO}" enctype="multipart/form-data" id="addPostForm">
+											th:object="${socialPostVO}" enctype="multipart/form-data"
+											id="addPostForm">
 											<article>
 												<div class="article-inner-wrapper">
 													<h2>建立貼文</h2>
 													<div class="member-post-socialpost">
 														<img
-												th:src="@{/socialpost/UserPhotoDBGifReader} + '?uId=' + ${userVO.uId}"
-												alt="">
+															th:src="@{/socialpost/UserPhotoDBGifReader} + '?uId=' + ${userVO.uId}"
+															alt="">
 														<p th:text="${userVO.uNickname}" th:value="${userVO.uId}">振宇</p>
 														<input type="hidden" name="userId"
 															th:value="${userVO.uId}" th:field="*{userVO.uId}" />
@@ -248,10 +255,10 @@ aspect-ratio:1;
 										</div>
 										<div class="button-container">
 											<img th:src="@{/images/social-edit.png}" alt="" class="edit"
-												th:if="${userShowVO.uId != null and sessionUId != null and userShowVO.uId == sessionUId}"> <img
-												th:src="@{/images/social-delete.png}"
-												th:if="${userShowVO.uId != null and sessionUId != null and userShowVO.uId == sessionUId}" alt=""
-												class="delete-socialpost">
+												th:if="${userShowVO.uId != null and sessionUId != null and userShowVO.uId == sessionUId}">
+											<img th:src="@{/images/social-delete.png}"
+												th:if="${userShowVO.uId != null and sessionUId != null and userShowVO.uId == sessionUId}"
+												alt="" class="delete-socialpost" th:data-spid="${socialPost.spid}">
 										</div>
 									</div>
 
@@ -275,21 +282,24 @@ aspect-ratio:1;
 														<p class="member-nickname"
 															th:text="${socialReply.userVO?.uNickname}"
 															th:if="${socialPost.socialReplys != null and not #lists.isEmpty(socialPost.socialReplys)}">怡蓉老師</p>
-														<p class="reply-time" th:text="${#dates.format(socialReply.srTime, 'yyyy-MM-dd HH:mm:ss')}">10分鐘</p>
+														<p class="reply-time"
+															th:text="${#dates.format(socialReply.srTime, 'yyyy-MM-dd HH:mm:ss')}">10分鐘</p>
 													</div>
 												</div>
-												<div class="reply-content" th:text="${socialReply.srContent}"
+												<div class="reply-content"
+													th:text="${socialReply.srContent}"
 													th:if="${socialPost.socialReplys != null and not #lists.isEmpty(socialPost.socialReplys)}">
 													>
 													<p>同學有人在嘛</p>
 												</div>
-	
+
 											</div>
 										</div>
 									</div>
 									<div class="post-content-edit">
-										<form th:action="@{update_social_post/{uId}(uId=${userVO.uId})}" method="post"
-											enctype="multipart/form-data">
+										<form
+											th:action="@{update_social_post/{uId}(uId=${userVO.uId})}"
+											method="post" enctype="multipart/form-data">
 											<textarea name="spcontent" id="spcontent_textarea" cols="30"
 												rows="10" th:value="${socialPost.spcontent}"
 												th:text="${socialPost.spcontent}"></textarea>
@@ -378,45 +388,42 @@ aspect-ratio:1;
 	<script th:src="@{/js/social_post.js}"></script>
 	<script th:src="@{/js/mok/mok_opinion.js}"></script>
 	<script>
-// 	最新消息
-// 	$(document).ready(function() {
-// 	    var lastNewsCount = 0; 
-// 	    var isFirstRequest = true;
-// 	    var sessionUId = $(".sessionUId").text();
-// 	    var lastNewsCount = localStorage.getItem(newsCountKey) ? parseInt(localStorage.getItem(newsCountKey), 10) : 0; 
-// // 	    console.log(sessionUId);
-	    
-// 	    checkNewsUpdate();
-// 	    setInterval(checkNewsUpdate, 10000); 
+		// 	最新消息
+		// 	$(document).ready(function() {
+		// 	    var lastNewsCount = 0; 
+		// 	    var isFirstRequest = true;
+		// 	    var sessionUId = $(".sessionUId").text();
+		// 	    var lastNewsCount = localStorage.getItem(newsCountKey) ? parseInt(localStorage.getItem(newsCountKey), 10) : 0; 
+		// // 	    console.log(sessionUId);
 
-// 	    function checkNewsUpdate() {
-// 	        $.ajax({
-// 	            url: '/news/count',
-// 	            type: 'GET',
-// 	            success: function(count) {
-// 	                if(isFirstRequest) { 
-// 	                	 lastNewsCount = count;
-// 	                	 isFirstRequest = false;
-	                
-// 	                }else if(lastNewsCount < count) {
-	 
-// 	                    alert('有最新消息');
-// 	                    lastNewsCount = count; 
-	                    
-// 	                }
-// 	                localStorage.setItem(newsCountKey, lastNewsCount);
-//                     console.log("count:"+count);
+		// 	    checkNewsUpdate();
+		// 	    setInterval(checkNewsUpdate, 10000); 
 
-// 	            },
-// 	            error: function() {
-// 	                console.error('無法取得最新消息數量');
-// 	            }
-// 	        });
-// 	    }
-// 	});
-	
-	
+		// 	    function checkNewsUpdate() {
+		// 	        $.ajax({
+		// 	            url: '/news/count',
+		// 	            type: 'GET',
+		// 	            success: function(count) {
+		// 	                if(isFirstRequest) { 
+		// 	                	 lastNewsCount = count;
+		// 	                	 isFirstRequest = false;
 
+		// 	                }else if(lastNewsCount < count) {
+
+		// 	                    alert('有最新消息');
+		// 	                    lastNewsCount = count; 
+
+		// 	                }
+		// 	                localStorage.setItem(newsCountKey, lastNewsCount);
+		//                     console.log("count:"+count);
+
+		// 	            },
+		// 	            error: function() {
+		// 	                console.error('無法取得最新消息數量');
+		// 	            }
+		// 	        });
+		// 	    }
+		// 	});
 	</script>
 
 </body>

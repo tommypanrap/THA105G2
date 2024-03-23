@@ -15,10 +15,26 @@
 .chat-img {
 	background-color: transparent;
 }
+.chat-card-word{
+	min-width:400px;
+}
+.featger-user{
+	color:#f8de22;
+}
+
+@media (max-width: 1350px) {
+	.body-index .chat-card{
+		width:70%;
+		margin:0 auto;
+		justify-content:space-between;
+		margin-bottom:15px;
+	}
+ }
 </style>
 
 
 </head>
+<div th:replace="/front-end/cart/cartview.html"></div>
 
 <body class="rbt-header-sticky body-index">
 	<div th:insert="front-end/header.html"></div>
@@ -28,28 +44,16 @@
 	<!-- 廣告輪播 課程 -->
 	<!-- 要把jquery的物件可能要塞回來 -->
 	<!-- 縮小到一定尺寸 RWD就壞掉了 -->
-	<div
-		class="rbt-splash-testimonial-area bg-color-white overflow-hidden position-relative">
-		<div class=" pt--90">
-			<div class="scroll-animation-wrapper no-overlay mt--50">
-				<div class="scroll-animation scroll-right-left">
+<div class="rbt-splash-testimonial-area bg-color-white overflow-hidden position-relative">
+    <div class=" pt--90">
+        <div class="scroll-animation-wrapper no-overlay mt--50">
+            <div class="scroll-animation scroll-right-left">
+                <!-- 圖片容器將在這裡動態生成 -->
+            </div>
+        </div>
+    </div>
+</div>
 
-					<div th:each="ad : ${ads}"
-						class="single-column-20 bg-theme-gradient-odd"
-						style="background-size: contain;">
-						<div class="rbt-testimonial-box style-2"
-							style="width: 470px; height: 450px; background-size: contain; background-repeat: no-repeat; background-position: center center;">
-							<div class="img-test">
-								<!-- 使用Thymeleaf設置圖片的src -->
-								<img th:src="@{/adCarousel/DBGifReader(adcId=${ad.adcId})}"
-									style="width: 470px; height: 450px;" />
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 	<!-- 廣告輪播 課程 結束 -->
 
 	<!-- 近期熱門課程 -->
@@ -70,7 +74,7 @@
 			<p>加入最優惠</p>
 		</div>
 		<div class="post-right">
-			<a href="">更多 > </a>
+			<a href="/course/courses">更多 > </a>
 		</div>
 	</div>
 
@@ -87,24 +91,25 @@
 							<a href="single-product.html" th:text="${courseVO.crTitle}">魔鬼有氧2</a>
 						</h2>
 
-						<span class="team-form"> <span class="location"
-							th:text="${courseVO.userVO.uNickname}">By 吳永志</span>
-						</span>
+<!-- 						<span class="team-form"> <span class="location" -->
+<!-- 							th:text="${courseVO.userVO.uNickname}">By 吳永志</span> -->
+<!-- 						</span> -->
 					</div>
 					<div class="thumbnail">
-						<a href="single-product.html"><img
-							th:if="${courseVO.base64CrCover != null}"
-							th:src="'data:image/jpeg;base64,' + ${courseVO.base64CrCover}"
-							alt="Card image"></a>
+						<a href="single-product.html"> 
+												<img 							
+														th:src="'data:image/jpeg;base64,' + ${courseVO.base64CrCover}"
+														alt="Card image" class="courseCoverImage">
+
+
+						</a>
 					</div>
 					<div class="content">
-					
+
 						<div class="rbt-author-meta mb--10">
 							<div class="rbt-avater">
-								<a href="/course_details_2"> <img
-									class="userHeadshot" 
-									
-									alt="Coach Image"> 
+								<a href="/course_details_2"> <img class="userHeadshot"
+									th:data-user-id="${courseVO.userVO.uId}" alt="Coach Image">
 									<!--   <img th:src="@{/assets/images/client/avatar-02.png}"-->
 								</a>
 							</div>
@@ -113,15 +118,15 @@
 								By <span th:text="${courseVO.userVO.uNickname}"></span>
 							</div>
 						</div>
-						
-						<div class="rbt-review justify-content-center">
-							<div class="rating">
-								<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-									class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-									class="fas fa-star"></i>
-							</div>
-							<span class="rating-count">台灣第一健身強人，科學化鍛鍊全書</span>
-						</div>
+
+<!-- 						<div class="rbt-review justify-content-center"> -->
+<!-- 							<div class="rating"> -->
+<!-- 								<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i -->
+<!-- 									class="fas fa-star"></i> <i class="fas fa-star"></i> <i -->
+<!-- 									class="fas fa-star"></i> -->
+<!-- 							</div> -->
+<!-- 							<span class="rating-count">台灣第一健身強人，科學化鍛鍊全書</span> -->
+<!-- 						</div> -->
 						<div class="rbt-price justify-content-center mt--10">
 							<span class="current-price theme-gradient"
 								th:text=" 'NT$' + ${courseVO.crPrice}">$60.50</span>
@@ -149,7 +154,7 @@
 			<p>每週為你嚴選系列文章</p>
 		</div>
 		<div class="post-right">
-			<a href="">更多 > </a>
+			<a href="/forumpost/listAllForumPost">更多 > </a>
 		</div>
 	</div>
 
@@ -160,9 +165,9 @@
 					<div class="title-1">
 						<i class="feather-user"></i>
 						<p th:text="${forumPostVO.userVO.uNickname}">Joy老師</p>
-						<img src="./@{/images/calander.png" alt="">
+						<img th:src="@{/images/calander.png}" alt="">
 						<p th:text="${forumPostVO.fpTime}">2023/12/26</p>
-						<img src="./@{/images/eye.png" alt="">
+<!-- 						<img th:src="@{/images/eye.png}" alt=""> -->
 						<!-- 						<p >2,580</p> -->
 					</div>
 					<div class="title-2">
@@ -173,76 +178,12 @@
 					</div>
 				</div>
 				<div class="chat-img">
-					<img th:src="@{/forumpost/DBGifReader(fpId=${forumPostVO.fpId})}"
-						alt="Card image">
+					<img src="" alt="Card image" th:data-fpid="${forumPostVO.fpId}">
 				</div>
 			</div>
-			<!-- 			<div class="chat-card"> -->
-			<!-- 				<div class="chat-card-word"> -->
-			<!-- 					<div class="title-1"> -->
-			<!-- 						<i class="feather-user"></i> -->
-			<!-- 						<p>Joy老師</p> -->
-			<!-- 						<img src="./@{/images/calander.png" alt=""> -->
-			<!-- 						<p>2023/12/26</p> -->
-			<!-- 						<img src="./@{/images/eye.png" alt=""> -->
-			<!-- 						<p>2,580</p> -->
-			<!-- 					</div> -->
-			<!-- 					<div class="title-2"> -->
-			<!-- 						<h2>歐美超模的秘密：給零基礎的第一堂芭蕾雕塑</h2> -->
-			<!-- 					</div> -->
-			<!-- 					<div class="title-3"> -->
-			<!-- 						<p>奧黛麗赫本曾經說過：優美的姿態，來源於與知識同行而不是獨行。</p> -->
-			<!-- 					</div> -->
-			<!-- 				</div> -->
-			<!-- 				<div class="chat-img"> -->
-			<!-- 					<img src="" alt=""> -->
-			<!-- 				</div> -->
-			<!-- 			</div> -->
+			
 		</div>
-		<!-- 		<div class="chat-select-row"> -->
-		<!-- 			<div class="chat-card"> -->
-		<!-- 				<div class="chat-card-word"> -->
-		<!-- 					<div class="title-1"> -->
-		<!-- 						<i class="feather-user"></i> -->
-		<!-- 						<p>Joy老師</p> -->
-		<!-- 						<img src="./@{/images/calander.png" alt=""> -->
-		<!-- 						<p>2023/12/26</p> -->
-		<!-- 						<img src="./@{/images/eye.png" alt=""> -->
-		<!-- 						<p>2,580</p> -->
-		<!-- 					</div> -->
-		<!-- 					<div class="title-2"> -->
-		<!-- 						<h2>歐美超模的秘密：給零基礎的第一堂芭蕾雕塑</h2> -->
-		<!-- 					</div> -->
-		<!-- 					<div class="title-3"> -->
-		<!-- 						<p>奧黛麗赫本曾經說過：優美的姿態，來源於與知識同行而不是獨行。</p> -->
-		<!-- 					</div> -->
-		<!-- 				</div> -->
-		<!-- 				<div class="chat-img"> -->
-		<!-- 					<img src="" alt=""> -->
-		<!-- 				</div> -->
-		<!-- 			</div> -->
-		<!-- 			<div class="chat-card"> -->
-		<!-- 				<div class="chat-card-word"> -->
-		<!-- 					<div class="title-1"> -->
-		<!-- 						<i class="feather-user"></i> -->
-		<!-- 						<p>Joy老師</p> -->
-		<!-- 						<img src="./@{/images/calander.png" alt=""> -->
-		<!-- 						<p>2023/12/26</p> -->
-		<!-- 						<img src="./@{/images/eye.png" alt=""> -->
-		<!-- 						<p>2,580</p> -->
-		<!-- 					</div> -->
-		<!-- 					<div class="title-2"> -->
-		<!-- 						<h2>歐美超模的秘密：給零基礎的第一堂芭蕾雕塑</h2> -->
-		<!-- 					</div> -->
-		<!-- 					<div class="title-3"> -->
-		<!-- 						<p>奧黛麗赫本曾經說過：優美的姿態，來源於與知識同行而不是獨行。</p> -->
-		<!-- 					</div> -->
-		<!-- 				</div> -->
-		<!-- 				<div class="chat-img"> -->
-		<!-- 					<img src="" alt=""> -->
-		<!-- 				</div> -->
-		<!-- 			</div> -->
-		<!-- 		</div> -->
+		
 	</div>
 
 	<!-- Start Feature List Area  可用在 探索課程-->
@@ -324,36 +265,165 @@
 	<script th:src="@{/js/mok/mok_opinion.js}"></script>
 
 	<script>
-                $(document).ready(function() {
-                    console.log($('.scroll-animation.scroll-right-left'))
-                    const imgText = [
-                        {
-                            src:'https://i.pinimg.com/564x/96/ab/74/96ab74e38ceba1e678ccf2132c93f273.jpg',
-                            text:'就是要你'
-                        },
-                        {
-                            src:'https://i.pinimg.com/564x/a9/5c/ea/a95ceaef7caf10e0dfa883fa5073c533.jpg',
-                            text:'鳩引餓死'
-                        }
-                    ]
-        for(let index in imgText){
-        $('.scroll-animation.scroll-right-left').append(`<div class="single-column-20 bg-theme-gradient-odd" style="width: 470px; height: 450px; background-size: contain; background-repeat: no-repeat; background-position: center center;">
-                            <div class="rbt-testimonial-box style-2">
-                                <div class="img-test">
-                                    <img src=${imgText[index].src} style="width: 470px; height: 450px;" alt="Clint Images">
-                                </div>
-                            </div>
-                        </div>`);
-    }
-        });
+//                 $(document).ready(function() {
+//                     console.log($('.scroll-animation.scroll-right-left'))
+//                     const imgText = [
+//                         {
+//                             src:'https://i.pinimg.com/564x/96/ab/74/96ab74e38ceba1e678ccf2132c93f273.jpg',
+//                             text:'就是要你'
+//                         },
+//                         {
+//                             src:'https://i.pinimg.com/564x/a9/5c/ea/a95ceaef7caf10e0dfa883fa5073c533.jpg',
+//                             text:'鳩引餓死'
+//                         }
+//                     ]
+//         for(let index in imgText){
+//         $('.scroll-animation.scroll-right-left').append(`<div class="single-column-20 bg-theme-gradient-odd" style="width: 470px; height: 450px; background-size: contain; background-repeat: no-repeat; background-position: center center;">
+//                             <div class="rbt-testimonial-box style-2">
+//                                 <div class="img-test">
+//                                     <img src=${imgText[index].src} style="width: 470px; height: 450px;" alt="Clint Images">
+//                                 </div>
+//                             </div>
+//                         </div>`);
+//     }
+//         });
         // 可以在這邊寫這一個頁面的jquery
     </script>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+// 預設照片是JPEG,如是別種形式的照片，需更改:data:image/jpeg;base64,
+$(document).ready(function() {
+    // 發送AJAX請求到後端的API端點
+    $.ajax({
+        url: '/adCarousel/homePageAds',
+        type: 'GET',
+        success: function(base64Images) {
+            var container = $('.scroll-animation.scroll-right-left');
+            base64Images.forEach(function(base64Image) {
+                var adHtml = '<div class="single-column-20 bg-theme-gradient-odd" style="background-size: contain;">' +
+                             '<div class="rbt-testimonial-box style-2" style="width: 470px; height: 450px; background-size: contain; background-repeat: no-repeat; background-position: center center;">' +
+                             '<div class="img-test">' +
+                             '<img src="data:image/jpeg;base64,' + base64Image + '" style="width: 470px; height: 450px;" />' +
+                             '</div></div></div>';
+                container.append(adHtml);
+            });
+        },
+        error: function() {
+            alert("無法加載廣告輪播圖片");
+        }
+    });
+});
+</script>
+    
 
 
 	<script>
-    $(".mainmenu-sub").on("mouseenter mouseleave",function(){
-        $(this).find("a").toggleClass("mainmenu-sub-active");
+//     $(".mainmenu-sub").on("mouseenter mouseleave",function(){
+//         $(this).find("a").toggleClass("mainmenu-sub-active");
+//     });
+
+
+</script>
+
+	<script th:inline="javascript">
+	
+// 課程的大頭貼
+$(document).ready(function () {
+	$('a.recover').off('click');
+	
+	
+    let userIdList = [];
+
+    $('.userHeadshot').each(function () {
+        let data = $(this).data('user-id');
+
+        // fetch 可以直接處理二進制資料(如blob)
+        fetch('/user_api/user_headshot_test', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({u_id: data}),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('response error');
+                }
+                return response.blob();
+            })
+            .then(blob => {
+                let image_Url = URL.createObjectURL(blob);
+                ;
+                $(this).attr('src', image_Url);
+            })
+            .catch(error => {
+//                 console.error('找不到user image:', error);
+                $(this).attr('src', '/assets/images/client/avatar-02.png');
+            });
     });
+});
+
+// 討論區
+$(document).ready(function() {
+    $('img[data-fpid]').each(function() {
+        var imgElement = $(this); 
+        var fpId = imgElement.data('fpid'); 
+		console.log(fpId);
+
+		
+		fetch('/index/forumPost/img', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({fp_id: fpId}),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('response error');
+                }
+                return response.blob();
+            })
+            .then(blob => {
+                let image_cover = URL.createObjectURL(blob);
+                // console.log(image_cover);
+                let this_e = $(this);
+                console.log(this_e)
+                $(this).attr('src', image_cover);
+            })
+            .catch(error => {
+                $(this).attr('src', '/assets/images/client/avatar-02.png');
+            });
+		
+       
+    });
+});
+
+$(document).ready(function() {
+	
+	$(".courseCoverImage").each(function(){
+		
+		console.log("this:"+this.outerHTML);
+
+		var emptyBase64Src = "data:image/jpeg;base64,";
+		
+		if (this.src === emptyBase64Src ||  !this.src || this.src.includes('null')) {
+			
+			$(this).attr('src','/assets/images/client/avatar-02.png');
+			console.log("this:"+this);
+
+		}
+		
+		
+	})
+	
+	
+	
+	
+});
+
+
 
 
 </script>

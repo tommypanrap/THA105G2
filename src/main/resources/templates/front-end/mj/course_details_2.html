@@ -195,7 +195,6 @@
                                                     aria-expanded="true"
                                                     th:aria-controls="'collapse' + ${videoStat.index}">
                                                 <span th:text="${video.getCdTitle()}">單元標題</span>
-                                                <!--                                                    <span class="rbt-badge-5 ml&#45;&#45;10">單元總時長</span>-->
                                             </button>
                                         </h2>
                                         <div th:id="'collapse' + ${videoStat.index}"
@@ -205,7 +204,7 @@
                                             <div class="accordion-body card-body pr--0">
                                                 <ul class="rbt-course-main-content liststyle">
                                                     <li>
-                                                        <a href="javascript:void(0);"
+                                                        <a href="javascript:void(0);" id="video-login"
                                                            th:data-video-url="'/course/single_course/video/' + ${video.cdId} +'/2'"
                                                            class="video-link" th:data-cdid="${video.cdId}">
                                                             <div class="course-content-left">
@@ -363,7 +362,7 @@
 <!--                                                            </div>-->
 <!--                                                        </div>-->
                                                         <h4 class="rbt-card-title"><a th:href="@{'/course/single_course/' + ${re_courses.crId}}"
-                                                                                      th:text="${re_courses.crTitle}"> </a>
+                                                                                      th:text="${re_courses.crTitle}" >
                                                         </h4>
 <!--                                                        <ul class="rbt-meta">-->
 <!--                                                            <li><i class="feather-book"></i>8 Lessons</li>-->
@@ -516,7 +515,7 @@
 <!--                                        </div>-->
 <!--                                    </div>-->
                                     <h4 class="rbt-card-title"><a href="course-details.html"
-                                                                  th:text="${courses.crTitle}"></a>
+                                                                  th:text="${courses.crTitle}">
                                     </h4>
                                     <ul class="rbt-meta">
                                         <li><i class="feather-book"></i>8 Lessons</li>
@@ -606,211 +605,162 @@
 
 <!--course_single_course JS-->
 <script>
+
     // video view
-    function open_video(videoUrl) {
-        // console.log(videoUrl);
 
-        let target = $(".video-content");
-        let existingIframe = target.find('iframe');
-
-        if (existingIframe.length > 0) {
-            existingIframe.attr("src", videoUrl);
-
-        } else {
-            let iframe = document.createElement('iframe');
-            iframe.src = videoUrl;
-            iframe.style.width = '1125px';
-            iframe.style.height = '633.3px';
-            iframe.style.borderRadius = '6px';
-
-            iframe.onload = function () {
-                let iframeDocument = iframe.contentWindow.document;
-                let videoElement = iframeDocument.querySelector('video');
-                if (videoElement) {
-                    videoElement.style.width = '100%';
-                    videoElement.style.height = '100%';
-
-                    // 抓上次觀看紀錄點
-                    let lastWatchedTime = localStorage.getItem('lastWatchedTime');
-                    if (lastWatchedTime !== null) {
-                        videoElement.currentTime = lastWatchedTime;
-                        videoElement.play();
-                    }
-
-                    videoElement.addEventListener('timeupdate', function () {
-                        // 紀錄觀看時間
-                        localStorage.setItem('lastWatchedTime', videoElement.currentTime);
-                    });
-                }
-            };
-
-            $(".video-content").prepend(iframe);
-            $("#hide-video-icon").hide();
-            $("#video_images").hide();
-
-        }
-    }
-
-    $(document).ready(function () {
-        $(document).on("click", ".video-link", function () {
-            let videoUrl = $(this).data('video-url');
-            open_video(videoUrl);
-        });
-    });
-
-
-    // ------------------------ redis失敗區 ---------------------------------
+    // ------------------------ redis存取影片進度 ---------------------------------
 
     // 存紀錄
-    // function saveProgress(uId, cdId, progress) {
-    //     console.log(`Sending progress for uId: ${uId}, cdId: ${cdId}, progress: ${progress}`);
-    //
-    //     let requestUrl = `/api/video/progress/save`;
-    //
-    //     let body = {
-    //         uId: uId,
-    //         cdId: cdId,
-    //         progress: progress
-    //     };
-    //
-    //     fetch(requestUrl, {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify(body)
-    //     })
-    //         .then(response => {
-    //             if (response.ok) {
-    //                 console.log('Progress 儲存成功');
-    //             } else {
-    //                 console.error('progress 儲存失敗');
-    //             }
-    //         })
-    //         .catch(error => console.error('Error:', error));
-    // }
-    //
-    //
-    // // 取出紀錄
-    // function getVideoProgress(uId, cdId) {
-    //     fetch(`/api/video/progress/get?uId=${uId}&cdId=${cdId}`)
-    //         .then(response => {
-    //             // Check if the response is OK and has content
-    //             if (response.ok) {
-    //                 // Only attempt to parse the response as JSON if it's not empty
-    //                 return response.text().then(text => text ? JSON.parse(text) : {});
-    //             } else {
-    //                 // Handle HTTP errors
-    //                 throw new Error('Failed to fetch video progress');
-    //             }
-    //         })
-    //         .then(data => {
-    //             console.log('Progress:', data);
-    //             // Your logic to handle the progress data
-    //         })
-    //         .catch(error => console.error('Error:', error));
-    // }
-    //
-    // $(document).ready(function () {
-    //
-    //     $(document).on("click", ".video-link", function () {
-    //         let videoUrl = $(this).data('video-url');
-    //         console.log(videoUrl);
-    //
-    //         let cdId = $(this).data('cdid');
-    //         console.log(cdId);
-    //
-    //         let uId = $('#session-uid').data('uid') || generateId();
-    //
-    //         open_video(videoUrl, uId, cdId);
-    //     });
-    //
-    //     // 產生臨時id
-    //     function generateId() {
-    //         let tempId = localStorage.getItem('tempId');
-    //         if (!tempId) {
-    //             tempId = 'temp_' + Math.random().toString(36).substring(2, 9);
-    //             localStorage.setItem('tempId', tempId);
-    //         }
-    //         return tempId;
-    //     }
-    //
-    //     // 開啟影片
-    //     function open_video(videoUrl, uId, cdId) {
-    //         let target = $(".video-content");
-    //         let existingIframe = target.find('iframe');
-    //
-    //         if (existingIframe.length > 0) {
-    //             console.log("不重抓" + cdId);
-    //             existingIframe.onload = function () {
-    //                 videoDra(existingIframe, uId, cdId);
-    //             }
-    //             existingIframe.attr("src", videoUrl);
-    //
-    //         } else {
-    //
-    //             let iframe = document.createElement('iframe');
-    //             iframe.src = videoUrl;
-    //             iframe.style.width = '1125px';
-    //             iframe.style.height = '633.3px';
-    //             iframe.style.borderRadius = '6px';
-    //
-    //             iframe.onload = function () {
-    //                 videoDra(iframe, uId, cdId);
-    //             }
-    //
-    //             $(".video-content").prepend(iframe);
-    //             $("#hide-video-icon").hide();
-    //             $("#video_images").hide();
-    //         }
-    //
-    //     }
-    // });
-    //
-    // function videoDra(iframe, u_Id, cd_Id) {
-    //     console.log("onload接的cdId:" + cd_Id);
-    //     console.log("onload接的uId:" + u_Id)
-    //     let iframeDocument = iframe.contentWindow.document;
-    //     let videoElement = iframeDocument.querySelector('video');
-    //     if (videoElement) {
-    //         videoElement.style.width = '100%';
-    //         videoElement.style.height = '100%';
-    //
-    //         console.log("onload的cdId:" + cd_Id);
-    //         console.log("onload的uId:" + u_Id)
-    //
-    //         videoElement.addEventListener('timeupdate', function () {
-    //             let progress = videoElement.currentTime;
-    //             saveProgress(u_Id, cd_Id, progress);
-    //         });
-    //
-    //         getVideoProgress(u_Id, cd_Id).then(progress => {
-    //             if (progress) {
-    //                 // 載入時，獲取進度並設置當前時間
-    //                 videoElement.currentTime = progress;
-    //             }
-    //         });
-    //     } else {
-    //         console.log("onload else的cdId:" + cd_Id);
-    //         console.log("onload else的uId:" + u_Id)
-    //
-    //         videoElement.addEventListener('timeupdate', function () {
-    //             let progress = videoElement.currentTime;
-    //             saveProgress(u_Id, cd_Id, progress);
-    //         });
-    //
-    //         getVideoProgress(u_Id, cd_Id).then(progress => {
-    //             if (progress) {
-    //                 // 載入時，獲取進度並設置當前時間
-    //                 videoElement.currentTime = progress;
-    //             }
-    //         });
-    //     }
-    // };
+    function saveProgress(uId, cdId, progress) {
+        // console.log(`送出 progress  uId: ${uId}, cdId: ${cdId}, progress: ${progress}`);
+        let requestUrl = `/api/video/progress/save`;
+        let body = {
+            uid: `${uId}`,
+            cdId: `${cdId}`,
+            progress: `${progress}`
+        };
+        fetch(requestUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body)
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Progress 儲存成功');
+                } else {
+                    console.error('progress 儲存失敗');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // 取紀錄
+    function getVideoProgress(uId, cdId, videoElement) {
+        fetch(`/api/video/progress/get?uId=${uId}&cdId=${cdId}`)
+            .then(response => {
+                if (response.ok) {
+                    return response.text();
+                } else {
+                    throw new Error('progress 取出失敗');
+                }
+            })
+            .then(data => {
+                // console.log('Video Progress:', data);
+                if (data) {
+                    // 載入時，獲取進度並設置當前時間
+                    let progress = Number(data);
+                    videoElement.currentTime = progress;
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    $(document).ready(function(){
+        // click
+       $(document).on("click", ".video-link", function(){
+           let videoUrl = $(this).data('video-url');
+           let cdId = $(this).data('cdid');
+           let uId = $('#session-uid').data('uid');
+
+           if(!uId){
+               window.location.href = "/user/force_user_login";
+           }
+
+           fetch(`/course/getcourseBycdId/${cdId}`)
+               .then(response => {
+                   if(!response.ok){
+                       throw new Error('得不到cdId');
+                   }
+                   return response.json();
+               })
+               .then(data => {
+                   console.log("Response data:", data);
+                   let crId = data.crId;
+                   return checkCourseOwner(uId, crId);
+
+               })
+               .then(hasAccess => {
+                   if (hasAccess) {
+                       console.log("Has access:", hasAccess);
+                       let target = $('.video-content');
+                       let existingIframe = target.find('iframe');
+
+                       if (existingIframe.length > 0) {
+                           updateVideoSrc(existingIframe, videoUrl, cdId, uId);
+                       } else {
+                           createVideo(target, videoUrl, cdId, uId);
+                       }
+                   }
+                   else{
+                       console.log("No access to the video.");
+                       alert("請購買影片再回來觀看");
+                   }
+               })
+               .catch(error =>
+               console.error("Error", error));
+        });
+    });
+        function checkCourseOwner(uId, crId) {
+            crId = $('#video_images').data('course-id');
+            return fetch(`/cart/ownership/${uId}/${crId}`)
+                .then(response => {
+                        if (!response.ok) {
+                            throw new Error('看不到擁有什麼課程');
+                        }
+                        return response.json();
+                 })
+                .then(data => {
+                    console.log(data);
+                    return Boolean(data.hasAccess);
+                })
+                .catch(error => console.error("Error fetching course ownership:", error));
+        }
+
+        function updateVideoSrc(iframe, videoUrl, cdId, uId){
+        $(iframe).attr("src", videoUrl);
+        $(iframe).off("load").on("load", function(){
+            videoDra(this, uId, cdId);
+        });
+    }
+
+    function createVideo(target, videoUrl, cdId, uId){
+        let iframe = document.createElement('iframe');
+        $(iframe).attr({
+             src: videoUrl,
+             width: '1125px',
+             height: '633.3px',
+             style: 'border-radius: 6px;'
+        }).on("load", function (){
+            videoDra(this, uId, cdId);
+        });
+
+        target.prepend(iframe);
+        $("#hide-video-icon").hide();
+        $("#video_images").hide();
+    }
+
+    function videoDra(iframe, uId, cdId) {
+        let iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+        let videoElement = iframeDocument.querySelector('video');
+
+        if (videoElement) {
+            videoElement.style.width = '100%';
+            videoElement.style.height = '100%';
+
+            getVideoProgress(uId, cdId, videoElement);
+
+            videoElement.addEventListener('timeupdate', function () {
+                let progress = videoElement.currentTime;
+                saveProgress(uId, cdId, progress);
+            });
+        }
+    };
 
     // ---------------------------------------------------------
 
-    //userRestController getUserHeadshot
+    // userRestController getUserHeadshot
     $(document).ready(function () {
         let userIdList = [];
 
@@ -879,12 +829,12 @@
     // 抓取歷史瀏覽紀錄
     $(document).ready(function () {
         let crId = $('#video_images').data('course-id');
-        console.log("目前課程id: " + crId);
+        let uId = $('#session-uid').data('uid');
+        // console.log("目前課程id: " + crId);
         recordHistory(crId);
 
         function recordHistory(crId) {
-            let uId = $('#session-uid').data('uid');
-            console.log("目前用戶id: " + uId);
+            // console.log("目前用戶id: " + uId);
             if (uId) {
                 let requestUrl = `/api/history/add?uId=${uId}&crId=${crId}`;
 

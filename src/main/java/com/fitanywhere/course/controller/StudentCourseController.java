@@ -6,9 +6,13 @@ import com.fitanywhere.course.model.CourseService;
 import com.fitanywhere.course.model.CourseVO;
 import com.fitanywhere.coursedetail.model.CourseDetailServiceImpl;
 import com.fitanywhere.coursedetail.model.CourseDetailVO;
+import com.fitanywhere.order.model.CartService;
+import com.fitanywhere.order.model.CartVO;
 import com.fitanywhere.user.model.UserService;
 import com.fitanywhere.user.model.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
-import java.util.Base64;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -34,6 +35,9 @@ public class StudentCourseController {
 	CourseDetailServiceImpl courseDetailSvc;
 	@Autowired
 	CoachService coachSvc;
+	@Autowired
+	private CartService cartSvc;
+
 
 	// single course
 	@GetMapping(value = "/single_course/{crId}")
@@ -71,6 +75,13 @@ public class StudentCourseController {
 				.limit(3)
 				.collect(Collectors.toList());
 
+//		boolean needPurchase = false;
+//		Integer uId = (Integer) session.getAttribute("uId");
+//		Set<Integer> ownedCourses  = cartSvc.getCoursesUesrOwned(uId);
+//
+//		if(uId == null || !ownedCourses.contains(crId)){
+//			needPurchase = true;
+//		}
 
 		model.addAttribute("courseVO", courseVO);
 		model.addAttribute("userVO", userVO);
@@ -80,6 +91,7 @@ public class StudentCourseController {
 		model.addAttribute("relatedCourse", relatedCourse);
 		model.addAttribute("unitCount", unitCount);
 		model.addAttribute("coachVO", coachVO);
+//		model.addAttribute("needPurchase", needPurchase);
 		return "front-end/mj/course_details_2";
 	}
 

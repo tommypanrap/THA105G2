@@ -1,11 +1,13 @@
 package com.fitanywhere.course.controller;
 
+import org.springframework.http.HttpHeaders;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -26,11 +28,14 @@ import com.fitanywhere.coach.model.CoachVO;
 import com.fitanywhere.course.model.*;
 import com.fitanywhere.coursedetail.model.CourseDetailService;
 import com.fitanywhere.coursedetail.model.CourseDetailVO;
+import com.fitanywhere.mood.model.MoodService;
+import com.fitanywhere.mood.model.MoodVO;
 import com.fitanywhere.user.model.UserService;
 import com.fitanywhere.user.model.UserVO;
 import com.fitanywhere.usercourse.model.UserCourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -76,6 +81,9 @@ import java.util.stream.Collectors;
 @RequestMapping("/course")
 public class CourseController {
 
+	@Autowired
+	MoodService mdSvc;
+	
 	@Autowired
 	CourseService courseSvc;
 	
@@ -127,11 +135,8 @@ public class CourseController {
 	@GetMapping("update_course")
 	public String updateCourse(ModelMap model,Integer crId) {
 		CourseVO courseVO = courseSvc.getOneCourse(crId);
-		byte[] crCover = courseVO.getCrCover();
-		String Cover = Base64.getEncoder().encodeToString(crCover);
 		
 		model.addAttribute("courseVO", courseVO);
-		model.addAttribute("Cover", Cover);
 		return "front-end/course/update_course";
 	}
 	@GetMapping("create_course_video")
@@ -173,9 +178,7 @@ public class CourseController {
 	@GetMapping("coach_settings")
 	public String settings(ModelMap model ,HttpSession session) {
 //		Integer uId = 10001 ;//先寫死等登入uId
-		Integer uId = (Integer)session.getAttribute("uId");
-		CoachVO coachVO = coachSvc.getOneCoach(uId);
-		model.addAttribute("coachVO", coachVO);
+//		Integer uId = (Integer)session.getAttribute("uId");
 		return "front-end/course/coach_settings";
 	}
 	
@@ -198,9 +201,9 @@ public class CourseController {
             	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-hh:mm:ss");
 	    		String dataStr = sdf.format(new Date());
 	    		String userHome = System.getProperty("user.home");
-	    		cdSaleVideo = userHome+"/Desktop/cdVideo/"+dataStr+".mp4";
+	    		cdSaleVideo = userHome+File.separator+"Desktop"+File.separator+"cdVideo"+File.separator+"cdSaleVideo"+dataStr+".mp4";
 	    		coursedetailVO.setCdSaleVideo(cdSaleVideo);
-            	InputStream inputStream = file.getInputStream();
+            	InputStream inputStream = salefile.getInputStream();
             	BufferedInputStream bis = new BufferedInputStream(inputStream);
             	FileOutputStream fos = new FileOutputStream(cdSaleVideo);
             	BufferedOutputStream bos = new BufferedOutputStream(fos);
@@ -225,7 +228,8 @@ public class CourseController {
         		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-hh:mm:ss");
         		String dataStr = sdf.format(new Date());
         		String userHome = System.getProperty("user.home");
-        		cdVideo = userHome+"/Desktop/cdVideo/"+dataStr+".mp4";
+        		//File.separator會自動返回適合該操作系统的文件分隔符
+        		cdVideo = userHome+File.separator+"Desktop"+File.separator+"cdVideo"+File.separator+"cdVideo"+dataStr+".mp4";
         		coursedetailVO.setCdVideo(cdVideo);
         		boolean isaddCDsuccess = cdSvc.addCourseDetail(coursedetailVO);
         		if(isaddCDsuccess) {
@@ -401,13 +405,12 @@ public class CourseController {
 //		if (result.hasErrors()) {
 //			return "back-end/course/update_course_input";
 //		}
+		MoodVO moodVO = mdSvc.getMoodVO(userVO.getMoodVO().getMoodId());
+		userVO.setMoodVO(moodVO);
 		/*************************** 2.開始修改資料 *****************************************/
 		boolean isprofileSuccess = userSvc.updateUserProfile(userVO);
-		Integer uId = userVO.getuId();
-		CoachVO coachVO = coachSvc.getOneCoach(uId);
 		/*************************** 3.修改完成,準備轉交(Send the Success view) **************/
 //		model.addAttribute("isprofileSuccess", userVO);
-		model.addAttribute("coachVO", coachVO);
 		model.addAttribute("isprofileSuccess",isprofileSuccess);
 		return "front-end/course/coach_settings"; // 修改成功後轉交listOneEmp.html
 	}
@@ -517,15 +520,10 @@ public class CourseController {
 	@PostMapping("update_uHeadshot")
 	public String updateUserHeadshot(ModelMap model ,@RequestParam("fileInput") MultipartFile fileInput, @RequestParam("uId") Integer uId) {
 		
-		String desktopPath = System.getProperty("user.home") + "/Desktop/";
-
-        try (FileOutputStream fos = new FileOutputStream(desktopPath + "uHeadshot.jpg")) {
+        try  {
         	byte[] uHeadshot = fileInput.getBytes();
-        	
-            fos.write(uHeadshot);
             UserHeadshotOnlyDTO headshotDTO = new UserHeadshotOnlyDTO(uId,uHeadshot);
             userSvc.updateUserHeadshot(headshotDTO);
-            System.out.println("Byte array written to file successfully!");
         } catch (IOException e) {
             System.out.println("Error writing byte array to file: " + e.getMessage());
         }
@@ -538,7 +536,6 @@ public class CourseController {
 		@GetMapping("cdVideo")
 		public ResponseEntity<StreamingResponseBody> sendStreamingVideo(@RequestParam("videoId") String videoId,
 				@RequestHeader(value = "Range", required = false) String rangeHeader) {
-//			videoId = "/Users/andy/Desktop/cdVideo/2024-03-08-12:45:07.mp4";
 			ResponseEntity<StreamingResponseBody> response = null;
 			try {
 				response = videoSvc.getPartialVideo(rangeHeader, videoId);
@@ -604,27 +601,83 @@ public class CourseController {
 		return userVO;
 	}
 	
-	@ModelAttribute("uHeadshot")
-	public String getuHeadshot(HttpSession session) {
+	@ModelAttribute("coachVO")
+	public CoachVO getCoach(HttpSession session) {
 //		Integer uId = 10001 ;
 		Integer uId = (Integer)session.getAttribute("uId");
-		byte [] uHeadshot = userSvc.getUserHeadshot(uId);
-		String defaultImagePath = "/Users/andy/Desktop/THA105/THA105G2/src/main/resources/static/images/andy/Test.png";
-		byte[] defaultImageBytes = null;
-		try {
-			// 读取默认图片的字节数组
-			 defaultImageBytes = Files.readAllBytes(Paths.get(defaultImagePath));
-			// 将默认图片的字节数组转换为Base64字符串并返回
-		} catch (IOException e) {
-			e.printStackTrace();
-//			/Users/andy/Desktop/THA105/THA105G2/src/main/resources/static/images/andy/Test.png
-		}
-		if(uHeadshot == null) {
-			return Base64.getEncoder().encodeToString(defaultImageBytes);
-		}else {
-		return Base64.getEncoder().encodeToString(uHeadshot);
-		}
+		CoachVO coachVO = coachSvc.getOneCoach(uId);
+		return coachVO;
 	}
+	
+	@GetMapping("/headshot/{uId}")
+    public ResponseEntity<byte[]> getUserHeadshot(@PathVariable Integer uId) {
+        UserVO userVO = userSvc.getUser(uId);
+        String path = "src/main/resources/static/images/andy/Test.png";
+        Path filePath = Paths.get(path);
+        byte [] defaultHeadshot = null;
+        try {
+			defaultHeadshot = Files.readAllBytes(filePath);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        if ( userVO.getuHeadshot() != null) {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.IMAGE_JPEG);
+            return new ResponseEntity<>(userVO.getuHeadshot(), headers, HttpStatus.OK);
+        } else {
+        	HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.IMAGE_JPEG);
+            return new ResponseEntity<>(defaultHeadshot, headers, HttpStatus.OK);
+        }
+    }
+    
+    @GetMapping("/moodPhoto/{moodId}")
+    public ResponseEntity<byte[]> getMoodPhoto(@PathVariable Integer moodId) {
+//    	UserVO userVO = userSvc.getUser(uId);
+    	MoodVO moodVO = mdSvc.getMoodVO(moodId);
+    	String path = "src/main/resources/static/images/andy/7003.png";
+    	Path filePath = Paths.get(path);
+    	byte [] defaultHeadshot = null;
+    	try {
+    		defaultHeadshot = Files.readAllBytes(filePath);
+    	} catch (IOException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
+    	if ( moodVO.getMoodePhoto() != null) {
+    		HttpHeaders headers = new HttpHeaders();
+    		headers.setContentType(MediaType.IMAGE_JPEG);
+    		return new ResponseEntity<>(moodVO.getMoodePhoto(), headers, HttpStatus.OK);
+    	} else {
+    		HttpHeaders headers = new HttpHeaders();
+    		headers.setContentType(MediaType.IMAGE_JPEG);
+    		return new ResponseEntity<>(defaultHeadshot, headers, HttpStatus.OK);
+    	}
+    }
+    
+    @GetMapping("/crCover/{crId}")
+    public ResponseEntity<byte[]> getCourseCrCover(@PathVariable Integer crId) {
+    	CourseVO courseVO = courseSvc.getOneCourse(crId);
+    	String path = "src/main/resources/static/assets/images/client/client-1.png";
+    	Path filePath = Paths.get(path);
+    	byte [] defaultHeadshot = null;
+    	try {
+    		defaultHeadshot = Files.readAllBytes(filePath);
+    	} catch (IOException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
+    	if ( courseVO.getCrCover() != null) {
+    		HttpHeaders headers = new HttpHeaders();
+    		headers.setContentType(MediaType.IMAGE_JPEG);
+    		return new ResponseEntity<>(courseVO.getCrCover(), headers, HttpStatus.OK);
+    	} else {
+    		HttpHeaders headers = new HttpHeaders();
+    		headers.setContentType(MediaType.IMAGE_JPEG);
+    		return new ResponseEntity<>(defaultHeadshot, headers, HttpStatus.OK);
+    	}
+    }
 	
 	@ModelAttribute("course0")
 	public List<CourseStatus0DTO> getcourse0(HttpSession session) {

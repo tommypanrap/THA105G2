@@ -18,13 +18,17 @@ public interface CourseDetailRepository extends JpaRepository<CourseDetailVO, In
     @Query(value = "SELECT cd_video FROM course_detail WHERE cd_id = ?1", nativeQuery = true)
     String getCourseVideoPath(Integer cdId);
     
-    // 查crId底下的全部課程
+    // 查crId底下的全部影片
     @Query(value = "SELECT cd_video FROM course_detail WHERE cr_id = :crId", nativeQuery = true)
     List<String> getCourseVideoPathByCourseId(Integer crId);
 
     // 查sale_video影片
     @Query(value = "SELECT cd_sale_video FROM course_detail WHERE cd_id = ?1", nativeQuery = true)
     String getSaleVideoPath(Integer cdId);
+    
+    // 查crId底下的全部處預覽影片
+    @Query(value = "SELECT cd_sale_video FROM course_detail WHERE cr_id = :crId", nativeQuery = true)
+    List<String> getCourseSaleVideoPathByCourseId(Integer crId);
 
     // 根據課程ID獲取課程下所有單元影片的資訊
     @Query(value = "SELECT * FROM course_detail WHERE cr_id = ?1", nativeQuery = true)

@@ -722,6 +722,7 @@
                                         <div class="accordion-body card-body">
                                             <!-- Start Course Field Wrapper  -->
                                             <div class="rbt-course-field-wrapper rbt-default-form">
+                                            		<input id="uId" th:value="${userVO.uId}" type="hidden">
                                                 <div class="course-field mb--15">
                                                     <label for="field-1" >課程名稱</label>
                                                     <input id="crTitle" type="text"  placeholder="魔鬼燃脂30天">
@@ -1034,17 +1035,11 @@
                             <script>
                                  const reader = new FileReader();
                                 
-                            	 let imageBase64 = ''
                             	 let imageFile = ''
                                 document.getElementById("crCover").addEventListener("change", function(e) {
                             	 console.log(e.target.files[0]);
                             	 imageFile = e.target.files[0]
                                  reader.readAsDataURL(e.target.files[0]);
-                               	  reader.onload = function(event) {
-                                    imageBase64 = reader.result
-                               	    // Now you can send the base64String to your backend or use it as needed
-                                    // console.log(imageBase64)
-                               	  };
                                 })
                                  document.getElementById("createCourseButton").addEventListener("click", function() {
                                 	console.log(imageFile)
@@ -1052,7 +1047,7 @@
                                 		return alert('需上傳圖片')
                                 	}
                                 var data = {
-                        	        userVO : 10001 ,
+                        	        userVO : $('#uId').val(),
                         	        crClass : $('#crClass').val(),
                         	        crState : 0,
                         	        crTitle : $('#crTitle').val(),
@@ -1077,7 +1072,7 @@
                                 }
                                 try {
                                 	$.ajax({
-                                        url: 'http://localhost:8080/course/insert',
+                                        url: '/course/insert',
                                         type: 'POST',
                                         data: formData,
                                         processData: false,

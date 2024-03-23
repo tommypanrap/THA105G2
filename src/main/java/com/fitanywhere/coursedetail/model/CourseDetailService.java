@@ -27,6 +27,9 @@ public class CourseDetailService {
 		repository.save(coursedetailVO);
 	}
 
+	public List<CourseDetailVO> getCourseDetailByCrId(Integer crId){
+		return repository.findVideosByCourseId(crId);
+	}
 
 //	public CourseVO getOneCourse(Integer crId) {
 //		Optional<CourseVO> optional = repository.findById(crId);
@@ -40,6 +43,10 @@ public class CourseDetailService {
 	
 	public List<String> getCourseVideoPathByCourseId(Integer crId){
 		return repository.getCourseVideoPathByCourseId(crId);
+	}
+	
+	public List<String> getCourseSaleVideoPathByCourseId(Integer crId){
+		return repository.getCourseSaleVideoPathByCourseId(crId);
 	}
 	
 //	public Integer getCourseCount(Integer uId) {

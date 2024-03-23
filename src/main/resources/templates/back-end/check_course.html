@@ -87,7 +87,7 @@
 	            </div>
 	            <div>
 		            <label for="field-1" >課程封面縮圖 ：</label>
-		            <img th:src="'data:image/png;base64,' + ${base64Cover}" alt="Decoded Image">
+		            <img th:src="@{'/checkCrCover/' + ${courseVO.crId}}" alt="Decoded Image">
 	            </div>
 	            <div>
 		            <label for="field-1" >課程價錢 ：</label>
@@ -125,14 +125,42 @@
 		            <label for="field-1" >困難度 ：</label>
 		            <span id="crLevel" th:text="${courseVO.crLevel}"></span>
 	            </div>
-	            <div>
+	            <div th:each="cd : ${cdList}">
+	            	<div>
+	            		<span>影片名稱 :</span>
+	            		<span id="cdTitle" th:text="${cd.cdTitle}"></span>
+	            	</div>
+	            	<div>
+	            		<span>章節名稱 :</span>
+	            		<span id="cdUnit" th:text="${cd.cdUnit}"></span>
+	            	</div>
+	            	<div>
+	            		<span>預覽影片 :</span>
+	            		<video loop style="width: auto; height: 250px;"
+		            	th:src="@{/backend/cdVideo(videoId=${cd.cdSaleVideo})}" controls></video>
+	            	</div>
+	            	<div>
+	            		<span>課程影片 :</span>
+	            		<video loop style="width: auto; height: 250px;"
+		            	th:src="@{/backend/cdVideo(videoId=${cd.cdVideo})}" controls></video>
+	            	</div>
+	            </div>
+	            <!-- <div>
 		            <label for="field-1" >課程影片 ：</label>
 		            <div id="cdVideo" th:each="list : ${cdVideosList}">
 		            	<div th:text="${list}" class="video-wrapper"></div>
 		            	<video loop style="width: auto; height: 250px;"
-		            	th:src="@{/course/cdVideo(videoId=${list})}" controls></video>
+		            	th:src="@{/backend/cdVideo(videoId=${list})}" controls></video>
 		            	</div>
 	            </div>
+	            <div>
+		            <label for="field-1" >課程預覽影片 ：</label>
+		            <div id="cdVideo" th:each="list : ${cdSaleVideosList}">
+		            	<div th:text="${list}" class="video-wrapper"></div>
+		            	<video loop style="width: auto; height: 250px;"
+		            	th:src="@{/backend/cdVideo(videoId=${list})}" controls></video>
+		            	</div>
+	            </div> -->
 	            <div>
 		            <label for="field-1">課程狀態：</label>
 				    <select id="crState" th:field="*{crState}">

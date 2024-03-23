@@ -31,7 +31,7 @@ public class HistoryServiceRepository {
     public List<UserCourseDTO> getCourseHistory(String uId){
         String UserCourseKey = "user:"+ uId +":course:view";
 
-        Set<String> courseIds = redisTemplate.opsForZSet().range(UserCourseKey, 0 , -1);
+        Set<String> courseIds = redisTemplate.opsForZSet().reverseRange(UserCourseKey, 0 , -1);
 
         List<Integer> crId = courseIds.stream()
                 .map(Integer::parseInt)

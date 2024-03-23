@@ -264,7 +264,9 @@ public class SocialPostController {
 	@PostMapping("update_for_delete")
 	public String update_for_delete(@Valid SocialPostVO socialPostVO, BindingResult result, ModelMap model,
 			@RequestParam Integer spStatus, @RequestParam Integer spid) throws IOException {
-
+		
+		System.out.println("spid+"+spid);
+		
 		socialPostVO = socialPostSvc.getOneSocialPost(spid);
 		socialPostVO.setSpstatus(spStatus);
 		socialPostSvc.updateSocialPost(socialPostVO);

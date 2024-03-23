@@ -6,7 +6,7 @@ import java.util.Base64;
 public class CourseStatus1DTO {
 	private String crTitle;
 	private String crClass;
-	private byte[] crCover;
+	private Integer crId;
 	private Integer crTotStar;
 	private Integer crCmQuan;
 	private Integer crPrice;
@@ -18,12 +18,14 @@ public class CourseStatus1DTO {
 	}
 
 	
-	public CourseStatus1DTO(String crTitle, String crClass, byte[] crCover, Integer crTotStar, Integer crCmQuan,
+
+
+	public CourseStatus1DTO(String crTitle, String crClass, Integer crId, Integer crTotStar, Integer crCmQuan,
 			Integer crPrice, Timestamp crCreateDate) {
 		super();
 		this.crTitle = crTitle;
 		this.crClass = crClass;
-		this.crCover = crCover;
+		this.crId = crId;
 		this.crTotStar = crTotStar;
 		this.crCmQuan = crCmQuan;
 		this.crPrice = crPrice;
@@ -31,11 +33,8 @@ public class CourseStatus1DTO {
 	}
 
 
-	public String getBase64Image() {
-        // 將 byte[] 格式的圖片轉換為 base64 字串
-        String base64Image = Base64.getEncoder().encodeToString(this.crCover);
-        return base64Image;
-    }
+
+
 
 	public String getCrTitle() {
 		return crTitle;
@@ -53,13 +52,22 @@ public class CourseStatus1DTO {
 		this.crClass = crClass;
 	}
 
-	public byte[] getCrCover() {
-		return crCover;
+
+	public Integer getCrId() {
+		return crId;
 	}
 
-	public void setCrCover(byte[] crCover) {
-		this.crCover = crCover;
+
+
+
+
+	public void setCrId(Integer crId) {
+		this.crId = crId;
 	}
+
+
+
+
 
 	public Integer getCrTotStar() {
 		return crTotStar;

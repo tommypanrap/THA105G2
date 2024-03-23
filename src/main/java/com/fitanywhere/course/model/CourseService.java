@@ -93,7 +93,7 @@ public class CourseService {
 	            dto.setCrCmQuan((Integer) result[1]);
 	            dto.setCrClass((String) result[2]);
 	            dto.setCrTitle((String) result[3]);
-	            dto.setCrCover((byte[]) result[4]);
+	            dto.setCrId((Integer) result[4]);
 	            dto.setCrPrice((Integer) result[5]);
 	            dto.setCrCreateDate((Timestamp) result[6]);
 	            CourseStatus1DTO.add(dto);
@@ -108,7 +108,7 @@ public class CourseService {
             CourseStatus2DTO dto = new CourseStatus2DTO();
             dto.setCrClass((String) result[0]);
             dto.setCrTitle((String) result[1]);
-            dto.setCrCover((byte[]) result[2]);
+            dto.setCrId((Integer) result[2]);
             dto.setCrPrice((Integer) result[3]);
             CourseStatus2DTO.add(dto);
         }

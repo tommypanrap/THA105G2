@@ -41,10 +41,10 @@ public interface CourseRepository extends JpaRepository<CourseVO, Integer> {
 	@Query(value="SELECT cr_class, cr_title, cr_cover, cr_price, cr_id FROM course WHERE u_Id = :uId AND cr_state = 0", nativeQuery = true)
 	List<Object[]> getCourseByStatus0(Integer uId);
 	
-	@Query(value="SELECT cr_tot_star, cr_cm_quan, cr_class, cr_title, cr_cover, cr_price, cr_create_date FROM course WHERE u_Id = :uId AND cr_state = 1", nativeQuery = true)
+	@Query(value="SELECT cr_tot_star, cr_cm_quan, cr_class, cr_title, cr_id, cr_price, cr_create_date FROM course WHERE u_Id = :uId AND cr_state = 1", nativeQuery = true)
 	List<Object[]> getCourseByStatus1(Integer uId);
 	
-	@Query(value="SELECT cr_class, cr_title, cr_cover, cr_price FROM course WHERE u_Id = :uId AND cr_state = 2", nativeQuery = true)
+	@Query(value="SELECT cr_class, cr_title, cr_id, cr_price FROM course WHERE u_Id = :uId AND cr_state = 2", nativeQuery = true)
 	List<Object[]> getCourseByStatus2(Integer uId);
 
 	// 讀取指定crId的crCover
@@ -56,7 +56,7 @@ public interface CourseRepository extends JpaRepository<CourseVO, Integer> {
 	List<CourseVO> getCourseByUId(Integer uId); 
 	
 	// Tommy
-	@Query("SELECT c FROM CourseVO c")
+	@Query("SELECT c FROM CourseVO c WHERE c.crState = 1")
 	Page<CourseVO> findSixCourses(Pageable pageable);
 	
     }

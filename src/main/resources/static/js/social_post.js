@@ -43,10 +43,10 @@ $(document).ready(function() {
 
 	$(".delete-socialpost").on("click", function() {
 
-		alert("delete");
+		alert("刪除文章");
 
-		let innerHTMLContent = $(".spid").html();
-		var spid = parseInt(innerHTMLContent, 10);
+		
+		var spid = parseInt($(this).data('spid'), 10);
 
 		var data = {
 			spStatus: 0,
@@ -67,7 +67,7 @@ $(document).ready(function() {
 			processData: false, // 必須為 false，告訴 jQuery 不要處理數據
 			success: function(responseData) {
 				window.alert("已刪除貼文");
-				window.location.href = 'student_socialpost';
+				location.reload();
 			},
 			error: function(error) {
 				console.error('Error:', error);
@@ -108,10 +108,13 @@ $(document).ready(function() {
 
 					// 遍歷返回的用戶數據並更新HTML
 					responseData.users.forEach(function(user) {
+						
+						 let imageSrc = user.headshot ? `data:image/jpeg;base64,${user.headshot}` : '/assets/images/client/avatar-02.png';
+						
 						let userElement = `
                         <div class="search-result-list-one">
                             
-                            <img src="data:image/jpeg;base64,${user.headshot}" alt="User Headshot" />
+                            <img src="${imageSrc}" alt="User Headshot" />
                             <a href="/socialpost/${user.uId}"><p>${user.nickname}</p></a>
                         </div>
                     `;
@@ -270,7 +273,8 @@ $(document).ready(function() {
 
 
 	//建立貼文點擊
-	$(".confirm").on("click",function(e){
+	$(".confirm-post").on("click",function(e){
+		
 		if($(".post-draft").val().trim() ===""){
 			alert("你還沒填文章內容");
 			return false;

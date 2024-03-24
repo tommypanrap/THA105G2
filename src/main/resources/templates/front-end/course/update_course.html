@@ -942,7 +942,7 @@
                                                     <h6>課程封面縮圖</h6>
                                                     <div class="rbt-create-course-thumbnail upload-area">
                                                         <div class="upload-area">
-                                                                <img id="file" th:src="'data:image/jpeg;base64,' + ${Cover}" alt="file image">
+                                                                <img id="file" th:src="@{'/course/crCover/' + ${courseVO.crId}}" alt="file image">
                                                             <!-- <div class="brows-file-wrapper" data-black-overlay="9"> -->
                                                                 <input name="crCover" id="crCover" type="file"  class="inputfile" />
                                                                 <!-- <label class="d-flex" for="createinputfile" title="No File Choosen">

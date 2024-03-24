@@ -5,27 +5,24 @@ import java.util.Base64;
 public class CourseStatus2DTO {
 	private String crClass;
     private String crTitle;
-    private byte[] crCover;
+    private Integer crId;
     private Integer crPrice;
     
-    public String getBase64Image() {
-        // 將 byte[] 格式的圖片轉換為 base64 字串
-        String base64Image = Base64.getEncoder().encodeToString(this.crCover);
-        return base64Image;
-    }
     
 	public CourseStatus2DTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public CourseStatus2DTO(String crClass, String crTitle, byte[] crCover, Integer crPrice) {
+
+	public CourseStatus2DTO(String crClass, String crTitle, Integer crId, Integer crPrice) {
 		super();
 		this.crClass = crClass;
 		this.crTitle = crTitle;
-		this.crCover = crCover;
+		this.crId = crId;
 		this.crPrice = crPrice;
 	}
+
 
 	public String getCrClass() {
 		return crClass;
@@ -43,13 +40,16 @@ public class CourseStatus2DTO {
 		this.crTitle = crTitle;
 	}
 
-	public byte[] getCrCover() {
-		return crCover;
+
+	public Integer getCrId() {
+		return crId;
 	}
 
-	public void setCrCover(byte[] crCover) {
-		this.crCover = crCover;
+
+	public void setCrId(Integer crId) {
+		this.crId = crId;
 	}
+
 
 	public Integer getCrPrice() {
 		return crPrice;

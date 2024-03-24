@@ -30,6 +30,13 @@
     <link rel="stylesheet" th:href="@{/assets/css/plugins/magnigy-popup.min.css}">
     <link rel="stylesheet" th:href="@{/assets/css/plugins/plyr.css}">
     <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+    
+    <style>
+    	.bg_image--22{
+    		background-image:url("../images/bg/bbyoda.jpg");
+    	}
+    
+    </style>
 </head>
 
 <body>
@@ -76,7 +83,7 @@
                                         <div class="demo-single">
                                             <div class="inner">
                                                 <div class="thumbnail">
-                                                    <a href="01-main-demo.html"><img src="assets/images/splash/demo/h1.jpg" alt="Demo Images"></a>
+                                                    <a href="01-main-demo.html"><img src="assets/images/splash/demo/h1.jpg"  alt="Demo Images"></a>
                                                 </div>
                                                 <div class="content">
                                                     <h4 class="title"><a href="01-main-demo.html">Home Demo <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
@@ -701,111 +708,8 @@
         </div>
     </div>
     <!-- Start Side Vav -->
-    <div class="rbt-cart-side-menu">
-        <div class="inner-wrapper">
-            <div class="inner-top">
-                <div class="content">
-                    <div class="title">
-                        <h4 class="title mb--0">Your shopping cart</h4>
-                    </div>
-                    <div class="rbt-btn-close" id="btn_sideNavClose">
-                        <button class="minicart-close-button rbt-round-btn"><i class="feather-x"></i></button>
-                    </div>
-                </div>
-            </div>
-            <nav class="side-nav w-100">
-                <ul class="rbt-minicart-wrapper">
-                    <li class="minicart-item">
-                        <div class="thumbnail">
-                            <a href="#">
-                                <img src="assets/images/product/1.jpg" alt="Product Images">
-                            </a>
-                        </div>
-                        <div class="product-content">
-                            <h6 class="title"><a href="single-product.html">Miracle Morning</a></h6>
-
-                            <span class="quantity">1 * <span class="price">$22</span></span>
-                        </div>
-                        <div class="close-btn">
-                            <button class="rbt-round-btn"><i class="feather-x"></i></button>
-                        </div>
-                    </li>
-
-                    <li class="minicart-item">
-                        <div class="thumbnail">
-                            <a href="#">
-                                <img src="assets/images/product/7.jpg" alt="Product Images">
-                            </a>
-                        </div>
-                        <div class="product-content">
-                            <h6 class="title"><a href="single-product.html">Happy Strong</a></h6>
-
-                            <span class="quantity">1 * <span class="price">$30</span></span>
-                        </div>
-                        <div class="close-btn">
-                            <button class="rbt-round-btn"><i class="feather-x"></i></button>
-                        </div>
-                    </li>
-
-                    <li class="minicart-item">
-                        <div class="thumbnail">
-                            <a href="#">
-                                <img src="assets/images/product/3.jpg" alt="Product Images">
-                            </a>
-                        </div>
-                        <div class="product-content">
-                            <h6 class="title"><a href="single-product.html">Rich Dad Poor Dad</a></h6>
-
-                            <span class="quantity">1 * <span class="price">$50</span></span>
-                        </div>
-                        <div class="close-btn">
-                            <button class="rbt-round-btn"><i class="feather-x"></i></button>
-                        </div>
-                    </li>
-
-                    <li class="minicart-item">
-                        <div class="thumbnail">
-                            <a href="#">
-                                <img src="assets/images/product/4.jpg" alt="Product Images">
-                            </a>
-                        </div>
-                        <div class="product-content">
-                            <h6 class="title"><a href="single-product.html">Momentum Theorem</a></h6>
-
-                            <span class="quantity">1 * <span class="price">$50</span></span>
-                        </div>
-                        <div class="close-btn">
-                            <button class="rbt-round-btn"><i class="feather-x"></i></button>
-                        </div>
-                    </li>
-                </ul>
-            </nav>
-
-            <div class="rbt-minicart-footer">
-                <hr class="mb--0">
-                <div class="rbt-cart-subttotal">
-                    <p class="subtotal"><strong>Subtotal:</strong></p>
-                    <p class="price">$121</p>
-                </div>
-                <hr class="mb--0">
-                <div class="rbt-minicart-bottom mt--20">
-                    <div class="view-cart-btn">
-                        <a class="rbt-btn btn-border icon-hover w-100 text-center" href="#">
-                            <span class="btn-text">View Cart</span>
-                            <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                        </a>
-                    </div>
-                    <div class="checkout-btn mt--20">
-                        <a class="rbt-btn btn-gradient icon-hover w-100 text-center" href="#">
-                            <span class="btn-text">Checkout</span>
-                            <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
+    <div th:replace="front-end/cart/cartview.html"></div>
+    
     <!-- End Side Vav -->
     <a class="close_side_menu" href="javascript:void(0);"></a>
 
@@ -827,33 +731,33 @@
                         <div class="rbt-tutor-information">
                             <div class="rbt-tutor-information-left">
                                 <div class="thumbnail rbt-avatars size-lg">
-                                    <img th:src="'data:image/jpeg;base64,' + ${uHeadshot}" alt="Instructor">
+                                    <img th:data-user-id="${session.uId}" class="userHeadshot" alt="Instructor">
                                 </div>
                                 <div class="tutor-content">
                                 <h5 class="title" th:text="${uName}"></h5>
-                                    <div class="rbt-review">
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                        </div>
-                                        <span class="rating-count"> (15 Reviews)</span>
-                                    </div>
+<!--                                     <div class="rbt-review"> -->
+<!--                                         <div class="rating"> -->
+<!--                                             <i class="fas fa-star"></i> -->
+<!--                                             <i class="fas fa-star"></i> -->
+<!--                                             <i class="fas fa-star"></i> -->
+<!--                                             <i class="fas fa-star"></i> -->
+<!--                                             <i class="fas fa-star"></i> -->
+<!--                                         </div> -->
+<!--                                         <span class="rating-count"> (15 Reviews)</span> -->
+<!--                                     </div> -->
                                 </div>
                             </div>
-                            <div class="rbt-tutor-information-right">
-                                <div class="tutor-btn">
-                                    <a class="rbt-btn btn-md hover-icon-reverse" th:href="@{create_course}">
-                                        <span class="icon-reverse-wrapper">
-                        <span class="btn-text">創建課程</span>
-                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
+<!--                             <div class="rbt-tutor-information-right"> -->
+<!--                                 <div class="tutor-btn"> -->
+<!--                                     <a class="rbt-btn btn-md hover-icon-reverse" th:href="@{create_course}"> -->
+<!--                                         <span class="icon-reverse-wrapper"> -->
+<!--                         <span class="btn-text">創建課程</span> -->
+<!--                                         <span class="btn-icon"><i class="feather-arrow-right"></i></span> -->
+<!--                                         <span class="btn-icon"><i class="feather-arrow-right"></i></span> -->
+<!--                                         </span> -->
+<!--                                     </a> -->
+<!--                                 </div> -->
+<!--                             </div> -->
                         </div>
                         <!-- End Tutor Information  -->
                     </div>
@@ -887,11 +791,11 @@
 <!--                                                     <span class="title">教練資料</span> -->
 <!--                                                 </a> -->
 <!--                                             </li> -->
-                                            <li role="presentation">
-                                                <a href="#" class="tab-button" id="password-tab" data-bs-toggle="tab" data-bs-target="#password" role="tab" aria-controls="password" aria-selected="false">
-                                                    <span class="title">密碼設定</span>
-                                                </a>
-                                            </li>
+<!--                                             <li role="presentation"> -->
+<!--                                                 <a href="#" class="tab-button" id="password-tab" data-bs-toggle="tab" data-bs-target="#password" role="tab" aria-controls="password" aria-selected="false"> -->
+<!--                                                     <span class="title">密碼設定</span> -->
+<!--                                                 </a> -->
+<!--                                             </li> -->
                                             
                                             
                                         </ul>
@@ -902,23 +806,27 @@
                                             <div class="rbt-dashboard-content-wrapper">
                                                 <div class="tutor-bg-photo bg_image bg_image--22 height-245"></div>
                                                 <!-- Start Tutor Information  -->
+                                                <form id="updateAvatarForm" th:action="@{/uHeadshot/update}" method="post" enctype="multipart/form-data">
                                                 <div class="rbt-tutor-information">
                                                     <div class="rbt-tutor-information-left">
                                                         <div class="thumbnail rbt-avatars size-lg position-relative">
-                                                            <img th:src="'data:image/jpeg;base64,' + ${uHeadshot}" alt="Instructor">
+                                                        	<input type="hidden" name="userId" th:value="${session.uId}">
+                                                            <img src="" th:data-user-id="${session.uId}" alt="Instructor" class="userHeadshot">
                                                             <div class="rbt-edit-photo-inner">
-                                                                <button class="rbt-edit-photo" title="Upload Photo">
+                                                                <button class="rbt-edit-photo" title="Upload Photo" type="button">
                                                                     <i class="feather-camera"></i>
                                                                 </button>
                                                             </div>
+                                                            <input type="file" id="fileInput" style="display: none;" accept="image/*">
                                                         </div>
                                                     </div>
                                                     <div class="rbt-tutor-information-right">
                                                         <div class="tutor-btn">
-                                                            <button class="rbt-btn btn-sm btn-border color-white radius-round-10" type="submit" >編輯大頭照</button>
+                                                           <button id="updateAvatarBtn" class="rbt-btn btn-sm btn-border color-white radius-round-10" type="button">更換大頭照</button>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                </form>
                                                 <!-- End Tutor Information  -->
                                             </div>
                                             <!-- Start Profile Row  -->
@@ -1304,6 +1212,69 @@
     <script th:src="@{/assets/js/vendor/plyr.js}"></script>
     <!-- Main JS -->
     <script th:src="@{/assets/js/main.js}"></script>
+    
+    <script>
+    $(document).ready(function () {
+//     	$('a.recover').off('click');
+    	
+    	
+        let userIdList = [];
+
+        $('.userHeadshot').each(function () {
+            let data = $(this).data('user-id');
+
+            // fetch 可以直接處理二進制資料(如blob)
+            fetch('/user_api/user_headshot_test', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({u_id: data}),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('response error');
+                    }
+                    return response.blob();
+                })
+                .then(blob => {
+                    let image_Url = URL.createObjectURL(blob);
+                    ;
+                    $(this).attr('src', image_Url);
+                })
+                .catch(error => {
+//                     console.error('找不到user image:', error);
+                    $(this).attr('src', '/assets/images/client/avatar-02.png');
+                });
+        });
+        
+        
+        $(".rbt-edit-photo").on("click",function(){
+        	$('#fileInput').click();
+        });
+        
+        $('#fileInput').change(function() {
+        	if (this.files && this.files[0]) {
+                var reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    $('.userHeadshot').attr('src', e.target.result);
+                }
+                
+                reader.readAsDataURL(this.files[0]);
+            }
+        	
+        	
+        	
+        });
+        
+        
+        
+    });
+    
+    </script>
+    
+    
 </body>
 
 </html>

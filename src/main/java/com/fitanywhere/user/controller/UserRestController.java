@@ -197,15 +197,16 @@ public class UserRestController {
 
 // ===================================================================		
 	// 登入-依據會員輸入的信箱檢查此帳戶是否存在
-	@PostMapping("/find_account_by_mail")
-	public int checkAccountbyMail(@RequestBody Map<String, String> requestBody) {
-		String uMail = requestBody.get("u_email");
-		boolean isUserExist = userService.isEmailRegistered(uMail);
-		if (!isUserExist) {
-			return 1; // 會員不存在
-		} 
-		return userService.userStatusCheck(uMail);	// 依據uStatus返回不同狀態	
-	}
+
+	 @PostMapping("/find_account_by_mail")
+	 public int checkAccountbyMail(@RequestBody Map<String, String> requestBody) {
+	  String uMail = requestBody.get("u_email");
+	  boolean isUserExist = userService.isEmailRegistered(uMail);
+	  if (!isUserExist) {
+	   return 1; // 會員不存在
+	  } 
+	  return userService.userStatusCheck(uMail); // 依據uStatus返回不同狀態 
+	 }
 
 	// 登入-處理會員的登入，並在登入後重發Session並寫入常用資料
 	@PostMapping("/process_user_login")
@@ -283,6 +284,116 @@ public class UserRestController {
 		response.put("status", "success");
 		response.put("redirect", "/"); // 重新定向到首頁
 		return response;
+	}
+
+
+	//----------------------------------------------------------------------
+	// 測試開發用
+	@PostMapping("/user_update_photo_test")
+	public ResponseEntity<?> updateUserHeadshot(@RequestParam("u_id") Integer uId,
+												@RequestParam("photo") MultipartFile photo) {
+		try {
+			byte[] photoBytes = photo.getBytes();
+			UserHeadshotOnlyDTO headshotDTO = new UserHeadshotOnlyDTO();
+			headshotDTO.setuId(uId);
+			headshotDTO.setuHeadshot(photoBytes);
+
+			boolean updated = userService.updateUserHeadshot(headshotDTO);
+			if (updated) {
+				return ResponseEntity.ok().body("Photo updated successfully");
+			} else {
+				return ResponseEntity.badRequest().body("Failed to update photo");
+			}
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body("Error updating photo");
+		}
+	}
+
+	@PostMapping("/user_headshot_test")
+	public ResponseEntity<byte[]> getUserHeadshot(@RequestBody Map<String, Integer> body) {
+		Integer uId = body.get("u_id");
+		UserHeadshotOnlyDTO headshotDTO = userService.getUserHeadshotDTOById(uId);
+		if (headshotDTO != null && headshotDTO.getuHeadshot() != null) {
+			byte[] photoBytes = headshotDTO.getuHeadshot();
+
+			HttpHeaders headers = new HttpHeaders();
+			headers.add(HttpHeaders.CONTENT_TYPE, "image/jpeg");
+
+			return new ResponseEntity<>(photoBytes, headers, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@PostMapping("/get_user_all_data_test")
+	public UserReadDataDTO getUserAllData(@RequestBody Map<String, Integer> request) {
+		Integer uId = request.get("uId");
+		UserReadDataDTO userData = userService.getUserDataDTOByID(uId);
+		return userData;
+	}
+
+	@PostMapping("/update_user_data_test")
+	public ResponseEntity<?> updateUserData(@RequestBody UserWriteDataDTO userDTO) {
+		boolean updateResult = userService.updateUserData(userDTO);
+		if (updateResult) {
+			return ResponseEntity.ok().body("資料更新成功");
+		} else {
+			return ResponseEntity.badRequest().body("資料更新失敗");
+		}
+	}
+
+	@PostMapping("/set_user_mood_test/")
+	public ResponseEntity<?> setUserMood(@RequestBody Map<String, Integer> requestBody) {
+		Integer uId = requestBody.get("u_id");
+		Integer moodId = requestBody.get("mood_id");
+		boolean updateResult = userService.updateUserMood(uId, moodId);
+
+		if (updateResult) {
+			// 操作成功，返回JSON格式的成功消息
+			return ResponseEntity.ok().body(Map.of("message", "心情更新成功"));
+		} else {
+			// 操作失敗，返回JSON格式的錯誤消息
+			return ResponseEntity.badRequest().body(Map.of("error", "心情更新失敗"));
+		}
+	}
+
+	@PostMapping("/get_user_mood_test/")
+	public ResponseEntity<?> getUserMood(@RequestBody Map<String, Integer> requestBody) {
+		Integer uId = requestBody.get("u_id");
+		Integer mood = userService.getUserMoodById(uId);
+		System.out.println("uId = " + uId);
+		System.out.println("mood = " + mood);
+		if (mood != null) {
+			return ResponseEntity.ok().body(Map.of("mood", mood)); // 確保這裡的Map包含了mood這個鍵
+		} else {
+			return ResponseEntity.badRequest().body("找不到指定用戶的心情");
+		}
+	}
+
+	@PostMapping("/user_update_password_test")
+	public ResponseEntity<?> updateUserPassword(@RequestParam Integer uId, @RequestParam String oldPassword,
+												@RequestParam String newPassword) {
+		try {
+			boolean updateResult = userService.updateUserPassword(uId, oldPassword, newPassword);
+			if (updateResult) {
+				return ResponseEntity.ok().body("Password updated successfully");
+			} else {
+				return ResponseEntity.badRequest().body("Failed to update password");
+			}
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body("An error occurred");
+		}
+	}
+
+	@PostMapping("/user_find_saved_password")
+	public ResponseEntity<?> getSavedPassword(@RequestParam Integer uId) {
+		try {
+			String savedPassword = userService.getSavedPasswordInMySQL(uId);
+			// 注意：直接返回密碼是不安全的。這裡只是為了示範。
+			return ResponseEntity.ok().body(savedPassword);
+		} catch (Exception e) {
+			return ResponseEntity.internalServerError().body("An error occurred");
+		}
 	}
 
 }

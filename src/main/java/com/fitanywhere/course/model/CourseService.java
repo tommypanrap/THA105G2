@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +27,12 @@ public class CourseService {
 	
 	@Autowired
 	CoursePagingRepository pagingRepository;
+
+
+	// 模糊查詢課程
+	public Page<CoursesDTO> getCoursesContaining(Pageable pageable , String crTitle){
+		return pagingRepository.findByCrTitleContaining(pageable,crTitle);
+	}
 
 	// 獲取所有課程DTO
 	public Page<CoursesDTO> getAllCourses(Pageable pageable){
@@ -93,7 +100,7 @@ public class CourseService {
 	            dto.setCrCmQuan((Integer) result[1]);
 	            dto.setCrClass((String) result[2]);
 	            dto.setCrTitle((String) result[3]);
-	            dto.setCrCover((byte[]) result[4]);
+	            dto.setCrId((Integer) result[4]);
 	            dto.setCrPrice((Integer) result[5]);
 	            dto.setCrCreateDate((Timestamp) result[6]);
 	            CourseStatus1DTO.add(dto);
@@ -108,7 +115,7 @@ public class CourseService {
             CourseStatus2DTO dto = new CourseStatus2DTO();
             dto.setCrClass((String) result[0]);
             dto.setCrTitle((String) result[1]);
-            dto.setCrCover((byte[]) result[2]);
+            dto.setCrId((Integer) result[2]);
             dto.setCrPrice((Integer) result[3]);
             CourseStatus2DTO.add(dto);
         }
@@ -128,6 +135,15 @@ public class CourseService {
 	}
 	
 	// Tommy
+//	public List<CourseVO> getSixCourses() {
+//		
+//		Pageable firstPageWithSixCourses = PageRequest.of(0, 6);
+//		Page<CourseVO> courses = repository.findSixCourses(firstPageWithSixCourses);
+//		List<CourseVO> courseListSix = courses.getContent();
+//		
+//		return courseListSix;
+//	}
+	
 	public List<CourseVO> getSixCourses() {
 		
 		Pageable firstPageWithSixCourses = PageRequest.of(0, 6);

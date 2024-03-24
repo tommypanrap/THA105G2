@@ -17,6 +17,18 @@
 <link rel="shortcut icon" type="image/x-icon"
 	href="assets/images/favicon.png">
 
+<style>
+.form-buttons-container {
+	display: flex;
+	justify-content: space-between; /* 将子元素分散对齐 */
+}
+
+/* 为了避免按钮过于靠近，你可以为按钮添加一些间距 */
+.form-buttons-container button {
+	margin-right: 10px; /* 可以根据需要调整按钮之间的间距 */
+}
+</style>
+
 
 </head>
 
@@ -960,33 +972,21 @@
 
 			<div class="eugen-bd-topbut">
 
+				<div class="form-buttons-container">
+					<form method="post" th:action="@{/forumpost/getOne_For_Update}">
+						<input type="hidden" name="fpId" th:value="${forumPostVO.fpId}">
+						<button
+							class="rbt-btn rbt-switch-btn btn-gradient radius-round btn-sm eugen-bd-button"
+							type="submit">修改</button>
+					</form>
 
-				<button
-					class="rbt-btn rbt-switch-btn btn-gradient radius-round btn-sm eugen-bd-button"
-					type="button">
-					<span data-text="Submit Now">收藏</span>
-				</button>
-				<button
-					class="rbt-btn rbt-switch-btn btn-gradient radius-round btn-sm eugen-bd-button"
-					type="button">
-					<span data-text="Submit Now">舉報</span>
-				</button>
-
-				<form method="post" th:action="@{/forumpost/getOne_For_Update}">
-					<input type="hidden" name="fpId" th:value="${forumPostVO.fpId}">
-					<button
-						class="rbt-btn rbt-switch-btn btn-gradient radius-round btn-sm eugen-bd-button"
-						type="submit">修改</button>
-				</form>
-
-				<form method="post" th:action="@{/forumpost/delete}">
-					<input type="hidden" name="fpId" th:value="${forumPostVO.fpId}">
-					<button
-						class="rbt-btn rbt-switch-btn btn-gradient radius-round btn-sm eugen-bd-button"
-						type="submit">刪除</button>
-				</form>
-
-
+					<form method="post" th:action="@{/forumpost/delete}">
+						<input type="hidden" name="fpId" th:value="${forumPostVO.fpId}">
+						<button
+							class="rbt-btn rbt-switch-btn btn-gradient radius-round btn-sm eugen-bd-button"
+							type="submit">刪除</button>
+					</form>
+				</div>
 
 			</div>
 
@@ -1010,6 +1010,9 @@
 					<li class="list-item"><i class="feather-clock"></i> <!-- 顯示文章發布時間 -->
 						<span th:text="${#dates.format(forumPostVO.fpTime, 'yyyy-MM-dd')}">發布時間</span>
 					</li>
+
+					<span>觀看數: <span th:utext="${forumPostVO.fpViews}"></span></span>
+
 				</ul>
 				<!-- 顯示文章標題 -->
 				<h1 class="title" th:text="${forumPostVO.fpTitle}">文章標題</h1>
@@ -1082,18 +1085,28 @@
 			<!-- </div> -->
 			<!-- 回复列表 -->
 			<div class="rbt-comment-area">
-			    <h4 class="title" th:text="${#lists.size(forumReplyVO)} + ' 則留言'"></h4>
-			    <ul class="comment-list">
-			        <li class="comment" th:each="forumReply : ${forumReplyVO}">
-			            <div class="comment-body">
-			                <p th:text="${forumReply.frContent}"></p>
-			                <div class="comment-author">
-			                    <span class="author" th:text="${forumReply.userVO.uNickname}"></span>
-			                    <span class="comment-date" th:text="${forumReply.frTime}"></span>
-			                </div>
-			            </div>
-			        </li>
-			    </ul>
+				<h4 class="title" th:text="${#lists.size(forumReplyVO)} + ' 則留言'"></h4>
+				<ul class="comment-list">
+					<li class="comment" th:each="forumReply : ${forumReplyVO}">
+						<div class="comment-body">
+							<p th:text="${forumReply.frContent}"></p>
+							<div class="comment-author">
+								<span class="author" th:text="${forumReply.userVO.uNickname}"></span>
+								<span class="comment-date"
+									th:text="${#dates.format(forumReply.frTime, 'yyyy-MM-dd HH:mm')}"></span>
+							</div>
+						</div>
+					</li>
+					<div class="form-buttons-container">
+						<form method="post" th:action="@{/forumpost/addForumReply}">
+							<input type="hidden" name="fpId" th:value="${forumPostVO.fpId}">
+							<button
+								class="rbt-btn rbt-switch-btn btn-gradient radius-round btn-sm eugen-bd-button"
+								type="submit">發布留言</button>
+						</form>
+					</div>
+
+				</ul>
 			</div>
 			<!--             </div> -->
 

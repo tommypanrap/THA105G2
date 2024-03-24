@@ -19,4 +19,8 @@ public class MoodService {
 	@Autowired
     private SessionFactory sessionFactory;
 
+	public MoodVO getMoodVO(Integer moodId) {
+		return repository.getById(moodId);
+	}
+	
 }

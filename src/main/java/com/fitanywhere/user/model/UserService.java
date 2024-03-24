@@ -179,27 +179,27 @@ public class UserService {
 	}
 
 // =============================================
-	// 登入-檢查帳號是否可登入
-	@Transactional(readOnly = true)
-	public Integer userStatusCheck(String uMail) {
-		Integer uStatus = userJpaRepository.findOnlyStatusByuMail(uMail);
-		if (uStatus == null) {
-			return 999;
-		} // 禁止 提醒異常帳號
-		switch (uStatus) {
-		// 前端檢查帳號使否允許登入
-		case 0:
-			return 0; // 允許
-		case 1:
-			return 0; // 允許
-		case 2:
-			return 2; // 禁止 自行註銷
-		case 3:
-			return 3; // 禁止 站方註銷
-		default:
-			return 999; // 禁止 提醒異常帳號
-		}
-	}
+
+	 // 登入-檢查帳號是否可登入
+	 @Transactional(readOnly = true)
+	 public Integer userStatusCheck(String uMail) {
+	  Integer uStatus = userJpaRepository.findOnlyStatusByuMail(uMail);  
+	  if (uStatus == null) {return 999;} // 禁止 提醒異常帳號
+	  switch (uStatus) {
+	  // 前端檢查帳號使否允許登入
+	  case 0:
+	   return 0; // 允許
+	  case 1:
+	   return 0; // 允許
+	  case 2:
+	   return 2; // 禁止 自行註銷
+	  case 3:
+	   return 3; // 禁止 站方註銷
+	  default:
+	   return 999; // 禁止 提醒異常帳號
+	  }
+	 }
+
 
 	// 登入-核對登入密碼是否正確
 	@Transactional(readOnly = true)

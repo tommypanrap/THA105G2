@@ -218,7 +218,10 @@ $(document).ready(function() {
 		}
 
 	});
-	document.getElementById('update-pic').addEventListener('change', function(e) {
+	document.addEventListener('DOMContentLoaded', function () {
+		
+		
+		document.getElementById('update-pic').addEventListener('change', function(e) {
 
 		const preview = document.getElementById('preview-image');
 		const file = e.target.files[0];
@@ -238,6 +241,11 @@ $(document).ready(function() {
 
 
 	})
+		
+		
+		
+	});
+	
 
 	async function fetchUserImage() {
 		let uId = parseInt($('.sessionUId').text());

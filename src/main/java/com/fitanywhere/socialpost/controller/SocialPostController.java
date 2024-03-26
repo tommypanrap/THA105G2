@@ -315,37 +315,41 @@ public class SocialPostController {
 		return list;
 	}
 
-//	@PostMapping("/uHeadshot/update")
-//	public String updateHeadshot(@RequestParam("file") MultipartFile file, @RequestParam("userId") Integer userId,
-//			RedirectAttributes redirectAttributes) {
-//
-//		if(!file.isEmpty()) {
-//			
-//				try {
-//					byte[] bytes = file.getBytes();
-//					UserVO user = userSvc.getUser(userId);
-//					if(user != null) {
-//						user.setuHeadshot(bytes);
-//						userSvc.updateUserHeadshot(null)
-//						
-//					}else {
-//						redirectAttributes.addFlashAttribute("message","找不到用戶!");
-//					}
-//					
-//					
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//				
-//		}else {
-//			redirectAttributes.addFlashAttribute("message","沒有收到更新頭貼");
-//			
-//		}
-//		
-//		
-//		return "redirect:/socialpost/student_settings";
-//	}
+	@PostMapping("/uHeadshot/update")
+	public String updateHeadshot(@RequestParam("file") MultipartFile file, @RequestParam("userId") Integer userId,
+			RedirectAttributes redirectAttributes) {
+
+		UserHeadshotOnlyDTO userHeadshotOnlyDTO = new UserHeadshotOnlyDTO();
+		 
+		if(!file.isEmpty()) {
+			
+				try {
+					byte[] bytes = file.getBytes();
+					UserVO user = userSvc.getUser(userId);
+					if(user != null) {
+
+						userHeadshotOnlyDTO.setuHeadshot(bytes);
+						userHeadshotOnlyDTO.setuId(userId);
+						userSvc.updateUserHeadshot(userHeadshotOnlyDTO);
+						
+					}else {
+						redirectAttributes.addFlashAttribute("message","找不到用戶!");
+					}
+					
+					
+				} catch (IOException e) {
+					 redirectAttributes.addFlashAttribute("message", "更新失敗");
+					e.printStackTrace();
+				}
+				
+		}else {
+			redirectAttributes.addFlashAttribute("message","沒有收到更新頭貼");
+			
+		}
+		
+		
+		return "redirect:/socialpost/settings";
+	}
 
 	@GetMapping("/settings")
 	public String user_settings() {

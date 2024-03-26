@@ -30,7 +30,7 @@
     <link rel="stylesheet" th:href="@{/assets/css/plugins/magnigy-popup.min.css}">
     <link rel="stylesheet" th:href="@{/assets/css/plugins/plyr.css}">
     <link rel="stylesheet" th:href="@{/assets/css/style.css}">
-    
+    <script th:src="@{/assets/js/vendor/jquery.js}"></script>
     <style>
     	.bg_image--22{
     		background-image:url("../images/bg/bbyoda.jpg");
@@ -806,7 +806,7 @@
                                             <div class="rbt-dashboard-content-wrapper">
                                                 <div class="tutor-bg-photo bg_image bg_image--22 height-245"></div>
                                                 <!-- Start Tutor Information  -->
-                                                <form id="updateAvatarForm" th:action="@{/uHeadshot/update}" method="post" enctype="multipart/form-data">
+                                                <form id="updateAvatarForm" th:action="@{/socialpost/uHeadshot/update}" method="post" enctype="multipart/form-data">
                                                 <div class="rbt-tutor-information">
                                                     <div class="rbt-tutor-information-left">
                                                         <div class="thumbnail rbt-avatars size-lg position-relative">
@@ -817,12 +817,12 @@
                                                                     <i class="feather-camera"></i>
                                                                 </button>
                                                             </div>
-                                                            <input type="file" id="fileInput" style="display: none;" accept="image/*">
+                                                            <input type="file" id="fileInput" style="display: none;" accept="image/*" name="file">
                                                         </div>
                                                     </div>
                                                     <div class="rbt-tutor-information-right">
                                                         <div class="tutor-btn">
-                                                           <button id="updateAvatarBtn" class="rbt-btn btn-sm btn-border color-white radius-round-10" type="button">更換大頭照</button>
+                                                           <button id="updateAvatarBtn" class="rbt-btn btn-sm btn-border color-white radius-round-10" type="submit">更換大頭照</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -838,7 +838,7 @@
                                                 	<input id="uStatus" type="text" th:field="*{uStatus}" hidden >
                                                     <div class="rbt-form-group">
                                                         <label for="firstname">姓名</label>
-                                                        <input id="firstname" type="text" th:field="*{uName}" >
+                                                        <input id="firstname" type="text" th:field="*{uName}"  th:placeholder="${uName}">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-12">
@@ -850,13 +850,13 @@
                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div class="rbt-form-group">
                                                         <label for="lastname">暱稱</label>
-                                                        <input id="lastname" type="text" th:field="*{uNickname}">
+                                                        <input id="lastname" type="text" th:field="*{uNickname}" th:placeholder="${uNickname}">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div class="rbt-form-group">
                                                         <label for="phonenumber">聯絡電話</label>
-                                                        <input id="phonenumber" type="tel" th:field="*{uPhone}">
+                                                        <input id="phonenumber" type="tel" th:field="*{uPhone}" th:placeholder="${uPhone}">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-12">
@@ -940,7 +940,7 @@
                                         <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
                                             <!-- Start Profile Row  -->
                                             <form th:action="@{update_password}" method="post" th:object="${userVO}" enctype="multipart/form-data" class="rbt-profile-row rbt-default-form row row--15">
-                                                <input id="uId" type="hidden" th:field="*{uId}"  >
+                                                <input id="userId" type="hidden" th:field="*{uId}"  >
                                                 <div class="col-12">
                                                     <div class="rbt-form-group">
                                                         <label for="currentpassword">舊密碼</label>

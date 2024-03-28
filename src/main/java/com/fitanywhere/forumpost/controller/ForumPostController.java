@@ -268,6 +268,30 @@ public class ForumPostController {
 	    return "redirect:/forumpost/listAllForumPost";
 	}
 	
+	@PostMapping("deletereply")
+	public String deletereply(@RequestParam("frId") String frId, HttpSession session, ModelMap model) {
+	    // 检查用户是否已经登入
+	    if (!isUserLoggedIn(session)) {
+	        return "redirect:/user/force_user_login";
+	    }
+
+	    Integer uId = (Integer) session.getAttribute("uId");
+
+	    ForumReplyVO forumReplyVO = forumReplySvc.getOneForumReply(Integer.valueOf(frId));
+
+	    Integer fpId = forumReplyVO.getForumPostVO().getFpId();
+
+	    if (!uId.equals(forumReplyVO.getUserVO().getuId())) {
+	        model.addAttribute("error", "只有作者才能删除留言");
+	        return "front-end/forumpost/error";
+	    }
+
+	    forumReplySvc.deleteForumReply(Integer.valueOf(frId));
+
+	    return "redirect:/forumpost/details?fpId=" + fpId;
+	}
+
+	
     @GetMapping("listAllForumPost")
 	public String listAllForumPost(Model model) {
     	 List<ForumPostVO> forumPostVO = forumPostSvc.getAll();

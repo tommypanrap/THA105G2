@@ -1149,7 +1149,7 @@
 							<div class="rbt-card-bottom">
 								<a class="transparent-button"
 									th:href="@{/forumpost/details(fpId=${forumPostVO.fpId})}">閱讀內文
-								</a> <span>觀看數: <span th:utext="${forumPostVO.fpViews}"></span></span>
+								</a> <span>點閱數: <span th:utext="${forumPostVO.fpViews}"></span></span>
 
 							</div>
 							<div class="rbt-card-bottom">
@@ -1242,29 +1242,42 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-//標籤篩選
-$('.filter-tag').on('click', function() {
+
+//使用事件委托处理分类按钮的点击事件
+$(document).on('click', '.filter-tag', function() {
     var selectedTag = $(this).data('tag'); 
     
     if (selectedTag === "全部文章") {
-        $('.rbt-card-forum').show(); 
+        $('.row-forum').show(); 
     } else {
-        $('.rbt-card-forum').hide(); 
-        $('.rbt-card-forum').filter(function() {
+        $('.row-forum').hide(); 
+        $('.row-forum').filter(function() {
             return $(this).find('.forumTag').text() === selectedTag; 
         }).show();
     }
 });
-// 搜索功能
-$('.eugen-search-button').on('click', function() {
+
+// 使用事件委托处理搜索按钮的点击事件
+$(document).on('click', '.eugen-search-button', function() {
+    executeSearch();
+});
+
+// 实时搜索功能
+$('#keyword').on('input', function() {
+    executeSearch();
+});
+
+// 执行搜索操作的函数
+function executeSearch() {
     var keyword = $('#keyword').val().toLowerCase();
-    $('.rbt-card-forum').hide(); 
-    $('.rbt-card-forum').filter(function() {
+    $('.row-forum').hide(); 
+    $('.row-forum').filter(function() {
         var title = $(this).find('.rbt-card-title a').text().toLowerCase(); 
         var content = $(this).find('p').text().toLowerCase(); 
         return title.includes(keyword) || content.includes(keyword); 
     }).show();
-});
+}
+
 </script>
 
 </html>

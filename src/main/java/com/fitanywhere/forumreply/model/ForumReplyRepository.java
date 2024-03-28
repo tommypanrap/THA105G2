@@ -15,7 +15,7 @@ public interface ForumReplyRepository extends JpaRepository<ForumReplyVO, Intege
 
 	@Transactional
 	@Modifying
-	@Query(value = "update forum_post set fr_status = 0 where fr_id = ?1", nativeQuery = true)
+	@Query(value = "update forum_reply set fr_status = 0 where fr_id = ?1", nativeQuery = true)
 	void deleteByFrStatus(int FrId);
 
 	List<ForumReplyVO> findByForumPostVO_FpId(Integer fpId);

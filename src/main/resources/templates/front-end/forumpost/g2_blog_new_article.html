@@ -14,42 +14,64 @@
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png">
     
     <style>
-    	.blog-row{
-    		display:flex;
-    		width:70%;
-    		margin:0 auto;
-    		justify-content:space-between;
-    	}
-    	.blog-category{
-    		width:45%;
-    	}
-    	.blog-add{
-    		width:45%;
-    	}
-    	.blog-small-container{
-    		width:70%;
-    		margin:0 auto;
-    	}
-    	.rbt-page-banner-wrapper input{
-    		background:white;
-    		width:100%;
-    	}
-    	
-    	.rbt-page-banner-wrapper textarea{
-    		background:white;
-    	}
-    	
-    	.blog-small-container .blog-add{
-    		width:100%;
-    	}
-    	.rbt-banner-content-inner-container p{
-    		margin:0;
-    	}
-    	input{
-    		max-width:none;
-    	}
-    
-    </style>
+.blog-row {
+	display: flex;
+	width: 70%;
+	margin: 0 auto;
+	justify-content: space-between;
+}
+
+.blog-category {
+	width: 45%;
+}
+
+.blog-add {
+	width: 45%;
+}
+
+.blog-small-container {
+	width: 70%;
+	margin: 0 auto;
+}
+
+.rbt-page-banner-wrapper input {
+	background: white;
+	width: 100%;
+}
+
+.rbt-page-banner-wrapper textarea {
+	background: white;
+}
+
+.blog-small-container .blog-add {
+	width: 100%;
+}
+
+.rbt-banner-content-inner-container p {
+	margin: 0;
+}
+
+input {
+	max-width: none;
+}
+
+.custom-file-upload input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload label {
+    background-color: white;
+    color: black;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.custom-file-upload label:hover {
+    background-color: #0056b3;
+}
+
+</style>
 
 </head>
 
@@ -94,17 +116,21 @@
                 <div class="blog-add">
                     <p>文章標題</p>
                     <input type="text" th:field="*{fpTitle}">
+                    <span id="titleError" style="color: red;"></span>
                 </div>
 
                 <div class="blog-add">
                     <p>文章內容</p>
                     <textarea name="fpContent" id="fpContent" cols="30" rows="10" th:field="*{fpContent}"></textarea>
+                    <span id="contentError" style="color: red;"></span>
                 </div>
                 
-				<div>
-				<p>插入圖片</p>
-				<input type="file" name="fpPic">
-				</div>
+				<div class="custom-file-upload">
+    <label for="file-upload">選擇圖片</label>
+    <input id="file-upload" type="file" name="fpPic" />
+</div>
+    <div id="image-preview"></div>
+
 
                 <button type="submit">儲存</button>
                 <button type="button" onclick="window.history.back();">取消</button>
@@ -163,5 +189,81 @@
     <!-- Main JS -->
     <script src="assets/js/main.js"></script>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+
+$(document).ready(function() {
+    $('form').submit(function(event) {
+        var title = $('#fpTitle').val().trim();
+        var content = $('#fpContent').val().trim();
+        var titleError = $('#titleError');
+        var contentError = $('#contentError');
+        var isValid = true;
+
+        if (title === '') {
+            titleError.text('文章標題不能為空');
+            isValid = false;
+        } else {
+            titleError.text('');
+        }
+
+        if (content === '') {
+            contentError.text('文章內容不能為空');
+            isValid = false;
+        } else {
+            contentError.text('');
+        }
+
+        if (!isValid) {
+            event.preventDefault(); // 阻止表单提交
+            alert('請填寫完整的文章標題和內容！'); // 提示用户有错误发生
+            setTimeout(resetForm, 0); // 立即重置表单
+        }
+    });
+
+    function resetForm() {
+        $('#fpTitle').val(''); // 清空标题输入框
+        $('#fpContent').val(''); // 清空内容输入框
+        $('#titleError').text(''); // 清空标题错误提示
+        $('#contentError').text(''); // 清空内容错误提示
+    }
+});
+
+
+var fileUploadInput = document.getElementById('file-upload');
+var imagePreview = document.getElementById('image-preview');
+
+fileUploadInput.addEventListener('click', function() {
+    // 清空预览区域的内容
+    imagePreview.innerHTML = '';
+});
+
+fileUploadInput.addEventListener('change', function(event) {
+    var file = event.target.files[0];
+    
+    // 检查是否选择了文件
+    if (file) {
+        var reader = new FileReader();
+        
+        reader.onload = function(e) {
+            var imgElement = document.createElement('img');
+            
+            imgElement.src = e.target.result;
+            
+            // 先清空预览区域的内容
+            imagePreview.innerHTML = ''; 
+            imagePreview.appendChild(imgElement);
+        };
+        
+        reader.readAsDataURL(file);
+    }
+});
+
+// 当用户点击上传按钮时触发文件选择对话框
+document.getElementById('upload-button').addEventListener('click', function() {
+    fileUploadInput.click();
+});
+
+</script>
 
 </html>

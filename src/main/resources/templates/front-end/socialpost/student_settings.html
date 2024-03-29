@@ -30,6 +30,13 @@
     <link rel="stylesheet" th:href="@{/assets/css/plugins/magnigy-popup.min.css}">
     <link rel="stylesheet" th:href="@{/assets/css/plugins/plyr.css}">
     <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+    <script th:src="@{/assets/js/vendor/jquery.js}"></script>
+    <style>
+    	.bg_image--22{
+    		background-image:url("../images/bg/bbyoda.jpg");
+    	}
+    
+    </style>
 </head>
 
 <body>
@@ -76,7 +83,7 @@
                                         <div class="demo-single">
                                             <div class="inner">
                                                 <div class="thumbnail">
-                                                    <a href="01-main-demo.html"><img src="assets/images/splash/demo/h1.jpg" alt="Demo Images"></a>
+                                                    <a href="01-main-demo.html"><img src="assets/images/splash/demo/h1.jpg"  alt="Demo Images"></a>
                                                 </div>
                                                 <div class="content">
                                                     <h4 class="title"><a href="01-main-demo.html">Home Demo <span class="btn-icon"><i class="feather-arrow-right"></i></span></a></h4>
@@ -724,33 +731,33 @@
                         <div class="rbt-tutor-information">
                             <div class="rbt-tutor-information-left">
                                 <div class="thumbnail rbt-avatars size-lg">
-                                    <img th:src="'data:image/jpeg;base64,' + ${uHeadshot}" alt="Instructor">
+                                    <img th:data-user-id="${session.uId}" class="userHeadshot" alt="Instructor">
                                 </div>
                                 <div class="tutor-content">
                                 <h5 class="title" th:text="${uName}"></h5>
-                                    <div class="rbt-review">
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                        </div>
-                                        <span class="rating-count"> (15 Reviews)</span>
-                                    </div>
+<!--                                     <div class="rbt-review"> -->
+<!--                                         <div class="rating"> -->
+<!--                                             <i class="fas fa-star"></i> -->
+<!--                                             <i class="fas fa-star"></i> -->
+<!--                                             <i class="fas fa-star"></i> -->
+<!--                                             <i class="fas fa-star"></i> -->
+<!--                                             <i class="fas fa-star"></i> -->
+<!--                                         </div> -->
+<!--                                         <span class="rating-count"> (15 Reviews)</span> -->
+<!--                                     </div> -->
                                 </div>
                             </div>
-                            <div class="rbt-tutor-information-right">
-                                <div class="tutor-btn">
-                                    <a class="rbt-btn btn-md hover-icon-reverse" th:href="@{create_course}">
-                                        <span class="icon-reverse-wrapper">
-                        <span class="btn-text">創建課程</span>
-                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
+<!--                             <div class="rbt-tutor-information-right"> -->
+<!--                                 <div class="tutor-btn"> -->
+<!--                                     <a class="rbt-btn btn-md hover-icon-reverse" th:href="@{create_course}"> -->
+<!--                                         <span class="icon-reverse-wrapper"> -->
+<!--                         <span class="btn-text">創建課程</span> -->
+<!--                                         <span class="btn-icon"><i class="feather-arrow-right"></i></span> -->
+<!--                                         <span class="btn-icon"><i class="feather-arrow-right"></i></span> -->
+<!--                                         </span> -->
+<!--                                     </a> -->
+<!--                                 </div> -->
+<!--                             </div> -->
                         </div>
                         <!-- End Tutor Information  -->
                     </div>
@@ -784,11 +791,11 @@
 <!--                                                     <span class="title">教練資料</span> -->
 <!--                                                 </a> -->
 <!--                                             </li> -->
-                                            <li role="presentation">
-                                                <a href="#" class="tab-button" id="password-tab" data-bs-toggle="tab" data-bs-target="#password" role="tab" aria-controls="password" aria-selected="false">
-                                                    <span class="title">密碼設定</span>
-                                                </a>
-                                            </li>
+<!--                                             <li role="presentation"> -->
+<!--                                                 <a href="#" class="tab-button" id="password-tab" data-bs-toggle="tab" data-bs-target="#password" role="tab" aria-controls="password" aria-selected="false"> -->
+<!--                                                     <span class="title">密碼設定</span> -->
+<!--                                                 </a> -->
+<!--                                             </li> -->
                                             
                                             
                                         </ul>
@@ -799,23 +806,27 @@
                                             <div class="rbt-dashboard-content-wrapper">
                                                 <div class="tutor-bg-photo bg_image bg_image--22 height-245"></div>
                                                 <!-- Start Tutor Information  -->
+                                                <form id="updateAvatarForm" th:action="@{/socialpost/uHeadshot/update}" method="post" enctype="multipart/form-data">
                                                 <div class="rbt-tutor-information">
                                                     <div class="rbt-tutor-information-left">
                                                         <div class="thumbnail rbt-avatars size-lg position-relative">
-                                                            <img th:src="'data:image/jpeg;base64,' + ${uHeadshot}" alt="Instructor">
+                                                        	<input type="hidden" name="userId" th:value="${session.uId}">
+                                                            <img src="" th:data-user-id="${session.uId}" alt="Instructor" class="userHeadshot">
                                                             <div class="rbt-edit-photo-inner">
-                                                                <button class="rbt-edit-photo" title="Upload Photo">
+                                                                <button class="rbt-edit-photo" title="Upload Photo" type="button">
                                                                     <i class="feather-camera"></i>
                                                                 </button>
                                                             </div>
+                                                            <input type="file" id="fileInput" style="display: none;" accept="image/*" name="file">
                                                         </div>
                                                     </div>
                                                     <div class="rbt-tutor-information-right">
                                                         <div class="tutor-btn">
-                                                            <button class="rbt-btn btn-sm btn-border color-white radius-round-10" type="submit" >編輯大頭照</button>
+                                                           <button id="updateAvatarBtn" class="rbt-btn btn-sm btn-border color-white radius-round-10" type="submit">更換大頭照</button>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                </form>
                                                 <!-- End Tutor Information  -->
                                             </div>
                                             <!-- Start Profile Row  -->
@@ -827,7 +838,7 @@
                                                 	<input id="uStatus" type="text" th:field="*{uStatus}" hidden >
                                                     <div class="rbt-form-group">
                                                         <label for="firstname">姓名</label>
-                                                        <input id="firstname" type="text" th:field="*{uName}" >
+                                                        <input id="firstname" type="text" th:field="*{uName}"  th:placeholder="${uName}">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-12">
@@ -839,13 +850,13 @@
                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div class="rbt-form-group">
                                                         <label for="lastname">暱稱</label>
-                                                        <input id="lastname" type="text" th:field="*{uNickname}">
+                                                        <input id="lastname" type="text" th:field="*{uNickname}" th:placeholder="${uNickname}">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div class="rbt-form-group">
                                                         <label for="phonenumber">聯絡電話</label>
-                                                        <input id="phonenumber" type="tel" th:field="*{uPhone}">
+                                                        <input id="phonenumber" type="tel" th:field="*{uPhone}" th:placeholder="${uPhone}">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-12">
@@ -929,7 +940,7 @@
                                         <div class="tab-pane fade" id="password" role="tabpanel" aria-labelledby="password-tab">
                                             <!-- Start Profile Row  -->
                                             <form th:action="@{update_password}" method="post" th:object="${userVO}" enctype="multipart/form-data" class="rbt-profile-row rbt-default-form row row--15">
-                                                <input id="uId" type="hidden" th:field="*{uId}"  >
+                                                <input id="userId" type="hidden" th:field="*{uId}"  >
                                                 <div class="col-12">
                                                     <div class="rbt-form-group">
                                                         <label for="currentpassword">舊密碼</label>
@@ -1201,6 +1212,69 @@
     <script th:src="@{/assets/js/vendor/plyr.js}"></script>
     <!-- Main JS -->
     <script th:src="@{/assets/js/main.js}"></script>
+    
+    <script>
+    $(document).ready(function () {
+//     	$('a.recover').off('click');
+    	
+    	
+        let userIdList = [];
+
+        $('.userHeadshot').each(function () {
+            let data = $(this).data('user-id');
+
+            // fetch 可以直接處理二進制資料(如blob)
+            fetch('/user_api/user_headshot_test', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({u_id: data}),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('response error');
+                    }
+                    return response.blob();
+                })
+                .then(blob => {
+                    let image_Url = URL.createObjectURL(blob);
+                    ;
+                    $(this).attr('src', image_Url);
+                })
+                .catch(error => {
+//                     console.error('找不到user image:', error);
+                    $(this).attr('src', '/assets/images/client/avatar-02.png');
+                });
+        });
+        
+        
+        $(".rbt-edit-photo").on("click",function(){
+        	$('#fileInput').click();
+        });
+        
+        $('#fileInput').change(function() {
+        	if (this.files && this.files[0]) {
+                var reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    $('.userHeadshot').attr('src', e.target.result);
+                }
+                
+                reader.readAsDataURL(this.files[0]);
+            }
+        	
+        	
+        	
+        });
+        
+        
+        
+    });
+    
+    </script>
+    
+    
 </body>
 
 </html>

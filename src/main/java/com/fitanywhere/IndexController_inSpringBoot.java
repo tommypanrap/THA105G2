@@ -63,6 +63,8 @@ public class IndexController_inSpringBoot {
 			if (crCover!=null){
 			String base64CrCover = Base64.getEncoder().encodeToString(crCover);
 			courseVO.setBase64CrCover(base64CrCover);
+			}else{
+				courseVO.setBase64CrCover("");
 			}
 		});
 //

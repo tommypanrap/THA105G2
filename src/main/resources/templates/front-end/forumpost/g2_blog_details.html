@@ -23,10 +23,6 @@
 	justify-content: space-between; /* 将子元素分散对齐 */
 }
 
-/* 为了避免按钮过于靠近，你可以为按钮添加一些间距 */
-.form-buttons-container button {
-	margin-right: 10px; /* 可以根据需要调整按钮之间的间距 */
-}
 </style>
 
 
@@ -1085,18 +1081,8 @@
 			<!-- </div> -->
 			<!-- 回复列表 -->
 			<div class="rbt-comment-area">
-				<h4 class="title" th:text="${#lists.size(forumReplyVO)} + ' 則留言'"></h4>
-				<ul class="comment-list">
-					<li class="comment" th:each="forumReply : ${forumReplyVO}">
-						<div class="comment-body">
-							<p th:text="${forumReply.frContent}"></p>
-							<div class="comment-author">
-								<span class="author" th:text="${forumReply.userVO.uNickname}"></span>
-								<span class="comment-date"
-									th:text="${#dates.format(forumReply.frTime, 'yyyy-MM-dd HH:mm')}"></span>
-							</div>
-						</div>
-					</li>
+				<h4 class="title"
+					th:text="${#lists.size(forumReplyVO.?[frStatus == 1])} + ' 則留言'"></h4>
 					<div class="form-buttons-container">
 						<form method="post" th:action="@{/forumpost/addForumReply}">
 							<input type="hidden" name="fpId" th:value="${forumPostVO.fpId}">
@@ -1104,16 +1090,31 @@
 								class="rbt-btn rbt-switch-btn btn-gradient radius-round btn-sm eugen-bd-button"
 								type="submit">發布留言</button>
 						</form>
+
 					</div>
+				<ul class="comment-list">
+					<li class="comment" th:each="forumReply : ${forumReplyVO}"
+						th:if="${forumReply.frStatus == 1}">
+						<div class="comment-body">
+							<p th:text="${forumReply.frContent}"></p>
+							<div class="comment-author">
+								<span class="author" th:text="${forumReply.userVO.uNickname}"></span>
+								<span class="comment-date"
+									th:text="${#dates.format(forumReply.frTime, 'yyyy-MM-dd HH:mm')}"></span>
+								<form method="post" th:action="@{/forumpost/deletereply}">
+									<input type="hidden" name="frId" th:value="${forumReply.frId}">
+									<button
+										class="rbt-btn rbt-switch-btn btn-gradient radius-round btn-sm eugen-bd-button"
+										type="submit">刪除留言</button>
+								</form>
+							</div>
+						</div>
+					</li>
+					
 
 				</ul>
 			</div>
-			<!--             </div> -->
-
-			<!--         </div> -->
-
-
-
+	
 			<!-- Start Footer aera -->
 			<div
 				class="copyright-area copyright-style-1 ptb--20 bg-color-darker g2_footer">

@@ -88,7 +88,7 @@
 				<div class="inner">
 					<div class="content pt--0 pb--10">
 						<h2 class="title">
-							<a href="single-product.html" th:text="${courseVO.crTitle}">魔鬼有氧2</a>
+							<a th:href="@{/course/single_course/{crId}(crId=${courseVO.crId})}" th:text="${courseVO.crTitle}">魔鬼有氧2</a>
 						</h2>
 
 <!-- 						<span class="team-form"> <span class="location" -->
@@ -96,7 +96,7 @@
 <!-- 						</span> -->
 					</div>
 					<div class="thumbnail">
-						<a href="single-product.html"> 
+						<a th:href="@{/course/single_course/{crId}(crId=${courseVO.crId})}"> 
 												<img 							
 														th:src="'data:image/jpeg;base64,' + ${courseVO.base64CrCover}"
 														alt="Card image" class="courseCoverImage">
@@ -108,7 +108,7 @@
 
 						<div class="rbt-author-meta mb--10">
 							<div class="rbt-avater">
-								<a href="/course_details_2"> <img class="userHeadshot"
+								<a th:href="@{/course/single_course/{crId}(crId=${courseVO.crId})}"> <img class="userHeadshot"
 									th:data-user-id="${courseVO.userVO.uId}" alt="Coach Image">
 									<!--   <img th:src="@{/assets/images/client/avatar-02.png}"-->
 								</a>

@@ -21,6 +21,9 @@
 .featger-user{
 	color:#f8de22;
 }
+.card-height{
+	height:100%;
+}
 
 @media (max-width: 1350px) {
 	.body-index .chat-card{
@@ -29,6 +32,13 @@
 		justify-content:space-between;
 		margin-bottom:15px;
 	}
+ }
+ 
+ .title{
+ 	text-align:left;
+ }
+ .rbt-card-text{
+ 	text-align:left;
  }
 </style>
 
@@ -83,9 +93,9 @@
 		<div class="col-lg-4 col-md-6 col-12" data-sal-delay="200"
 			data-sal="slide-up" data-sal-duration="800"
 			th:each="courseVO : ${courseListData}">
-			<div class="rbt-default-card style-three rbt-hover">
+			<div class="rbt-default-card style-three rbt-hover card-height">
 				<!-- 課程卡片 開始 -->
-				<div class="inner">
+				<div class="inner card-height">
 					<div class="content pt--0 pb--10">
 						<h2 class="title">
 							<a th:href="@{/course/single_course/{crId}(crId=${courseVO.crId})}" th:text="${courseVO.crTitle}">魔鬼有氧2</a>
@@ -98,14 +108,14 @@
 					<div class="thumbnail">
 						<a th:href="@{/course/single_course/{crId}(crId=${courseVO.crId})}"> 
 												<img 							
-														th:src="'data:image/jpeg;base64,' + ${courseVO.base64CrCover}"
-														alt="Card image" class="courseCoverImage">
+														
+														alt="Card image" class=" courseCover"  th:data-course-id="${courseVO.crId}">
 
 
 						</a>
 					</div>
 					<div class="content">
-
+ <p class="rbt-card-text" th:text="${courseVO.crSubtitle}"></p>
 						<div class="rbt-author-meta mb--10">
 							<div class="rbt-avater">
 								<a th:href="@{/course/single_course/{crId}(crId=${courseVO.crId})}"> <img class="userHeadshot"
@@ -113,6 +123,7 @@
 									<!--   <img th:src="@{/assets/images/client/avatar-02.png}"-->
 								</a>
 							</div>
+							
 							<div class="rbt-author-info">
 
 								By <span th:text="${courseVO.userVO.uNickname}"></span>
@@ -421,6 +432,38 @@ $(document).ready(function() {
 	
 	
 	
+});
+
+$(document).ready(function () {
+    let courseIdList = [];
+    $('.courseCover').each(function () {
+        // console.log($(this))
+        let data = $(this).data('course-id');
+
+        fetch('/cr_cover/course_image', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({cr_id: data}),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('response error');
+                }
+                return response.blob();
+            })
+            .then(blob => {
+                let image_cover = URL.createObjectURL(blob);
+                // console.log(image_cover);
+                let this_e = $(this);
+                // console.log(this_e)
+                $(this).attr('src', image_cover);
+            })
+            .catch(error => {
+                $(this).attr('src', '/assets/images/client/avatar-02.png');
+            });
+    });
 });
 
 

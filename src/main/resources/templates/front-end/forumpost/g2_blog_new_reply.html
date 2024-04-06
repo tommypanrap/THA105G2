@@ -76,13 +76,15 @@ input {
 			<div class="rbt-banner-content-inner-container">
 				<form th:action="@{insertreply}" method="post"
 					th:object="${forumReplyVO}">
-<input type="hidden" name="fpId" th:value="${fpId}" />
+					<input type="hidden" name="fpId" th:value="${fpId}" />
 
 					<div class="blog-small-container">
 						<div class="blog-add">
 							<p>文章內容</p>
 							<textarea name="frContent" id="frContent" cols="30" rows="10"
 								th:field="*{frContent}"></textarea>
+							<span id="contentError" style="color: red;"></span>
+
 						</div>
 
 
@@ -144,5 +146,38 @@ input {
 	<!-- Main JS -->
 	<script src="assets/js/main.js"></script>
 </body>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+
+$(document).ready(function() {
+    $('form').submit(function(event) {
+        var content = $('#frContent').val().trim();
+        var contentError = $('#contentError');
+        var isValid = true;
+
+        if (content === '') {
+            contentError.text('文章留言不能為空');
+            isValid = false;
+        } else {
+            contentError.text('');
+        }
+
+        if (!isValid) {
+            event.preventDefault(); // 阻止表单提交
+            alert('請填寫完整的文章留言！'); // 提示用户有错误发生
+            setTimeout(resetForm, 0); // 立即重置表单
+        }
+    });
+
+    function resetForm() {
+        $('#frContent').val(''); // 清空留言内容输入框
+        $('#contentError').text(''); // 清空留言内容错误提示
+    }
+});
+
+</script>
+
 
 </html>

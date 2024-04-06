@@ -17,7 +17,23 @@
 	href="assets/images/favicon.png">
 
 </head>
+<style>
+.custom-file-upload input[type="file"] {
+    display: none;
+}
 
+.custom-file-upload label {
+    background-color: white;
+    color: black;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.custom-file-upload label:hover {
+    background-color: #0056b3;
+}
+</style>
 
 
 <body class="rbt-header-sticky">
@@ -62,10 +78,11 @@
 							th:field="*{fpContent}"></textarea>
 					</div>
 
-					<div>
-						<p>插入圖片</p>
-						<input type="file" name="fpPic">
-					</div>
+			<div class="custom-file-upload">
+    <label for="file-upload">選擇圖片</label>
+    <input id="file-upload" type="file" name="fpPic" />
+</div>
+    <div id="image-preview"></div>
 
 					<button type="submit">儲存</button>
 					<button type="button" onclick="window.history.back();">取消</button>
@@ -123,5 +140,33 @@
 	<!-- Main JS -->
 	<script src="assets/js/main.js"></script>
 </body>
+
+<script>
+var fileUploadInput = document.getElementById('file-upload');
+
+fileUploadInput.addEventListener('click', function() {
+    // 清空预览区域的内容
+    var imagePreview = document.getElementById('image-preview');
+    imagePreview.innerHTML = '';
+});
+
+fileUploadInput.addEventListener('change', function(event) {
+    var file = event.target.files[0];
+    
+    var reader = new FileReader();
+    
+    reader.onload = function(e) {
+        var imgElement = document.createElement('img');
+        
+        imgElement.src = e.target.result;
+        
+        var imagePreview = document.getElementById('image-preview');
+        imagePreview.innerHTML = ''; 
+        imagePreview.appendChild(imgElement);
+    };
+    
+    reader.readAsDataURL(file);
+});
+</script>
 
 </html>

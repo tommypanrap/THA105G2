@@ -31,6 +31,7 @@ import java.util.*;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
@@ -50,7 +51,11 @@ public class IndexController_inSpringBoot {
 
 	@GetMapping("/")
 	public String index(Model model) {
-//		System.out.println(courseSvc.getAll());
+
+//		HttpSession newSession = req.getSession(true);
+//		 boolean isLoggedIn = (newSession != null && newSession.getAttribute("uId") != null);
+//		 model.addAttribute("isLoggedIn", isLoggedIn);
+		 
 		List<CourseVO> list = courseSvc.getSixCourses();
 //	
 		list.forEach(courseVO ->

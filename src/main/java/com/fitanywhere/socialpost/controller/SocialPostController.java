@@ -359,16 +359,20 @@ public class SocialPostController {
 
 	/* =================取值======================== */
 	@ModelAttribute("uName")
-	public String getuName(Integer uId) {
-		uId = 10001;
-		String uName = userSvc.getUser(uId).getuName();
+	public String getuName(HttpServletRequest req, Integer uId) {
+//		uId = 10001;
+		HttpSession newSession = req.getSession(true);
+
+		String uName = userSvc.getUser(Integer.valueOf(newSession.getAttribute("uId").toString())).getuName();
 		return uName;
 	}
 
 	@ModelAttribute("userVO")
-	public UserVO getUser(Integer uId) {
-		uId = 10001;
-		UserVO userVO = userSvc.getUser(uId);
+	public UserVO getUser(HttpServletRequest req, Integer uId) {
+//		uId = 10001;
+		HttpSession newSession = req.getSession(true);
+		UserVO userVO = userSvc.getUserDataByID(Integer.valueOf(newSession.getAttribute("uId").toString()));
+//		UserVO userVO = userSvc.getUser(uId);
 		return userVO;
 	}
 

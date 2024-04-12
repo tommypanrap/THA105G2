@@ -868,8 +868,7 @@
             if (res.status === 401) {
                 // 未登入回到登入頁面
                 alert('請先登入！')
-                window.location.href = '/user/force_user_login';
-//                 commit test
+                window.location.href = 'https://fitanywhere.serveblog.net/user/force_user_login';
             } else {
                 return res.text();
             }

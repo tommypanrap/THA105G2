@@ -853,7 +853,8 @@
         }
     });
 
-    // cart
+    // cart   
+    
     const add2Cart = (crId) => {
         fetch('/cart/add', {
             method: 'POST',
@@ -868,7 +869,7 @@
             if (res.status === 401) {
                 // 未登入回到登入頁面
                 alert('請先登入！')
-                window.location.href = '/user/force_user_login';
+                window.location.href = '/user/user_login';
             } else {
                 return res.text();
             }

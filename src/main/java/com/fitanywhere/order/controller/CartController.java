@@ -16,6 +16,7 @@ import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
 
 
 @RestController
@@ -52,8 +53,8 @@ public class CartController {
     @GetMapping("get")
     public List<CartItemVO> getItems(ModelMap model, HttpSession session) {
         Integer uIdInt = (Integer) session.getAttribute("uId");
-        if (uIdInt == null) {
-            return null;
+        if (uIdInt == null) {        	
+            return new ArrayList<CartItemVO>();
         }
         String uId = uIdInt.toString();
         List<CartItemVO> list = cartService.getCartItems(uId);

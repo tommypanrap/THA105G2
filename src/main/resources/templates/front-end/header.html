@@ -461,15 +461,14 @@
 </script>
 <script>
 
-    // 查詢購物車有哪些課程
     const getCartItems = () => {
         //const url = window.location.href;
         fetch('/cart/get')
             .then((res) => {
                 // 如果不成功 new Error
-                if (res.redirected) {
+               /*  if (res.redirected) {
                     window.location.href = res.url;
-                }
+                } */
                 if (!res.ok) {
                     throw new Error("Network response was not ok.")
                 }

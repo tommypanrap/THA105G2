@@ -541,14 +541,14 @@
         }).then((res) => {
             if (res.redirected) {
                 window.location.href = res.url;
-            }
+            } 
             if (res.status === 401) {
                 // 未登入回到登入頁面
                 alert('請先登入！')
-                window.location.href = '/user/force_user_login';
-            } else {
+                window.location.href = '/user/user_login';
+            } else { 
                 return res.text();
-            }
+             }
         }).then((data) => {
             if (data === '您已擁有該課程！') {
                 alert(data);
